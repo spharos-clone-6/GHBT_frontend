@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "../Desktop/next"
+		},
+		{
+			"path": "../starbucks-app"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "starbucks-app",
+		"liveServer.settings.port": 5501
+	}
+}
