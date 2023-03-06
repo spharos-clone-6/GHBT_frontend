@@ -90,3 +90,7 @@
     display: inline-flex;
     align-items: center;
 }
+
+#service .arrow {
+    opacity: 0.3;
+}

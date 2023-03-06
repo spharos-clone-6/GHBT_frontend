@@ -7,37 +7,8 @@ section#event-info {
     margin-bottom: 10px; /* common-section 덮어쓰기 */
 }
 
-.product-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    justify-items: center;
-}
-
-.product-item {
-    margin: 10px;
-}
-
-.product-item .thumbnail {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-}
-
 #event-product {
     margin-bottom: 10px;
-}
-
-.product-item-name {
-    font-size: 0.85rem;
-    padding-bottom: 3px;
-    margin-bottom: 3px;
-}
-
-.product-item-price {
-    margin-top: 5px;
-    font-size: 0.85rem;
-    font-weight: bold;
-    letter-spacing: 1px;
 }
 
 details>summary {
