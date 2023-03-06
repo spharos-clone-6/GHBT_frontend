@@ -1,47 +1,10 @@
 import React from 'react'
+import MainHeader from '../src/components/Header/MainHeader/MainHeader'
 
 export default function index() {
   return (
     <div className="container">
-      <header>
-        <div className="header-top">
-          <div className="menu-icon">
-            <img src="assets/images/icons/menu.svg" alt="" />
-          </div>
-          <h1>온라인 스토어</h1>
-          <nav>
-            <ul>
-              <li>
-                <img src="assets/images/icons/search.svg" />
-              </li>
-              <li>
-                <img src="assets/images/icons/shopping-cart.svg" />
-              </li>
-              <li>
-                <img src="assets/images/icons/close.png" />
-              </li>
-            </ul>
-          </nav>
-        </div>
-        <div className="header-bottom">
-          <nav>
-            <ul>
-              <li className="active">
-                <a href="index.html">메인</a>
-              </li>
-              <li>
-                <a href="event.html">기획전</a>
-              </li>
-              <li>
-                <a href="best_cake.html">베스트</a>
-              </li>
-              <li>
-                <a href="">마이페이지</a>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </header>
+      <MainHeader></MainHeader>
       <section id="event-banner" className="first-section">
         <div className="event-banner">
           <div className="event-banner__item">
