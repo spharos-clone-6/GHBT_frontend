@@ -14,14 +14,20 @@ export default function ProductContainerVertical() {
       imgSrc: "/images/products/01.png",
       title: "테스트2",
       price: 17000,
+    },
+    {
+      id: "3",
+      imgSrc: "/images/products/chunsik.png",
+      title: "춘식컵",
+      price: 10000,
     }
   ];
   return (
     <div className='product-container-vertical'>
       {
-        dummy.map((item, idx) => (
+        dummy.map((item) => (
           <ProductItemRow
-            key={idx}
+            key={item.id}
             item={item}
           />
         ))
