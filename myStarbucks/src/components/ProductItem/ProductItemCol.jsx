@@ -8,7 +8,7 @@ export default function ProductItemCol({item, idx}) {
         <p className="item-best">Best</p>
         <div className='product-item-info'>
           <p className="product-item-name">{item.title}</p>
-          <p className="product-item-price">{item.price}</p>
+          <p className="product-item-price">{item.price.toLocaleString('ko-KR')}</p>
         </div>
       </div>
       <div className="rank-label">
