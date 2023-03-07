@@ -1,7 +1,7 @@
 import React from 'react'
 import ProductItemRecommand from '../ProductItem/ProductItemRecommand';
 
-export default function ProductContainerHorizontal() {
+export default function ProductContainerRecommand() {
   const dummy = [
     {
       id: "1",
