@@ -1,6 +1,6 @@
 import React from 'react'
-import MainHeaderBottom from './MainHeaderBottom'
-import MainHeaderTop from './MainHeaderTop'
+import MainHeaderBottom from './MainHeader/MainHeaderBottom'
+import MainHeaderTop from './MainHeader/MainHeaderTop'
 
 export default function MainHeader() {
   return (

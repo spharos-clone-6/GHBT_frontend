@@ -9,7 +9,7 @@ export default function MainHeaderTop() {
       <div className="menu-icon">
         {
           (router.asPath === "/"
-          || router.asPath === "best" ) && (
+            || router.asPath === "best") && (
             <img src="/images/icons/menu.svg" alt="" />
           )
         }
@@ -18,14 +18,13 @@ export default function MainHeaderTop() {
             <img src="/images/icons/left.png" alt="" />
           )
         }
-        
       </div>
       <h1>온라인 스토어</h1>
       <nav>
         <ul>
           <li>
             <Link href="/search/search"><img src="/images/icons/search.svg" /></Link>
-            
+
           </li>
           <li>
             <Link href="/cart/cart"><img src="/images/icons/shopping-cart.svg" /></Link>
