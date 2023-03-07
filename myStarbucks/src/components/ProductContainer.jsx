@@ -2,14 +2,14 @@ import React from 'react'
 import ProductContainerRecommand from './ProductContainer/ProductContainerRecommand'
 import ProductContainerVertical from './ProductContainer/ProductContainerVertical'
 
-export default function ProductContainer({ sectionId, containerType }) {
+export default function ProductContainer({ sectionId, containerType, headerName }) {
   return (
     <>
       {
         containerType === "horizontal" && (
           <section className="recommand" id={sectionId}>
             <div>
-              <h2>Cherry Blossom🌸</h2>
+              <h2>{headerName}</h2>
               <ProductContainerRecommand/>
             </div>
           </section>
@@ -18,7 +18,7 @@ export default function ProductContainer({ sectionId, containerType }) {
       {
         containerType == "vertical" && (
           <section className="recommand" id={sectionId}>
-            <h2>바리스타 춘식 MD💛</h2>
+            <h2>{headerName}</h2>
             <ProductContainerVertical/>
           </section>
         )
