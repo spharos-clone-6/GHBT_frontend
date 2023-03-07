@@ -1,44 +1,31 @@
 import React from 'react'
+import ProductItemRow from '../ProductItem/ProductItemRow'
 
 export default function ProductContainerVertical() {
+  const dummy = [
+    {
+      id: "1",
+      imgSrc: "/images/products/01.png",
+      title: "23 SS 체리 밸류 로맨틱 텀블러 355ml",
+      price: 32000,
+    },
+    {
+      id: "2",
+      imgSrc: "/images/products/01.png",
+      title: "테스트2",
+      price: 17000,
+    }
+  ];
   return (
     <div className='product-container-vertical'>
-      <div className="chunsik-item">
-        <img
-          src="assets/images/products/chunsik.png"
-          alt="천식알러지가 있는 사람들을 위한 체리블라썸"
-        />
-        <div className="chunsik-item-info">
-          <p className="item-title">SS 바리스타춘식 데비 텀블러 414ml</p>
-          <p className="item-price">
-            <span>25,000</span>원
-          </p>
-        </div>
-      </div>
-      <div className="chunsik-item">
-        <img
-          src="assets/images/products/chunsik.png"
-          alt="천식알러지가 있는 사람들을 위한 체리블라썸"
-        />
-        <div className="chunsik-item-info">
-          <p className="item-title">SS 바리스타춘식 데비 텀블러 414ml</p>
-          <p className="item-price">
-            <span>25,000</span>원
-          </p>
-        </div>
-      </div>
-      <div className="chunsik-item">
-        <img
-          src="assets/images/products/chunsik.png"
-          alt="천식알러지가 있는 사람들을 위한 체리블라썸"
-        />
-        <div className="chunsik-item-info">
-          <p className="item-title">SS 바리스타춘식 데비 텀블러 414ml</p>
-          <p className="item-price">
-            <span>25,000</span>원
-          </p>
-        </div>
-      </div>
+      {
+        dummy.map((item, idx) => (
+          <ProductItemRow
+            key={idx}
+            item={item}
+          />
+        ))
+      }
     </div>
   )
 }
