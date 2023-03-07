@@ -9,7 +9,7 @@ export default function category() {
       <MainHeader></MainHeader>
       <SubHeader></SubHeader>
       <ProductContainer
-        sectionId='id'
+        sectionId={category}
         containerType='grid'
       ></ProductContainer>
       
