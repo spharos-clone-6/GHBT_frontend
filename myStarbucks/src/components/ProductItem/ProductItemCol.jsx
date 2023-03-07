@@ -1,19 +1,19 @@
-import React from 'react'
+import React from "react";
 
-export default function ProductItemCol({item, idx}) {
+export default function ProductItemCol({ item, idx }) {
   return (
     <div className="product-item">
+      <div className="rank-label">
+        <p>{idx + 1}</p>
+      </div>
       <img src={item.imgSrc} className="thumbnail" />
       <div className="product-item-info">
         <p className="item-best">Best</p>
-        <div className='product-item-info'>
-          <p className="product-item-name">{item.title}</p>
-          <p className="product-item-price">{item.price.toLocaleString('ko-KR')}</p>
-        </div>
-      </div>
-      <div className="rank-label">
-        <p>{idx+1}</p>
+        <p className="product-item-name">{item.title}</p>
+        <p className="product-item-price">
+          {item.price.toLocaleString("ko-KR")}
+        </p>
       </div>
     </div>
-  )
+  );
 }
