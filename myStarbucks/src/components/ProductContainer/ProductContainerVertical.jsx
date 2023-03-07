@@ -8,7 +8,7 @@ export default function ProductContainerVertical() {
       imgSrc: "/images/products/01.png",
       title: "23 SS 체리 밸류 로맨틱 텀블러 355ml",
       price: 32000,
-    },
+    }, 
     {
       id: "2",
       imgSrc: "/images/products/01.png",

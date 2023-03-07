@@ -5,17 +5,18 @@ import ProductContainer from '../../src/components/ProductContainer'
 import Axios from 'axios';
 
 export default function category() {
-  const [itemList, setItemList] = useState([]);
-  const API_URL = "http://backend.grapefruit-honey-black-tea.shop:5000/api/product";
+  // const [itemList, setItemList] = useState([]);
+  // const API_URL = "http://backend.grapefruit-honey-black-tea.shop:5000/api/product/search/cake";
 
-  useEffect(() => {
-    Axios.get(API_URL)
-    .then((res) => {
-      console.log(res);
-      setList(res);
-    });
-  }, [])
+  // // useEffect(() => {
+  // //   Axios.get(API_URL)
+  // //   .then((res) => {
+  // //     console.log(res);
+  // //     setItemList(res);
+  // //   });
+  // // }, [])
   
+  // console.log(axiosApiInstance);
 
   return (
     <div className="container">
