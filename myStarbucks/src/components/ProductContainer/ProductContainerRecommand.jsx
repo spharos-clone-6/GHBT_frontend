@@ -12,16 +12,17 @@ export default function ProductContainerHorizontal() {
     {
       id: "2",
       imgSrc: "/images/products/01.png",
-      title: "23 SS 체리 밸류 로맨틱 텀블러 355ml",
-      price: 32000,
+      title: "테스트2",
+      price: 17000,
     }
   ];
 
   return (
     <div className="recommand-product-list">
       {
-        dummy.map((item) => (
+        dummy.map((item, idx) => (
           <ProductItemRecommand
+            key={idx}
             item = {item}
           />
         ))
