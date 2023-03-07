@@ -13,7 +13,7 @@ export default function ProductItemRecommand({item}) {
           <p className="item-new">New</p>
           <p className="item-title">{item.title}</p>
           <p className="item-price">
-            <span>{item.price}</span>원
+            <span>{item.price.toLocaleString('ko-KR')}</span>원
           </p>
         </div>
       </div>
