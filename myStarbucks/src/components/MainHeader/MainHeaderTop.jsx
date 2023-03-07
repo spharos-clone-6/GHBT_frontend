@@ -10,11 +10,13 @@ export default function MainHeaderTop() {
         {
           (router.asPath === "/"
             || router.asPath === "best") && (
-            <img src="/images/icons/menu.svg" alt="" />
+            <Link href="/contents/contents">
+              <img src="/images/icons/menu.svg" alt="" />
+            </Link>
           )
         }
         {
-          router.asPath === "/product" && (
+          router.asPath === "/pppp" && (
             <img src="/images/icons/left.png" alt="" />
           )
         }
