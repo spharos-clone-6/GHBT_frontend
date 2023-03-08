@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function SearchResultInfo({ keyword }) {
+export default function SearchResultInfo({ keyword = "default" }) {
   return (
     <div className="header-sub search-info">
       <p>"</p>

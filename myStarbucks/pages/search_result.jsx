@@ -1,28 +1,23 @@
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import MainHeaderTop from "../../src/components/MainHeader/MainHeaderTop";
+import SearchResultCategory from "../../src/components/SearchResult/SearchResultCategory";
 import SearchResultInfo from "../../src/components/SearchResult/SearchResultInfo";
-import SubHeader from "../../src/components/SubHeader";
 
 export default function search_result() {
-  const [keyword, setKeyword] = useState(null);
+  const { query } = useRouter();
 
-  useEffect(() => {
-    setKeyword(decodeURI(window.location.search.split("=")[1]));
-  }, []);
-
-  if (!keyword) {
-    return <></>;
-  }
+  const [keyword, setKeyword] = useState(query.keyword);
 
   return (
     <>
       <header>
         <MainHeaderTop />
-        <SearchResultInfo keyword={keyword} />
+        <SearchResultInfo keyword={keyword && keyword} />
       </header>
-      <SubHeader location="search" />
       <div className="search-result">
+        <SearchResultCategory />
+
         <div className="header-sub" id="search-result-category">
           <nav>
             <ul>
@@ -60,6 +55,8 @@ export default function search_result() {
             </ul>
           </nav>
         </div>
+
+        {/* 가격대 */}
         <div className="header-sub" id="search-result-price">
           <nav>
             <p className="cat-title">가격</p>
@@ -85,6 +82,8 @@ export default function search_result() {
             </ul>
           </nav>
         </div>
+
+        {/* 필터 더보기 */}
         <details id="search-result-season">
           <summary> 필터 더보기 </summary>
           <div className="header-sub">

@@ -4,23 +4,23 @@ import Link from "next/link";
 
 export default function MainHeaderTop() {
   const router = useRouter();
+  console.log(router.asPath);
   return (
     <div className="header-top">
       <div className="menu-icon">
-        {(router.asPath === "/" || router.asPath.split('/')[1] === "best") && (
+        {/* {(pathname === "/") | (pathname === "/best") ? (
           <Link href="/contents/contents">
             <img src="/images/icons/menu.svg" alt="" />
           </Link>
-        )}
-        {router.asPath === "/search/search_result" && (
+        ) : (
           <img src="/images/icons/left.png" alt="" />
-        )}
+        )} */}
       </div>
       <h1>온라인 스토어</h1>
       <nav>
         <ul>
           <li>
-            <Link href="/search/search">
+            <Link href="/search">
               <img src="/images/icons/search.svg" />
             </Link>
           </li>
