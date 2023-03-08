@@ -1,5 +1,5 @@
 import React from "react";
-import SearchHistoryItem from "./SearchHistoryItem";
+import SearchHistoryItem from "../ui/SearchHistoryItem";
 
 export default function SearrouchHistoryList() {
   return (
