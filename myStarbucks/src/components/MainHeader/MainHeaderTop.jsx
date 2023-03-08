@@ -9,7 +9,7 @@ export default function MainHeaderTop() {
       <div className="menu-icon">
         {
           (router.asPath === "/"
-            || router.asPath === "best") && (
+            || router.asPath.split('/')[1] === "best") && (
             <Link href="/contents/contents">
               <img src="/images/icons/menu.svg" alt="" />
             </Link>
