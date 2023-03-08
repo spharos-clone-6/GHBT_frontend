@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import MainHeader from '../../src/components/MainHeader'
-import SubHeader from '../../src/components/SubHeader'
-import ProductContainer from '../../src/components/ProductContainer'
-import Axios from 'axios';
+import React, { useState, useEffect } from "react";
+import MainHeader from "../../src/components/MainHeader";
+import SubHeader from "../../src/components/SubHeader";
+import ProductContainer from "../../src/components/ProductContainer";
+import Axios from "axios";
 
 export default function category() {
   // const [itemList, setItemList] = useState([]);
@@ -14,7 +14,6 @@ export default function category() {
   //   withCredentials: true,
   // });
 
-
   // useEffect(() => {
   //   Axios.get(`/api/product`)
   //   .then((res) => {
@@ -22,31 +21,29 @@ export default function category() {
   //     setItemList(res);
   //   });
   // }, [])
-  
+
   // console.log(instance.data);
 
   // const baseUrl = "http://backend.grapefruit-honey-black-tea.shop:5000";
-  
+
   // const [productItem,setProcudtItem] = useState();
 
   // useEffect(()=>{
-      
+
   //     Axios(`${baseUrl}/api/category`).then((result)=>{
   //         console.log(result.data);
   //         setProcudtItem(result.data);
   //     })
   // },[])
 
-
   return (
     <div className="container">
       <MainHeader></MainHeader>
-      <SubHeader></SubHeader>
+      <SubHeader location="best"></SubHeader>
       <ProductContainer
         sectionId={category}
-        containerType='grid'
+        containerType="grid"
       ></ProductContainer>
-
     </div>
-  )
+  );
 }

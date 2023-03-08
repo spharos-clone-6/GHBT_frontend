@@ -1,41 +1,27 @@
-import React from "react";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import MainHeaderTop from "../../src/components/MainHeader/MainHeaderTop";
+import SearchResultInfo from "../../src/components/SearchResult/SearchResultInfo";
+import SubHeader from "../../src/components/SubHeader";
 
 export default function search_result() {
+  const [keyword, setKeyword] = useState(null);
+
+  useEffect(() => {
+    setKeyword(decodeURI(window.location.search.split("=")[1]));
+  }, []);
+
+  if (!keyword) {
+    return <></>;
+  }
+
   return (
     <>
-      <header id="store-head">
-        <div className="store-header-top header-top search-header">
-          <div className="menu-icon">
-            <a href="javascript:window.history.back();">
-              <img
-                src="./assets/images/icons/left.png"
-                className="back-button sizeup"
-              />
-            </a>
-          </div>
-          <h1>
-            <a href="">온라인 스토어</a>
-          </h1>
-          <nav>
-            <ul>
-              <li>
-                <img src="assets/images/icons/search.svg" />
-              </li>
-              <li>
-                <img src="assets/images/icons/shopping-cart.svg" />
-              </li>
-              <li>
-                <img src="assets/images/icons/close.png" />
-              </li>
-            </ul>
-          </nav>
-        </div>
-        <div className="header-sub search-info">
-          <p>"</p>
-          <p className="serach-keyword">케이크</p>"의 검색결과
-          <p />
-        </div>
+      <header>
+        <MainHeaderTop />
+        <SearchResultInfo keyword={keyword} />
       </header>
+      <SubHeader location="search" />
       <div className="search-result">
         <div className="header-sub" id="search-result-category">
           <nav>
@@ -125,24 +111,24 @@ export default function search_result() {
           </div>
         </details>
         <div className="header-sub" id="search-result-filter">
-          <img src="./assets/images/icons/reload.png" />
+          <img src="/images/icons/reload.png" />
           <button>
             <p>체리블라썸</p>
-            <img className="close-icon" src="./assets/images/icons/close.png" />
+            <img className="close-icon" src="/images/icons/close.png" />
           </button>
           <button>
             <p>1만원대</p>
-            <img className="close-icon" src="./assets/images/icons/close.png" />
+            <img className="close-icon" src="/images/icons/close.png" />
           </button>
         </div>
         <div className="products-order">
           <p>신상품순</p>
-          <img src="./assets/images/icons/arrow-down-sign-to-navigate.png" />
+          <img src="/images/icons/arrow-down-sign-to-navigate.png" />
         </div>
         <section id="search-result-product">
           <div className="product-container margin-top-zero padding-top-zero">
             <div className="product-item">
-              <img src="assets/images/best/cake/01.jpg" className="thumbnail" />
+              <img src="/images/best/cake/01.jpg" className="thumbnail" />
               <div className="product-item-info">
                 <p className="item-best hide">Best</p>
                 <p className="item-title">부드러운 티라미수 롤케이크</p>
@@ -150,7 +136,7 @@ export default function search_result() {
               </div>
             </div>
             <div className="product-item">
-              <img src="assets/images/best/cake/02.jpg" className="thumbnail" />
+              <img src="/images/best/cake/02.jpg" className="thumbnail" />
               <div className="product-item-info">
                 <p className="item-best hide">Best</p>
                 <p className="item-title">부드러운 티라미수 롤케이크</p>
@@ -158,7 +144,7 @@ export default function search_result() {
               </div>
             </div>
             <div className="product-item">
-              <img src="assets/images/best/cake/02.jpg" className="thumbnail" />
+              <img src="/images/best/cake/02.jpg" className="thumbnail" />
               <div className="product-item-info">
                 <p className="item-best hide">Best</p>
                 <p className="item-title">부드러운 티라미수 롤케이크</p>

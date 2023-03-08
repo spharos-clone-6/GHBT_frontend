@@ -9,7 +9,7 @@ export default function SearchTop() {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    router.push(`/search?word=${word}`);
+    router.push(`/search/search_result?query=${word}`);
   };
 
   return (
@@ -34,9 +34,9 @@ export default function SearchTop() {
               type="button"
               onClick={() =>
                 router.push({
-                  pathname: "/search",
+                  pathname: "/search/search_result",
                   query: {
-                    word: `${word}`,
+                    query: `${word}`,
                   },
                 })
               }
