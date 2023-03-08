@@ -1,35 +1,33 @@
-import React from 'react'
-import { useRouter } from 'next/router'
-import Link from 'next/link'
+import React from "react";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 export default function MainHeaderTop() {
-  const router = useRouter()
+  const router = useRouter();
   return (
     <div className="header-top">
       <div className="menu-icon">
-        {
-          (router.asPath === "/"
-            || router.asPath.split('/')[1] === "best") && (
-            <Link href="/contents/contents">
-              <img src="/images/icons/menu.svg" alt="" />
-            </Link>
-          )
-        }
-        {
-          router.asPath === "/pppp" && (
-            <img src="/images/icons/left.png" alt="" />
-          )
-        }
+        {(router.asPath === "/" || router.asPath.split('/')[1] === "best") && (
+          <Link href="/contents/contents">
+            <img src="/images/icons/menu.svg" alt="" />
+          </Link>
+        )}
+        {router.asPath === "/search/search_result" && (
+          <img src="/images/icons/left.png" alt="" />
+        )}
       </div>
       <h1>온라인 스토어</h1>
       <nav>
         <ul>
           <li>
-            <Link href="/search/search"><img src="/images/icons/search.svg" /></Link>
-
+            <Link href="/search/search">
+              <img src="/images/icons/search.svg" />
+            </Link>
           </li>
           <li>
-            <Link href="/cart/cart"><img src="/images/icons/shopping-cart.svg" /></Link>
+            <Link href="/cart/cart">
+              <img src="/images/icons/shopping-cart.svg" />
+            </Link>
           </li>
           <li>
             <img src="/images/icons/close.png" />
@@ -37,5 +35,5 @@ export default function MainHeaderTop() {
         </ul>
       </nav>
     </div>
-  )
+  );
 }
