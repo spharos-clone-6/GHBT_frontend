@@ -10,9 +10,9 @@ export default function SearchRecommandItem({ item }) {
       type="button"
       onClick={() =>
         router.push({
-          pathname: "/search",
+          pathname: "/category-search",
           query: {
-            word: `${item}`,
+            word: `#${item}`,
           },
         })
       }
