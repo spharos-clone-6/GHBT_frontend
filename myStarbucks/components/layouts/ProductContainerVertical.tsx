@@ -1,5 +1,5 @@
 import React from 'react'
-import ProductItemRow from '../ProductItem/ProductItemRow'
+import ProductItemRow from '../ui/ProductItemRow'
 
 export default function ProductContainerVertical() {
   const dummy = [

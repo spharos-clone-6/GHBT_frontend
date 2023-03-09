@@ -1,5 +1,5 @@
 import React from 'react'
-import ProductItemRecommand from '../ProductItem/ProductItemRecommand';
+import ProductItemRecommand from '../ui/ProductItemRecommand';
 
 export default function ProductContainerRecommand() {
   const dummy = [
