@@ -3,7 +3,7 @@ import MainHeaderTop from "@/components/layouts/MainHeaderTop";
 import ProductContainer from "@/components/layouts/ProductContainer";
 import SubHeader from "@/components/layouts/SubHeader";
 
-export default function best() {
+export default function event() {
 
   return (
     <div className="container">
@@ -12,9 +12,16 @@ export default function best() {
         <MainHeaderBottom />
         <SubHeader />
       </header>
-      <div className="first-section-sub-one">
-        <ProductContainer sectionId="best-product" containerType="grid" headerName="" />
-      </div>
+      <section id="event-info">
+        <div className="first-section-sub-one">
+          <img
+            src="/images/event/event_cake.jpg"
+            width="100%"
+            height="100%"
+          />
+        </div>
+      </section>
+      <ProductContainer sectionId="event-product" containerType="grid" headerName="" />
     </div>
   );
 }

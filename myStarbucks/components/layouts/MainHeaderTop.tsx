@@ -8,13 +8,13 @@ export default function MainHeaderTop() {
   return (
     <div className="header-top">
       <div className="menu-icon">
-        {/* {(pathname === "/") | (pathname === "/best") ? (
+        {(router.pathname === "/store") || (false) ? (
+          <img src="/images/icons/left.png" alt="" />
+        ) : (
           <Link href="/contents/contents">
             <img src="/images/icons/menu.svg" alt="" />
           </Link>
-        ) : (
-          <img src="/images/icons/left.png" alt="" />
-        )} */}
+        )}
       </div>
       <h1>온라인 스토어</h1>
       <nav>
