@@ -9,7 +9,7 @@ export default function SearchTop() {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    router.push(`/search/search_result?query=${word}`);
+    router.push(`/search/search_result?keyword=${word}`);
   };
 
   return (

@@ -4,33 +4,36 @@ import React from "react";
 export default function SubHeader({ location }) {
   const dummyCategory = [
     {
-      id: "cake",
+      id: 1,
       title: "케이크",
     },
     {
-      id: "tumbler",
+      id: 2,
       title: "텀블러/보온병",
     },
     {
-      id: "cup",
+      id: 3,
       title: "머그/컵",
     },
     {
-      id: "lifestyle",
+      id: 4,
       title: "라이프스타일",
     },
     {
-      id: "tea",
+      id: 5,
       title: "티/커피용품",
     },
     {
-      id: "set",
+      id: 6,
       title: "세트",
     },
   ];
 
-  const router = useRouter();
-  console.log(router.asPath);
+  const { pathname, query } = useRouter();
+
+  const handlePushLink = (id) => {
+    router.push(`${pathname}?category=${id}`);
+  };
 
   return (
     <div className="header-sub first-section">
@@ -38,14 +41,8 @@ export default function SubHeader({ location }) {
         <ul>
           {dummyCategory.map((category) => (
             <li
-              className={
-                router.asPath === `/${location}/` + category.id ? "active" : ""
-              }
-              onClick={() => {
-                if (`${location}` === "best") {
-                  router.push(`/${location}/${category.id}`);
-                }
-              }}
+              className={query.category === category.id ? "active" : ""}
+              onClick={() => handlePushLink(category.id)}
             >
               {category.title}
             </li>
