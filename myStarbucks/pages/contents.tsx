@@ -20,7 +20,8 @@ export default function contents() {
       {/* 제품 카테고리 */}
       <section id="category-items">
         <div className="get-all-items">
-          <button type="button" onclick="location.href=''">
+          {/* button onClick핸들러에 string이 들어가지 않아 일단 삭제 */}
+          <button type="button" onClick="location.href=''">
             <a href=""> 전체상품보기 </a>
             <span>
               <img src="assets/images/icons/contents/right-arrow.png" alt="" />
@@ -31,7 +32,7 @@ export default function contents() {
           <button
             type="button"
             className="category-button"
-            onclick="location.href=''"
+            onClick="location.href=''"
           >
             <div className="category">
               <div className="category-img">
@@ -48,7 +49,7 @@ export default function contents() {
           <button
             type="button"
             className="category-button"
-            onclick="location.href=''"
+            onClick="location.href=''"
           >
             <div className="category">
               <div className="category-img">
@@ -65,7 +66,7 @@ export default function contents() {
           <button
             type="button"
             className="category-button"
-            onclick="location.href=''"
+            onClick="location.href=''"
           >
             <div className="category">
               <div className="category-img">
@@ -82,7 +83,7 @@ export default function contents() {
           <button
             type="button"
             className="category-button"
-            onclick="location.href=''"
+            onClick="location.href=''"
           >
             <div className="category">
               <div className="category-img">
@@ -99,7 +100,7 @@ export default function contents() {
           <button
             type="button"
             className="category-button"
-            onclick="location.href=''"
+            onClick="location.href=''"
           >
             <div className="category">
               <div className="category-img">
@@ -116,7 +117,7 @@ export default function contents() {
           <button
             type="button"
             className="category-button"
-            onclick="location.href=''"
+            onClick="location.href=''"
           >
             <div className="category">
               <div className="category-img">

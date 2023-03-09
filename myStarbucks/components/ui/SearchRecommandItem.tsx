@@ -1,22 +1,23 @@
 import { useRouter } from "next/router";
 import React from "react";
 
-export default function SearchRecommandItem({ item }) {
+type RecommandItem = {
+  item?: string;
+};
+
+export default function SearchRecommandItem({ item }: RecommandItem) {
   const router = useRouter();
 
+  const onClickHandler = () =>
+    router.push({
+      pathname: "/search_result",
+      query: {
+        keyword: `#${item}`,
+      },
+    });
+
   return (
-    <button
-      className="tag-list-item"
-      type="button"
-      onClick={() =>
-        router.push({
-          pathname: "/category-search",
-          query: {
-            word: `#${item}`,
-          },
-        })
-      }
-    >
+    <button className="tag-list-item" type="button" onClick={onClickHandler}>
       #{item}
     </button>
   );

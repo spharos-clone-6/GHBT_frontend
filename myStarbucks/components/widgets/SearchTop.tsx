@@ -1,15 +1,21 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 export default function SearchTop() {
   // 검색화면 상단 검색창
 
   const router = useRouter();
-  const [word, setWord] = useState();
+  const [word, setWord] = useState<string>();
 
-  const submitHandler = (e) => {
+  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    router.push(`/search/search_result?keyword=${word}`);
+    router.push(`/search_result?keyword=${word}`);
+  };
+
+  const typingHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setWord(e.target.value);
+    console.log(word);
   };
 
   return (
@@ -19,10 +25,7 @@ export default function SearchTop() {
           <input
             type="text"
             placeholder="검색어를 입력해 주세요."
-            onChange={(e) => {
-              setWord(e.target.value);
-              console.log(word);
-            }}
+            onChange={typingHandler}
           />
         </form>
       </div>
@@ -31,16 +34,14 @@ export default function SearchTop() {
           <li>
             <img
               src="/images/icons/search.svg"
-              type="button"
               onClick={() =>
                 router.push({
-                  pathname: "/search/search_result",
+                  pathname: "/search_result",
                   query: {
-                    query: `${word}`,
+                    keyword: `${word}`,
                   },
                 })
               }
-              value="Push"
             />
           </li>
           <li>
