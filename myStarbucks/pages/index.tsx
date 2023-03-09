@@ -7,10 +7,6 @@ import EventBanner from "@/components/widgets/EventBanner";
 export default function index() {
   return (
     <div className="container">
-      <header>
-        <MainHeaderTop />
-        <MainHeaderBottom />
-      </header>
       <EventBanner />
       <ProductContainer
         sectionId="recommand-md-1"

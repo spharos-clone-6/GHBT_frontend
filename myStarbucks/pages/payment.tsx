@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 export default function payment() {
   return (
@@ -40,7 +40,7 @@ export default function payment() {
         </div>
       </section>
       <section className="pay-products">
-        <details close="">
+        <details>
           <summary>
             <div>
               <p>상품내역</p>
@@ -53,7 +53,10 @@ export default function payment() {
             </div>
           </summary>
           <div className="product-details">
-            <img src="./assets/images/products/category/category-cup.jpg" alt="" />
+            <img
+              src="./assets/images/products/category/category-cup.jpg"
+              alt=""
+            />
             <div>
               <p>23 체리블라썸 플라워 머그앤소서 237ml</p>
               <p>주문수량: 1개</p>
@@ -62,9 +65,14 @@ export default function payment() {
           </div>
         </details>
         <div className="product-summary">
-          <img src="./assets/images/products/category/category-cup.jpg" alt="" />
+          <img
+            src="./assets/images/products/category/category-cup.jpg"
+            alt=""
+          />
           <div>
-            <p style={{ fontWeight: 700 }}>23 리블라썸 플라워 머그앤소서 237ml</p>
+            <p style={{ fontWeight: 700 }}>
+              23 리블라썸 플라워 머그앤소서 237ml
+            </p>
           </div>
         </div>
       </section>
@@ -97,7 +105,10 @@ export default function payment() {
           <a href="">
             <div>
               <p>사용하기</p>
-              <img src="./assets/images/icons/arrow-point-to-right.png" alt="" />
+              <img
+                src="./assets/images/icons/arrow-point-to-right.png"
+                alt=""
+              />
             </div>
           </a>
         </div>
@@ -173,6 +184,5 @@ export default function payment() {
         <button type="submit">33,000원 결제하기</button>
       </section>
     </>
-
-  )
+  );
 }
