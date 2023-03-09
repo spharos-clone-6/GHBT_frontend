@@ -15,7 +15,7 @@ export default function MainHeaderBottom() {
             
           </li>
           <li className={pathname === '/event' ? 'active' : ''}>
-            <a href="event.html">기획전</a>
+            <a href="/event?category=케이크">기획전</a>
           </li>
           <li className={pathname === '/best' ? 'active' : ''}>
             <Link href="/best?category=케이크" legacyBehavior>

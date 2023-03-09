@@ -18,3 +18,8 @@ export interface productType {
   price: number;
   isBest?: number;
 }
+
+export interface categoryType {
+  id: number;
+  title: string;
+}

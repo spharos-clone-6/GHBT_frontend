@@ -1,8 +1,9 @@
+import { categoryType } from "@/types/types";
 import { useRouter } from "next/router";
 import React from "react";
 
 export default function SubHeader() {
-  const dummyCategory = [
+  const best: categoryType[] = [
     {
       id: 1,
       title: "케이크",
@@ -28,6 +29,26 @@ export default function SubHeader() {
       title: "세트",
     },
   ];
+  const event: categoryType[] = [
+    {
+      id: 1,
+      title: "케이크",
+    },
+    {
+      id: 2,
+      title: "바리스타 춘식",
+    },
+    {
+      id: 3,
+      title: "핸디 데스크",
+    },
+    {
+      id: 4,
+      title: "별★ 적립 혜택",
+    },
+  ]
+
+
 
   const router = useRouter();
   const { pathname, query } = useRouter();
@@ -36,11 +57,14 @@ export default function SubHeader() {
     router.push(`${pathname}?category=${title}`);
   };
 
+  let categoryList;
+  pathname === '/best' ? categoryList = best : categoryList = event
+
   return (
-    <div className="header-sub first-section">
+    <div className="header-sub">
       <nav>
         <ul>
-          {dummyCategory.map((category) => (
+          {categoryList && categoryList.map((category: categoryType) => (
             <li
               className={query.category === category.title ? "active" : ""}
               onClick={() => handlePushLink(category.title)}
