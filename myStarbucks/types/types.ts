@@ -12,11 +12,17 @@ export interface recommandTitle {
 }
 
 export interface productType {
+  createDate: string;
+  updateDate: string;
   id: number;
-  imgSrc: string;
-  title: string;
+  name: string;
   price: number;
-  isBest?: number;
+  description: string;
+  thumbnailUrl: string;
+  stock: number;
+  isBest: boolean;
+  isNew: boolean;
+  likeCount: number;
 }
 
 export interface categoryType {

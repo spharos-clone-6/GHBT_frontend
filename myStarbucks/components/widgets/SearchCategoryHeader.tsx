@@ -1,3 +1,4 @@
+import { productType } from "@/types/types";
 import { useRouter } from "next/router";
 import React from "react";
 
@@ -17,7 +18,7 @@ export default function SearchCategoryHeader({ location }: LocationForSearch) {
     "세트",
   ];
 
-  const dummyCategory = [
+  const dummyCategory: productType[] = [
     {
       id: 1,
       title: "고구마케이크",
@@ -40,14 +41,22 @@ export default function SearchCategoryHeader({ location }: LocationForSearch) {
     },
   ];
 
+  // 전체 카테고리 목록 중에서
+  // dummyData의 카테고리 목록 안에 해당 카테고리가 존재한다면
+  // className = "active" : "hide"
+
   let searchedCategory = [];
   for (let item of dummyCategory) {
     searchedCategory.push(item["category"]);
   }
-
   let categorySet = new Set(searchedCategory);
-
   console.log(categorySet);
+
+  const isInCategory = (setList): string => {
+    for (let cat of categoryList) {
+      cat in setList ? "active" : "hide";
+    }
+  };
 
   return (
     <div className="header-sub first-section">
@@ -56,9 +65,7 @@ export default function SearchCategoryHeader({ location }: LocationForSearch) {
           {dummyCategory.map((category) => (
             <li
               // 카테고리 버튼 클릭시 초록색으로 활성화 표시
-              className={
-                router.asPath === `/${location}/` + category.id ? "active" : ""
-              }
+              className={isInCategory(categorySet)}
               // 클릭시 해당 카테고리 리스트로 이동
               onClick={() => {
                 if (`${location}` === "best") {
