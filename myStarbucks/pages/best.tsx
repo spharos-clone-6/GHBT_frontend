@@ -4,14 +4,16 @@ import ProductContainer from "@/components/layouts/ProductContainer";
 import SubHeader from "@/components/layouts/SubHeader";
 
 export default function category() {
+
   return (
     <div className="container">
-      <head>
+      <header>
         <MainHeaderTop />
         <MainHeaderBottom />
-        <SubHeader location="best" />
-      </head>
-      <ProductContainer sectionId={category} containerType="grid" headerName={undefined} />
+      </header>
+        <SubHeader />
+
+      <ProductContainer sectionId="best-product" containerType="grid" headerName="" />
     </div>
   );
 }
