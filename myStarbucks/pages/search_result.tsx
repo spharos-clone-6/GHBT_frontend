@@ -2,11 +2,13 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import MainHeaderTop from "@/components/layouts/MainHeaderTop";
 import SearchResultInfo from "@/components/widgets/SearchResultInfo";
+import SearchCategoryHeader from "@/components/widgets/SearchCategoryHeader";
 
 export default function search_result() {
   const { query } = useRouter();
   const keyword = query.keyword;
   // const [keyword, setKeyword] = useState(query.keyword);
+  console.log(keyword);
 
   return (
     <>
@@ -15,7 +17,7 @@ export default function search_result() {
         <SearchResultInfo keyword={keyword && keyword} />
       </header>
       <div className="search-result">
-        {/* <SearchResultCategory /> */}
+        <SearchCategoryHeader />
 
         <div className="header-sub" id="search-result-category">
           <nav>

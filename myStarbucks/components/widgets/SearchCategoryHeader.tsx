@@ -40,6 +40,15 @@ export default function SearchCategoryHeader({ location }: LocationForSearch) {
     },
   ];
 
+  let searchedCategory = [];
+  for (let item of dummyCategory) {
+    searchedCategory.push(item["category"]);
+  }
+
+  let categorySet = new Set(searchedCategory);
+
+  console.log(categorySet);
+
   return (
     <div className="header-sub first-section">
       <nav>
