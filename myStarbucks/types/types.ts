@@ -10,3 +10,11 @@ export interface recommandTitle {
   title: string;
   data: object;
 }
+
+export interface productType {
+  id: number;
+  imgSrc: string;
+  title: string;
+  price: number;
+  isBest: number;
+}

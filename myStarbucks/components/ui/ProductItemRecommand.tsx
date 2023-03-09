@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function ProductItemRecommand({item}) {
+const ProductContainerRecommand = ({ item }) => {
   return (
     <div className="recommand-product-item">
         <div className="recommand-product-item__img">
@@ -19,3 +19,6 @@ export default function ProductItemRecommand({item}) {
       </div>
   )
 }
+
+
+export default ProductContainerRecommand
