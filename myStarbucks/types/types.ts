@@ -16,5 +16,5 @@ export interface productType {
   imgSrc: string;
   title: string;
   price: number;
-  isBest: number;
+  isBest?: number;
 }
