@@ -1,12 +1,16 @@
 import React from "react";
-import MainHeader from "../components/MainHeader";
-import EventBanner from "../components/EventBanner";
-import ProductContainer from "../components/ProductContainer";
+import MainHeaderTop from "@/components/layouts/MainHeaderTop";
+import MainHeaderBottom from "@/components/layouts/MainHeaderBottom";
+import ProductContainer from "@/components/layouts/ProductContainer";
+import EventBanner from "@/components/widgets/EventBanner";
 
 export default function index() {
   return (
     <div className="container">
-      <MainHeader />
+      <header>
+        <MainHeaderTop />
+        <MainHeaderBottom />
+      </header>
       <EventBanner />
       <ProductContainer
         sectionId="recommand-md-1"
