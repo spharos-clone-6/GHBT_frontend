@@ -3,30 +3,30 @@ import ProductContainerGrid from './ProductContainerGrid'
 import ProductContainerRecommand from './ProductContainerRecommand'
 import ProductContainerVertical from './ProductContainerVertical'
 
-export default function ProductContainer({ sectionId, containerType, headerName }) {
+export default function ProductContainer(props: { sectionId: string, containerType: string, headerName: string }) {
   return (
     <>
       {
-        containerType === "horizontal" && (
-          <section className="recommand" id={sectionId}>
+        props.containerType === "horizontal" && (
+          <section className="recommand" id={props.sectionId}>
             <div>
-              <h2>{headerName}</h2>
+              <h2>{props.headerName}</h2>
               <ProductContainerRecommand />
             </div>
           </section>
         )
       }
       {
-        containerType == "vertical" && (
-          <section className="recommand" id={sectionId}>
-            <h2>{headerName}</h2>
+        props.containerType == "vertical" && (
+          <section className="recommand" id={props.sectionId}>
+            <h2>{props.headerName}</h2>
             <ProductContainerVertical />
           </section>
         )
       }
       {
-        containerType == "grid" && (
-          <section id={sectionId}>
+        props.containerType == "grid" && (
+          <section id={props.sectionId}>
             <ProductContainerGrid/>
           </section>
         )
