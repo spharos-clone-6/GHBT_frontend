@@ -1,7 +1,11 @@
 import { useRouter } from "next/router";
 import React from "react";
 
-export default function SearchResultCategory({ location }) {
+type LocationForSearch = {
+  location?: string;
+};
+
+export default function SearchCategoryHeader({ location }: LocationForSearch) {
   const router = useRouter();
   console.log(router.asPath);
   const categoryList = [

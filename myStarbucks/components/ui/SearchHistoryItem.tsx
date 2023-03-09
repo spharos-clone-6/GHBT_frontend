@@ -1,21 +1,26 @@
 import { useRouter } from "next/router";
 import React from "react";
 
-export default function LatestSearchItem({ item }) {
+type SearchedItem = {
+  item?: string;
+};
+
+export default function LatestSearchItem({ item }: SearchedItem) {
   const router = useRouter();
+
+  const onClickHandler = () =>
+    router.push({
+      pathname: "/search_result",
+      query: {
+        keyword: `${item}`,
+      },
+    });
 
   return (
     <div className="keywords">
       <div
-        type="button"
-        onClick={() =>
-          router.push({
-            pathname: "/category-search",
-            query: {
-              word: `#${item}`,
-            },
-          })
-        }
+        // type="button"
+        onClick={onClickHandler}
       >
         {item}
       </div>
