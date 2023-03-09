@@ -1,5 +1,5 @@
 import React from 'react'
-import ProductItemCol from '../ProductItem/ProductItemCol'
+import ProductItemCol from '../ui/ProductItemCol'
 
 export default function ProductContainerGrid() {
   const dummy = [

@@ -1,7 +1,7 @@
 import React from 'react'
-import ProductContainerGrid from './ProductContainer/ProductContainerGrid'
-import ProductContainerRecommand from './ProductContainer/ProductContainerRecommand'
-import ProductContainerVertical from './ProductContainer/ProductContainerVertical'
+import ProductContainerGrid from './ProductContainerGrid'
+import ProductContainerRecommand from './ProductContainerRecommand'
+import ProductContainerVertical from './ProductContainerVertical'
 
 export default function ProductContainer({ sectionId, containerType, headerName }) {
   return (
