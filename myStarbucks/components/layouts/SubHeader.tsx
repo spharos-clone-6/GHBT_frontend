@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React from "react";
 
-export default function SubHeader({ location }) {
+export default function SubHeader() {
   const dummyCategory = [
     {
       id: 1,
@@ -29,10 +29,11 @@ export default function SubHeader({ location }) {
     },
   ];
 
+  const router = useRouter();
   const { pathname, query } = useRouter();
 
-  const handlePushLink = (id) => {
-    router.push(`${pathname}?category=${id}`);
+  const handlePushLink = (title: string) => {
+    router.push(`${pathname}?category=${title}`);
   };
 
   return (
@@ -41,8 +42,8 @@ export default function SubHeader({ location }) {
         <ul>
           {dummyCategory.map((category) => (
             <li
-              className={query.category === category.id ? "active" : ""}
-              onClick={() => handlePushLink(category.id)}
+              className={query.category === category.title ? "active" : ""}
+              onClick={() => handlePushLink(category.title)}
             >
               {category.title}
             </li>

@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function MainHeaderTop() {
   const router = useRouter();
-  console.log(router.asPath);
+  console.log(router);
   return (
     <div className="header-top">
       <div className="menu-icon">

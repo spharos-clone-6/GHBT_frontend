@@ -3,26 +3,26 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 export default function MainHeaderBottom() {
-  const router = useRouter()
+  const { pathname } = useRouter()
   return (
     <div className="header-bottom">
       <nav>
         <ul>
-          <li className = {router.asPath === '/' ? 'active' : ''}>
+          <li className = {pathname === '/' ? 'active' : ''}>
             <Link href="/" legacyBehavior>
               <a>메인</a>
             </Link>
             
           </li>
-          <li className={router.asPath.split('/')[1] === 'event' ? 'active' : ''}>
+          <li className={pathname === '/event' ? 'active' : ''}>
             <a href="event.html">기획전</a>
           </li>
-          <li className={router.asPath.split('/')[1] === 'best' ? 'active' : ''}>
-            <Link href="/best/cake" legacyBehavior>
+          <li className={pathname === '/best' ? 'active' : ''}>
+            <Link href="/best?category=케이크" legacyBehavior>
               <a>베스트</a>
             </Link>
           </li>
-          <li className={router.asPath.split('/')[1] === 'mypage' ? 'active' : ''}>
+          <li className={pathname === '/mypage' ? 'active' : ''}>
             <a href="">마이페이지</a>
           </li>
         </ul>
