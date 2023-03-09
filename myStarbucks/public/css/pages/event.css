@@ -1,7 +1,3 @@
-.event-info {
-    margin-top: 125px !important;
-}
-
 section#event-info {
     padding: 0px;
     margin-bottom: 10px; /* common-section 덮어쓰기 */

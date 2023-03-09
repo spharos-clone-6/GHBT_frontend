@@ -15,7 +15,7 @@
 }
 
 .item-new {
-  font-size: 0.2rem;
+  font-size: 0.8rem;
   color: var(--color-light-green);
   font-style: italic;
   font-weight: lighter;
@@ -24,7 +24,7 @@
 }
 
 .item-best {
-font-size: 0.2rem;
+font-size: 0.8rem;
   color: var(--color-red);
   font-style: italic;
   font-weight: lighter;

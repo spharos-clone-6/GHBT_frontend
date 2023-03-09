@@ -1,6 +1,11 @@
+import { productType } from '@/types/types'
 import React from 'react'
 
-const ProductContainerRecommand = ({ item }) => {
+type Item = {
+  item: productType;
+}
+
+const ProductContainerRecommand = ({ item }:Item) => {
   return (
     <div className="recommand-product-item">
         <div className="recommand-product-item__img">

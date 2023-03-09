@@ -1,6 +1,11 @@
+import { productType } from '@/types/types'
 import React from 'react'
 
-export default function ProductItemRow({item}) {
+type Item = {
+  item: productType;
+}
+
+export default function ProductItemRow({ item }:Item) {
   return (
     <div className="chunsik-item">
       <img

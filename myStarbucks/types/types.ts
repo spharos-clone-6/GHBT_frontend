@@ -16,5 +16,10 @@ export interface productType {
   imgSrc: string;
   title: string;
   price: number;
-  isBest: number;
+  isBest?: number;
+}
+
+export interface categoryType {
+  id: number;
+  title: string;
 }
