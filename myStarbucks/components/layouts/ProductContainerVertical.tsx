@@ -6,21 +6,19 @@ export default function ProductContainerVertical() {
   const dummy: productType[] = [
     {
       id: 1,
-      imgSrc: "/images/products/01.png",
-      title: "23 SS 체리 밸류 로맨틱 텀블러 355ml",
+      name: "23 SS 체리 밸류 로맨틱 텀블러 355ml",
       price: 32000,
-    }, 
-    {
-      id: 2,
-      imgSrc: "/images/products/01.png",
-      title: "테스트2",
-      price: 17000,
+      thumbnailUrl: "/images/products/01.png",
+      isBest: false,
+      isNew: false,
     },
     {
-      id: 3,
-      imgSrc: "/images/products/chunsik.png",
-      title: "춘식컵",
-      price: 10000,
+      id: 2,
+      name: "테스트2",
+      price: 17000,
+      thumbnailUrl: "/images/products/01.png",
+      isBest: true,
+      isNew: false,
     }
   ];
   return (
