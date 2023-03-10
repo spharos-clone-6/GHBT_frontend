@@ -1,30 +1,27 @@
 import { productType } from '@/types/types';
-import React from 'react'
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import ProductItemCol from '../ui/ProductItemCol'
 
 export default function ProductContainerGrid() {
-  const dummy: productType[] = [
-    {
-      id: 1,
-      name: "23 SS 체리 밸류 로맨틱 텀블러 355ml",
-      price: 32000,
-      thumbnailUrl: "/images/products/01.png",
-      isBest: false,
-      isNew: false,
-    },
-    {
-      id: 2,
-      name: "테스트2",
-      price: 17000,
-      thumbnailUrl: "/images/products/01.png",
-      isBest: true,
-      isNew: false,
-    }
-  ];
+  const [ itemList, setItemList ] = useState<any>();
+  const { query } = useRouter();
+
+  const getData = async () => {
+    const result= await axios.get(`http://backend.grapefruit-honey-black-tea.shop/api/product/search-category/${query.category}`)
+    console.log(result.data)
+    setItemList(result.data);
+  }
+
+  useEffect(() => {
+    getData();
+  },[])
+
   return (
     <div className="product-container">
       {
-        dummy && dummy.map((item, idx) => (
+        itemList && itemList.map((item: productType, idx: number) => (
           <ProductItemCol
             key={item.id}
             item={item}
@@ -35,3 +32,7 @@ export default function ProductContainerGrid() {
     </div>
   )
 }
+// function useEffect(arg0: () => void, arg1: never[]) {
+//   throw new Error('Function not implemented.');
+// }
+
