@@ -7,10 +7,10 @@ export default function ProductItemCol(props: { item: productType, idx: number }
       <div className="rank-label">
         <p>{props.idx + 1}</p>
       </div>
-      <img src={props.item.imgSrc} className="thumbnail" />
+      <img src={props.item.thumbnailUrl} className="thumbnail" />
       <div className="product-item-info">
-        <p className={props.item.isBest === 0 ? "item-best":"item-best hide"}>Best</p>
-        <p className="product-item-name">{props.item.title}</p>
+        <p className={props.item.isBest === false ? "item-best":"item-best hide"}>Best</p>
+        <p className="product-item-name">{props.item.name}</p>
         <p className="product-item-price">
           {props.item.price.toLocaleString("ko-KR")}
         </p>
