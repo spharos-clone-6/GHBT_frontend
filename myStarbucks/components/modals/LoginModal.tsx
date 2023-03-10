@@ -2,7 +2,7 @@ import React from "react";
 
 export interface ChildProps {
   isView: Boolean;
-  setIsView: React.Dispatch<React.SetStateAction<Boolean>>;
+  setIsView: React.Dispatch<React.SetStateAction<Boolean>>; //setIsView의 타입
 }
 
 export default function LoginModal({ isView, setIsView }: ChildProps) {
@@ -11,7 +11,7 @@ export default function LoginModal({ isView, setIsView }: ChildProps) {
   }
 
   const modalStyle: Object = {
-    position: "absolute",
+    position: "fixed",
     backgroundColor: "white",
     top: "0",
     left: "0",

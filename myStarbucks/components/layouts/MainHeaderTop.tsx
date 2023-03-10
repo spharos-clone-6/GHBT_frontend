@@ -16,6 +16,10 @@ export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
     setIsView(true);
   };
 
+  const handleOpenSearch = () => {
+    setIsView(true);
+  };
+
   return (
     <div className="header-top">
       <div className="menu-icon">
@@ -30,7 +34,7 @@ export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
       <h1>온라인 스토어</h1>
       <nav>
         <ul>
-          <li>
+          <li onClick={handleOpenSearch}>
             <Link href="/search">
               <img src="/images/icons/search.svg" />
             </Link>

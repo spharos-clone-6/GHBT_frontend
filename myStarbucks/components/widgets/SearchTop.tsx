@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
-export default function SearchTop() {
+export interface ChildProps {
+  isView: Boolean;
+  setIsView: React.Dispatch<React.SetStateAction<Boolean>>; //setIsView의 타입
+}
+
+export default function SearchTop({ isView, setIsView }: ChildProps) {
   // 검색화면 상단 검색창
 
   const router = useRouter();
@@ -16,6 +21,10 @@ export default function SearchTop() {
   const typingHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setWord(e.target.value);
     console.log(word);
+  };
+
+  const handleCloseModal = () => {
+    setIsView(false);
   };
 
   return (
@@ -44,7 +53,7 @@ export default function SearchTop() {
               }
             />
           </li>
-          <li>
+          <li onClick={handleCloseModal}>
             <img src="/images/icons/close.png" />
           </li>
         </ul>
