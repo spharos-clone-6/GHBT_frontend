@@ -10,13 +10,13 @@ const ProductContainerRecommand = ({ item }:Item) => {
     <div className="recommand-product-item">
         <div className="recommand-product-item__img">
           <img
-            src={item.imgSrc}
-            alt={item.title}
+            src={item.thumbnailUrl}
+            alt={item.name}
           />
         </div>
         <div className="recommand-product-item__info">
           <p className="item-new">New</p>
-          <p className="item-title">{item.title}</p>
+          <p className="item-title">{item.name}</p>
           <p className="item-price">
             <span>{item.price.toLocaleString('ko-KR')}</span>원
           </p>
