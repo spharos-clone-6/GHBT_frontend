@@ -2,7 +2,7 @@ import { productType } from '@/types/types';
 import React from 'react'
 import ProductItemRow from '../ui/ProductItemRow'
 
-export default function ProductContainerVertical() {
+export default function ProductContainerVertical(props: {sectionId: string, headerName: string}) {
   const dummy: productType[] = [
     {
       id: 1,
@@ -22,15 +22,18 @@ export default function ProductContainerVertical() {
     }
   ];
   return (
-    <div className='product-container-vertical'>
-      {
-        dummy.map((item) => (
-          <ProductItemRow
-            key={item.id}
-            item={item}
-          />
-        ))
-      }
-    </div>
+    <section className="recommand" id={props.sectionId}>
+      <h2>{props.headerName}</h2>
+      <div className='product-container-vertical'>
+        {
+          dummy.map((item) => (
+            <ProductItemRow
+              key={item.id}
+              item={item}
+            />
+          ))
+        }
+      </div>
+    </section>
   )
 }

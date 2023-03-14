@@ -1,7 +1,4 @@
-import MainHeaderBottom from "@/components/layouts/MainHeaderBottom";
-import MainHeaderTop from "@/components/layouts/MainHeaderTop";
-import ProductContainer from "@/components/layouts/ProductContainer";
-import SubHeader from "@/components/layouts/SubHeader";
+import ProductContainerGrid from "@/components/layouts/ProductContainerGrid";
 
 export default function event() {
   return (
@@ -11,7 +8,7 @@ export default function event() {
           <img src="/images/event/event_cake.jpg" width="100%" height="100%" />
         </div>
       </section>
-      <ProductContainer sectionId="event-product" containerType="grid" />
+      <ProductContainerGrid />
     </div>
   );
 }

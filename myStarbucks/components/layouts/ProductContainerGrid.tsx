@@ -5,36 +5,32 @@ import { useEffect, useState } from 'react';
 import ProductItemCol from '../ui/ProductItemCol'
 
 export default function ProductContainerGrid() {
-  const [ itemList, setItemList ] = useState<any>();
+  const [itemList, setItemList] = useState<any>();
   const { query } = useRouter();
-  
+
   console.log(query.category)
 
   useEffect(() => {
     const getData = async () => {
       console.log(query)
-      const result= await axios.get(`http://backend.grapefruit-honey-black-tea.shop/api/product/search-category?search=${query.category}`)
+      const result = await axios.get(`http://backend.grapefruit-honey-black-tea.shop/api/product/search-category?search=${query.category}`)
       setItemList(result.data);
     };
     getData();
 
-  },[query])
+  }, [query])
 
   return (
-    <div className="product-container">
-      {
-        itemList && itemList.map((item: productType, idx: number) => (
-          <ProductItemCol
-            key={item.id}
-            item={item}
-            idx={idx}
-          />
-        ))
-      }
-    </div>
+      <div className="product-container">
+        {
+          itemList && itemList.map((item: productType, idx: number) => (
+            <ProductItemCol
+              key={item.id}
+              item={item}
+              idx={idx}
+            />
+          ))
+        }
+      </div>
   )
 }
-// function useEffect(arg0: () => void, arg1: never[]) {
-//   throw new Error('Function not implemented.');
-// }
-

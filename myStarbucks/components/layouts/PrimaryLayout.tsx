@@ -1,8 +1,6 @@
 import React, { Children, useState } from "react";
 import MainHeaderTop from "@/components/layouts/MainHeaderTop";
 import MainHeaderBottom from "@/components/layouts/MainHeaderBottom";
-import ProductContainer from "@/components/layouts/ProductContainer";
-import EventBanner from "@/components/widgets/EventBanner";
 import SubHeader from "./SubHeader";
 import { useRouter } from "next/router";
 import LoginModal from "../modals/LoginModal";

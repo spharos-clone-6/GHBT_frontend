@@ -3,10 +3,6 @@ section#event-info {
     margin-bottom: 10px; /* common-section 덮어쓰기 */
 }
 
-#event-product {
-    margin-bottom: 10px;
-}
-
 details>summary {
     font-size: 15px;
     margin-top: 10px;
