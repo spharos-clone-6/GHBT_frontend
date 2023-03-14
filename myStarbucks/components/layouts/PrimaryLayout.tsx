@@ -10,6 +10,7 @@ import LoginModal from "../modals/LoginModal";
 import { RecoilRoot, useRecoilValue } from "recoil";
 import { loginModalState } from "@/state/loginModalState";
 import SearchModal from "@/components/modals/SearchModal";
+import SearchResultInfo from "../widgets/SearchResultInfo";
 
 export default function PrimaryLayout(props: { children: React.ReactNode }) {
   const { pathname } = useRouter();
@@ -18,13 +19,17 @@ export default function PrimaryLayout(props: { children: React.ReactNode }) {
   // const isLoginModal = useRecoilValue<Boolean>(loginModalState);
   return (
     <>
-      <SearchModal isView={isView} setIsView={setIsView} />
+      {/* <SearchModal isView={isView} setIsView={setIsView} /> */}
       <LoginModal isView={isView} setIsView={setIsView} />
       <head />
       <div className="container">
         <header>
           <MainHeaderTop isView={isView} setIsView={setIsView} />
-          <MainHeaderBottom />
+          {pathname === "/search_result" ? (
+            <SearchResultInfo />
+          ) : (
+            <MainHeaderBottom />
+          )}
           {pathname === "/best" || pathname === "/event" ? <SubHeader /> : ""}
         </header>
         {props.children}

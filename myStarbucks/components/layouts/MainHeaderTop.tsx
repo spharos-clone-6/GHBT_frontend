@@ -34,7 +34,7 @@ export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
       <h1>온라인 스토어</h1>
       <nav>
         <ul>
-          <li onClick={handleOpenSearch}>
+          <li>
             <Link href="/search">
               <img src="/images/icons/search.svg" />
             </Link>
