@@ -1,34 +1,51 @@
 import React from "react";
-import MainHeaderTop from "@/components/layouts/MainHeaderTop";
-import MainHeaderBottom from "@/components/layouts/MainHeaderBottom";
-import ProductContainer from "@/components/layouts/ProductContainer";
 import EventBanner from "@/components/widgets/EventBanner";
+import ProductContainerRecommand from "@/components/layouts/ProductContainerRecommand";
+import ProductContainerVertical from "@/components/layouts/ProductContainerVertical";
+import { productType } from "@/types/types";
 
 export default function index() {
+  const dummy: productType[] = [
+    {
+      id: 1,
+      name: "23 SS 체리 밸류 로맨틱 텀블러 355ml",
+      price: 32000,
+      thumbnailUrl: "/images/products/01.png",
+      isBest: false,
+      isNew: true,
+    },
+    {
+      id: 2,
+      name: "테스트2",
+      price: 17000,
+      thumbnailUrl: "/images/products/01.png",
+      isBest: true,
+      isNew: true,
+    }
+  ];
   return (
     <div className="container">
       <EventBanner />
-      <ProductContainer
+      <ProductContainerRecommand
         sectionId="recommand-md-1"
-        containerType="horizontal"
         headerName="Cherry Blossom 🌸"
+        itemList={dummy}
       />
-      <ProductContainer
+      <ProductContainerRecommand 
         sectionId="recommand-md-2"
-        containerType="horizontal"
         headerName="Cherry Blossom 💜"
+        itemList={dummy}
       />
-      <ProductContainer
+      <ProductContainerRecommand 
         sectionId="recommand-md-3"
-        containerType="horizontal"
         headerName="달콤한 스타벅스 케이크 🍰"
+        itemList={dummy}
       />
-      <ProductContainer
+      <ProductContainerVertical 
         sectionId="chunsik"
-        containerType="vertical"
         headerName="바리스타 춘식 💛"
+        itemList={dummy}
       />
-      <footer></footer>
     </div>
   );
 }
