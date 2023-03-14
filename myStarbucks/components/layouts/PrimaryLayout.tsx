@@ -14,8 +14,9 @@ import SearchResultInfo from "../widgets/SearchResultInfo";
 
 export default function PrimaryLayout(props: { children: React.ReactNode }) {
   const { pathname } = useRouter();
+  const { query } = useRouter();
   const [isView, setIsView] = useState<Boolean>(true);
-  console.log(pathname);
+  const keyword = query.keyword;
   // const isLoginModal = useRecoilValue<Boolean>(loginModalState);
   return (
     <>
@@ -26,7 +27,7 @@ export default function PrimaryLayout(props: { children: React.ReactNode }) {
         <header>
           <MainHeaderTop isView={isView} setIsView={setIsView} />
           {pathname === "/search_result" ? (
-            <SearchResultInfo />
+            <SearchResultInfo keyword={keyword} />
           ) : (
             <MainHeaderBottom />
           )}

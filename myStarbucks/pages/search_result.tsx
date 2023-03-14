@@ -6,9 +6,8 @@ import { store_subhead } from "@/data/StaticData";
 
 export default function search_result() {
   const { query } = useRouter();
-  const keyword = query.keyword;
-  // const [keyword, setKeyword] = useState(query.keyword);
-  console.log(keyword);
+  console.log(query);
+
   return (
     <>
       {/* 카테고리 & 필터링 */}
@@ -21,10 +20,7 @@ export default function search_result() {
         {/* 선택한 필터 표시*/}
         <div className="header-sub" id="search-result-filter">
           <img src="/images/icons/reload.png" />
-          <button>
-            <p>체리블라썸</p>
-            <img className="close-icon" src="/images/icons/close.png" />
-          </button>
+
           <button>
             <p>1만원대</p>
             <img className="close-icon" src="/images/icons/close.png" />
