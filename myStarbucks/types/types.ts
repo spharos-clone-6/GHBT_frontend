@@ -27,5 +27,6 @@ export interface productType {
 
 export interface categoryType {
   id: number;
-  title: string;
+  name: string;
+  type?: string;
 }
