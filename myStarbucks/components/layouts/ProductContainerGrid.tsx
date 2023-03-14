@@ -4,22 +4,11 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import ProductItemCol from '../ui/ProductItemCol'
 
-export default function ProductContainerGrid() {
-  const [itemList, setItemList] = useState<any>();
-  const { query } = useRouter();
+type Item = {
+  itemList: productType[];
+}
 
-  console.log(query.category)
-
-  useEffect(() => {
-    const getData = async () => {
-      console.log(query)
-      const result = await axios.get(`http://backend.grapefruit-honey-black-tea.shop/api/product/search-category?search=${query.category}`)
-      setItemList(result.data);
-    };
-    getData();
-
-  }, [query])
-
+export default function ProductContainerGrid({ itemList }: Item) {
   return (
       <div className="product-container">
         {
