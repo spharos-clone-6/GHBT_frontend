@@ -7,16 +7,18 @@ import ProductItemCol from '../ui/ProductItemCol'
 export default function ProductContainerGrid() {
   const [ itemList, setItemList ] = useState<any>();
   const { query } = useRouter();
-
-  const getData = async () => {
-    const result= await axios.get(`http://backend.grapefruit-honey-black-tea.shop/api/product/search-category/${query.category}`)
-    console.log(result.data)
-    setItemList(result.data);
-  }
+  
+  console.log(query.category)
 
   useEffect(() => {
+    const getData = async () => {
+      console.log(query)
+      const result= await axios.get(`http://backend.grapefruit-honey-black-tea.shop/api/product/search-category?search=${query.category}`)
+      setItemList(result.data);
+    };
     getData();
-  },[])
+
+  },[query])
 
   return (
     <div className="product-container">
