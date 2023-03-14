@@ -53,3 +53,7 @@ a {
 .padding-top-zero {
   padding-top: 0 !important;
 }
+
+.arrow {
+  opacity: 0.3;
+}
