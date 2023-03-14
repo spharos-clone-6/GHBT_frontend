@@ -13,7 +13,7 @@ import SearchResultInfo from "../widgets/SearchResultInfo";
 export default function PrimaryLayout(props: { children: React.ReactNode }) {
   const { pathname } = useRouter();
   const { query } = useRouter();
-  const [isView, setIsView] = useState<Boolean>(true);
+  const [isView, setIsView] = useState<Boolean>(false);
   const keyword = query.keyword;
   // const isLoginModal = useRecoilValue<Boolean>(loginModalState);
   return (

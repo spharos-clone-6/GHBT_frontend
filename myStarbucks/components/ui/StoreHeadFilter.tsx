@@ -11,11 +11,11 @@ export default function StoreHeadFilter(props: { data: filterList }) {
     <div className="header-sub">
       <nav>
         <p className="cat-title">{props.data.name}</p>
-        <ul key={props.data.id}>
+        <ul>
           {props.data.value &&
-            props.data.value.map((el) => (
-              <li>
-                <a href="">{el}</a>
+            props.data.value.map((el, idx) => (
+              <li key={idx}>
+                {el}
               </li>
             ))}
         </ul>

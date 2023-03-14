@@ -148,7 +148,7 @@
 
 #search-result-filter {
   display: flex;
-  padding: 15px 25px;
+  padding: 10px 25px;
   align-items: center;
   gap: 10px;
 }
