@@ -1,6 +1,4 @@
 import React from "react";
-import MainHeaderTop from "@/components/layouts/MainHeaderTop";
-import MainHeaderBottom from "@/components/layouts/MainHeaderBottom";
 import EventBanner from "@/components/widgets/EventBanner";
 import ProductContainerRecommand from "@/components/layouts/ProductContainerRecommand";
 import ProductContainerVertical from "@/components/layouts/ProductContainerVertical";
@@ -13,7 +11,6 @@ export default function index() {
         sectionId="recommand-md-1"
         headerName="Cherry Blossom 🌸"
       />
-
       <ProductContainerRecommand 
         sectionId="recommand-md-2"
         headerName="Cherry Blossom 💜"
