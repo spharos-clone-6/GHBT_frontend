@@ -24,7 +24,9 @@ export default function MainHeaderBottom() {
             </Link>
           </li>
           <li className={pathname === "/mypage" ? "active" : ""}>
-            <a href="">마이페이지</a>
+            <Link href="/mypage" legacyBehavior>
+              <a>마이페이지</a>
+            </Link>
           </li>
         </ul>
       </nav>
