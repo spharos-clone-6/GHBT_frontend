@@ -4,10 +4,13 @@ import StoreHeadCategory from "@/components/ui/StoreHeadCategory";
 import StoreHeadFilter from "@/components/ui/StoreHeadFilter";
 import { store_subhead } from "@/data/StaticData";
 import SelectOrder from "@/components/ui/SelectOrder";
+import axios from "axios";
 
 export default function search_result() {
   const { query } = useRouter();
-  console.log(query);
+  console.log(query.keyword);
+
+  const items = axios.get('')
 
   return (
     <>

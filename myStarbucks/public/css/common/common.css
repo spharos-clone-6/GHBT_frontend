@@ -63,5 +63,6 @@ a {
   font-weight: bold;
   padding: 10px 0px;
   border: none;
-  width: 18%
+  width: 18%;
+  opacity: 70%;
 }

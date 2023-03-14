@@ -10,9 +10,7 @@ export interface ChildProps {
 export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
   const router = useRouter();
 
-  console.log(isView);
   const handleOpenLogin = () => {
-    console.log(isView);
     setIsView(true);
   };
 
