@@ -13,7 +13,7 @@ export default function ProductContainerGrid() {
   useEffect(() => {
     const getData = async () => {
       console.log(query)
-      const result= await axios.get(`http://backend.grapefruit-honey-black-tea.shop/api/product/search-category/${query.category}`)
+      const result= await axios.get(`http://backend.grapefruit-honey-black-tea.shop/api/product/search-category?search=${query.category}`)
       setItemList(result.data);
     };
     getData();
