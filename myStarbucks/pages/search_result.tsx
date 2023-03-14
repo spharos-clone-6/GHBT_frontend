@@ -3,6 +3,7 @@ import { useState } from "react";
 import StoreHeadCategory from "@/components/ui/StoreHeadCategory";
 import StoreHeadFilter from "@/components/ui/StoreHeadFilter";
 import { store_subhead } from "@/data/StaticData";
+import SelectOrder from "@/components/ui/SelectOrder";
 
 export default function search_result() {
   const { query } = useRouter();
@@ -28,10 +29,7 @@ export default function search_result() {
         </div>
 
         {/* 상품 */}
-        <div className="products-order">
-          <p>신상품순</p>
-          <img src="/images/icons/arrow-down-sign-to-navigate.png" />
-        </div>
+        <SelectOrder/>
         <section id="search-result-product">
           <div className="product-container margin-top-zero padding-top-zero">
             <div className="product-item">
