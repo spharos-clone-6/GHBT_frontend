@@ -7,6 +7,7 @@ type Item = {
 
 const ProductContainerRecommand = ({ item }:Item) => {
   return (
+    
     <div className="recommand-product-item">
         <div className="recommand-product-item__img">
           <img
@@ -15,7 +16,10 @@ const ProductContainerRecommand = ({ item }:Item) => {
           />
         </div>
         <div className="recommand-product-item__info">
-          <p className="item-new">New</p>
+          <div className='product-label'>
+            <p className={item.isBest === true ? "item-best" : "item-best hide"}>Best</p>
+            <p className={item.isNew === true ? "item-new" : "item-new hide"}>New</p>
+          </div>
           <p className="item-title">{item.name}</p>
           <p className="item-price">
             <span>{item.price.toLocaleString('ko-KR')}</span>원
