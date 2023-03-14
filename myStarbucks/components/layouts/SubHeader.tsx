@@ -1,64 +1,42 @@
 import { categoryType } from "@/types/types";
+import axios from "axios";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 export default function SubHeader() {
-  const best: categoryType[] = [
-    {
-      id: 1,
-      title: "케이크",
-    },
-    {
-      id: 2,
-      title: "텀블러/보온병",
-    },
-    {
-      id: 3,
-      title: "머그/컵",
-    },
-    {
-      id: 4,
-      title: "라이프스타일",
-    },
-    {
-      id: 5,
-      title: "티/커피용품",
-    },
-    {
-      id: 6,
-      title: "세트",
-    },
-  ];
-  const event: categoryType[] = [
-    {
-      id: 1,
-      title: "케이크",
-    },
-    {
-      id: 2,
-      title: "바리스타 춘식",
-    },
-    {
-      id: 3,
-      title: "핸디 데스크",
-    },
-    {
-      id: 4,
-      title: "별★ 적립 혜택",
-    },
-  ]
-
-
 
   const router = useRouter();
   const { pathname, query } = useRouter();
+  const [categoryList, setCatogoryList] = useState<categoryType[]>();
 
-  const handlePushLink = (title: string) => {
-    router.push(`${pathname}?category=${title}`);
+  const getCategory = async () => {
+    let list: categoryType[] = [];
+    if(pathname === '/best') {
+      const result = await axios.get(`http://backend.grapefruit-honey-black-tea.shop/api/category`)
+      result.data && result.data.map((c: categoryType)=> (
+        c.type === "대" && (
+          list.push(c)
+        )
+      ))
+      setCatogoryList(list)
+
+    } else if(pathname === '/event') {
+      const result = await axios.get('http://backend.grapefruit-honey-black-tea.shop/api/event')
+      setCatogoryList(result.data)
+      
+    } else {
+      const result = "";
+    }
+  }
+
+  const handlePushLink = (name: string) => {
+    router.push(`${pathname}?category=${name}`);
   };
 
-  let categoryList;
-  pathname === '/best' ? categoryList = best : categoryList = event
+  useEffect(() => {
+    getCategory();
+  }, [pathname])
+
 
   return (
     <div className="header-sub">
@@ -66,10 +44,10 @@ export default function SubHeader() {
         <ul>
           {categoryList && categoryList.map((category: categoryType) => (
             <li
-              className={query.category === category.title ? "active" : ""}
-              onClick={() => handlePushLink(category.title)}
+              className={query.category === category.name ? "active" : ""}
+              onClick={() => handlePushLink(category.name)}
             >
-              {category.title}
+              {category.name}
             </li>
           ))}
         </ul>

@@ -27,5 +27,14 @@ export interface productType {
 
 export interface categoryType {
   id: number;
-  title: string;
+  name: string;
+  type?: string;
+}
+
+export interface eventType {
+  id: number;
+  name: string;
+  description: string;
+  thumbnailUrl: string;
+  descriptionUrl: string;
 }
