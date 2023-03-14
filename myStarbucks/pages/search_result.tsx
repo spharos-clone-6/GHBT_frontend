@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
-import SearchCategoryHeader from "@/components/widgets/SearchCategoryHeader";
 import StoreHeadCategory from "@/components/ui/StoreHeadCategory";
 import StoreHeadFilter from "@/components/ui/StoreHeadFilter";
 import { store_subhead } from "@/data/StaticData";
@@ -14,7 +13,7 @@ export default function search_result() {
     <>
       {/* 카테고리 & 필터링 */}
       <div id="store-head" className="search-result">
-        <SearchCategoryHeader />
+        <div className="first-section"></div>
         <StoreHeadCategory />
         <StoreHeadFilter data={store_subhead[0]} />
         <StoreHeadFilter data={store_subhead[1]} />
