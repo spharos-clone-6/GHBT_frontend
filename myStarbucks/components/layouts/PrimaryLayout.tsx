@@ -22,7 +22,6 @@ export default function PrimaryLayout(props: { children: React.ReactNode }) {
     <>
       {/* <SearchModal isView={isView} setIsView={setIsView} /> */}
       <LoginModal isView={isView} setIsView={setIsView} />
-      <head />
       <div className="container">
         <header>
           <MainHeaderTop isView={isView} setIsView={setIsView} />
