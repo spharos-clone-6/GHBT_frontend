@@ -2,6 +2,7 @@ import { productType } from "@/types/types";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
+import ProductLabel from "./ProductLabel";
 
 export default function ProductItemCol(props: {
   item: productType;
@@ -9,6 +10,7 @@ export default function ProductItemCol(props: {
 }) {
   const { pathname } = useRouter();
   const { item, idx } = props;
+  console.log(item)
   return (
     <Link href={`/product/${item.id}`}>
       <div className="product-item">
@@ -19,14 +21,10 @@ export default function ProductItemCol(props: {
         )}
         <img src={item.thumbnailUrl} className="thumbnail" />
         <div className="product-item-info">
-          <div className="product-label">
-            <p className={item.isBest === true ? "item-best" : "item-best hide"}>
-              Best
-            </p>
-            <p className={item.isNew === true ? "item-new" : "item-new hide"}>
-              New
-            </p>
-          </div>
+          <ProductLabel
+            isBest = {item.isBest}
+            isNew = {item.isNew}
+          />
           <p className="product-item-name">{item.name}</p>
           <p className="product-item-price">
             {props.item.price.toLocaleString("ko-KR")}원
