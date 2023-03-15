@@ -6,7 +6,7 @@ export default function ProductContainerVertical(props: {sectionId: string, head
   const { sectionId, headerName, itemList } = props
   return (
     <section className="recommand" id={sectionId}>
-      <h2>{headerName}</h2>
+      <h2 className='product-header'>{headerName}</h2>
       <div className='product-container-vertical'>
         {
           itemList.map((item: productType) => (

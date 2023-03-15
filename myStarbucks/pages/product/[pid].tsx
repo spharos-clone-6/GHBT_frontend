@@ -1,3 +1,4 @@
+import ProductContainerRecommand from "@/components/layouts/ProductContainerRecommand";
 import ProductLabel from "@/components/ui/ProductLabel";
 import InfoList from "@/components/widgets/InfoList";
 import { productType } from "@/types/types";
@@ -52,13 +53,12 @@ export default function productDetail() {
         <img src="/images/products/product-detail.png" alt={product?.description} />
         {/*JS "상품정보 더보기" 버튼 추가 필요*/}
       </section>
-      <section className="product-recommand">
-        <p>체리블라썸 상품</p>
-      </section>
-      <section className="product-recommand">
-        <p>다른 고객이 함께 본 상품</p>
-      </section>
-
+      <ProductContainerRecommand
+        headerName={"체리블라썸 상품"} itemList={[]}      
+      />
+      <ProductContainerRecommand
+        headerName={"다른 고객이 함께 본 상품"} itemList={[]}      
+      />
       <InfoList />
 
       <section className="submit-container">
@@ -77,7 +77,6 @@ export default function productDetail() {
           <button type="submit">구매하기</button>
         </a>
       </section>
-
     </>
   );
 }

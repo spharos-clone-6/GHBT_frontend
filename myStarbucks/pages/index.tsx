@@ -21,6 +21,30 @@ export default function index() {
       thumbnailUrl: "/images/products/01.png",
       isBest: true,
       isNew: true,
+    },
+    {
+      id: 3,
+      name: "테스트2",
+      price: 17000,
+      thumbnailUrl: "/images/products/01.png",
+      isBest: true,
+      isNew: true,
+    },
+    {
+      id: 4,
+      name: "테스트2",
+      price: 17000,
+      thumbnailUrl: "/images/products/01.png",
+      isBest: true,
+      isNew: true,
+    },
+    {
+      id: 5,
+      name: "테스트2",
+      price: 17000,
+      thumbnailUrl: "/images/products/01.png",
+      isBest: true,
+      isNew: true,
     }
   ];
   return (

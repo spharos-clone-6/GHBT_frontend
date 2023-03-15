@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   justify-items: center;
-  padding-top: 15px;
+  padding-top: 0 15px 0 20px;
 }
 
 .product-item {
@@ -64,4 +64,13 @@
 .product-label {
   display: flex;
   height: 1rem;
+}
+
+.product-header {
+  font-size: 1.4rem;
+}
+
+.product-container-vertical {
+  height: 210px;
+  overflow: scroll;
 }
