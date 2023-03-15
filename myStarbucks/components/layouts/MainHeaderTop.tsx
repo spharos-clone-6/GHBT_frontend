@@ -1,5 +1,5 @@
 import React from "react";
-import { useRouter } from "next/router";
+import { Router, useRouter } from "next/router";
 import Link from "next/link";
 
 export interface ChildProps {
@@ -18,11 +18,15 @@ export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
     setIsView(true);
   };
 
+  const handleBack = () => {
+    router.back();
+  }
+
   return (
     <div className="header-top">
       <div className="menu-icon">
-        {router.pathname === "/store" || false ? (
-          <img src="/images/icons/left.png" alt="" />
+        {router.pathname === "/store" || router.pathname.includes('/product') ? (
+          <img onClick={handleBack} src="/images/icons/left.png" alt="" />
         ) : (
           <Link href="/contents/contents">
             <img src="/images/icons/menu.svg" alt="" />
