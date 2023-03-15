@@ -1,5 +1,6 @@
 import ProductContainerRecommand from "@/components/layouts/ProductContainerRecommand";
 import ProductLabel from "@/components/ui/ProductLabel";
+import SubmitButton from "@/components/ui/SubmitButton";
 import InfoList from "@/components/widgets/InfoList";
 import { productType } from "@/types/types";
 import axios from "axios";
@@ -7,8 +8,17 @@ import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 
 export default function productDetail() {
+  const dummy = {
+    id: 1,
+    name: "23 SS 체리 밸류 로맨틱 텀블러 355ml",
+    price: 32000,
+    thumbnailUrl: "/images/products/01.png",
+    isBest: false,
+    isNew: true,
+  }
+
   const { query } = useRouter();
-  const [product, setProduct] = useState<productType>();
+  const [product, setProduct] = useState<productType>(dummy);
 
   useEffect(() => {
     const getData = async () => {
@@ -18,6 +28,10 @@ export default function productDetail() {
     };
     getData();
   }, [])
+
+  const test = () => {
+    alert("test");
+  }
 
   return (
     <>
@@ -45,7 +59,9 @@ export default function productDetail() {
           <div className="description">
             {product?.description}
           </div>
-          <div className="price">{product?.price}</div>
+          <div className="price">
+            <span>{product?.price.toLocaleString('ko-KR')}</span>원
+          </div>
         </div>
       </section>
       <section id="product-detail">
@@ -60,23 +76,10 @@ export default function productDetail() {
         headerName={"다른 고객이 함께 본 상품"} itemList={[]}      
       />
       <InfoList />
-
-      <section className="submit-container">
-        <div className="submit-detail" >
-          ---
-          <div>
-            <p>제목어쩌고</p>
-            <p>+ 0 - ---------------- 가격</p>
-          </div>
-          <div>
-            합계
-          </div>
-        </div>
-
-        <a href="">
-          <button type="submit">구매하기</button>
-        </a>
-      </section>
+      <SubmitButton
+        btnName="구매하기"
+        btnEvent={test}
+      />
     </>
   );
 }
