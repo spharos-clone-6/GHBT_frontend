@@ -33,7 +33,9 @@ export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
           </Link>
         )}
       </div>
-      <h1>온라인 스토어</h1>
+      <Link href={"/"}>
+        <h1>온라인 스토어</h1>
+      </Link>
       <nav>
         <ul>
           <li>
