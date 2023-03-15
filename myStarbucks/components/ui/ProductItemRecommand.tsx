@@ -1,14 +1,15 @@
 import { productType } from '@/types/types'
+import Link from 'next/link';
 import React from 'react'
 
 type Item = {
   item: productType;
 }
 
-const ProductContainerRecommand = ({ item }:Item) => {
+const ProductContainerRecommand = ({ item }: Item) => {
   return (
-    
-    <div className="recommand-product-item">
+    <Link href={`/product/${item.id}`}>
+      <div className="recommand-product-item">
         <div className="recommand-product-item__img">
           <img
             src={item.thumbnailUrl}
@@ -26,6 +27,7 @@ const ProductContainerRecommand = ({ item }:Item) => {
           </p>
         </div>
       </div>
+    </Link>
   )
 }
 
