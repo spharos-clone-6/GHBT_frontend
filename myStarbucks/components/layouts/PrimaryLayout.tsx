@@ -16,6 +16,8 @@ export default function PrimaryLayout(props: { children: React.ReactNode }) {
   const [isView, setIsView] = useState<Boolean>(false);
   const keyword = query.keyword;
   // const isLoginModal = useRecoilValue<Boolean>(loginModalState);
+
+  const mainMenu = ["/", "/event", "/best", "/mypage"];
   return (
     <>
       {/* <SearchModal isView={isView} setIsView={setIsView} /> */}
@@ -23,11 +25,8 @@ export default function PrimaryLayout(props: { children: React.ReactNode }) {
       <div className="container">
         <header>
           <MainHeaderTop isView={isView} setIsView={setIsView} />
-          {pathname === "/search_result" ? (
-            <SearchResultInfo keyword={keyword} />
-          ) : (
-            <MainHeaderBottom />
-          )}
+          {pathname === "/search_result" ? <SearchResultInfo keyword={keyword} /> : ""}
+          {mainMenu.includes(pathname) ? <MainHeaderBottom /> : ""}
           {pathname === "/best" || pathname === "/event" ? <SubHeader /> : ""}
         </header>
         {props.children}
