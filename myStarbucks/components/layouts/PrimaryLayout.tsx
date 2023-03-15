@@ -23,10 +23,11 @@ export default function PrimaryLayout(props: { children: React.ReactNode }) {
       <div className="container">
         <header>
           <MainHeaderTop isView={isView} setIsView={setIsView} />
+          {pathname === "/cart" ? "" : <MainHeaderBottom />}
           {pathname === "/search_result" ? (
             <SearchResultInfo keyword={keyword} />
           ) : (
-            <MainHeaderBottom />
+            ""
           )}
           {pathname === "/best" || pathname === "/event" ? <SubHeader /> : ""}
         </header>

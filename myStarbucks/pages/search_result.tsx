@@ -1,16 +1,27 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import StoreHeadCategory from "@/components/ui/StoreHeadCategory";
 import StoreHeadFilter from "@/components/ui/StoreHeadFilter";
 import { store_subhead } from "@/data/StaticData";
 import SelectOrder from "@/components/ui/SelectOrder";
 import axios from "axios";
+import { productType } from "@/types/types";
+import ProductContainerGrid from "@/components/layouts/ProductContainerGrid";
 
 export default function search_result() {
+  const [itemList, setItemList] = useState<productType[]>([]);
   const { query } = useRouter();
-  console.log(query.keyword);
+  // console.log(query.keyword);
 
-  const items = axios.get('')
+  useEffect(() => {
+    const getData = async () => {
+      const result = await axios.get(
+        `http://backend.grapefruit-honey-black-tea.shop/api/product/search/${query.keyword}`
+      );
+      setItemList(result.data);
+    };
+    getData();
+  }, []);
 
   return (
     <>
@@ -32,8 +43,9 @@ export default function search_result() {
         </div>
 
         {/* 상품 */}
-        <SelectOrder/>
-        <section id="search-result-product">
+        <SelectOrder />
+        <ProductContainerGrid itemList={itemList} />
+        {/* <section id="search-result-product">
           <div className="product-container margin-top-zero padding-top-zero">
             <div className="product-item">
               <img src="/images/best/cake/01.jpg" className="thumbnail" />
@@ -60,7 +72,7 @@ export default function search_result() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
       </div>
     </>
   );

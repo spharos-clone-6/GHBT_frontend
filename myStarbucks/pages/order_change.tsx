@@ -1,43 +1,17 @@
-import React from 'react'
+import ItemAmount from "@/components/ui/ItemAmount";
+import React from "react";
 
 export default function order_change() {
   return (
     <>
-      <header id="store-head">
-        <div className="store-header-top header-top">
-          <div className="menu-icon"></div>
-          <h1>
-            <a href="">주문 수정</a>
-          </h1>
-          <nav>
-            <ul>
-              <li>
-                <img src="assets/images/icons/close.png" />
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </header>
       <section id="item-change">
-        <img src="./assets/images/event/cake/02.jpg" alt="" />
+        <img src="/images/event/cake/02.jpg" alt="" />
         <div>
           <p>부드러운 티라미수 롤케이크</p>
           <p>19,900원</p>
         </div>
       </section>
-      <section id="change-quantity">
-        <div>
-          <p>상품 주문 수량</p>
-          <div className="change">
-            <div className="quantity">
-              <img src="./assets/images/icons/minus.png" alt="" />
-              <div>1</div>
-              <img src="./assets/images/icons/add.png" alt="" />
-            </div>
-            <p>19,900원</p>
-          </div>
-        </div>
-      </section>
+      <ItemAmount price={5000} />
       <section className="submit-container">
         {" "}
         {/*class="submit-container"*/}
@@ -55,6 +29,5 @@ export default function order_change() {
         </div>
       </section>
     </>
-
-  )
+  );
 }

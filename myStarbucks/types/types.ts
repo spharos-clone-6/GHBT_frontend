@@ -38,3 +38,10 @@ export interface eventType {
   thumbnailUrl: string;
   descriptionUrl: string;
 }
+
+export interface cartItem {
+  id: number;
+  name: string;
+  price: number;
+  amount: number;
+}
