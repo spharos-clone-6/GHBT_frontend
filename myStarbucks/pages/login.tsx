@@ -1,8 +1,12 @@
-import React from 'react'
+import React from "react";
 
-export default function login() {
+export default function login(props: { isView: Boolean }) {
+  if (!props.isView) {
+    return null;
+  }
+
   return (
-    <>
+    <div style={{ zIndex: "100" }}>
       <header>
         <a href="javascript:window.history.back();">
           <img src="./assets/images/icons/left.png" className="back-button" />
@@ -35,7 +39,6 @@ export default function login() {
           <button type="submit">로그인하기</button>
         </section>
       </div>
-    </>
-
-  )
+    </div>
+  );
 }

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function signup_main() {
+export default function signup() {
   return (
     <>
       <header>

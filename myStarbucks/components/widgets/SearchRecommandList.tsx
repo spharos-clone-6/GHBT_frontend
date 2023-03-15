@@ -1,5 +1,5 @@
 import React from "react";
-import SearchRecommandItem from "./SearchRecommandItem";
+import SearchRecommandItem from "../ui/SearchRecommandItem";
 
 export default function SearchRecommandList() {
   return (

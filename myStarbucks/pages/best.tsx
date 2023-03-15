@@ -1,17 +1,30 @@
-import MainHeaderBottom from "@/components/layouts/MainHeaderBottom";
-import MainHeaderTop from "@/components/layouts/MainHeaderTop";
-import ProductContainer from "@/components/layouts/ProductContainer";
-import SubHeader from "@/components/layouts/SubHeader";
+import ProductContainerGrid from "@/components/layouts/ProductContainerGrid";
+import { productType } from "@/types/types";
+import axios from "axios";
+import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
 
-export default function category() {
+export default function best() {
+  const [itemList, setItemList] = useState<productType[]>([]);
+  const { query } = useRouter();
+
+  console.log(query.category)
+
+  useEffect(() => {
+    const getData = async () => {
+      console.log(query)
+      const result = await axios.get(`http://backend.grapefruit-honey-black-tea.shop/api/product/search-category?search=${query.category}`)
+      setItemList(result.data);
+    };
+    getData();
+
+  }, [query])
+  
   return (
-    <div className="container">
-      <head>
-        <MainHeaderTop />
-        <MainHeaderBottom />
-        <SubHeader location="best" />
-      </head>
-      <ProductContainer sectionId={category} containerType="grid" headerName={undefined} />
+    <div className="first-section-sub-one">
+      <ProductContainerGrid 
+        itemList={itemList}
+      />
     </div>
   );
 }

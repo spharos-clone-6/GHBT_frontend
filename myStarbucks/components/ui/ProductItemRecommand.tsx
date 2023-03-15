@@ -1,17 +1,26 @@
+import { productType } from '@/types/types'
 import React from 'react'
 
-export default function ProductItemRecommand({item}) {
+type Item = {
+  item: productType;
+}
+
+const ProductContainerRecommand = ({ item }:Item) => {
   return (
+    
     <div className="recommand-product-item">
         <div className="recommand-product-item__img">
           <img
-            src={item.imgSrc}
-            alt={item.title}
+            src={item.thumbnailUrl}
+            alt={item.name}
           />
         </div>
         <div className="recommand-product-item__info">
-          <p className="item-new">New</p>
-          <p className="item-title">{item.title}</p>
+          <div className='product-label'>
+            <p className={item.isBest === true ? "item-best" : "item-best hide"}>Best</p>
+            <p className={item.isNew === true ? "item-new" : "item-new hide"}>New</p>
+          </div>
+          <p className="item-title">{item.name}</p>
           <p className="item-price">
             <span>{item.price.toLocaleString('ko-KR')}</span>원
           </p>
@@ -19,3 +28,6 @@ export default function ProductItemRecommand({item}) {
       </div>
   )
 }
+
+
+export default ProductContainerRecommand

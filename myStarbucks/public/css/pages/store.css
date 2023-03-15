@@ -1,24 +1,23 @@
-
 #store-head .store-header-top {
   padding: 3px 1rem;
   box-shadow: 0px 2px 2px rgb(228, 228, 228);
 }
 
 #store-head .store-header-top .menu-icon {
-  width:30%;
+  width: 30%;
 }
 
 #store-head .store-header-top h1 {
   font-size: 0.9rem;
-  margin:0 auto;
+  margin: 0 auto;
 }
 
-#store-head .store-header-top h1 a:link{
+#store-head .store-header-top h1 a:link {
   text-decoration: none;
   color: black;
 }
 
-#store-head .store-header-top h1 a:visited{
+#store-head .store-header-top h1 a:visited {
   color: black;
 }
 
@@ -40,7 +39,7 @@
 }
 
 #store-head .header-sub nav ul li {
-  padding: 20px 10px 20px 0px;
+  padding: 20px 10px 20px 10px;
   text-align: center;
 }
 
@@ -71,13 +70,13 @@
 
 .products-order {
   display: flex;
-  margin: 10px;
+  margin: 10px 20px;
   text-align: right;
   justify-content: right;
   align-items: center;
 }
 
-.products-order img{
+.products-order img {
   width: 10px;
   height: 10px;
   padding: 5px;

@@ -19,7 +19,7 @@ a {
 }
 
 .hide {
-  opacity: 0;
+  display: none !important;
 }
 
 .first-section {
@@ -52,4 +52,17 @@ a {
 
 .padding-top-zero {
   padding-top: 0 !important;
+}
+
+.arrow {
+  opacity: 0.3;
+}
+
+.select-toggle {
+  font-size: 0.5rem;
+  font-weight: bold;
+  padding: 10px 0px;
+  border: none;
+  width: 18%;
+  opacity: 70%;
 }

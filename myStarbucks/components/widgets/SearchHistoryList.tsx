@@ -1,7 +1,7 @@
 import React from "react";
 import SearchHistoryItem from "../ui/SearchHistoryItem";
 
-export default function SearrouchHistoryList() {
+export default function SearchHistoryList() {
   return (
     <div className="search-latest">
       <div className="search-latest-title">

@@ -1,6 +1,6 @@
-import React from 'react'
+import React from "react";
 
-export default function product_detail() {
+export default function productDetail() {
   return (
     <>
       <header>
@@ -123,6 +123,5 @@ export default function product_detail() {
         <button>구매하기</button>
       </section>
     </>
-
-  )
+  );
 }
