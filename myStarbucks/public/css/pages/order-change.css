@@ -11,16 +11,16 @@
   background-color: var(--color-white);
 }
 
-#item-change img{
+#item-change img {
   width: 30%;
   border-radius: 10%;
 }
 
-#item-change div{
+#item-change div {
   padding: 0px 20px;
 }
 
-#item-change p{
+#item-change p {
   font-weight: bold;
   margin: 0px 0px 10px 0px;
   font-size: 0.9rem;
@@ -32,48 +32,55 @@
   padding: 20px 30px 10px 30px;
 }
 
-#change-quantity p{
+#change-quantity p {
   padding: 10px;
   margin: 0;
 }
 
-#change-quantity > div{
+#change-quantity .quantity button {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  height: 15px;
+}
+
+#change-quantity > div {
   background-color: var(--color-gray-background);
 }
 
-#change-quantity .change{
+#change-quantity .change {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-#change-quantity .change p{
+#change-quantity .change p {
   font-weight: bold;
 }
 
-#change-quantity .change img{
+#change-quantity .change img {
   width: 15px;
 }
 
-#change-quantity .change .quantity{
+#change-quantity .change .quantity {
   display: flex;
   justify-content: space-around;
   align-items: center;
   width: 90px;
 }
 
-.submit-container .submit-box .change-final{
+.submit-container .submit-box .change-final {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.submit-container .submit-box .change-final p{
+.submit-container .submit-box .change-final p {
   font-size: 18px;
   font-weight: 700;
   margin: 15px 15px;
 }
 
-.submit-container .submit-box .change-final p span{
+.submit-container .submit-box .change-final p span {
   font-size: 25px;
 }
