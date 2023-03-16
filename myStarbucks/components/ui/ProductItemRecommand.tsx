@@ -1,6 +1,7 @@
 import { productType } from '@/types/types'
 import Link from 'next/link';
 import React from 'react'
+import Price from './Price';
 import ProductLabel from './ProductLabel';
 
 type Item = {
@@ -24,7 +25,7 @@ const ProductContainerRecommand = ({ item }: Item) => {
           />
           <p className="item-title">{item.name}</p>
           <p className="item-price">
-            <span>{item.price.toLocaleString('ko-KR')}</span>원
+            <Price price={item.price} />
           </p>
         </div>
       </div>

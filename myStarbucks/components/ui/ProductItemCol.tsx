@@ -2,6 +2,7 @@ import { productType } from "@/types/types";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
+import Price from "./Price";
 import ProductLabel from "./ProductLabel";
 
 export default function ProductItemCol(props: {
@@ -27,7 +28,7 @@ export default function ProductItemCol(props: {
           />
           <p className="product-item-name">{item.name}</p>
           <p className="product-item-price">
-            {props.item.price.toLocaleString("ko-KR")}원
+            <Price price={item.price} />
           </p>
         </div>
       </div>

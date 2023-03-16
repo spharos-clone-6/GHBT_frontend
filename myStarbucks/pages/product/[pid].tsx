@@ -61,17 +61,19 @@ export default function productDetail() {
           <div className="description">
             {product?.description}
           </div>
-          <Price price={product.price} />
+          <div className="price">
+            <Price price={product.price} />
+          </div>
         </div>
       </section>
-      <Detail 
-       pid = {query.pid}
+      <Detail
+        pid={query.pid}
       />
       <ProductContainerRecommand
-        headerName={"체리블라썸 상품"} itemList={[]}      
+        headerName={"체리블라썸 상품"} itemList={[]}
       />
       <ProductContainerRecommand
-        headerName={"다른 고객이 함께 본 상품"} itemList={[]}      
+        headerName={"다른 고객이 함께 본 상품"} itemList={[]}
       />
       <InfoList />
       <SubmitButton
