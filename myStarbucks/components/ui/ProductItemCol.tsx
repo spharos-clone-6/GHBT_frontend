@@ -20,7 +20,7 @@ export default function ProductItemCol(props: {
             <p>{idx + 1}</p>
           </div>
         )}
-        <img src={item.thumbnailUrl} className="thumbnail" />
+        <img src={`https://storage.googleapis.com/ghbt/thumbnail_image/${item.thumbnailUrl}`} className="thumbnail" />
         <div className="product-item-info">
           <ProductLabel
             isBest = {item.isBest}
