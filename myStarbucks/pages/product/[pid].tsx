@@ -1,7 +1,8 @@
 import ProductContainerRecommand from "@/components/layouts/ProductContainerRecommand";
+import BottomFixedContainer from "@/components/ui/BottomFixedContainer";
+import Button from "@/components/ui/Button";
 import Price from "@/components/ui/Price";
 import ProductLabel from "@/components/ui/ProductLabel";
-import SubmitButton from "@/components/ui/SubmitButton";
 import Detail from "@/components/widgets/Detail";
 import InfoList from "@/components/widgets/InfoList";
 import { productType } from "@/types/types";
@@ -76,10 +77,9 @@ export default function productDetail() {
         headerName={"다른 고객이 함께 본 상품"} itemList={[]}
       />
       <InfoList />
-      <SubmitButton
-        btnName="구매하기"
-        btnEvent={test}
-      />
+      <BottomFixedContainer>
+        <Button btnType="button" btnEvent={test}>구매하기</Button>
+      </BottomFixedContainer>
     </>
   );
 }
