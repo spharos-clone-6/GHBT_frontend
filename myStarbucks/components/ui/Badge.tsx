@@ -25,3 +25,16 @@ export default function Badge() {
     <p css={badge}>{cartCnt}</p>
   )
 }
+
+/**
+ * 값 바꿀 페이지에서
+ * const [cart, setCart] = useRecoilState<number>(cartState)
+ * cart -> 배지에 보일 숫자, setCart -> 숫자 조정하는거
+ * <button onClick={()=>setCart(cart+1)}> 이런 형식으로 적용
+ * 
+ * 값을 읽어 오기만 할 때는 useRecoilState 대신 useRecoilValue 사용
+ * 값을 바꾸기만 할 때는 useSetRecoilState 사용
+ * 
+ * setCart = useStateRecoilState<number>(cartState); 요렇게 쓰면 됨
+ * 
+ */
