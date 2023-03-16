@@ -9,6 +9,7 @@ export interface ChildProps {
 
 export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
   const router = useRouter();
+  console.log(router.pathname);
 
   const handleOpenLogin = () => {
     setIsView(true);
@@ -25,7 +26,7 @@ export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
   return (
     <div className="header-top">
       <div className="menu-icon">
-        {router.pathname === "/store" || router.pathname.includes('/product') ? (
+        {router.pathname === "/store" || router.pathname.includes('/product') || router.pathname === "/cart" ? (
           <img onClick={handleBack} src="/images/icons/left.png" alt="" />
         ) : (
           <Link href="/contents/contents">
@@ -44,7 +45,7 @@ export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
             </Link>
           </li>
           <li>
-            <Link href="/cart/cart">
+            <Link href="/cart">
               <img src="/images/icons/shopping-cart.svg" />
             </Link>
           </li>
