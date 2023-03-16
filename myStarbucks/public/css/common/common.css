@@ -68,23 +68,3 @@ a {
   width: 18%;
   opacity: 70%;
 }
-
-.menu a {
-  text-decoration: none;
-  color: var(--color-soft-black);
-  letter-spacing: 0.7px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.menu {
-  padding: 10px;
-  display: block;
-}
-
-.menu a p {
-  display: inline;
-  font-size: 0.95rem;
-  margin: 2px;
-}

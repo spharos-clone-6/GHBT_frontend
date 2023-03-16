@@ -135,46 +135,11 @@
   font-weight: 700;
 }
 
-
-
-/* 하단 고정 구매하기 버튼 -> 나중에 코드 수정 필요함*/
-#purchase-button {
-  background-color: var(--color-white);
-  height: 90px;
-  position: fixed;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  bottom: 0;
-  z-index: 100;
-}
-
-#purchase-button button{
-  width: 80%;
-  margin: 20px auto;
-  display: block;
-}
-
-#purchase-button .toggle-icon{
+.toggle-icon{
   background-color: var(--color-gray-text);
   width: 40px;
   height: 5px;
   margin: 15px auto;
-}
-
-.info-list {
-  padding-left: 20px;
-  margin-bottom: 70px;
-}
-
-.info-list .menu a p {
-  font-weight: bold;
-  font-size: 1.2rem;
-}
-
-.info-list hr {
-  opacity: 0.5;
-  margin: 0;
 }
 
 .submit-detail {
