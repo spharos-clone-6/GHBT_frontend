@@ -1,6 +1,8 @@
 import ProductContainerRecommand from "@/components/layouts/ProductContainerRecommand";
+import Price from "@/components/ui/Price";
 import ProductLabel from "@/components/ui/ProductLabel";
 import SubmitButton from "@/components/ui/SubmitButton";
+import Detail from "@/components/widgets/Detail";
 import InfoList from "@/components/widgets/InfoList";
 import { productType } from "@/types/types";
 import axios from "axios";
@@ -47,8 +49,8 @@ export default function productDetail() {
             <div className="product-name">
               <p>{product?.name}</p>
               <ProductLabel
-                isBest={true}
-                isNew={true}
+                isBest={product?.isBest}
+                isNew={product?.isNew}
               />
             </div>
             <div className="share-icon">
@@ -59,16 +61,12 @@ export default function productDetail() {
           <div className="description">
             {product?.description}
           </div>
-          <div className="price">
-            <span>{product?.price.toLocaleString('ko-KR')}</span>원
-          </div>
+          <Price price={product.price} />
         </div>
       </section>
-      <section id="product-detail">
-        <p>상품 정보</p>
-        <img src="/images/products/product-detail.png" alt={product?.description} />
-        {/*JS "상품정보 더보기" 버튼 추가 필요*/}
-      </section>
+      <Detail 
+       pid = {query.pid}
+      />
       <ProductContainerRecommand
         headerName={"체리블라썸 상품"} itemList={[]}      
       />
