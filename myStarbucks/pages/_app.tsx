@@ -9,11 +9,13 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <>
-    {pathname === "/search" ? <Component {...pageProps} />
-    :
-    <PrimaryLayout>
-      <Component {...pageProps} />
-    </PrimaryLayout>}
+      <RecoilRoot>
+        {pathname === "/search" ? <Component {...pageProps} />
+          :
+          <PrimaryLayout>
+            <Component {...pageProps} />
+          </PrimaryLayout>}
+      </RecoilRoot>
     </>
 
   );
