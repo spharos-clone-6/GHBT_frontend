@@ -54,37 +54,13 @@
     background-color: var(--color-gray-background);
 }
 
-.management .arrow {
-    height: 1rem;
-}
-
 .management .icon {
     width: 25px;
     margin-right: 10px;
 }
 
-.management a {
-    text-decoration: none;
-    color: var(--color-soft-black);
-    letter-spacing: 0.7px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
 .management a img {
     display: inline;
-}
-
-.management a p {
-    display: inline;
-    font-size: 0.95rem;
-    margin: 2px;
-}
-
-.management .menu {
-    padding: 10px;
-    display: block;
 }
 
 .menu-info {
