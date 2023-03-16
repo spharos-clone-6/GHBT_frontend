@@ -1,6 +1,7 @@
 import React from "react";
 import { Router, useRouter } from "next/router";
 import Link from "next/link";
+import Badge from "../ui/Badge";
 
 export interface ChildProps {
   isView: Boolean;
@@ -45,6 +46,7 @@ export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
             </Link>
           </li>
           <li>
+            <Badge />
             <Link href="/cart">
               <img src="/images/icons/shopping-cart.svg" />
             </Link>
