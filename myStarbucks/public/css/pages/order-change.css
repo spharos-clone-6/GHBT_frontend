@@ -28,8 +28,8 @@
 
 #change-quantity {
   background-color: var(--color-white);
-  margin: 10px 0px 0px 0px;
-  padding: 20px 30px 10px 30px;
+  margin: 0px;
+  padding: 10px;
 }
 
 #change-quantity p {

@@ -8,15 +8,14 @@ export default function App({ Component, pageProps }: AppProps) {
   const { pathname } = useRouter();
 
   return (
-    <>
-      <RecoilRoot>
-        {pathname === "/search" ? <Component {...pageProps} />
-          :
-          <PrimaryLayout>
-            <Component {...pageProps} />
-          </PrimaryLayout>}
-      </RecoilRoot>
-    </>
-
+    <RecoilRoot>
+      {pathname === "/search" ? (
+        <Component {...pageProps} />
+      ) : (
+        <PrimaryLayout>
+          <Component {...pageProps} />
+        </PrimaryLayout>
+      )}
+    </RecoilRoot>
   );
 }

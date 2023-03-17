@@ -57,7 +57,7 @@
 
 #cart-list .select {
   width: 100%;
-  box-shadow: 0px 2px 2px rgb(233, 233, 233);
+  box-shadow: 0px 2px 2px rgb(233, 233, 233, 0.6);
 }
 
 #cart-list .select-items {
@@ -256,4 +256,10 @@
 .submit-container .cart-final span {
   font-weight: 700;
   color: var(--color-light-green);
+}
+
+.cart-delivery {
+  /* background-color: transparent; */
+  text-align: center;
+  margin: 5px 0px 20px 0px;
 }
