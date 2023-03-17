@@ -3,6 +3,10 @@ import { cartItem } from "@/types/types";
 import ItemAmount from "./ItemAmount";
 
 export default function CartItem(props: { item: cartItem }) {
+  const [checked, setCheked] = useState();
+
+  const;
+
   return (
     <div className="cart-product">
       <input type="checkbox" />

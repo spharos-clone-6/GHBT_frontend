@@ -15,17 +15,6 @@ export default function cart() {
     setCartList(DUMMY_ITEM_LIST);
   }, [cartList]);
 
-  const checkAllHandler = (
-    value: boolean | ((prevState: boolean) => boolean)
-  ) => {
-    setCartList((prevState) => {
-      return prevState.map((obj) => {
-        return { ...obj, isChecked: value };
-      });
-    });
-    setCheckedAll(value);
-  };
-
   return (
     <>
       <div className="cart-container">

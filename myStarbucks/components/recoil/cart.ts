@@ -6,7 +6,7 @@ export const itemList = atom<cartList>({
   default: [],
 });
 
-export const checkAll = atom({
+export const checkAll = atom<boolean>({
   key: "checkAll",
   default: false,
 });
