@@ -39,9 +39,13 @@ export interface eventType {
   descriptionUrl: string;
 }
 
+// 장바구니 개별 상품
 export interface cartItem {
   id: number;
   name: string;
   price: number;
   amount: number;
 }
+
+// cartItem을 객체로 갖는 배열의 인터페이스 선언
+export interface cartList extends Array<cartItem> {}

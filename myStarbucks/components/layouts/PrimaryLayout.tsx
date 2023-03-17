@@ -7,7 +7,6 @@ import LoginModal from "../modals/LoginModal";
 
 import { RecoilRoot, useRecoilValue } from "recoil";
 import { loginModalState } from "@/state/loginModalState";
-import SearchModal from "@/components/modals/SearchModal";
 import SearchResultInfo from "../widgets/SearchResultInfo";
 
 export default function PrimaryLayout(props: { children: React.ReactNode }) {
@@ -23,7 +22,11 @@ export default function PrimaryLayout(props: { children: React.ReactNode }) {
       <div className="container">
         <header>
           <MainHeaderTop isView={isView} setIsView={setIsView} />
-          {pathname === "/cart" ? "" : <MainHeaderBottom />}
+          {pathname === "/cart" || pathname === "/search_result" ? (
+            ""
+          ) : (
+            <MainHeaderBottom />
+          )}
           {pathname === "/search_result" ? (
             <SearchResultInfo keyword={keyword} />
           ) : (
