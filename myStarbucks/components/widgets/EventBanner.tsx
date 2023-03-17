@@ -55,8 +55,9 @@ export default function EventBanner() {
           {
             eventList && eventList.map((e: eventType) => (
               <LinkImage
-                route={`/event?category=${e.name}`}
-                imageSrc={e.thumbnailUrl}
+                key={e.id}
+                route={`/event?category=${e.tag}`}
+                imageSrc={`https://storage.googleapis.com${e.thumbnailUrl}`}
                 alt={e.description}
               />
             ))
