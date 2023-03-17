@@ -46,7 +46,7 @@ export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
             </Link>
           </li>
           <li>
-            <Badge />
+            {/* <Badge /> */}
             <Link href="/cart">
               <img src="/images/icons/shopping-cart.svg" />
             </Link>
