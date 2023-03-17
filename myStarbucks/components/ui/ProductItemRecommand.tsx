@@ -1,31 +1,35 @@
 import { productType } from '@/types/types'
+import Link from 'next/link';
 import React from 'react'
+import Price from './Price';
+import ProductLabel from './ProductLabel';
 
 type Item = {
   item: productType;
 }
 
-const ProductContainerRecommand = ({ item }:Item) => {
+const ProductContainerRecommand = ({ item }: Item) => {
   return (
-    
-    <div className="recommand-product-item">
+    <Link href={`/product/${item.id}`}>
+      <div className="recommand-product-item">
         <div className="recommand-product-item__img">
           <img
-            src={item.thumbnailUrl}
+            src={`https://storage.googleapis.com/ghbt/thumbnail_image/${item.thumbnailUrl}`}
             alt={item.name}
           />
         </div>
         <div className="recommand-product-item__info">
-          <div className='product-label'>
-            <p className={item.isBest === true ? "item-best" : "item-best hide"}>Best</p>
-            <p className={item.isNew === true ? "item-new" : "item-new hide"}>New</p>
-          </div>
+          <ProductLabel
+            isBest = {item.isBest}
+            isNew = {item.isNew}
+          />
           <p className="item-title">{item.name}</p>
           <p className="item-price">
-            <span>{item.price.toLocaleString('ko-KR')}</span>원
+            <Price price={item.price} />
           </p>
         </div>
       </div>
+    </Link>
   )
 }
 

@@ -44,6 +44,7 @@ export default function SubHeader() {
         <ul>
           {categoryList && categoryList.map((category: categoryType) => (
             <li
+              key={category.id}
               className={query.category === category.name ? "active" : ""}
               onClick={() => handlePushLink(category.name)}
             >
