@@ -14,7 +14,7 @@ export default function CartControlBar(handler: any) {
           id="checkAll"
           type="checkbox"
           checked={checkedAll}
-          onChange={checkAllHandler}
+          // onChange={checkAllHandler}
         />
         <span>전체 선택</span>
       </div>

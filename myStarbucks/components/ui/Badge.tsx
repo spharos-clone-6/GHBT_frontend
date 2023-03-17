@@ -1,11 +1,12 @@
 /** @jsxImportSource @emotion/react */
-import { cartState } from '@/state/cartState';
-import { css } from '@emotion/react';
-import React from 'react'
-import { useRecoilValue } from 'recoil';
+import { css } from "@emotion/react";
+import React from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { itemList } from "../recoil/cart";
+import { cartList } from "@/types/types";
 
 export default function Badge() {
-  const cartCnt = useRecoilValue(cartState);
+  const cartList = useRecoilValue<cartList>(itemList);
   const badge = css`
     position: absolute;
     right: 38px;
@@ -19,11 +20,9 @@ export default function Badge() {
     height: 1rem;
     margin: 0;
     z-index: 100;
-  `
+  `;
 
-  return (
-    <p css={badge}>{cartCnt}</p>
-  )
+  return <p css={badge}>{cartList.length}</p>;
 }
 
 /**
@@ -31,10 +30,10 @@ export default function Badge() {
  * const [cart, setCart] = useRecoilState<number>(cartState)
  * cart -> 배지에 보일 숫자, setCart -> 숫자 조정하는거
  * <button onClick={()=>setCart(cart+1)}> 이런 형식으로 적용
- * 
+ *
  * 값을 읽어 오기만 할 때는 useRecoilState 대신 useRecoilValue 사용
  * 값을 바꾸기만 할 때는 useSetRecoilState 사용
- * 
+ *
  * setCart = useStateRecoilState<number>(cartState); 요렇게 쓰면 됨
- * 
+ *
  */
