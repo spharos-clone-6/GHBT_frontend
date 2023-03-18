@@ -5,7 +5,6 @@ import ItemAmount from "./ItemAmount";
 export default function CartItem(props: { item: cartItem }) {
   const [checked, setCheked] = useState();
 
-  const;
 
   return (
     <div className="cart-product">
