@@ -93,6 +93,7 @@
   padding: 0px;
   margin: 0px 10px;
   justify-content: space-between;
+  align-items: flex-start;
 }
 
 .cart-product .item-info .name {
@@ -106,7 +107,7 @@
 }
 
 .cart-product .close-icon {
-  width: 10px;
+  width: 3%;
   padding: 0px 0px 0px 70px;
 }
 

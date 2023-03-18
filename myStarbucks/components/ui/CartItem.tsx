@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import { cartItem } from "@/types/types";
 import ItemAmount from "./ItemAmount";
+import OrderChangeModal from "../modals/OrderChangeModal";
 
 export default function CartItem(props: { item: cartItem }) {
   const [checked, setCheked] = useState();
+  const [modalOpen, setModalOpen] = useState(false);
 
+  const showModal = () => {
+    setModalOpen(true);
+  };
 
   return (
     <div className="cart-product">
@@ -16,13 +21,18 @@ export default function CartItem(props: { item: cartItem }) {
             <p className="name">{props.item.name}</p>
             <p className="price">{props.item.price.toLocaleString("en")}원</p>
           </div>
-          <a href="">
-            <img src="/images/icons/close.png" alt="" className="close-icon" />
-          </a>
+          <img src="/images/icons/close.png" alt="" className="close-icon" />
         </div>
-        <ItemAmount price={props.item.price} />
+        <div className="count">
+          <p>수량: 1개</p>
+        </div>
+        <div className="item-price">
+          <p>주문 금액</p>
+          <p>33,000원</p>
+        </div>
         <div className="item-purchase">
-          <a href="">주문 수정</a>
+          <button onClick={showModal}>주문 수정</button>
+          {modalOpen && <OrderChangeModal setModalOpen={setModalOpen} />}
           <a href="">바로 구매</a>
         </div>
       </div>

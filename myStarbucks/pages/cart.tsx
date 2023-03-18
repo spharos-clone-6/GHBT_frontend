@@ -2,9 +2,9 @@ import CartItemList from "@/components/layouts/CartItemList";
 import { checkAll, itemList } from "@/components/recoil/cart";
 import CartControlBar from "@/components/widgets/CartControlBar";
 import { DUMMY_ITEM_LIST } from "@/data/StaticData";
-import { IcartList } from "@/types/types";
+import { cartItem, IcartList } from "@/types/types";
 import React, { useEffect, useState } from "react";
-import { RecoilRoot, useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import CartEmpty from "./cartEmpty";
 
 export default function cart() {
@@ -23,25 +23,11 @@ export default function cart() {
             <p className="title">장바구니</p>
             <CartControlBar />
           </section>
-          <section id="cart-list">
-            <div className="select">
-              <div className="select-items">
-                <input type="checkbox" />
-                <span>냉동 상품</span>
-              </div>
-            </div>
 
-            {/* 장바구니 목록 */}
-            <CartItemList cartList={cartList} />
-          </section>
-          <div className="cart-delivery">
-            <p>
-              상품 {cartList.length}건 326,000원 + 배송비 0원 = 총 326,000원
-            </p>
-            <p>무료배송</p>
-            <a href="">더 담으러 가기</a>
-          </div>
-          {/* 상품금액 */}
+          {/* 장바구니 목록 : 일반 / 냉동 구분 필요 */}
+          <CartItemList cartList={cartList} />
+
+          {/* 최종 금액 */}
           <section id="total-cart-price">
             <div>
               <div className="title-total-price">총 주문 금액</div>

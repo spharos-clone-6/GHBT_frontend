@@ -1,7 +1,7 @@
-import { cartList } from "@/types/types";
+import { IcartList } from "@/types/types";
 import { atom } from "recoil";
 
-export const itemList = atom<cartList>({
+export const itemList = atom<IcartList>({
   key: "itemList",
   default: [],
 });

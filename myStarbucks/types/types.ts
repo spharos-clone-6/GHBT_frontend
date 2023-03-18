@@ -44,8 +44,13 @@ export interface cartItem {
   id: number;
   name: string;
   price: number;
-  amount: number;
+  quantity: number;
 }
 
 // cartItem을 객체로 갖는 배열의 인터페이스 선언
 export interface IcartList extends Array<cartItem> {}
+
+export interface modal {
+  modalOpen: boolean;
+  setModalOpen: React.Dispatch<React.SetStateAction<boolean>>; //setIsView의 타입
+}
