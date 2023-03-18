@@ -4,10 +4,10 @@ import { DUMMY_ITEM_LIST } from "@/data/StaticData";
 import { RecoilRoot, RecoilState, useRecoilState } from "recoil";
 import { itemList } from "../recoil/cart";
 import axios from "axios";
-import { cartList } from "@/types/types";
+import { IcartList } from "@/types/types";
 import CartControlBar from "../widgets/CartControlBar";
 
-export default function CartItemList(props: { cartList: cartList }) {
+export default function CartItemList(props: { cartList: IcartList }) {
   // const [cartList, setCartList] = useRecoilState<cartList>(itemList);
   // useEffect(() => {
   //   setCartList(DUMMY_ITEM_LIST);

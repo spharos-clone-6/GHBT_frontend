@@ -37,4 +37,23 @@ export const store_subhead = [
   },
 ];
 
-export const DUMMY_ITEM_LIST = [];
+export const DUMMY_ITEM_LIST = [
+  {
+    id: 1,
+    name: "그린스토리 리사이클드 에코백",
+    price: 13000,
+    amount: 1,
+  },
+  {
+    id: 2,
+    name: "23 체리블라썸 커트러리 세트",
+    price: 12000,
+    amount: 1,
+  },
+  {
+    id: 3,
+    name: "아이콘 임팩트 케이스 iPhone13",
+    price: 55000,
+    amount: 1,
+  },
+];

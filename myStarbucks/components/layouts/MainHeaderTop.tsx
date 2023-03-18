@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Router, useRouter } from "next/router";
 import Link from "next/link";
 import Badge from "../ui/Badge";
+import { DUMMY_ITEM_LIST } from "@/data/StaticData";
+import { useRecoilState } from "recoil";
+import { itemList } from "../recoil/cart";
+import { IcartList } from "@/types/types";
 
 export interface ChildProps {
   isView: Boolean;
@@ -9,6 +13,7 @@ export interface ChildProps {
 }
 
 export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
+  const [cartList, setCartList] = useRecoilState<IcartList>(itemList);
   const router = useRouter();
   console.log(router.pathname);
 
@@ -22,12 +27,18 @@ export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
 
   const handleBack = () => {
     router.back();
-  }
+  };
+
+  useEffect(() => {
+    setCartList(DUMMY_ITEM_LIST);
+  }, [cartList]);
 
   return (
     <div className="header-top">
       <div className="menu-icon">
-        {router.pathname === "/store" || router.pathname.includes('/product') || router.pathname === "/cart" ? (
+        {router.pathname === "/store" ||
+        router.pathname.includes("/product") ||
+        router.pathname === "/cart" ? (
           <img onClick={handleBack} src="/images/icons/left.png" alt="" />
         ) : (
           <Link href="/contents/contents">
@@ -58,4 +69,9 @@ export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
       </nav>
     </div>
   );
+}
+function setCartList(
+  DUMMY_ITEM_LIST: { id: number; name: string; price: number; amount: number }[]
+) {
+  throw new Error("Function not implemented.");
 }

@@ -48,4 +48,4 @@ export interface cartItem {
 }
 
 // cartItem을 객체로 갖는 배열의 인터페이스 선언
-export interface cartList extends Array<cartItem> {}
+export interface IcartList extends Array<cartItem> {}

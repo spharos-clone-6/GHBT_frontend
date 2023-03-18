@@ -2,19 +2,16 @@ import CartItemList from "@/components/layouts/CartItemList";
 import { checkAll, itemList } from "@/components/recoil/cart";
 import CartControlBar from "@/components/widgets/CartControlBar";
 import { DUMMY_ITEM_LIST } from "@/data/StaticData";
-import { cartList } from "@/types/types";
+import { IcartList } from "@/types/types";
 import React, { useEffect, useState } from "react";
 import { RecoilRoot, useRecoilState } from "recoil";
 import CartEmpty from "./cartEmpty";
 
 export default function cart() {
-  const [cartList, setCartList] = useRecoilState<cartList>(itemList);
+  const [cartList, setCartList] = useRecoilState<IcartList>(itemList);
   const [checkedAll, setCheckedAll] = useRecoilState(checkAll);
 
   // 비동기 -> 동기 처리 : 장바구니 목록 불러오기 - api연동 필요함
-  useEffect(() => {
-    setCartList(DUMMY_ITEM_LIST);
-  }, [cartList]);
 
   return (
     <>
