@@ -46,6 +46,7 @@ export interface cartItem {
   price: number;
   quantity: number;
   img: string;
+  isChecked?: boolean;
 }
 
 // cartItem을 객체로 갖는 배열의 인터페이스 선언

@@ -3,7 +3,10 @@ import { cartItem } from "@/types/types";
 import ItemAmount from "./ItemAmount";
 import OrderChangeModal from "../modals/OrderChangeModal";
 
-export default function CartItem(props: { item: cartItem }) {
+export default function CartItem(props: {
+  item: cartItem;
+  isChecked: boolean;
+}) {
   const [checked, setCheked] = useState();
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -13,7 +16,10 @@ export default function CartItem(props: { item: cartItem }) {
 
   return (
     <div className="cart-product">
-      <input type="checkbox" />
+      <input
+        type="checkbox"
+        checked={props.isChecked === true ? true : undefined}
+      />
       <div>
         <div className="item-info">
           <img src={props.item.img} alt="" className="product-img" />

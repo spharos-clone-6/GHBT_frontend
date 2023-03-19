@@ -50,7 +50,7 @@ export default function OrderChangeModal({ setModalOpen, item }: orderChange) {
         <BottomFixedContainer>
           <p>주문금액</p>
           <p className="price">
-            합계 <span>19,900원</span>
+            합계 <span>00원</span>
           </p>
           <Button btnType="button" btnEvent={closeModal}>
             확인

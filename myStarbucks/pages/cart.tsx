@@ -9,10 +9,8 @@ import CartEmpty from "../components/widgets/CartEmpty";
 
 export default function cart() {
   const [cartList, setCartList] = useRecoilState<IcartList>(itemList);
-  const [checkedAll, setCheckedAll] = useRecoilState(checkAll);
 
   // 비동기 -> 동기 처리 : 장바구니 목록 불러오기 - api연동 필요함
-
   useEffect(() => {
     setCartList(DUMMY_ITEM_LIST);
   }, [cartList]);
@@ -23,6 +21,7 @@ export default function cart() {
   const generalItemList = cartList.filter(
     (item) => !item.name.includes("케이크")
   );
+
   console.log("frozen item : ", frozenItemList);
   console.log("general item : ", generalItemList);
 
@@ -37,8 +36,8 @@ export default function cart() {
             <CartControlBar />
           </section>
 
-          <CartItemList cartList={generalItemList} title={"일반상품"} />
-          <CartItemList cartList={frozenItemList} title={"냉동상품"} />
+          <CartItemList filteredCartList={generalItemList} title={"일반상품"} />
+          <CartItemList filteredCartList={frozenItemList} title={"냉동상품"} />
 
           {/* 최종 금액 */}
           <section id="total-cart-price">

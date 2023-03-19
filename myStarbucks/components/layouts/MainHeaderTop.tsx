@@ -15,7 +15,7 @@ export interface ChildProps {
 export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
   const [cartList, setCartList] = useRecoilState<IcartList>(itemList);
   const router = useRouter();
-  console.log(router.pathname);
+  // console.log(router.pathname);
 
   const handleOpenLogin = () => {
     setIsView(true);
@@ -28,6 +28,10 @@ export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
   const handleBack = () => {
     router.back();
   };
+
+  useEffect(() => {
+    setCartList(DUMMY_ITEM_LIST);
+  }, []);
 
   return (
     <div className="header-top">
