@@ -5,7 +5,7 @@ import { DUMMY_ITEM_LIST } from "@/data/StaticData";
 import { cartItem, IcartList } from "@/types/types";
 import React, { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import CartEmpty from "./cartEmpty";
+import CartEmpty from "../components/widgets/CartEmpty";
 
 export default function cart() {
   const [cartList, setCartList] = useRecoilState<IcartList>(itemList);

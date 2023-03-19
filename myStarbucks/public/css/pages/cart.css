@@ -138,28 +138,17 @@
   margin: 0px 12px;
   height: 25px;
   justify-content: space-around;
-  border: 1px solid rgba(128, 128, 128, 0.381);
 }
 
-#cart-list .item-purchase a {
+#cart-list .item-purchase button {
   flex-grow: 1;
   height: 25px;
   line-height: 25px;
   text-align: center;
-}
-
-#cart-list .item-purchase :nth-child(1) {
-  border-right: 1px solid rgba(128, 128, 128, 0.381);
-}
-
-#cart-list .item-purchase a:link {
+  border: 1px solid rgba(128, 128, 128, 0.381);
+  background-color: transparent;
   color: var(--color-gray-text);
-  text-decoration: none;
-}
-
-#cart-list .item-purchase a:visited {
-  color: var(--color-gray-text);
-  text-decoration: none;
+  font-size: 0.7rem;
 }
 
 #total-cart-price {

@@ -1,12 +1,20 @@
 import { modal } from "@/types/types";
 import React from "react";
+import BottomFixedContainer from "../ui/BottomFixedContainer";
+import Button from "../ui/Button";
+import ItemAmount from "../ui/ItemAmount";
+import ModalHeader from "../ui/ModalHeader";
+import { cartItem } from "@/types/types";
 
-export default function OrderChangeModal(props: {
+interface orderChange {
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
+  item: cartItem;
+}
+
+export default function OrderChangeModal({ setModalOpen, item }: orderChange) {
   const modalStyle: Object = {
     position: "fixed",
-    backgroundColor: "white",
+    backgroundColor: "var(--color-white)",
     top: "0",
     left: "0",
     zIndex: 999,
@@ -15,62 +23,43 @@ export default function OrderChangeModal(props: {
   };
 
   const closeModal = () => {
-    props.setModalOpen(false);
+    setModalOpen(false);
   };
 
   return (
-    <div style={modalStyle}>
-      <header id="store-head">
-        <div className="store-header-top header-top">
-          <div className="menu-icon"></div>
-          <h1>
-            <a href="">주문 수정</a>
-          </h1>
-          <nav>
-            <ul>
-              <li>
-                <img src="assets/images/icons/close.png" />
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </header>
-      <section id="item-change">
-        <img src="./assets/images/event/cake/02.jpg" alt="" />
-        <div>
-          <p>부드러운 티라미수 롤케이크</p>
-          <p>19,900원</p>
-        </div>
-      </section>
-      <section id="change-quantity">
-        <div>
-          <p>상품 주문 수량</p>
-          <div className="change">
-            <div className="quantity">
-              <img src="./assets/images/icons/minus.png" alt="" />
-              <div>1</div>
-              <img src="./assets/images/icons/add.png" alt="" />
+    <>
+      <div style={modalStyle}>
+        <ModalHeader setModalOpen={setModalOpen} />
+        <div className="cart-product">
+          <div className="item-info">
+            <img
+              src="/images/products/cake.jpg"
+              alt=""
+              className="product-img"
+            />
+            <div>
+              <p className="name">{item.name}</p>
+              <p className="price">{item.price.toLocaleString("en")}원</p>
             </div>
-            <p>19,900원</p>
+            <img
+              src="/images/icons/close.png"
+              alt=""
+              className="close-icon"
+              width={"0"}
+            />
           </div>
         </div>
-      </section>
-      <section className="submit-container">
-        {" "}
-        {/*class="submit-container"*/}
-        <div className="submit-box">
-          <div className="change-final">
-            <p>주문금액</p>
-            <p className="price">
-              합계 <span>19,900원</span>
-            </p>
-          </div>
-          <div className="buttons">
-            <button onClick={closeModal}>취소</button>
-            <button>확인</button>
-          </div>
-        </div>
-      </section>
-    </div>
+        <ItemAmount price={item.price} />
+        <BottomFixedContainer>
+          <p>주문금액</p>
+          <p className="price">
+            합계 <span>19,900원</span>
+          </p>
+          <Button btnType="button" btnEvent={closeModal}>
+            확인
+          </Button>
+        </BottomFixedContainer>
+      </div>
+    </>
   );
 }

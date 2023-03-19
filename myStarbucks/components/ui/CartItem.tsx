@@ -32,8 +32,10 @@ export default function CartItem(props: { item: cartItem }) {
         </div>
         <div className="item-purchase">
           <button onClick={showModal}>주문 수정</button>
-          {modalOpen && <OrderChangeModal setModalOpen={setModalOpen} />}
-          <a href="">바로 구매</a>
+          {modalOpen && (
+            <OrderChangeModal setModalOpen={setModalOpen} item={props.item} />
+          )}
+          <button>바로 구매</button>
         </div>
       </div>
     </div>
