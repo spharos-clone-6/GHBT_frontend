@@ -24,7 +24,7 @@ export default function ModalHeader(props: {
   return (
     <div css={header}>
       <div> </div>
-      <h1 css={item}>주문 수정</h1>
+      <h2 css={item}>주문 수정</h2>
       <img
         src="/images/icons/close.png"
         style={{ width: "15px" }}

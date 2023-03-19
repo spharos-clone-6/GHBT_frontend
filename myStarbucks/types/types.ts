@@ -45,6 +45,7 @@ export interface cartItem {
   name: string;
   price: number;
   quantity: number;
+  img: string;
 }
 
 // cartItem을 객체로 갖는 배열의 인터페이스 선언

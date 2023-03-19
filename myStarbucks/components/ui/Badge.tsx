@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import { cartItem } from "@/types/types";
+import { cartItem, IcartList } from "@/types/types";
 import { css } from "@emotion/react";
 import { useRecoilValue } from "recoil";
 import { itemList } from "../recoil/cart";
 
 export default function Badge() {
-  const cartList = useRecoilValue<Array<cartItem>>(itemList);
+  const cartList = useRecoilValue<IcartList>(itemList);
   const badge = css`
     position: absolute;
     right: 38px;

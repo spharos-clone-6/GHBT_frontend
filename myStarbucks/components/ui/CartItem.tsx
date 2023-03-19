@@ -16,19 +16,21 @@ export default function CartItem(props: { item: cartItem }) {
       <input type="checkbox" />
       <div>
         <div className="item-info">
-          <img src="/images/products/cake.jpg" alt="" className="product-img" />
-          <div>
-            <p className="name">{props.item.name}</p>
-            <p className="price">{props.item.price.toLocaleString("en")}원</p>
+          <img src={props.item.img} alt="" className="product-img" />
+          <div className="info">
+            <div>
+              <p className="name">{props.item.name}</p>
+              <p className="price">{props.item.price.toLocaleString("en")}원</p>
+            </div>
+            <img src="/images/icons/close.png" alt="" className="close-icon" />
           </div>
-          <img src="/images/icons/close.png" alt="" className="close-icon" />
         </div>
         <div className="count">
           <p>수량: 1개</p>
         </div>
         <div className="item-price">
           <p>주문 금액</p>
-          <p>33,000원</p>
+          <p>{props.item.price.toLocaleString("en")}원</p>
         </div>
         <div className="item-purchase">
           <button onClick={showModal}>주문 수정</button>

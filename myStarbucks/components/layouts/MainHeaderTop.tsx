@@ -29,10 +29,6 @@ export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
     router.back();
   };
 
-  useEffect(() => {
-    setCartList(DUMMY_ITEM_LIST);
-  }, [cartList]);
-
   return (
     <div className="header-top">
       <div className="menu-icon">

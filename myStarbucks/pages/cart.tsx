@@ -13,6 +13,19 @@ export default function cart() {
 
   // 비동기 -> 동기 처리 : 장바구니 목록 불러오기 - api연동 필요함
 
+  useEffect(() => {
+    setCartList(DUMMY_ITEM_LIST);
+  }, [cartList]);
+
+  const frozenItemList = cartList.filter((item) =>
+    item.name.includes("케이크")
+  );
+  const generalItemList = cartList.filter(
+    (item) => !item.name.includes("케이크")
+  );
+  console.log("frozen item : ", frozenItemList);
+  console.log("general item : ", generalItemList);
+
   return (
     <>
       {cartList.length === 0 ? (
@@ -24,8 +37,8 @@ export default function cart() {
             <CartControlBar />
           </section>
 
-          {/* 장바구니 목록 : 일반 / 냉동 구분 필요 */}
-          <CartItemList cartList={cartList} />
+          <CartItemList cartList={generalItemList} title={"일반상품"} />
+          <CartItemList cartList={frozenItemList} title={"냉동상품"} />
 
           {/* 최종 금액 */}
           <section id="total-cart-price">

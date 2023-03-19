@@ -32,21 +32,18 @@ export default function OrderChangeModal({ setModalOpen, item }: orderChange) {
         <ModalHeader setModalOpen={setModalOpen} />
         <div className="cart-product">
           <div className="item-info">
-            <img
-              src="/images/products/cake.jpg"
-              alt=""
-              className="product-img"
-            />
-            <div>
-              <p className="name">{item.name}</p>
-              <p className="price">{item.price.toLocaleString("en")}원</p>
+            <img src={item.img} alt="" className="product-img" />
+            <div className="info">
+              <div>
+                <p className="name">{item.name}</p>
+                <p className="price">{item.price.toLocaleString("en")}원</p>
+              </div>
+              <img
+                src="/images/icons/blank.png"
+                alt=""
+                className="close-icon"
+              />
             </div>
-            <img
-              src="/images/icons/close.png"
-              alt=""
-              className="close-icon"
-              width={"0"}
-            />
           </div>
         </div>
         <ItemAmount price={item.price} />

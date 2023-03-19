@@ -96,6 +96,13 @@
   align-items: flex-start;
 }
 
+.cart-product .item-info .info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0px 0px 0px 15px;
+}
+
 .cart-product .item-info .name {
   margin: 0;
 }
@@ -107,8 +114,7 @@
 }
 
 .cart-product .close-icon {
-  width: 3%;
-  padding: 0px 0px 0px 70px;
+  width: 3.5%;
 }
 
 #cart-list .count {
