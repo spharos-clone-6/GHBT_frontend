@@ -5,6 +5,7 @@ import Price from "@/components/ui/Price";
 import ProductLabel from "@/components/ui/ProductLabel";
 import Detail from "@/components/widgets/Detail";
 import InfoList from "@/components/widgets/InfoList";
+import ProductDetailSubmit from "@/components/widgets/ProductDetailSubmit";
 import { productType } from "@/types/types";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -22,6 +23,7 @@ export default function productDetail() {
 
   const { query } = useRouter();
   const [product, setProduct] = useState<productType>(dummy);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const getData = async () => {
@@ -34,6 +36,11 @@ export default function productDetail() {
 
   const test = () => {
     alert("test");
+  }
+
+  const handleIsOpen = () => {
+    console.log(isOpen);
+    setIsOpen(!isOpen);
   }
 
   return (
@@ -78,7 +85,11 @@ export default function productDetail() {
       />
       <InfoList />
       <BottomFixedContainer>
-        <Button btnType="button" btnEvent={test}>구매하기</Button>
+        <div className="toggle-icon" onClick={handleIsOpen}></div>
+        {
+          !isOpen ? (<Button btnType="button" btnEvent={handleIsOpen}>구매하기</Button>)
+          : <ProductDetailSubmit price={product.price} productName={product.name} handleIsOpen={handleIsOpen}/>
+        }
       </BottomFixedContainer>
     </>
   );
