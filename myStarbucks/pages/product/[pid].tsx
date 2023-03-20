@@ -86,10 +86,8 @@ export default function productDetail() {
       <InfoList />
       <BottomFixedContainer>
         <div className="toggle-icon" onClick={handleIsOpen}></div>
-        {
-          !isOpen ? (<Button btnType="button" btnEvent={handleIsOpen}>구매하기</Button>)
-          : <ProductDetailSubmit price={product.price} productName={product.name} handleIsOpen={handleIsOpen}/>
-        }
+        <div className={isOpen? "": "hide"}><ProductDetailSubmit price={product.price} productName={product.name} handleIsOpen={handleIsOpen}/></div>
+        <div className={isOpen? "hide" : ""}><Button btnType="button" btnEvent={handleIsOpen}>구매하기</Button></div>
       </BottomFixedContainer>
     </>
   );
