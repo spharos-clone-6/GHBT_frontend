@@ -10,11 +10,13 @@ export default function ItemAmount({price, label='상품 주문 수량', setTota
   const [itemCount, setItemCount] = useState(1);
   const [isBtnValid, setIsBtnValid] = useState(false);
 
-  const onClickAddHandler = () => {
+  const onClickAddHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
     setItemCount(itemCount + 1);
   };
 
-  const onClickMinusHandler = () => {
+  const onClickMinusHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
     setItemCount(itemCount - 1);
   };
 
