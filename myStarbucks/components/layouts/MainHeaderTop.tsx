@@ -38,7 +38,7 @@ export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
         router.pathname === "/cart" ? (
           <img onClick={handleBack} src="/images/icons/left.png" alt="" />
         ) : (
-          <Link href="/contents/contents">
+          <Link href="/contents">
             <img src="/images/icons/menu.svg" alt="" />
           </Link>
         )}

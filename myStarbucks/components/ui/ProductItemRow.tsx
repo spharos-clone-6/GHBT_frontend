@@ -13,7 +13,7 @@ export default function ProductItemRow({ item }: Item) {
     <Link href={`/product/${item.id}`}>
       <div className="chunsik-item">
         <img
-          src={`https://storage.googleapis.com/ghbt/thumbnail_image/${item.thumbnailUrl}`}
+          src={`https://storage.googleapis.com/ghbt/product_thumbnail/${item.thumbnailUrl}`}
           alt={item.name}
         />
         <div className="chunsik-item-info">

@@ -14,7 +14,7 @@ const ProductContainerRecommand = ({ item }: Item) => {
       <div className="recommand-product-item">
         <div className="recommand-product-item__img">
           <img
-            src={`https://storage.googleapis.com/ghbt/thumbnail_image/${item.thumbnailUrl}`}
+            src={`https://storage.googleapis.com/ghbt/product_thumbnail/${item.thumbnailUrl}`}
             alt={item.name}
             width='150px'
           />
