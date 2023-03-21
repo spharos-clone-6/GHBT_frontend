@@ -38,10 +38,6 @@ export default function productDetail() {
     getData();
   }, [])
 
-  const changeKey = () => {
-    setRandomKey(Math.random());
-  }
-
   const handleIsOpen = () => {
     console.log(isOpen);
     setRandomKey(Math.random());
