@@ -97,7 +97,7 @@
   font-weight: 700;
 }
 
-#payment details>div>img {
+#payment details > div > img {
   width: 70px;
   height: 70px;
   border-radius: 15%;
@@ -120,28 +120,28 @@
   z-index: -1;
 }
 
-#payment details>summary {
+#payment details > summary {
   list-style: none;
   font-size: 16px;
   font-weight: 700;
   margin: 0px;
 }
 
-#payment details>summary>div>p {
+#payment details > summary > div > p {
   margin: 20px 0px;
 }
 
-#payment details>summary::-webkit-details-marker {
+#payment details > summary::-webkit-details-marker {
   display: none;
 }
 
-#payment details>summary>div {
+#payment details > summary > div {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-#payment details>summary>div>div>img {
+#payment details > summary > div > div > img {
   width: 20px;
   height: 20px;
 }
@@ -151,6 +151,19 @@
   padding: 0px 14px;
   background-color: var(--color-white);
   border-bottom: 1px solid rgba(128, 128, 128, 0.381);
+}
+
+#coupon details > summary {
+  list-style: none;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0px;
+}
+
+#coupon details > summary > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 #coupon .detail {
@@ -163,18 +176,18 @@
   align-items: center;
 }
 
-#coupon details>div>a>div>img {
+#coupon details > div > a > div > img {
   width: 20px;
   height: 20px;
   padding: 0px 10px;
 }
 
-#coupon details>div>a {
+#coupon details > div > a {
   text-decoration-line: none;
   color: var(--color-black);
 }
 
-#coupon details>div>a>p {
+#coupon details > div > a > p {
   padding: 5px 10px;
 }
 
@@ -185,30 +198,30 @@
   border-bottom: 1px solid rgba(128, 128, 128, 0.381);
 }
 
-#mobile-gift>div {
+#mobile-gift > div {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-#mobile-gift>div>a>div {
+#mobile-gift > div > a > div {
   display: flex;
   align-items: center;
   justify-content: space-around;
 }
 
-#mobile-gift>div>a>div>img{
+#mobile-gift > div > a > div > img {
   width: 20px;
   height: 20px;
   padding: 0px 0px 0px 10px;
 }
 
-#mobile-gift>div>a{
+#mobile-gift > div > a {
   text-decoration-line: none;
   color: var(--color-black);
 }
 
-#mobile-gift>div>p {
+#mobile-gift > div > p {
   font-size: 16px;
   font-weight: 700;
   margin: 20px 0px;
@@ -221,7 +234,7 @@
   border-bottom: 1px solid rgba(128, 128, 128, 0.381);
 }
 
-#pay-method>div>p {
+#pay-method > div > p {
   font-size: 16px;
   font-weight: 700;
   padding: 20px 0px;
@@ -243,7 +256,7 @@
   border-bottom: 1px solid rgba(128, 128, 128, 0.381);
 }
 
-#pay-info>div>p {
+#pay-info > div > p {
   font-size: 16px;
   font-weight: 700;
   padding: 20px 0px 10px 0px;
@@ -260,18 +273,18 @@
   align-items: center;
 }
 
-#pay-info .pay-price p{
+#pay-info .pay-price p {
   margin: 5px 0px;
 }
 
-#pay-info .pay-price .title{
+#pay-info .pay-price .title {
   font-size: 14px;
   font-weight: 700;
 }
 
-#pay-info .pay-price .price{
+#pay-info .pay-price .price {
   font-weight: 700;
-} 
+}
 
 #pay-info .notice {
   width: 100%;
