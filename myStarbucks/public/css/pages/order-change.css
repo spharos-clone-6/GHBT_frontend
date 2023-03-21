@@ -35,6 +35,7 @@
 #change-quantity p {
   padding: 10px;
   margin: 0;
+  text-align: left;
 }
 
 #change-quantity .quantity button {

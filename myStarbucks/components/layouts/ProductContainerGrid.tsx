@@ -1,7 +1,4 @@
 import { productType } from '@/types/types';
-import axios from 'axios';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 import ProductItemCol from '../ui/ProductItemCol'
 
 type Item = {

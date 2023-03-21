@@ -29,6 +29,7 @@ export interface categoryType {
   id: number;
   name: string;
   type?: string;
+  tag?: string;
 }
 
 export interface eventType {
@@ -37,6 +38,7 @@ export interface eventType {
   description: string;
   thumbnailUrl: string;
   descriptionUrl: string;
+  tag: string;
 }
 
 // 장바구니 개별 상품

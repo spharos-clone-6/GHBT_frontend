@@ -15,8 +15,8 @@ export default function SubHeader() {
       const result = await axios.get(`http://backend.grapefruit-honey-black-tea.shop/api/category`)
       result.data && result.data.map((c: categoryType)=> (
         c.type === "대" && (
-          list.push(c)
-        )
+          c.tag = c.name
+        ) && (list.push(c))
       ))
       setCatogoryList(list)
 
@@ -29,7 +29,10 @@ export default function SubHeader() {
     }
   }
 
-  const handlePushLink = (name: string) => {
+  const handlePushLink = (name: string|undefined) => {
+    if(name === undefined) {
+      name = '케이크'
+    }
     router.push(`${pathname}?category=${name}`);
   };
 
@@ -45,8 +48,8 @@ export default function SubHeader() {
           {categoryList && categoryList.map((category: categoryType) => (
             <li
               key={category.id}
-              className={query.category === category.name ? "active" : ""}
-              onClick={() => handlePushLink(category.name)}
+              className={query.category === category.tag ? "active" : ""}
+              onClick={() => handlePushLink(category.tag)}
             >
               {category.name}
             </li>

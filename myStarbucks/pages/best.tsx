@@ -13,8 +13,8 @@ export default function best() {
   useEffect(() => {
     const getData = async () => {
       console.log(query)
-      const result = await axios.get(`http://backend.grapefruit-honey-black-tea.shop/api/product/search-category?search=${query.category}`)
-      setItemList(result.data);
+      const result = await axios.get(`http://backend.grapefruit-honey-black-tea.shop/api/product/search-category?name=${query.category}`)
+      setItemList(result.data.content);
     };
     getData();
 
