@@ -54,5 +54,5 @@ export interface IcartList extends Array<cartItem> {}
 
 export interface modal {
   modalOpen: boolean;
-  setModalOpen: React.Dispatch<React.SetStateAction<boolean>>; //setIsView의 타입
+  setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }

@@ -2,9 +2,7 @@ import React, { useEffect } from "react";
 import { Router, useRouter } from "next/router";
 import Link from "next/link";
 import Badge from "../ui/Badge";
-import { DUMMY_ITEM_LIST } from "@/data/StaticData";
 import { useRecoilState } from "recoil";
-import { itemList } from "../recoil/cart";
 import { IcartList } from "@/types/types";
 
 export interface ChildProps {
@@ -13,7 +11,6 @@ export interface ChildProps {
 }
 
 export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
-  const [cartList, setCartList] = useRecoilState<IcartList>(itemList);
   const router = useRouter();
   // console.log(router.pathname);
 
@@ -29,9 +26,9 @@ export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
     router.back();
   };
 
-  useEffect(() => {
-    setCartList(DUMMY_ITEM_LIST);
-  }, []);
+  // useEffect(() => {
+  //   setCartList(DUMMY_ITEM_LIST);
+  // }, []);
 
   return (
     <div className="header-top">

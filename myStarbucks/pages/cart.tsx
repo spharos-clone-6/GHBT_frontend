@@ -1,33 +1,60 @@
 import CartItemList from "@/components/layouts/CartItemList";
-import { checkAll, itemList } from "@/components/recoil/cart";
+import {
+  frozenCartListState,
+  generalCartListState,
+} from "@/components/recoil/cart";
 import CartControlBar from "@/components/widgets/CartControlBar";
-import { DUMMY_ITEM_LIST } from "@/data/StaticData";
+import { GENERAL_CART_LIST, FROZEN_CART_LIST } from "@/data/StaticData";
 import { cartItem, IcartList } from "@/types/types";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import CartEmpty from "../components/widgets/CartEmpty";
 
 export default function cart() {
-  const [cartList, setCartList] = useRecoilState<IcartList>(itemList);
+  const [frozenCart, setFrozenCart] =
+    useRecoilState<IcartList>(frozenCartListState);
+  const [generalCart, setGeneralCart] =
+    useRecoilState<IcartList>(generalCartListState);
 
-  // 비동기 -> 동기 처리 : 장바구니 목록 불러오기 - api연동 필요함
+  const [totalQuantity, setTotalQuantity] = useState(0);
+
   useEffect(() => {
-    setCartList(DUMMY_ITEM_LIST);
-  }, [cartList]);
+    setFrozenCart(FROZEN_CART_LIST);
+    setGeneralCart(GENERAL_CART_LIST);
+    setTotalQuantity(frozenCart.length + generalCart.length);
+  }, []);
 
-  const frozenItemList = cartList.filter((item) =>
-    item.name.includes("케이크")
-  );
-  const generalItemList = cartList.filter(
-    (item) => !item.name.includes("케이크")
-  );
+  useEffect(() => {
+    console.log("총 수량 : ", totalQuantity);
+  }, [totalQuantity]);
 
-  console.log("frozen item : ", frozenItemList);
-  console.log("general item : ", generalItemList);
+  // 데이터 불러오기
+  const accesstoken =
+    "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Nzk0MDM3ODAsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.pMEl7kZLc5hwsKubE1b5Fggg9ralxkIgNR7sT82sMJcf5dOOhiv3lIj0lLpmSvGfDVsGpqZ0izK0QCucTLGTsg";
+
+  useEffect(() => {
+    async function fetchData() {
+      const result = await axios
+        .get(
+          "https://backend.grapefruit-honey-black-tea.shop/api/cart/my_cart",
+          {
+            headers: {
+              Authorization: accesstoken,
+            },
+          }
+        )
+        .catch((err) => {
+          console.log(err);
+        });
+      console.log(result);
+    }
+    fetchData();
+  }, []);
 
   return (
     <>
-      {cartList.length === 0 ? (
+      {frozenCart.length === 0 ? (
         <CartEmpty />
       ) : (
         <div className="cart-container">
@@ -36,8 +63,8 @@ export default function cart() {
             <CartControlBar />
           </section>
 
-          <CartItemList filteredCartList={generalItemList} title={"일반상품"} />
-          <CartItemList filteredCartList={frozenItemList} title={"냉동상품"} />
+          <CartItemList title={"일반상품"} />
+          <CartItemList title={"냉동상품"} />
 
           {/* 최종 금액 */}
           <section id="total-cart-price">
@@ -79,7 +106,7 @@ export default function cart() {
             <div className="submit-box">
               <div className="cart-final">
                 <p>
-                  총 <span>1</span>건 / 20건
+                  총 <span>{totalQuantity}</span>건 / 20건
                 </p>
                 <p className="price">36,000원</p>
               </div>

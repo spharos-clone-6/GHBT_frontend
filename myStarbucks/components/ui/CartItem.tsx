@@ -1,26 +1,40 @@
 import React, { useState } from "react";
-import { cartItem } from "@/types/types";
+import { cartItem, IcartList } from "@/types/types";
 import ItemAmount from "./ItemAmount";
 import OrderChangeModal from "../modals/OrderChangeModal";
+import { useRecoilState } from "recoil";
+import { frozenCartListState, generalCartListState } from "../recoil/cart";
 
-export default function CartItem(props: {
-  item: cartItem;
-  isChecked: boolean;
-}) {
-  const [checked, setCheked] = useState();
+export default function CartItem(props: { item: cartItem; title: string }) {
   const [modalOpen, setModalOpen] = useState(false);
+  const [cartList, setCartList] =
+    props.title === "일반상품"
+      ? useRecoilState<IcartList>(generalCartListState)
+      : useRecoilState<IcartList>(frozenCartListState);
 
   const showModal = () => {
     setModalOpen(true);
   };
 
+  const handleCheck = () => {
+    setCartList(
+      cartList.map((item) => {
+        const itemResult = { ...item };
+        if (item.id === props.item.id) {
+          itemResult.isChecked = !item.isChecked;
+        }
+        return itemResult;
+      })
+    );
+  };
+
   return (
     <div className="cart-product">
-      <input
-        type="checkbox"
-        checked={props.isChecked === true ? true : undefined}
-      />
-      <div>
+      <div
+        className={props.item.isChecked ? "sbCheckBoxOn" : "sbCheckBox"}
+        onClick={handleCheck}
+      ></div>
+      <div style={{ width: "95%" }}>
         <div className="item-info">
           <img src={props.item.img} alt="" className="product-img" />
           <div className="info">

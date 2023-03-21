@@ -1,48 +1,33 @@
 import React, { useEffect, useState } from "react";
 import CartItem from "../ui/CartItem";
-import { DUMMY_ITEM_LIST } from "@/data/StaticData";
-import {
-  RecoilRoot,
-  RecoilState,
-  useRecoilState,
-  useRecoilValue,
-} from "recoil";
-import { checkAll, itemList } from "../recoil/cart";
+import { useRecoilState } from "recoil";
 import axios from "axios";
-import { IcartList } from "@/types/types";
+import { cartItem, IcartList } from "@/types/types";
 import CartControlBar from "../widgets/CartControlBar";
+import { frozenCartListState, generalCartListState } from "../recoil/cart";
 
-export default function CartItemList(props: {
-  filteredCartList: IcartList;
-  title: string;
-}) {
-  const filteredCartList = useRecoilValue(itemList);
-  const [checkedCatAll, setCheckedCatAll] = useState(false);
-  const [cartList, setCartList] = useRecoilState<IcartList>(itemList);
-  // useEffect(() => {
-  //   setCartList(DUMMY_ITEM_LIST);
-  // }, [cartList]);
+export default function CartItemList(props: { title: string }) {
+  const [cartItems, setCartItems] =
+    props.title === "일반상품"
+      ? useRecoilState<IcartList>(generalCartListState)
+      : useRecoilState<IcartList>(frozenCartListState);
+  const [listAllCheck, setListAllCheck] = useState(false);
 
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     const result = await axios.get(
-  //       `http://backend.grapefruit-honey-black-tea.shop/api/product/search/${query.keyword}`
-  //     );
-  //     setCartList(result.data);
-  //   };
-  //   getData();
+  useEffect(() => {
+    let check = true;
+    cartItems.find((item) => item.isChecked === false)
+      ? (check = false)
+      : (check = true);
+    setListAllCheck(check);
+  }, [cartItems]);
 
-  // const [todos, setTodos] = useRecoilState(state.todos)
-  const isAllDone = cartList.every((cartList) => cartList.isChecked);
-  const handleToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { checked } = e.target;
-
-    setCartList((todos) =>
-      todos.map((cartList) => {
-        return {
-          ...cartList,
-          isChecked: true,
-        };
+  const handleCartListAllCheck = (check: boolean) => {
+    setListAllCheck(!check);
+    setCartItems(
+      cartItems.map((a) => {
+        const cartResult = { ...a };
+        cartResult.isChecked = !check;
+        return cartResult;
       })
     );
   };
@@ -53,24 +38,19 @@ export default function CartItemList(props: {
         <div className="select">
           {/* 일반 / 냉동 일괄 선택 체크박스 */}
           <div className="select-items">
-            <input
-              type="checkbox"
-              checked={isAllDone}
-              onChange={handleToggle}
-            />
-            <span>{props.title}</span>
+            <div
+              className={listAllCheck ? "sbCheckBoxOn" : "sbCheckBox"}
+              onClick={() => handleCartListAllCheck(listAllCheck)}
+            ></div>
+            <p className="cart-select-btn">{props.title}</p>
           </div>
         </div>
-        {props.filteredCartList &&
-          props.filteredCartList.map((item) => (
-            <CartItem item={item} key={item.id} isChecked={checkedCatAll} />
-          ))}
+        {cartItems.map((item) => (
+          <CartItem item={item} key={item.id} title={props.title} />
+        ))}
       </section>
       <div className="cart-delivery">
-        <p>
-          상품 {props.filteredCartList.length}건 326,000원 + 배송비 0원 = 총
-          326,000원
-        </p>
+        <p>상품 {cartItems.length}건 326,000원 + 배송비 0원 = 총 326,000원</p>
         <p>무료배송</p>
         <a href="">더 담으러 가기</a>
       </div>
