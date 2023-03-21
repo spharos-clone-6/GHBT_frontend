@@ -1,4 +1,5 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
+import FilterKeyword from "./FilterKeyword";
 
 interface filterList {
   id: number;
@@ -6,15 +7,22 @@ interface filterList {
   value: Array<string>;
 }
 
-export default function StoreHeadFilter(props: { data: filterList }) {
+export default function StoreHeadFilter(props: { data: filterList, filterKeyword: string[], setFilterKeyword: Dispatch<SetStateAction<string[]>> }) {
+
+  const {data, filterKeyword, setFilterKeyword} = props;
+  const handleKeyword = (keyword: string) => {
+    if(!filterKeyword.includes(keyword))
+      setFilterKeyword([...filterKeyword, keyword]);
+  }
+
   return (
     <div className="header-sub">
       <nav>
-        <p className="cat-title">{props.data.name}</p>
+        <p className="cat-title">{data.name}</p>
         <ul>
-          {props.data.value &&
-            props.data.value.map((el, idx) => (
-              <li key={idx}>
+          {data.value &&
+            data.value.map((el, idx) => (
+              <li key={idx} onClick={() => handleKeyword(el)}>
                 {el}
               </li>
             ))}
