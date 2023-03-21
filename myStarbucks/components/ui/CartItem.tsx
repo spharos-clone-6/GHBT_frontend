@@ -1,26 +1,63 @@
 import React, { useState } from "react";
-import { cartItem } from "@/types/types";
+import { cartItem, IcartList } from "@/types/types";
 import ItemAmount from "./ItemAmount";
+import OrderChangeModal from "../modals/OrderChangeModal";
+import { useRecoilState } from "recoil";
+import { frozenCartListState, generalCartListState } from "../recoil/cart";
 
-export default function CartItem(props: { item: cartItem }) {
+export default function CartItem(props: { item: cartItem; title: string }) {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [cartList, setCartList] =
+    props.title === "일반상품"
+      ? useRecoilState<IcartList>(generalCartListState)
+      : useRecoilState<IcartList>(frozenCartListState);
+
+  const showModal = () => {
+    setModalOpen(true);
+  };
+
+  const handleCheck = () => {
+    setCartList(
+      cartList.map((item) => {
+        const itemResult = { ...item };
+        if (item.id === props.item.id) {
+          itemResult.isChecked = !item.isChecked;
+        }
+        return itemResult;
+      })
+    );
+  };
+
   return (
     <div className="cart-product">
-      <input type="checkbox" />
-      <div>
+      <div
+        className={props.item.isChecked ? "sbCheckBoxOn" : "sbCheckBox"}
+        onClick={handleCheck}
+      ></div>
+      <div style={{ width: "95%" }}>
         <div className="item-info">
-          <img src="/images/products/cake.jpg" alt="" className="product-img" />
-          <div>
-            <p className="name">{props.item.name}</p>
-            <p className="price">{props.item.price.toLocaleString("en")}원</p>
-          </div>
-          <a href="">
+          <img src={props.item.img} alt="" className="product-img" />
+          <div className="info">
+            <div>
+              <p className="name">{props.item.name}</p>
+              <p className="price">{props.item.price.toLocaleString("en")}원</p>
+            </div>
             <img src="/images/icons/close.png" alt="" className="close-icon" />
-          </a>
+          </div>
         </div>
-        <ItemAmount price={props.item.price} />
+        <div className="count">
+          <p>수량: 1개</p>
+        </div>
+        <div className="item-price">
+          <p>주문 금액</p>
+          <p>{props.item.price.toLocaleString("en")}원</p>
+        </div>
         <div className="item-purchase">
-          <a href="">주문 수정</a>
-          <a href="">바로 구매</a>
+          <button onClick={showModal}>주문 수정</button>
+          {modalOpen && (
+            <OrderChangeModal setModalOpen={setModalOpen} item={props.item} />
+          )}
+          <button>바로 구매</button>
         </div>
       </div>
     </div>

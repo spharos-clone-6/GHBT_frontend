@@ -1,12 +1,13 @@
-import { cartList } from "@/types/types";
+import { FROZEN_CART_LIST, GENERAL_CART_LIST } from "@/data/StaticData";
+import { IcartList } from "@/types/types";
 import { atom } from "recoil";
 
-export const itemList = atom<cartList>({
-  key: "itemList",
-  default: [],
+export const generalCartListState = atom<IcartList>({
+  key: "generalCart",
+  default: GENERAL_CART_LIST,
 });
 
-export const checkAll = atom({
-  key: "checkAll",
-  default: false,
+export const frozenCartListState = atom<IcartList>({
+  key: "frozenCart",
+  default: FROZEN_CART_LIST,
 });

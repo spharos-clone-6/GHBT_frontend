@@ -45,34 +45,6 @@ export default function search_result() {
         {/* 상품 */}
         <SelectOrder />
         <ProductContainerGrid itemList={itemList} />
-        {/* <section id="search-result-product">
-          <div className="product-container margin-top-zero padding-top-zero">
-            <div className="product-item">
-              <img src="/images/best/cake/01.jpg" className="thumbnail" />
-              <div className="product-item-info">
-                <p className="item-best hide">Best</p>
-                <p className="item-title">부드러운 티라미수 롤케이크</p>
-                <p className="product-item-price">19,900원</p>
-              </div>
-            </div>
-            <div className="product-item">
-              <img src="/images/best/cake/02.jpg" className="thumbnail" />
-              <div className="product-item-info">
-                <p className="item-best hide">Best</p>
-                <p className="item-title">부드러운 티라미수 롤케이크</p>
-                <p className="product-item-price">19,900원</p>
-              </div>
-            </div>
-            <div className="product-item">
-              <img src="/images/best/cake/02.jpg" className="thumbnail" />
-              <div className="product-item-info">
-                <p className="item-best hide">Best</p>
-                <p className="item-title">부드러운 티라미수 롤케이크</p>
-                <p className="product-item-price">19,900원</p>
-              </div>
-            </div>
-          </div>
-        </section> */}
       </div>
     </>
   );
