@@ -1,9 +1,6 @@
 import React, { useEffect } from "react";
 import { Router, useRouter } from "next/router";
 import Link from "next/link";
-import Badge from "../ui/Badge";
-import { useRecoilState } from "recoil";
-import { IcartList } from "@/types/types";
 
 export interface ChildProps {
   isView: Boolean;

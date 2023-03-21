@@ -56,7 +56,7 @@ export interface cartItemType {
   user: object;
   product: productType;
   deleted: boolean;
-  isChecked?: boolean;
+  Checked: boolean;
 }
 
 export interface cartListType extends Array<cartItemType> {}

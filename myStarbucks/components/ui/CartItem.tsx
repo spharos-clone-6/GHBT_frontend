@@ -21,7 +21,7 @@ export default function CartItem(props: { item: cartItemType; title: string }) {
       cartList.map((item) => {
         const itemResult = { ...item };
         if (item.product.id === props.item.product.id) {
-          itemResult.isChecked = !item.isChecked;
+          itemResult.Checked = !item.Checked;
         }
         return itemResult;
       })
@@ -31,13 +31,13 @@ export default function CartItem(props: { item: cartItemType; title: string }) {
   return (
     <div className="cart-product">
       <div
-        className={props.item.isChecked ? "sbCheckBoxOn" : "sbCheckBox"}
+        className={props.item.Checked ? "sbCheckBoxOn" : "sbCheckBox"}
         onClick={handleCheck}
       ></div>
       <div style={{ width: "95%" }}>
         <div className="item-info">
           <img
-            src={props.item.product.thumbnailUrl}
+            src={`https://storage.googleapis.com/ghbt/product_thumbnail/${props.item.product.thumbnailUrl}`}
             alt=""
             className="product-img"
           />

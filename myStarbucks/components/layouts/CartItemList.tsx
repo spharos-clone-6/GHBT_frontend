@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import CartItem from "../ui/CartItem";
-import { useRecoilState } from "recoil";
+import { DefaultValue, useRecoilState } from "recoil";
 import { cartListType } from "@/types/types";
 import { frozenCartListState, generalCartListState } from "../recoil/cart";
 
@@ -12,10 +12,11 @@ export default function CartItemList(props: { title: string }) {
   const [listAllCheck, setListAllCheck] = useState(false);
 
   useEffect(() => {
-    let check = true;
-    cartItems.find((item) => item.isChecked === false)
+    let check = false;
+    cartItems.find((item) => item.Checked === false)
       ? (check = false)
       : (check = true);
+    console.log("밑에: ", check);
     setListAllCheck(check);
   }, [cartItems]);
 
@@ -24,11 +25,14 @@ export default function CartItemList(props: { title: string }) {
     setCartItems(
       cartItems.map((a) => {
         const cartResult = { ...a };
-        cartResult.isChecked = !check;
+        cartResult.Checked = !check;
         return cartResult;
       })
     );
   };
+
+  let listPrice = 0;
+  // cartItems.map((item) => item.isChecked === true? (listPrice += ): ())
 
   return (
     <>

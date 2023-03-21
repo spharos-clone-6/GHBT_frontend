@@ -4,7 +4,7 @@ import {
   generalCartListState,
 } from "@/components/recoil/cart";
 import CartControlBar from "@/components/widgets/CartControlBar";
-import { cartListType } from "@/types/types";
+import { cartItemType, cartListType } from "@/types/types";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
@@ -18,9 +18,13 @@ export default function cart() {
 
   const [totalQuantity, setTotalQuantity] = useState(0);
 
-  useEffect(() => {
-    console.log("총 수량 : ", totalQuantity);
-  }, [totalQuantity]);
+  // useEffect(() => {
+  //   console.log("총 수량 : ", totalQuantity);
+  // }, [totalQuantity]);
+
+  // const defaultCartItemType = {
+  //   isChecked: false,
+  // };
 
   // 데이터 불러오기
   const accesstoken =
@@ -36,8 +40,8 @@ export default function cart() {
           },
         }
       );
-      console.log("일반 상품 목록: ", result);
-      setFrozenCart(result.data);
+      console.log("일반 상품 목록 :", result);
+      setGeneralCart(result.data);
     }
     fetchData();
   }, []);
@@ -52,11 +56,28 @@ export default function cart() {
           },
         }
       );
-      console.log("냉동 상품 목록: ", result.data);
-      setGeneralCart(result.data);
+      console.log("냉동 상품 목록 :", result);
+      setFrozenCart(result.data);
     }
     fetchData();
   }, []);
+
+  // useEffect(() => {
+  //   setFrozenCart(
+  //     frozenCart.map((item) => {
+  //       const copyData = { ...item };
+  //       copyData.isChecked = false;
+  //       return copyData;
+  //     })
+  //   );
+  //   setGeneralCart(
+  //     generalCart.map((item) => {
+  //       const copyData = { ...item };
+  //       copyData.isChecked = false;
+  //       return copyData;
+  //     })
+  //   );
+  // }, []);
 
   useEffect(() => {
     setTotalQuantity(frozenCart.length + generalCart.length);

@@ -12,18 +12,18 @@ export default function CartControlBar() {
   // const totalCart =
 
   useEffect(() => {
-    let check = true;
-    let freezeCheck = true;
-    frozenCart.find((item) => item.isChecked === false)
+    let check = false;
+    let freezeCheck = false;
+    frozenCart.find((item) => item.Checked === false)
       ? (check = false)
       : (check = true);
-    generalCart.find((item) => item.isChecked === false)
+    generalCart.find((item) => item.Checked === false)
       ? (freezeCheck = false)
       : (freezeCheck = true);
-    if (check && freezeCheck) {
-      setListAllCheck(true);
-    } else {
+    if (!check || !freezeCheck) {
       setListAllCheck(false);
+    } else {
+      setListAllCheck(true);
     }
   }, []);
 
@@ -32,14 +32,14 @@ export default function CartControlBar() {
     setFrozenCart(
       frozenCart.map((item) => {
         const frozenResult = { ...item };
-        frozenResult.isChecked = !check;
+        frozenResult.Checked = !check;
         return frozenResult;
       })
     );
     setGeneralCart(
       generalCart.map((item) => {
         const generalResult = { ...item };
-        generalResult.isChecked = !check;
+        generalResult.Checked = !check;
         return generalResult;
       })
     );
