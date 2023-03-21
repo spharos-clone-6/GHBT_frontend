@@ -18,7 +18,7 @@ export default function search_result() {
       const result = await axios.get(
         `http://backend.grapefruit-honey-black-tea.shop/api/product/search/${query.keyword}`
       );
-      setItemList(result.data);
+      setItemList(result.data.content);
     };
     getData();
   }, []);

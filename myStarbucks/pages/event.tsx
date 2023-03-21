@@ -16,7 +16,7 @@ export default function event() {
       console.log(query)
       const result = await axios.get(`http://backend.grapefruit-honey-black-tea.shop/api/product/search-category?name=${query.category}`)
       const eventResult = await axios.get(`http://backend.grapefruit-honey-black-tea.shop/api/event/name/${query.category}`)
-      setItemList(result.data);
+      setItemList(result.data.content);
       setEventInfo(eventResult.data);
     };
     getData();
