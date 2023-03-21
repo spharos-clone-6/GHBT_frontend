@@ -1,13 +1,13 @@
-import { IcartList } from "@/types/types";
+import { cartListType } from "@/types/types";
 import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { frozenCartListState, generalCartListState } from "../recoil/cart";
 
 export default function CartControlBar() {
   const [frozenCart, setFrozenCart] =
-    useRecoilState<IcartList>(frozenCartListState);
+    useRecoilState<cartListType>(frozenCartListState);
   const [generalCart, setGeneralCart] =
-    useRecoilState<IcartList>(generalCartListState);
+    useRecoilState<cartListType>(generalCartListState);
   const [listAllCheck, setListAllCheck] = useState(false);
   // const totalCart =
 

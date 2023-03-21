@@ -4,10 +4,10 @@ import { atom } from "recoil";
 
 export const generalCartListState = atom<IcartList>({
   key: "generalCart",
-  default: GENERAL_CART_LIST,
+  default: [],
 });
 
 export const frozenCartListState = atom<IcartList>({
   key: "frozenCart",
-  default: FROZEN_CART_LIST,
+  default: [],
 });

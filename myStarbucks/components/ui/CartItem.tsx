@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import { cartItem, IcartList } from "@/types/types";
+import { cartItemType, cartListType } from "@/types/types";
 import ItemAmount from "./ItemAmount";
 import OrderChangeModal from "../modals/OrderChangeModal";
 import { useRecoilState } from "recoil";
 import { frozenCartListState, generalCartListState } from "../recoil/cart";
 
-export default function CartItem(props: { item: cartItem; title: string }) {
+export default function CartItem(props: { item: cartItemType; title: string }) {
   const [modalOpen, setModalOpen] = useState(false);
   const [cartList, setCartList] =
     props.title === "일반상품"
-      ? useRecoilState<IcartList>(generalCartListState)
-      : useRecoilState<IcartList>(frozenCartListState);
+      ? useRecoilState<cartListType>(generalCartListState)
+      : useRecoilState<cartListType>(frozenCartListState);
 
   const showModal = () => {
     setModalOpen(true);
@@ -20,7 +20,7 @@ export default function CartItem(props: { item: cartItem; title: string }) {
     setCartList(
       cartList.map((item) => {
         const itemResult = { ...item };
-        if (item.id === props.item.id) {
+        if (item.product.id === props.item.product.id) {
           itemResult.isChecked = !item.isChecked;
         }
         return itemResult;
@@ -36,11 +36,17 @@ export default function CartItem(props: { item: cartItem; title: string }) {
       ></div>
       <div style={{ width: "95%" }}>
         <div className="item-info">
-          <img src={props.item.img} alt="" className="product-img" />
+          <img
+            src={props.item.product.thumbnailUrl}
+            alt=""
+            className="product-img"
+          />
           <div className="info">
             <div>
-              <p className="name">{props.item.name}</p>
-              <p className="price">{props.item.price.toLocaleString("en")}원</p>
+              <p className="name">{props.item.product.name}</p>
+              <p className="price">
+                {props.item.product.price.toLocaleString("en")}원
+              </p>
             </div>
             <img src="/images/icons/close.png" alt="" className="close-icon" />
           </div>
@@ -50,7 +56,7 @@ export default function CartItem(props: { item: cartItem; title: string }) {
         </div>
         <div className="item-price">
           <p>주문 금액</p>
-          <p>{props.item.price.toLocaleString("en")}원</p>
+          <p>{props.item.product.price.toLocaleString("en")}원</p>
         </div>
         <div className="item-purchase">
           <button onClick={showModal}>주문 수정</button>

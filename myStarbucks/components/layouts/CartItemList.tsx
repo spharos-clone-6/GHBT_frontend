@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
 import CartItem from "../ui/CartItem";
 import { useRecoilState } from "recoil";
-import axios from "axios";
-import { cartItem, IcartList } from "@/types/types";
-import CartControlBar from "../widgets/CartControlBar";
+import { cartListType } from "@/types/types";
 import { frozenCartListState, generalCartListState } from "../recoil/cart";
 
 export default function CartItemList(props: { title: string }) {
   const [cartItems, setCartItems] =
     props.title === "일반상품"
-      ? useRecoilState<IcartList>(generalCartListState)
-      : useRecoilState<IcartList>(frozenCartListState);
+      ? useRecoilState<cartListType>(generalCartListState)
+      : useRecoilState<cartListType>(frozenCartListState);
   const [listAllCheck, setListAllCheck] = useState(false);
 
   useEffect(() => {
@@ -46,7 +44,7 @@ export default function CartItemList(props: { title: string }) {
           </div>
         </div>
         {cartItems.map((item) => (
-          <CartItem item={item} key={item.id} title={props.title} />
+          <CartItem item={item} key={item.product.id} title={props.title} />
         ))}
       </section>
       <div className="cart-delivery">

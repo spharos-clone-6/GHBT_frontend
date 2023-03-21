@@ -4,26 +4,19 @@ import {
   generalCartListState,
 } from "@/components/recoil/cart";
 import CartControlBar from "@/components/widgets/CartControlBar";
-import { GENERAL_CART_LIST, FROZEN_CART_LIST } from "@/data/StaticData";
-import { cartItem, IcartList } from "@/types/types";
+import { cartListType } from "@/types/types";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import CartEmpty from "../components/widgets/CartEmpty";
 
 export default function cart() {
   const [frozenCart, setFrozenCart] =
-    useRecoilState<IcartList>(frozenCartListState);
+    useRecoilState<cartListType>(frozenCartListState);
   const [generalCart, setGeneralCart] =
-    useRecoilState<IcartList>(generalCartListState);
+    useRecoilState<cartListType>(generalCartListState);
 
   const [totalQuantity, setTotalQuantity] = useState(0);
-
-  useEffect(() => {
-    setFrozenCart(FROZEN_CART_LIST);
-    setGeneralCart(GENERAL_CART_LIST);
-    setTotalQuantity(frozenCart.length + generalCart.length);
-  }, []);
 
   useEffect(() => {
     console.log("총 수량 : ", totalQuantity);
@@ -35,21 +28,38 @@ export default function cart() {
 
   useEffect(() => {
     async function fetchData() {
-      const result = await axios
-        .get(
-          "https://backend.grapefruit-honey-black-tea.shop/api/cart/my_cart",
-          {
-            headers: {
-              Authorization: accesstoken,
-            },
-          }
-        )
-        .catch((err) => {
-          console.log(err);
-        });
-      console.log(result);
+      const result = await axios.get(
+        "https://backend.grapefruit-honey-black-tea.shop/api/cart/my_cart",
+        {
+          headers: {
+            Authorization: accesstoken,
+          },
+        }
+      );
+      console.log("일반 상품 목록: ", result);
+      setFrozenCart(result.data);
     }
     fetchData();
+  }, []);
+
+  useEffect(() => {
+    async function fetchData() {
+      const result = await axios.get(
+        "https://backend.grapefruit-honey-black-tea.shop/api/cart/my_cart/ice",
+        {
+          headers: {
+            Authorization: accesstoken,
+          },
+        }
+      );
+      console.log("냉동 상품 목록: ", result.data);
+      setGeneralCart(result.data);
+    }
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    setTotalQuantity(frozenCart.length + generalCart.length);
   }, []);
 
   return (
