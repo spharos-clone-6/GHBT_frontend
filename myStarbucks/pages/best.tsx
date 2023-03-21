@@ -14,7 +14,7 @@ export default function best() {
     const getData = async () => {
       console.log(query)
       const result = await axios.get(`http://backend.grapefruit-honey-black-tea.shop/api/product/search-category?name=${query.category}`)
-      setItemList(result.data);
+      setItemList(result.data.content);
     };
     getData();
 
