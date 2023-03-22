@@ -11,6 +11,8 @@ export default function CartItem(props: { item: cartItemType; title: string }) {
       ? useRecoilState<cartListType>(generalCartListState)
       : useRecoilState<cartListType>(frozenCartListState);
 
+  console.log(props.item);
+
   const showModal = () => {
     setModalOpen(true);
   };
@@ -25,7 +27,6 @@ export default function CartItem(props: { item: cartItemType; title: string }) {
         return itemResult;
       })
     );
-    console.log("개별 아이템: ", props.item);
   };
 
   return (

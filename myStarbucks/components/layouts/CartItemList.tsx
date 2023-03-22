@@ -30,6 +30,11 @@ export default function CartItemList(props: { title: string }) {
     );
   };
 
+  let checkedItemQuantity = 0;
+  cartItems.map((item) =>
+    item.checked ? (checkedItemQuantity += 1) : (checkedItemQuantity += 0)
+  );
+
   let listPrice = 0;
   // cartItems.map((item) => item.isChecked === true? (listPrice += ): ())
 
@@ -51,7 +56,9 @@ export default function CartItemList(props: { title: string }) {
         ))}
       </section>
       <div className="cart-delivery">
-        <p>상품 {cartItems.length}건 326,000원 + 배송비 0원 = 총 326,000원</p>
+        <p>
+          상품 {checkedItemQuantity}건 326,000원 + 배송비 0원 = 총 326,000원
+        </p>
         <p>무료배송</p>
         <a href="">더 담으러 가기</a>
       </div>
