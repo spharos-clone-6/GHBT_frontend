@@ -3,6 +3,7 @@ import CartItem from "../ui/CartItem";
 import { DefaultValue, useRecoilState } from "recoil";
 import { cartListType } from "@/types/types";
 import { frozenCartListState, generalCartListState } from "../recoil/cart";
+import Link from "next/link";
 
 export default function CartItemList(props: { title: string }) {
   const [cartItems, setCartItems] =
@@ -36,7 +37,17 @@ export default function CartItemList(props: { title: string }) {
   );
 
   let listPrice = 0;
-  // cartItems.map((item) => item.isChecked === true? (listPrice += ): ())
+  cartItems.map((item) =>
+    item.checked
+      ? (listPrice += item.product.price * item.quantity)
+      : (listPrice += 0)
+  );
+
+  const deliveryPrice = listPrice >= 30000 ? 0 : 3000;
+  const deliveryComment =
+    listPrice >= 30000
+      ? "무료배송"
+      : `${30000 - listPrice}원 더 담으면 무료배송`;
 
   return (
     <>
@@ -55,13 +66,18 @@ export default function CartItemList(props: { title: string }) {
           <CartItem item={item} key={item.product.id} title={props.title} />
         ))}
       </section>
-      <div className="cart-delivery">
-        <p>
-          상품 {checkedItemQuantity}건 326,000원 + 배송비 0원 = 총 326,000원
-        </p>
-        <p>무료배송</p>
-        <a href="">더 담으러 가기</a>
-      </div>
+      {!checkedItemQuantity ? (
+        ""
+      ) : (
+        <div className="cart-delivery">
+          <p>
+            상품 {checkedItemQuantity}건 {listPrice.toLocaleString("en")}원 +
+            배송비 {deliveryPrice}원 = 총 326,000원
+          </p>
+          <p style={{ fontWeight: "bold" }}>{deliveryComment}</p>
+          <Link href="/store_all">더 담으러 가기</Link>
+        </div>
+      )}
     </>
   );
 }
