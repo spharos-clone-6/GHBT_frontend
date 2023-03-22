@@ -90,6 +90,7 @@ export default function productDetail() {
       </section>
       <Detail
         pid={query.pid}
+        url={product?.thumbnailUrl}
       />
       <ProductContainerRecommand
         headerName={"체리블라썸 상품"} itemList={[]}
