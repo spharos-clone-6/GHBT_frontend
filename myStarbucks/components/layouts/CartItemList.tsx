@@ -58,7 +58,9 @@ export default function CartItemList(props: { title: string }) {
             <div
               className={listAllCheck ? "sbCheckBoxOn" : "sbCheckBox"}
               onClick={() => handleCartListAllCheck(listAllCheck)}
-            ></div>
+            >
+              <img src="/images/icons/check.png" style={{ width: "100%" }} />
+            </div>
             <p className="cart-select-btn">{props.title}</p>
           </div>
         </div>
@@ -72,7 +74,8 @@ export default function CartItemList(props: { title: string }) {
         <div className="cart-delivery">
           <p>
             상품 {checkedItemQuantity}건 {listPrice.toLocaleString("en")}원 +
-            배송비 {deliveryPrice}원 = 총 326,000원
+            배송비 {deliveryPrice.toLocaleString("en")}원 = 총{" "}
+            {(listPrice + deliveryPrice).toLocaleString("en")}원
           </p>
           <p style={{ fontWeight: "bold" }}>{deliveryComment}</p>
           <Link href="/store_all">더 담으러 가기</Link>

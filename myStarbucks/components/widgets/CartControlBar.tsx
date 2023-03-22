@@ -51,7 +51,9 @@ export default function CartControlBar() {
         <div
           className={listAllCheck ? "sbCheckBoxOn" : "sbCheckBox"}
           onClick={() => handleAllCheck(listAllCheck)}
-        ></div>
+        >
+          <img src="/images/icons/check.png" style={{ width: "100%" }} />
+        </div>
         <p className="cart-select-btn">전체선택</p>
       </div>
       <div className="select-del">

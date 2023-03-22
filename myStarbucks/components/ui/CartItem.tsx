@@ -34,7 +34,9 @@ export default function CartItem(props: { item: cartItemType; title: string }) {
       <div
         className={props.item.checked ? "sbCheckBoxOn" : "sbCheckBox"}
         onClick={handleCheck}
-      ></div>
+      >
+        <img src="/images/icons/check.png" style={{ width: "100%" }} />
+      </div>
       <div style={{ width: "95%" }}>
         <div className="item-info">
           <img
