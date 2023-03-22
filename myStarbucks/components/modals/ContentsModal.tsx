@@ -1,10 +1,25 @@
+import ModalHeader from "@/components/ui/ModalHeader";
 import RightArrowMenu from "@/components/ui/RightArrowMenu";
 import ContentCategoryContainer from "@/components/widgets/ContentCategoryContainer";
 import React from "react";
 
-export default function contents() {
+export default function Contents(props: {setModalOpen: React.Dispatch<React.SetStateAction<boolean>>}) {
+  
+  const modalStyle: Object = {
+    position: "fixed",
+    backgroundColor: "var(--color-white)",
+    top: "0",
+    left: "0",
+    zIndex: 999,
+    width: "100%",
+    height: "100%",
+  }
+
+
   return (
-    <div>
+    <div style={modalStyle}>
+
+      <ModalHeader setModalOpen={props.setModalOpen} />
       <section className="contents-head">
         {/* 닫기 */}
         <div className="close-icon">

@@ -19,6 +19,7 @@ export default function CategoryButton(props: {category: categoryType}) {
       <div className="category">
         <div className="category-img">
           <img
+            style={{opacity: '1'}}
             src={`/images/products/category/${category.id}.jpg`}
             alt={category.name}
           />
