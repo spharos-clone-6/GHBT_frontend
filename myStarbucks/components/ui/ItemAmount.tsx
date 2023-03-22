@@ -3,10 +3,14 @@ import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 interface props {
   price: number;
   label?: string;
-  setTotalPrice: Dispatch<SetStateAction<number | undefined>>;
+  setTotalPrice: Dispatch<SetStateAction<number>>;
 }
 
-export default function ItemAmount({price, label='상품 주문 수량', setTotalPrice}: props) {
+export default function ItemAmount({
+  price,
+  label = "상품 주문 수량",
+  setTotalPrice,
+}: props) {
   const [itemCount, setItemCount] = useState(1);
   const [isBtnValid, setIsBtnValid] = useState(false);
 

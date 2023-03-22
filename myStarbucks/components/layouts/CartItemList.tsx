@@ -1,16 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import CartItem from "../ui/CartItem";
 import { DefaultValue, useRecoilState } from "recoil";
 import { cartListType } from "@/types/types";
 import { frozenCartListState, generalCartListState } from "../recoil/cart";
 import Link from "next/link";
 
-export default function CartItemList(props: { title: string }) {
+interface cartType {
+  title: string;
+}
+
+export default function CartItemList({ title }: cartType) {
   const [cartItems, setCartItems] =
-    props.title === "일반상품"
+    title === "일반상품"
       ? useRecoilState<cartListType>(generalCartListState)
       : useRecoilState<cartListType>(frozenCartListState);
   const [listAllCheck, setListAllCheck] = useState(false);
+  const [totalItemPrice, setTotalItemPrice] = useState<number>(0);
+  const [totalDeliveryPrice, setTotalDeliveryPrice] = useState<number>(0);
 
   useEffect(() => {
     let check = true;
@@ -43,11 +49,24 @@ export default function CartItemList(props: { title: string }) {
       : (listPrice += 0)
   );
 
-  const deliveryPrice = listPrice >= 30000 ? 0 : 3000;
+  const deliveryPrice = listPrice >= 30000 || listPrice == 0 ? 0 : 3000;
   const deliveryComment =
     listPrice >= 30000
       ? "무료배송"
       : `${30000 - listPrice}원 더 담으면 무료배송`;
+
+  useEffect(() => {
+    cartItems.map((item) =>
+      item.checked
+        ? setTotalItemPrice(totalItemPrice + listPrice)
+        : setTotalItemPrice(totalItemPrice + 0)
+    );
+    console.log("총가격 : ", totalItemPrice);
+  }, [cartItems]);
+
+  useEffect(() => {
+    setTotalDeliveryPrice(totalDeliveryPrice + deliveryPrice);
+  }, [cartItems]);
 
   return (
     <>
@@ -61,11 +80,11 @@ export default function CartItemList(props: { title: string }) {
             >
               <img src="/images/icons/check.png" style={{ width: "100%" }} />
             </div>
-            <p className="cart-select-btn">{props.title}</p>
+            <p className="cart-select-btn">{title}</p>
           </div>
         </div>
         {cartItems.map((item) => (
-          <CartItem item={item} key={item.product.id} title={props.title} />
+          <CartItem item={item} key={item.product.id} title={title} />
         ))}
       </section>
       {!checkedItemQuantity ? (

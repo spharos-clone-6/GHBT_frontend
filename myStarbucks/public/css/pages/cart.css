@@ -161,6 +161,7 @@
 
 #total-cart-price {
   background-color: var(--color-white);
+  margin: 0px 0px 120px 0px;
 }
 
 #total-cart-price .title-total-price {

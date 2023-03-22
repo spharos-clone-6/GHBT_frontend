@@ -1,16 +1,19 @@
+/** @jsxImportSource @emotion/react */
+
 import CartItemList from "@/components/layouts/CartItemList";
 import {
   frozenCartListState,
   generalCartListState,
 } from "@/components/recoil/cart";
+import BottomFixedContainer from "@/components/ui/BottomFixedContainer";
+import Button from "@/components/ui/Button";
 import CartControlBar from "@/components/widgets/CartControlBar";
 import { cartListType } from "@/types/types";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
-import { Loader } from "semantic-ui-react";
 import CartEmpty from "../components/widgets/CartEmpty";
-// import "semantic-ui-css/semantic.min.css";
+import { css } from "@emotion/react";
 
 export default function cart() {
   const [frozenCart, setFrozenCart] =
@@ -18,6 +21,23 @@ export default function cart() {
   const [generalCart, setGeneralCart] =
     useRecoilState<cartListType>(generalCartListState);
   const [isLoading, setIsLoading] = useState(true);
+
+  const buttonContainer = css`
+    display: flex;
+    gap: 15px;
+    padding: 0px 30px;
+    align-items: center;
+    justify-content: space-between;
+  `;
+
+  const submitPrice = css`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: bolder;
+    padding: 20px 30px 0px 30px;
+  `;
 
   // 데이터 불러오기
   const accesstoken =
@@ -57,6 +77,31 @@ export default function cart() {
   console.log("총 수량 : ", generalCart.length + frozenCart.length);
   console.log("로딩: ", isLoading);
 
+  // 체크박스 선택한 상품 수량
+  let checkedItemQuantity = 0;
+  frozenCart.map((item) =>
+    item.checked ? (checkedItemQuantity += 1) : (checkedItemQuantity += 0)
+  );
+  generalCart.map((item) =>
+    item.checked ? (checkedItemQuantity += 1) : (checkedItemQuantity += 0)
+  );
+
+  // 체크박스 선택한 상품 총 가격(배송비 미포함)
+  let TotalPrice = 0;
+  let frozenPrice = 0;
+  let generalPrice = 0;
+  frozenCart.map((item) =>
+    item.checked
+      ? (frozenPrice += item.product.price * item.quantity)
+      : (frozenPrice += 0)
+  );
+  generalCart.map((item) =>
+    item.checked
+      ? (generalPrice += item.product.price * item.quantity)
+      : (generalPrice += 0)
+  );
+  TotalPrice = frozenPrice + generalPrice;
+
   return (
     <>
       {isLoading && <div style={{ padding: "300px 150px" }}>Loading</div>}
@@ -80,7 +125,7 @@ export default function cart() {
                 <div className="prices">
                   <div className="cart-price">
                     <p>상품 금액</p>
-                    <p className="price">33,000원</p>
+                    <p className="price">{TotalPrice}원</p>
                   </div>
                   <div className="cart-price">
                     <p>할인 금액</p>
@@ -88,12 +133,12 @@ export default function cart() {
                   </div>
                   <div className="cart-price">
                     <p>배송비</p>
-                    <p className="price">3,000원</p>
+                    <p className="price">{0}원</p>
                   </div>
                 </div>
                 <div className="total-price">
                   <p>최종 결제 금액</p>
-                  <p className="price">36,000원</p>
+                  <p className="price">{0 + 0}원</p>
                 </div>
 
                 {/* 안내문 */}
@@ -107,23 +152,32 @@ export default function cart() {
                 </div>
               </div>
             </section>
-            <section className="submit-container">
-              {" "}
-              {/*class="submit-container"*/}
-              <div className="submit-box">
-                <div className="cart-final">
-                  ``
-                  <p>
-                    총 <span>{totalCart}</span>건 / 20건
-                  </p>
-                  <p className="price">36,000원</p>
+            <BottomFixedContainer>
+              <div css={submitPrice}>
+                <div>
+                  총{" "}
+                  <span style={{ color: "var(--color-primary)" }}>
+                    {checkedItemQuantity}
+                  </span>
+                  건 / 20건
                 </div>
-                <div className="buttons">
-                  <button>선물하기</button>
-                  <button>구매하기</button>
+                <div style={{ fontSize: "20px" }}>
+                  {(0).toLocaleString("en")}원
                 </div>
               </div>
-            </section>
+              <div css={buttonContainer}>
+                <Button
+                  btnType="button"
+                  btnEvent={() => alert("선물하기")}
+                  type="white"
+                >
+                  선물하기
+                </Button>
+                <Button btnType="button" btnEvent={() => alert("구매하기")}>
+                  구매하기
+                </Button>
+              </div>
+            </BottomFixedContainer>
           </div>
         ))}
     </>

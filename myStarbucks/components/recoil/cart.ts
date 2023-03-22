@@ -12,3 +12,13 @@ export const frozenCartListState = atom<cartListType>({
   key: "frozenCart",
   default: [],
 });
+
+export const cartDeliveryPrice = atom<number>({
+  key: "cartDeliveryPrice",
+  default: 0,
+});
+
+export const cartTotalItemPrice = atom<number>({
+  key: "cartTotalItemPrice",
+  default: 0,
+});
