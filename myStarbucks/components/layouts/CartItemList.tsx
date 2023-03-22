@@ -12,8 +12,8 @@ export default function CartItemList(props: { title: string }) {
   const [listAllCheck, setListAllCheck] = useState(false);
 
   useEffect(() => {
-    let check = false;
-    cartItems.find((item) => item.Checked === false)
+    let check = true;
+    cartItems.find((item) => item.checked === false)
       ? (check = false)
       : (check = true);
     console.log("밑에: ", check);
@@ -23,9 +23,9 @@ export default function CartItemList(props: { title: string }) {
   const handleCartListAllCheck = (check: boolean) => {
     setListAllCheck(!check);
     setCartItems(
-      cartItems.map((a) => {
-        const cartResult = { ...a };
-        cartResult.Checked = !check;
+      cartItems.map((item) => {
+        const cartResult = { ...item };
+        cartResult.checked = !check;
         return cartResult;
       })
     );

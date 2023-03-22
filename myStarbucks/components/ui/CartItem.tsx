@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { cartItemType, cartListType } from "@/types/types";
-import ItemAmount from "./ItemAmount";
 import OrderChangeModal from "../modals/OrderChangeModal";
 import { useRecoilState } from "recoil";
 import { frozenCartListState, generalCartListState } from "../recoil/cart";
@@ -21,7 +20,7 @@ export default function CartItem(props: { item: cartItemType; title: string }) {
       cartList.map((item) => {
         const itemResult = { ...item };
         if (item.product.id === props.item.product.id) {
-          itemResult.Checked = !item.Checked;
+          itemResult.checked = !item.checked;
         }
         return itemResult;
       })
@@ -31,7 +30,7 @@ export default function CartItem(props: { item: cartItemType; title: string }) {
   return (
     <div className="cart-product">
       <div
-        className={props.item.Checked ? "sbCheckBoxOn" : "sbCheckBox"}
+        className={props.item.checked ? "sbCheckBoxOn" : "sbCheckBox"}
         onClick={handleCheck}
       ></div>
       <div style={{ width: "95%" }}>

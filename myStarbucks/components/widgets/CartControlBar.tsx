@@ -9,37 +9,37 @@ export default function CartControlBar() {
   const [generalCart, setGeneralCart] =
     useRecoilState<cartListType>(generalCartListState);
   const [listAllCheck, setListAllCheck] = useState(false);
-  // const totalCart =
+  const totalCart = [frozenCart, generalCart];
 
   useEffect(() => {
-    let check = false;
-    let freezeCheck = false;
-    frozenCart.find((item) => item.Checked === false)
+    let check = true;
+    let freezeCheck = true;
+    frozenCart.find((item) => item.checked === false)
       ? (check = false)
       : (check = true);
-    generalCart.find((item) => item.Checked === false)
+    generalCart.find((item) => item.checked === false)
       ? (freezeCheck = false)
       : (freezeCheck = true);
-    if (!check || !freezeCheck) {
-      setListAllCheck(false);
-    } else {
+    if (check && freezeCheck) {
       setListAllCheck(true);
+    } else {
+      setListAllCheck(false);
     }
-  }, []);
+  }, [totalCart]);
 
   const handleAllCheck = (check: boolean) => {
     setListAllCheck(!check);
     setFrozenCart(
       frozenCart.map((item) => {
         const frozenResult = { ...item };
-        frozenResult.Checked = !check;
+        frozenResult.checked = !check;
         return frozenResult;
       })
     );
     setGeneralCart(
       generalCart.map((item) => {
         const generalResult = { ...item };
-        generalResult.Checked = !check;
+        generalResult.checked = !check;
         return generalResult;
       })
     );

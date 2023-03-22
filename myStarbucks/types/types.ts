@@ -41,7 +41,7 @@ export interface eventType {
   tag: string;
 }
 
-// // 장바구니 개별 상품
+// // 장바구니 개별 상품(더미)
 // export interface cartItem {
 //   id: number;
 //   name: string;
@@ -56,7 +56,7 @@ export interface cartItemType {
   user: object;
   product: productType;
   deleted: boolean;
-  Checked: boolean;
+  checked: boolean;
 }
 
 export interface cartListType extends Array<cartItemType> {}

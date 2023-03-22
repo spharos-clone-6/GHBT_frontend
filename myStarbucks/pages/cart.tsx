@@ -18,9 +18,9 @@ export default function cart() {
 
   const [totalQuantity, setTotalQuantity] = useState(0);
 
-  // useEffect(() => {
-  //   console.log("총 수량 : ", totalQuantity);
-  // }, [totalQuantity]);
+  useEffect(() => {
+    console.log("총 수량 : ", totalQuantity);
+  }, [totalQuantity]);
 
   // const defaultCartItemType = {
   //   isChecked: false,
@@ -28,7 +28,7 @@ export default function cart() {
 
   // 데이터 불러오기
   const accesstoken =
-    "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Nzk0MDM3ODAsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.pMEl7kZLc5hwsKubE1b5Fggg9ralxkIgNR7sT82sMJcf5dOOhiv3lIj0lLpmSvGfDVsGpqZ0izK0QCucTLGTsg";
+    "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Nzk0ODcxODksInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.JD7Cq_WXlvnmO7PWMSVxVFJltHgYDnY3pWuNKHjXjWre-vR37Dio_EB2euwcH84C8S_2GVMFrKasPgkJU3OVNw";
 
   useEffect(() => {
     async function fetchData() {
@@ -40,7 +40,7 @@ export default function cart() {
           },
         }
       );
-      console.log("일반 상품 목록 :", result);
+      console.log("카트 페이지에서 불러온 일반 상품 :", result);
       setGeneralCart(result.data);
     }
     fetchData();
@@ -56,28 +56,11 @@ export default function cart() {
           },
         }
       );
-      console.log("냉동 상품 목록 :", result);
+      console.log("카트 페이지에서 불러온 냉동 상품 :", result);
       setFrozenCart(result.data);
     }
     fetchData();
   }, []);
-
-  // useEffect(() => {
-  //   setFrozenCart(
-  //     frozenCart.map((item) => {
-  //       const copyData = { ...item };
-  //       copyData.isChecked = false;
-  //       return copyData;
-  //     })
-  //   );
-  //   setGeneralCart(
-  //     generalCart.map((item) => {
-  //       const copyData = { ...item };
-  //       copyData.isChecked = false;
-  //       return copyData;
-  //     })
-  //   );
-  // }, []);
 
   useEffect(() => {
     setTotalQuantity(frozenCart.length + generalCart.length);
