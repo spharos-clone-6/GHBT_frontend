@@ -58,3 +58,17 @@ export interface modal {
   modalOpen: boolean;
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+export interface detailProductType {
+  name: string;
+  productId: number;
+  description: string;
+  price: number;
+  subType: string;
+  bigType: string;
+  season: string;
+  volume: string;
+  thumbnailUrl?: string;
+  isBest?: boolean;
+  isNew?: boolean;
+}
