@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Router, useRouter } from "next/router";
 import Link from "next/link";
-import { Button, Header, Image, Modal, Icon } from 'semantic-ui-react';
-import Contents from "../modals/Contents";
+import Badge from "../ui/Badge";
+import { useRecoilState } from "recoil";
+import { IcartList } from "@/types/types";
 
 export interface ChildProps {
   isView: Boolean;
@@ -25,8 +26,6 @@ export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
     router.back();
   };
 
-  const [open, setOpen] = useState(false);
-
   // useEffect(() => {
   //   setCartList(DUMMY_ITEM_LIST);
   // }, []);
@@ -35,29 +34,13 @@ export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
     <div className="header-top">
       <div className="menu-icon">
         {router.pathname === "/store" ||
-          router.pathname.includes("/product") ||
-          router.pathname === "/cart" ? (
+        router.pathname.includes("/product") ||
+        router.pathname === "/cart" ? (
           <img onClick={handleBack} src="/images/icons/left.png" alt="" />
         ) : (
-          <Modal
-            closeIcon
-            open={open}
-            onClose={() => setOpen(false)}
-            onOpen={() => setOpen(true)}
-            trigger={<img src="/images/icons/menu.svg" alt="" 
-          />}
-          >
-            <Header icon>
-              <img src="/images/icons/close.png" width={'5%'} onClick={() => setOpen(false)}/>
-            </Header>
-            <Modal.Content>
-              <Contents />
-            </Modal.Content>
-            
-          </Modal>
-          // <Link href="/contents">
-          //   <img src="/images/icons/menu.svg" alt="" />
-          // </Link>
+          <Link href="/contents">
+            <img src="/images/icons/menu.svg" alt="" />
+          </Link>
         )}
       </div>
       <Link href={"/"}>
