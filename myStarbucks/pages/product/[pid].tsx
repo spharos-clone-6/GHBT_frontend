@@ -16,15 +16,15 @@ import React, { useEffect, useRef, useState } from "react";
 
 export default function productDetail() {
   const dummy = {
-    name: '테스트 데이터',
+    name: "테스트 데이터",
     productId: 1,
-    description: '더미',
+    description: "더미",
     price: 10000,
-    subType: '홀케이크',
-    bigType: '케이크',
-    season: '',
-    volume: '',
-  }
+    subType: "홀케이크",
+    bigType: "케이크",
+    season: "",
+    volume: "",
+  };
 
   const { query } = useRouter();
   const [product, setProduct] = useState<detailProductType>(dummy);
@@ -36,44 +36,55 @@ export default function productDetail() {
 
   useEffect(() => {
     const getData = async () => {
-      if (query.pid === undefined) query.pid = "1"
-      const result = await axios.get(`http://backend.grapefruit-honey-black-tea.shop/api/product/${query.pid}`)
+      if (query.pid === undefined) query.pid = "1";
+
+      console.log(query.pid);
+      const result = await axios.get(
+        `http://backend.grapefruit-honey-black-tea.shop/api/product/${query.pid}`
+      );
 
       if (result.data.season !== "") {
-        const seasonResult = await axios.get(`http://backend.grapefruit-honey-black-tea.shop/api/product/search-category?name=${result.data.season}`)
-        let filtered = seasonResult.data.content.filter((p: productType) => p.name !== result.data.name)
-        setSeasonProduct(filtered)
+        const seasonResult = await axios.get(
+          `http://backend.grapefruit-honey-black-tea.shop/api/product/search/c?filter=${result.data.season}`
+        );
+        let filtered = seasonResult.data.content.filter(
+          (p: productType) => p.name !== result.data.name
+        );
+        setSeasonProduct(filtered);
       }
 
       if (result.data.subType !== "") {
-        const subResult = await axios.get(`http://backend.grapefruit-honey-black-tea.shop/api/product/search-category?name=${result.data.subType}`)
-        let filtered = subResult.data.content.filter((p: productType) => p.name !== result.data.name)
-        setSubProduct(filtered)
+        const subResult = await axios.get(
+          `http://backend.grapefruit-honey-black-tea.shop/api/product/search/c?filter=${result.data.subType}`
+        );
+        let filtered = subResult.data.content.filter(
+          (p: productType) => p.name !== result.data.name
+        );
+        setSubProduct(filtered);
       }
-      setProduct(result.data)
-
+      setProduct(result.data);
     };
     getData();
-  }, [])
+  }, []);
 
   const handleIsOpen = () => {
     console.log(isOpen);
     setRandomKey(Math.random());
     setIsOpen(!isOpen);
-  }
+  };
 
   const buttonContainer = css`
     display: flex;
     gap: 15px;
     padding: 0 30px;
     align-items: center;
-  `
+  `;
 
   const iconStyle = css`
     padding: 0;
     margin: 0;
     width: 30%;
-  `
+  `;
 
   return (
     <>
@@ -88,58 +99,71 @@ export default function productDetail() {
           <div className="product-name-container">
             <div className="product-name">
               <p>{product?.name}</p>
-              <ProductLabel
-                isBest={product?.isBest}
-                isNew={product?.isNew}
-              />
+              <ProductLabel isBest={product?.isBest} isNew={product?.isNew} />
             </div>
             <div className="share-icon">
               <img src="/images/icons/share.png" alt="" />
             </div>
           </div>
 
-          <div className="description">
-            {product?.description}
-          </div>
+          <div className="description">{product?.description}</div>
           <div className="price">
             <Price price={product.price} />
           </div>
         </div>
       </section>
-      <Detail
-        pid={query.pid}
-        url={product?.thumbnailUrl}
-      />
-      {
-        seasonProduct.length !== 0 && (
-          <ProductContainerRecommand
-            headerName={`${product.season} 상품`} itemList={seasonProduct}
-          />
-        )
-      }
+      <Detail pid={query.pid} url={product?.thumbnailUrl} />
+      {seasonProduct.length !== 0 && (
+        <ProductContainerRecommand
+          headerName={`${product.season} 상품`}
+          itemList={seasonProduct}
+        />
+      )}
 
-      {
-        subProduct.length !== 0 && (
-          <ProductContainerRecommand
-            headerName={'비슷한 상품을 확인해보세요'} itemList={subProduct}
-          />
-        )
-      }
+      {subProduct.length !== 0 && (
+        <ProductContainerRecommand
+          headerName={"비슷한 상품을 확인해보세요"}
+          itemList={subProduct}
+        />
+      )}
 
       <InfoList />
       <BottomFixedContainer animation={true} key={randomkey}>
         <div className="toggle-icon" onClick={handleIsOpen}></div>
-        <div className={isOpen ? "" : "hide"}><ProductDetailSubmit price={product.price} productName={product.name} handleIsOpen={handleIsOpen} /></div>
+        <div className={isOpen ? "" : "hide"}>
+          <ProductDetailSubmit
+            price={product.price}
+            productName={product.name}
+            handleIsOpen={handleIsOpen}
+          />
+        </div>
       </BottomFixedContainer>
 
       <BottomFixedContainer>
         <div css={buttonContainer} className={isOpen ? "" : "hide"}>
-          <div css={iconStyle}><img src="/images/icons/shopping-cart.svg" width={'60%'} /></div>
-          <Button btnType="button" btnEvent={() => (alert('선물하기'))} type="white">선물하기</Button>
-          <Button btnType="button" btnEvent={() => (alert('구매하기'))}>구매하기</Button>
+          <div css={iconStyle}>
+            <img src="/images/icons/shopping-cart.svg" width={"60%"} />
+          </div>
+          <Button
+            btnType="button"
+            btnEvent={() => alert("선물하기")}
+            type="white"
+          >
+            선물하기
+          </Button>
+          <Button btnType="button" btnEvent={() => alert("구매하기")}>
+            구매하기
+          </Button>
         </div>
-        <div className={isOpen ? "hide" : "toggle-icon"} onClick={handleIsOpen}></div>
-        <div className={isOpen ? "hide" : ""}><Button btnType="button" btnEvent={handleIsOpen}>구매하기</Button></div>
+        <div
+          className={isOpen ? "hide" : "toggle-icon"}
+          onClick={handleIsOpen}
+        ></div>
+        <div className={isOpen ? "hide" : ""}>
+          <Button btnType="button" btnEvent={handleIsOpen}>
+            구매하기
+          </Button>
+        </div>
       </BottomFixedContainer>
     </>
   );

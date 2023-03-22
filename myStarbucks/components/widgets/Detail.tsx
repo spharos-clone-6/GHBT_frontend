@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Detail(props: {pid: string | string[] | undefined, url: string}) {
+export default function Detail(props: {pid: string | string[] | undefined, url: string | undefined}) {
   return (
     <section id="product-detail">
       <p>상품 정보</p>

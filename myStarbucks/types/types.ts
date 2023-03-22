@@ -14,7 +14,8 @@ export interface recommandTitle {
 export interface productType {
   createDate?: string;
   updateDate?: string;
-  id: number;
+  id?: number;
+  productId?: number;
   name: string;
   price: number;
   description?: string;
@@ -23,6 +24,9 @@ export interface productType {
   isBest: boolean;
   isNew: boolean;
   likeCount?: number;
+  season?: string;
+  bigTyep?: string;
+  volume?: string;
 }
 
 export interface categoryType {
