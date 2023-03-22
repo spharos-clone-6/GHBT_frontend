@@ -25,6 +25,7 @@ export default function CartItem(props: { item: cartItemType; title: string }) {
         return itemResult;
       })
     );
+    console.log("개별 아이템: ", props.item);
   };
 
   return (
@@ -51,11 +52,16 @@ export default function CartItem(props: { item: cartItemType; title: string }) {
           </div>
         </div>
         <div className="count">
-          <p>수량: 1개</p>
+          <p>수량: {props.item.quantity}개</p>
         </div>
         <div className="item-price">
           <p>주문 금액</p>
-          <p>{props.item.product.price.toLocaleString("en")}원</p>
+          <p>
+            {(props.item.quantity * props.item.product.price).toLocaleString(
+              "en"
+            )}
+            원
+          </p>
         </div>
         <div className="item-purchase">
           <button onClick={showModal}>주문 수정</button>

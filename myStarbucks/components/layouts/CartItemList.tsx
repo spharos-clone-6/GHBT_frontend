@@ -16,7 +16,6 @@ export default function CartItemList(props: { title: string }) {
     cartItems.find((item) => item.checked === false)
       ? (check = false)
       : (check = true);
-    console.log("밑에: ", check);
     setListAllCheck(check);
   }, [cartItems]);
 

@@ -10,6 +10,7 @@ import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { Loader } from "semantic-ui-react";
 import CartEmpty from "../components/widgets/CartEmpty";
+// import "semantic-ui-css/semantic.min.css";
 
 export default function cart() {
   const [frozenCart, setFrozenCart] =
@@ -58,13 +59,7 @@ export default function cart() {
 
   return (
     <>
-      {isLoading && (
-        <div style={{ padding: "300px 50px" }}>
-          <Loader inline="centered" active>
-            Loading
-          </Loader>
-        </div>
-      )}
+      {isLoading && <div style={{ padding: "300px 150px" }}>Loading</div>}
       {!isLoading &&
         (totalCart === 0 ? (
           <CartEmpty />
