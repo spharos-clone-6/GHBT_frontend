@@ -9,6 +9,20 @@ type Item = {
 }
 
 const ProductContainerRecommand = ({ item }: Item) => {
+  const limitTitle = (title: string, limit: number = 18) => {
+    const newTitle: string[] = [];
+    if(title.length > limit) {
+      title.split(' ').reduce((acc, cur) => {
+        if (acc + cur.length <= limit) {
+          newTitle.push(cur);
+        }
+        return acc + cur.length
+      }, 0);
+      return `${newTitle.join(' ')} ...`;
+    }
+    return title;
+  }
+
   return (
     <Link href={`/product/${item.id}`}>
       <div className="recommand-product-item">
@@ -24,7 +38,7 @@ const ProductContainerRecommand = ({ item }: Item) => {
             isBest = {item.isBest}
             isNew = {item.isNew}
           />
-          <p className="item-title">{item.name}</p>
+          <p className="item-title">{limitTitle(item.name)}</p>
           <p className="item-price">
             <Price price={item.price} />
           </p>
