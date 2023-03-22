@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import "public/css/style.css";
 import { RecoilRoot } from "recoil";
+import "semantic-ui-css/semantic.min.css";
 
 export default function App({ Component, pageProps }: AppProps) {
   const { pathname } = useRouter();
