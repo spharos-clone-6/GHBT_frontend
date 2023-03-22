@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Router, useRouter } from "next/router";
 import Link from "next/link";
 import Badge from "../ui/Badge";
 import { useRecoilState } from "recoil";
 import { IcartList } from "@/types/types";
+import ContentsModal from "../modals/ContentsModal";
 
 export interface ChildProps {
   isView: Boolean;
@@ -13,6 +14,7 @@ export interface ChildProps {
 export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
   const router = useRouter();
   // console.log(router.pathname);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const handleOpenLogin = () => {
     setIsView(true);
@@ -26,6 +28,10 @@ export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
     router.back();
   };
 
+  const showModal = () => {
+    setModalOpen(true);
+  };
+  
   // useEffect(() => {
   //   setCartList(DUMMY_ITEM_LIST);
   // }, []);
@@ -38,9 +44,12 @@ export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
         router.pathname === "/cart" ? (
           <img onClick={handleBack} src="/images/icons/left.png" alt="" />
         ) : (
-          <Link href="/contents/contents">
-            <img src="/images/icons/menu.svg" alt="" />
-          </Link>
+          <div>
+            <button onClick={showModal}><img src="/images/icons/menu.svg" alt="" /></button>
+            {modalOpen && (
+              <ContentsModal setModalOpen={setModalOpen} />
+            )}
+          </div>
         )}
       </div>
       <Link href={"/"}>
