@@ -10,7 +10,6 @@ import KeywordContainer from "@/components/widgets/KeywordContainer";
 import SearchHeader from "@/components/widgets/SearchHeader";
 
 export default function search_result() {
-  const [itemList, setItemList] = useState<productType[]>([]);
   const { query } = useRouter();
   // console.log(query.keyword);
 
@@ -22,6 +21,15 @@ export default function search_result() {
 
   const [categoryList, setCatogoryList] = useState<bigCategory[]>([]);
 
+  const [itemList, setItemList] = useState<productType[]>([]);
+  const [allItem, setAllItem] = useState<productType[]>([]);
+
+  const [bItemList, setBItemList] = useState<productType[]>([]);
+  const [vItemList, setVItemList] = useState<productType[]>([]);
+  const [pItemList, setPItemList] = useState<productType[]>([]);
+  const [cItemList, setCItemList] = useState<productType[]>([]);
+  const [sItemList, setSItemList] = useState<productType[]>([]);
+
   function categoryIdx(name: string | string[] | undefined): number {
     if (name === undefined) {
       return 6;
@@ -29,17 +37,11 @@ export default function search_result() {
     if (typeof name === "object") {
       name = name[0];
     }
-    console.log();
     return middleCategory.findIndex((Object) => Object.bigType === name);
   }
 
   useEffect(() => {
     const getData = async () => {
-      const result = await axios.get(
-        `http://backend.grapefruit-honey-black-tea.shop/api/product/search/${query.keyword}`
-      );
-      setItemList([...result.data.content]);
-
       const categoryResult = await axios.get(
         `http://backend.grapefruit-honey-black-tea.shop/api/product/search/type/${query.keyword}`
       );
@@ -47,6 +49,17 @@ export default function search_result() {
     };
     getData();
   }, [query]);
+
+  useEffect(() => {
+    const getData = async () => {
+      const result = await axios.get(
+        `http://backend.grapefruit-honey-black-tea.shop/api/product/search/${query.keyword}`
+      );
+      setItemList([...result.data.content]);
+      setAllItem([...result.data.content]);
+    };
+    getData();
+  }, []);
 
   useEffect(() => {
     setFilterKeyword([
@@ -61,6 +74,134 @@ export default function search_result() {
     createUrl();
   }, [filterKeyword]);
 
+  function isIn(itemList: productType[], x: number) {
+    let itemIdList: number[] = [];
+    itemList && itemList.map((item) => itemIdList.push(item.productId));
+    console.log("isin=", itemList);
+    return itemIdList.includes(x);
+  }
+
+  useEffect(() => {
+    let items = [...allItem];
+    if (bItemList) {
+      items = items.filter((x) => isIn(bItemList, x.productId));
+    }
+    if (volumeKeyword.length !== 0) {
+      items = items.filter((x) => isIn(vItemList, x.productId));
+    }
+    if (priceKeyword.length !== 0) {
+      items = items.filter((x) => isIn(pItemList, x.productId));
+    }
+    if (categoryKeyword.length !== 0) {
+      items = items.filter((x) => isIn(cItemList, x.productId));
+    }
+    if (seasonKeyword.length !== 0) {
+      items = items.filter((x) => isIn(sItemList, x.productId));
+    }
+    console.log("items=", items);
+    setItemList([...items]);
+  }, [
+    vItemList,
+    pItemList,
+    cItemList,
+    sItemList,
+    bItemList,
+    volumeKeyword,
+    priceKeyword,
+    categoryKeyword,
+    seasonKeyword,
+  ]);
+
+  /** 대분류 필터링 */
+  useEffect(() => {
+    const getData = async () => {
+      const result = await axios.get(
+        `http://backend.grapefruit-honey-black-tea.shop/api/product/search/c?filter=${query.bigCategory}`
+      );
+      setBItemList(result.data.content);
+    };
+    getData();
+    // setItemList([...itemList, ...vItemList]);
+  }, [query.bigCategory]);
+
+  /** 용량 필터링 */
+  useEffect(() => {
+    const url = requestUrl("v");
+    const getData = async () => {
+      const result = await axios.get(
+        `http://backend.grapefruit-honey-black-tea.shop/api/product/search/${url}`
+      );
+      setVItemList(result.data.content);
+    };
+    getData();
+    // setItemList([...itemList, ...vItemList]);
+  }, [volumeKeyword]);
+
+  /** 가격 필터링 */
+  useEffect(() => {
+    let items: productType[] = [];
+    priceKeyword &&
+      priceKeyword.map((p) => {
+        if (p === "1만원미만") {
+          items = [...items, ...allItem.filter((x) => x.price < 10000)];
+        } else if (p === "1만원대") {
+          items = [
+            ...items,
+            ...allItem.filter((x) => x.price >= 10000 && x.price < 20000),
+          ];
+        } else if (p === "2만원대") {
+          items = [
+            ...items,
+            ...allItem.filter((x) => x.price >= 20000 && x.price < 30000),
+          ];
+        } else if (p === "3만원대") {
+          items = [
+            ...items,
+            ...allItem.filter((x) => x.price >= 30000 && x.price < 40000),
+          ];
+        } else if (p === "4만원대") {
+          items = [
+            ...items,
+            ...allItem.filter((x) => x.price >= 40000 && x.price < 50000),
+          ];
+        } else if (p === "5만원이상") {
+          items = [...items, ...allItem.filter((x) => x.price >= 50000)];
+        }
+      });
+    console.log(priceKeyword);
+    setPItemList([...items]);
+  }, [priceKeyword]);
+
+  /** 카테고리(중) 필터링 */
+  useEffect(() => {
+    const url = requestUrl("c");
+    const getData = async () => {
+      const result = await axios.get(
+        `http://backend.grapefruit-honey-black-tea.shop/api/product/search/${url}`
+      );
+      setCItemList(result.data.content);
+    };
+    getData();
+    // setItemList([...itemList, ...vItemList]);
+  }, [categoryKeyword]);
+
+  /** 시즌 필터링 */
+  useEffect(() => {
+    const url = requestUrl("s");
+    const getData = async () => {
+      const result = await axios.get(
+        `http://backend.grapefruit-honey-black-tea.shop/api/product/search/${url}`
+      );
+      setSItemList(result.data.content);
+    };
+    getData();
+    // setItemList([...itemList, ...vItemList]);
+  }, [seasonKeyword]);
+
+  useEffect(() => {
+    console.log("new item list=", itemList);
+  }, [itemList]);
+
   const createUrl = () => {
     let url =
       router.pathname +
@@ -71,9 +212,23 @@ export default function search_result() {
     filterKeyword.map((k) => (url = url + "&filter=" + k));
     router.push(url);
   };
+
   const handleReset = () => {
     setFilterKeyword([]);
   };
+
+  function requestUrl(type: string): string {
+    let url = query.keyword + "/" + type + "?";
+
+    if (type === "v") {
+      volumeKeyword.map((key) => (url = url + "filter=" + key + "&"));
+    } else if (type === "c") {
+      categoryKeyword.map((key) => (url = url + "filter=" + key + "&"));
+    } else if (type === "s") {
+      seasonKeyword.map((key) => (url = url + "filter=" + key + "&"));
+    }
+    return url;
+  }
 
   return (
     <>
@@ -122,6 +277,14 @@ export default function search_result() {
             <KeywordContainer
               filterKeyword={filterKeyword}
               setFilterKeyword={setFilterKeyword}
+              volumeKeyword={volumeKeyword}
+              setVolumeKeyword={setVolumeKeyword}
+              priceKeyword={priceKeyword}
+              setPriceKeyword={setPriceKeyword}
+              categoryKeyword={categoryKeyword}
+              setCategoryKeyword={setCategoryKeyword}
+              seasonKeyword={seasonKeyword}
+              setSeasonKeyword={setSeasonKeyword}
             />
           </div>
         )}
@@ -129,7 +292,7 @@ export default function search_result() {
 
       {/* 상품 */}
       <SelectOrder />
-      <ProductContainerGrid itemList={itemList} />
+      {itemList && <ProductContainerGrid itemList={itemList} />}
     </>
   );
 }

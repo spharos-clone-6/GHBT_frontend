@@ -1,15 +1,35 @@
 /** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";
-import { useRouter } from "next/router";
-import React, { Dispatch, SetStateAction, useEffect } from "react";
+import { Dispatch, SetStateAction } from "react";
 
 export default function FilterKeyword(props: {
   keyword: string;
   filterKeyword: string[];
   setFilterKeyword: Dispatch<SetStateAction<string[]>>;
+  volumeKeyword: string[];
+  setVolumeKeyword: Dispatch<SetStateAction<string[]>>;
+  priceKeyword: string[];
+  setPriceKeyword: Dispatch<SetStateAction<string[]>>;
+  categoryKeyword: string[];
+  setCategoryKeyword: Dispatch<SetStateAction<string[]>>;
+  seasonKeyword: string[];
+  setSeasonKeyword: Dispatch<SetStateAction<string[]>>;
 }) {
-  const { keyword, filterKeyword, setFilterKeyword } = props;
+  const {
+    keyword,
+    filterKeyword,
+    setFilterKeyword,
+    volumeKeyword,
+    setVolumeKeyword,
+    priceKeyword,
+    setPriceKeyword,
+    categoryKeyword,
+    setCategoryKeyword,
+    seasonKeyword,
+    setSeasonKeyword,
+  } = props;
+
   const buttonStyle = css`
     vertical-align: baseline;
     background-color: var(--color-light-green);
@@ -20,10 +40,14 @@ export default function FilterKeyword(props: {
     white-space: nowrap;
   `;
 
-  const router = useRouter();
   const handelDelete = (key: string) => {
     let list = filterKeyword.filter((el) => el !== key);
     setFilterKeyword([...list]);
+
+    setVolumeKeyword([...volumeKeyword.filter((el) => el !== key)]);
+    setPriceKeyword([...priceKeyword.filter((el) => el !== key)]);
+    setCategoryKeyword([...categoryKeyword.filter((el) => el !== key)]);
+    setSeasonKeyword([...seasonKeyword.filter((el) => el !== key)]);
   };
 
   return (

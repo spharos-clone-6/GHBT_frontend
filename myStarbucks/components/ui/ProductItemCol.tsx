@@ -12,7 +12,7 @@ export default function ProductItemCol(props: {
   const { pathname } = useRouter();
   const { item, idx } = props;
   return (
-    <Link href={`/product/${item.productId}`}>
+    <Link href={`/product/${item?.productId}`}>
       <div className="product-item">
         {pathname === "/best" && (
           <div className="rank-label">
@@ -20,14 +20,14 @@ export default function ProductItemCol(props: {
           </div>
         )}
         <img
-          src={`https://storage.googleapis.com/ghbt/product_thumbnail/${item.thumbnailUrl}`}
+          src={`https://storage.googleapis.com/ghbt/product_thumbnail/${item?.thumbnailUrl}`}
           className="thumbnail"
         />
         <div className="product-item-info">
-          <ProductLabel isBest={item.isBest} isNew={item.isNew} />
-          <p className="product-item-name">{item.name}</p>
+          <ProductLabel isBest={item?.isBest} isNew={item?.isNew} />
+          <p className="product-item-name">{item?.name}</p>
           <p className="product-item-price">
-            <Price price={item.price} />
+            <Price price={item?.price} />
           </p>
         </div>
       </div>
