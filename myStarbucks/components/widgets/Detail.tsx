@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import DetailImage from "../ui/DetailImage";
 
 interface imgData {
   id: number;
@@ -11,13 +12,7 @@ export default function Detail(props: { pid: string | string[] | undefined }) {
   const [imgList, setImgList] = useState<imgData[]>([]);
   const renderImgs = (): JSX.Element[] => {
     const imgs = imgList.map((image) => {
-      return (
-        <img
-          key={image.id}
-          src={`https://storage.googleapis.com/ghbt/product_image/${image.url}`}
-          alt=""
-        />
-      );
+      return <DetailImage key={image.id} url={image.url} />;
     });
     return imgs;
   };
