@@ -21,7 +21,6 @@ export default function cart() {
   const [generalCart, setGeneralCart] =
     useRecoilState<cartListType>(generalCartListState);
   const [isLoading, setIsLoading] = useState(true);
-
   const buttonContainer = css`
     display: flex;
     gap: 15px;
@@ -41,36 +40,41 @@ export default function cart() {
 
   // 데이터 불러오기
   const accesstoken =
-    "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Nzk1NzMyODEsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.0Wdk9AQwB4abWCzsuyTFe3GUc5IZb1kNeEoZVymtlC9vDorTuOk-I1uLLD7u6S3KL8TJOncEYrL5PyO-ZoeiYA";
+    "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Nzk1ODA4NjEsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.yt6f7kUlU3A47756lxTUIwGXz0RQDYCZJSuZF4WDDJu7iSO302jcBB-BsEoO8u4Iu2v7OThdaRh1LjRDlirbFg";
+  async function fetchGeneralData() {
+    const generalResult = await axios.get(
+      "https://backend.grapefruit-honey-black-tea.shop/api/cart/my_cart",
+      {
+        headers: {
+          Authorization: accesstoken,
+        },
+      }
+    );
+    console.log("일반 상품 :", generalResult);
+    setGeneralCart(generalResult.data);
+  }
+  async function fetchFrozenData() {
+    const frozenResult = await axios.get(
+      "https://backend.grapefruit-honey-black-tea.shop/api/cart/my_cart/ice",
+      {
+        headers: {
+          Authorization: accesstoken,
+        },
+      }
+    );
+    console.log("냉동 상품 :", frozenResult);
+    setFrozenCart(frozenResult.data);
+    setIsLoading(false);
+  }
   useEffect(() => {
-    async function fetchGeneralData() {
-      const generalResult = await axios.get(
-        "https://backend.grapefruit-honey-black-tea.shop/api/cart/my_cart",
-        {
-          headers: {
-            Authorization: accesstoken,
-          },
-        }
-      );
-      console.log("일반 상품 :", generalResult);
-      setGeneralCart(generalResult.data);
-    }
-    async function fetchFrozenData() {
-      const frozenResult = await axios.get(
-        "https://backend.grapefruit-honey-black-tea.shop/api/cart/my_cart/ice",
-        {
-          headers: {
-            Authorization: accesstoken,
-          },
-        }
-      );
-      console.log("냉동 상품 :", frozenResult);
-      setFrozenCart(frozenResult.data);
-      setIsLoading(false);
-    }
     fetchGeneralData();
     fetchFrozenData();
   }, []);
+
+  // useEffect(() => {
+  //   fetchGeneralData();
+  //   fetchFrozenData();
+  // }, [generalCart]);
 
   const totalCart = generalCart.length + frozenCart.length;
   console.log("총 수량 : ", generalCart.length + frozenCart.length);

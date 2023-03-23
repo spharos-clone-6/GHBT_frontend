@@ -52,6 +52,7 @@ export interface eventType {
 // }
 
 export interface cartItemType {
+  id: number;
   quantity: number;
   user: object;
   product: productType;

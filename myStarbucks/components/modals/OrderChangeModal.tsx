@@ -7,6 +7,7 @@ import Button from "../ui/Button";
 import ItemAmount from "../ui/ItemAmount";
 import ModalHeader from "../ui/ModalHeader";
 import { css } from "@emotion/react";
+import axios from "axios";
 
 interface orderChange {
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -14,6 +15,7 @@ interface orderChange {
 }
 
 export default function OrderChangeModal({ setModalOpen, item }: orderChange) {
+  // const [product, setProduct] = useState(item);
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [itemCount, setItemCount] = useState(item.quantity);
   const modalStyle: Object = {
@@ -48,6 +50,23 @@ export default function OrderChangeModal({ setModalOpen, item }: orderChange) {
   };
 
   console.log("변경된 수량: ", itemCount);
+
+  const submitQuantity = async () => {
+    const accesstoken =
+      "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Nzk1ODA4NjEsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.yt6f7kUlU3A47756lxTUIwGXz0RQDYCZJSuZF4WDDJu7iSO302jcBB-BsEoO8u4Iu2v7OThdaRh1LjRDlirbFg";
+    await axios.put(
+      `https://backend.grapefruit-honey-black-tea.shop/api/cart/${item.id}/${itemCount}`,
+      {},
+      {
+        headers: {
+          Authorization: accesstoken,
+        },
+      }
+    );
+
+    console.log(item);
+    setModalOpen(false);
+  };
 
   return (
     <>
@@ -95,7 +114,7 @@ export default function OrderChangeModal({ setModalOpen, item }: orderChange) {
             <Button btnType="button" btnEvent={closeModal} type="white">
               취소
             </Button>
-            <Button btnType="button" btnEvent={() => alert("확인")}>
+            <Button btnType="button" btnEvent={submitQuantity}>
               확인
             </Button>
           </div>

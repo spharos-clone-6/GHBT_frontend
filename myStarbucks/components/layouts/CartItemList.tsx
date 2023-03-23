@@ -15,7 +15,6 @@ export default function CartItemList({ title }: cartType) {
       ? useRecoilState<cartListType>(generalCartListState)
       : useRecoilState<cartListType>(frozenCartListState);
   const [listAllCheck, setListAllCheck] = useState(false);
-  const [totalItemPrice, setTotalItemPrice] = useState<number>(0);
   const [totalDeliveryPrice, setTotalDeliveryPrice] = useState<number>(0);
 
   useEffect(() => {
@@ -56,15 +55,6 @@ export default function CartItemList({ title }: cartType) {
       : `${30000 - listPrice}원 더 담으면 무료배송`;
 
   useEffect(() => {
-    cartItems.map((item) =>
-      item.checked
-        ? setTotalItemPrice(totalItemPrice + listPrice)
-        : setTotalItemPrice(totalItemPrice + 0)
-    );
-    console.log("총가격 : ", totalItemPrice);
-  }, [cartItems]);
-
-  useEffect(() => {
     setTotalDeliveryPrice(totalDeliveryPrice + deliveryPrice);
   }, [cartItems]);
 
@@ -84,7 +74,7 @@ export default function CartItemList({ title }: cartType) {
           </div>
         </div>
         {cartItems.map((item) => (
-          <CartItem item={item} key={item.product.id} title={title} />
+          <CartItem item={item} key={item.id} title={title} />
         ))}
       </section>
       {!checkedItemQuantity ? (
