@@ -3,8 +3,10 @@ import { css } from "@emotion/react";
 import Link from "next/link";
 
 export default function ModalHeader(props: {
-  setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
+  headerName?: string
 }) {
+  const { setModalOpen, headerName } = props
   const header = css`
     display: flex;
     text-align: center;
@@ -18,16 +20,16 @@ export default function ModalHeader(props: {
   `;
 
   const closeModal = () => {
-    props.setModalOpen(false);
+    setModalOpen(false);
   };
 
   return (
     <div css={header}>
       <div> </div>
-      <h2 css={item}>주문 수정</h2>
+      <h2 css={item}>{headerName}</h2>
       <img
         src="/images/icons/close.png"
-        style={{ width: "15px" }}
+        style={{ width: "15px", padding: '16px 6px' }}
         onClick={closeModal}
       />
     </div>

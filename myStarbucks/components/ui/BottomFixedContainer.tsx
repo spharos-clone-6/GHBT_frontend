@@ -22,7 +22,7 @@ export default function BottomFixedContainer({ children, animation = false }: Pr
     position: fixed;
     bottom: 0;
     width: 100%;
-    z-index: 100;
+    z-index: 1;
     text-align: center;
     padding: 0;
     margin: 0;

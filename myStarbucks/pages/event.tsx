@@ -9,30 +9,35 @@ export default function event() {
   const [eventInfo, setEventInfo] = useState<eventType>();
   const { query } = useRouter();
 
-  console.log(query.category)
+  console.log(query.category);
 
   useEffect(() => {
     const getData = async () => {
-      console.log(query)
-      const result = await axios.get(`http://backend.grapefruit-honey-black-tea.shop/api/product/search-category?name=${query.category}`)
-      const eventResult = await axios.get(`http://backend.grapefruit-honey-black-tea.shop/api/event/name/${query.category}`)
+      console.log(query);
+      const result = await axios.get(
+        `http://backend.grapefruit-honey-black-tea.shop/api/product/search/c?filter=${query.category}`
+      );
+      const eventResult = await axios.get(
+        `http://backend.grapefruit-honey-black-tea.shop/api/event/name/${query.category}`
+      );
       setItemList(result.data.content);
       setEventInfo(eventResult.data);
     };
     getData();
+  }, [query]);
 
-  }, [query])
-  
   return (
     <div className="container">
       <section id="event-info">
         <div className="first-section-sub-one">
-          <img src={`https://storage.googleapis.com${eventInfo?.descriptionUrl}`} width="100%" height="100%" />
+          <img
+            src={`https://storage.googleapis.com${eventInfo?.descriptionUrl}`}
+            width="100%"
+            height="100%"
+          />
         </div>
       </section>
-      <ProductContainerGrid
-        itemList={itemList}
-      />
+      <ProductContainerGrid itemList={itemList} />
     </div>
   );
 }

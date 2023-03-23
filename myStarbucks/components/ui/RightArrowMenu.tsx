@@ -3,8 +3,8 @@ import { css } from "@emotion/react";
 import Link from 'next/link'
 import React from 'react'
 
-export default function RightArrowMenu(props: { iconSrc?: string, menuName: string, link: string, fontType?: 'normal' | 'strong' }) {
-  const {iconSrc, menuName, link, fontType} = props
+export default function RightArrowMenu(props: { iconSrc?: string, menuName: string, link: string, fontType?: 'normal' | 'strong', description?: string}) {
+  const {iconSrc, menuName, link, fontType, description} = props
 
   let fontWeight = 'normal';
   let fontSize = '1rem';
@@ -35,6 +35,13 @@ export default function RightArrowMenu(props: { iconSrc?: string, menuName: stri
     margin: 2px;
   `
 
+  const descStyle = css`
+    font-size: 1rem;
+    display: block;
+    margin: 2px;
+    color: var(--color-gray-text)
+  `
+
   return (
     <div css={menu}>
       <Link href={link} css={linkStyle}>
@@ -43,7 +50,11 @@ export default function RightArrowMenu(props: { iconSrc?: string, menuName: stri
             className="icon"
             src={iconSrc}
           />
-          <p css={name}>{menuName}</p>
+          <div>
+            <p css={name}>{menuName}</p>
+            <p css={descStyle}>{description}</p>
+          </div>
+          
         </div>
         <img
           className="arrow"
