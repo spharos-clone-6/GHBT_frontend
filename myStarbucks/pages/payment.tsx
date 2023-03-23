@@ -1,25 +1,9 @@
+import ModalHeader from "@/components/ui/ModalHeader";
 import React from "react";
 
 export default function payment() {
   return (
     <>
-      <header id="store-head">
-        <div className="store-header-top header-top">
-          <div className="menu-icon">
-            <img src="assets/images/icons/left.png" alt="" />
-          </div>
-          <h1>
-            <a href="">온라인 스토어</a>
-          </h1>
-          <nav>
-            <ul>
-              <li>
-                <img src="assets/images/icons/close.png" />
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </header>
       <section id="pay-title">
         <p className="title">결제하기</p>
       </section>
@@ -39,24 +23,21 @@ export default function payment() {
           <p>010-1234-5678</p>
         </div>
       </section>
-      <section className="pay-products">
+      <section id="payment" className="pay-products">
         <details>
           <summary>
             <div>
               <p>상품내역</p>
               <div>
                 <img
-                  src="./assets/images/icons/arrow-down-sign-to-navigate.png"
+                  src="/images/icons/arrow-down-sign-to-navigate.png"
                   alt=""
                 />
               </div>
             </div>
           </summary>
           <div className="product-details">
-            <img
-              src="./assets/images/products/category/category-cup.jpg"
-              alt=""
-            />
+            <img src="/images/products/category/category-cup.jpg" alt="" />
             <div>
               <p>23 체리블라썸 플라워 머그앤소서 237ml</p>
               <p>주문수량: 1개</p>
@@ -65,10 +46,7 @@ export default function payment() {
           </div>
         </details>
         <div className="product-summary">
-          <img
-            src="./assets/images/products/category/category-cup.jpg"
-            alt=""
-          />
+          <img src="/images/products/category/category-cup.jpg" alt="" />
           <div>
             <p style={{ fontWeight: 700 }}>
               23 리블라썸 플라워 머그앤소서 237ml
@@ -83,8 +61,9 @@ export default function payment() {
               <p>쿠폰 및 할인</p>
               <div>
                 <img
-                  src="./assets/images/icons/arrow-down-sign-to-navigate.png"
+                  src="/images/icons/arrow-down-sign-to-navigate.png"
                   alt=""
+                  style={{ width: "15px" }}
                 />
               </div>
             </div>
@@ -92,7 +71,7 @@ export default function payment() {
           <div className="detail">
             <a href="">
               <div className="coupon-detail">
-                <img src="./assets/images/icons/user.svg" alt="" />
+                <img src="/images/icons/user.svg" alt="" />
                 <p>쿠폰</p>
               </div>
             </a>
@@ -105,10 +84,7 @@ export default function payment() {
           <a href="">
             <div>
               <p>사용하기</p>
-              <img
-                src="./assets/images/icons/arrow-point-to-right.png"
-                alt=""
-              />
+              <img src="/images/icons/arrow-point-to-right.png" alt="" />
             </div>
           </a>
         </div>
