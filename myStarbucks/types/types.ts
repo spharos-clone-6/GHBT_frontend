@@ -76,3 +76,8 @@ export interface detailProductType {
   isBest?: boolean;
   isNew?: boolean;
 }
+
+export interface bigCategory {
+  typeName: string;
+  typeCount: number;
+}
