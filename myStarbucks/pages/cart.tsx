@@ -41,8 +41,7 @@ export default function cart() {
 
   // 데이터 불러오기
   const accesstoken =
-    "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Nzk0ODcxODksInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.JD7Cq_WXlvnmO7PWMSVxVFJltHgYDnY3pWuNKHjXjWre-vR37Dio_EB2euwcH84C8S_2GVMFrKasPgkJU3OVNw";
-
+    "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Nzk1NzMyODEsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.0Wdk9AQwB4abWCzsuyTFe3GUc5IZb1kNeEoZVymtlC9vDorTuOk-I1uLLD7u6S3KL8TJOncEYrL5PyO-ZoeiYA";
   useEffect(() => {
     async function fetchGeneralData() {
       const generalResult = await axios.get(
@@ -106,6 +105,9 @@ export default function cart() {
   const generalDelivery = generalPrice > 30000 || generalPrice === 0 ? 0 : 3000;
   console.log("냉동배송비: ", frozenDelivery);
   console.log("일반배송비: ", generalDelivery);
+
+  const deliveryPrice = frozenDelivery + generalDelivery;
+
   return (
     <>
       {isLoading && <div style={{ padding: "300px 150px" }}>Loading</div>}
@@ -129,7 +131,7 @@ export default function cart() {
                 <div className="prices">
                   <div className="cart-price">
                     <p>상품 금액</p>
-                    <p className="price">{TotalPrice}원</p>
+                    <p className="price">{TotalPrice.toLocaleString("en")}원</p>
                   </div>
                   <div className="cart-price">
                     <p>할인 금액</p>
@@ -137,12 +139,16 @@ export default function cart() {
                   </div>
                   <div className="cart-price">
                     <p>배송비</p>
-                    <p className="price">{0}원</p>
+                    <p className="price">
+                      {deliveryPrice.toLocaleString("en")}원
+                    </p>
                   </div>
                 </div>
                 <div className="total-price">
                   <p>최종 결제 금액</p>
-                  <p className="price">{0 + 0}원</p>
+                  <p className="price">
+                    {(TotalPrice + deliveryPrice).toLocaleString("en")}원
+                  </p>
                 </div>
 
                 {/* 안내문 */}
@@ -166,7 +172,7 @@ export default function cart() {
                   건 / 20건
                 </div>
                 <div style={{ fontSize: "20px" }}>
-                  {(0).toLocaleString("en")}원
+                  {(TotalPrice + deliveryPrice).toLocaleString("en")}원
                 </div>
               </div>
               <div css={buttonContainer}>
