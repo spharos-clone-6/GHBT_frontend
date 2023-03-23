@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Router, useRouter } from "next/router";
 import Link from "next/link";
 import Badge from "../ui/Badge";
-import { useRecoilState } from "recoil";
-import { IcartList } from "@/types/types";
 import ContentsModal from "../modals/ContentsModal";
 
 export interface ChildProps {
@@ -31,24 +29,21 @@ export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
   const showModal = () => {
     setModalOpen(true);
   };
-  
-  // useEffect(() => {
-  //   setCartList(DUMMY_ITEM_LIST);
-  // }, []);
 
   return (
     <div className="header-top">
       <div className="menu-icon">
         {router.pathname === "/store" ||
         router.pathname.includes("/product") ||
-        router.pathname === "/cart" ? (
+        router.pathname === "/cart" ||
+        router.pathname === "/payment" ? (
           <img onClick={handleBack} src="/images/icons/left.png" alt="" />
         ) : (
           <div>
-            <button onClick={showModal}><img src="/images/icons/menu.svg" alt="" /></button>
-            {modalOpen && (
-              <ContentsModal setModalOpen={setModalOpen} />
-            )}
+            <button onClick={showModal}>
+              <img src="/images/icons/menu.svg" alt="" />
+            </button>
+            {modalOpen && <ContentsModal setModalOpen={setModalOpen} />}
           </div>
         )}
       </div>
@@ -57,27 +52,30 @@ export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
       </Link>
       <nav>
         <ul>
-          <li>
-            <Link href="/search">
-              <img src="/images/icons/search.svg" />
-            </Link>
-          </li>
-          <li>
-            {/* <Badge /> */}
-            <Link href="/cart">
-              <img src="/images/icons/shopping-cart.svg" />
-            </Link>
-          </li>
-          <li onClick={handleOpenLogin}>
-            <img src="/images/icons/close.png" />
-          </li>
+          {router.pathname === "/payment" ? (
+            <li className="close-icon">
+              <img src="assets/images/icons/menu.svg" alt="" />
+            </li>
+          ) : (
+            <>
+              <li>
+                <Link href="/search">
+                  <img src="/images/icons/search.svg" />
+                </Link>
+              </li>
+              <li>
+                <Badge />
+                <Link href="/cart">
+                  <img src="/images/icons/shopping-cart.svg" />
+                </Link>
+              </li>
+              <li onClick={handleOpenLogin}>
+                <img src="/images/icons/close.png" />
+              </li>
+            </>
+          )}
         </ul>
       </nav>
     </div>
   );
-}
-function setCartList(
-  DUMMY_ITEM_LIST: { id: number; name: string; price: number; amount: number }[]
-) {
-  throw new Error("Function not implemented.");
 }
