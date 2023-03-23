@@ -6,14 +6,13 @@ import { frozenCartListState, generalCartListState } from "../recoil/cart";
 import axios from "axios";
 
 export default function CartItem(props: { item: cartItemType; title: string }) {
+  const [quantity, setQuantity] = useState(props.item.quantity);
   const [isItem, setIsItem] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
   const [cartList, setCartList] =
     props.title === "일반상품"
       ? useRecoilState<cartListType>(generalCartListState)
       : useRecoilState<cartListType>(frozenCartListState);
-
-  console.log(props.item);
 
   const showModal = () => {
     setModalOpen(true);
@@ -78,7 +77,7 @@ export default function CartItem(props: { item: cartItemType; title: string }) {
               </div>
             </div>
             <div className="count">
-              <p>수량: {props.item.quantity}개</p>
+              <p>수량: {quantity}개</p>
             </div>
             <div className="item-price">
               <p>주문 금액</p>
@@ -95,6 +94,8 @@ export default function CartItem(props: { item: cartItemType; title: string }) {
                 <OrderChangeModal
                   setModalOpen={setModalOpen}
                   item={props.item}
+                  quantity={quantity}
+                  setQuantity={setQuantity}
                 />
               )}
               <button>바로 구매</button>

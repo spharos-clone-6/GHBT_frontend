@@ -71,14 +71,7 @@ export default function cart() {
     fetchFrozenData();
   }, []);
 
-  // useEffect(() => {
-  //   fetchGeneralData();
-  //   fetchFrozenData();
-  // }, [generalCart]);
-
   const totalCart = generalCart.length + frozenCart.length;
-  console.log("총 수량 : ", generalCart.length + frozenCart.length);
-  console.log("로딩: ", isLoading);
 
   // 체크박스 선택한 상품 수량
   let checkedItemQuantity = 0;

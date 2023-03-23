@@ -12,12 +12,18 @@ import axios from "axios";
 interface orderChange {
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   item: cartItemType;
+  quantity: number;
+  setQuantity: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export default function OrderChangeModal({ setModalOpen, item }: orderChange) {
-  // const [product, setProduct] = useState(item);
+export default function OrderChangeModal({
+  setModalOpen,
+  item,
+  quantity,
+  setQuantity,
+}: orderChange) {
   const [totalPrice, setTotalPrice] = useState<number>(0);
-  const [itemCount, setItemCount] = useState(item.quantity);
+  // const [itemCount, setItemCount] = useState(item.quantity);
   const modalStyle: Object = {
     position: "fixed",
     backgroundColor: "var(--color-white)",
@@ -49,13 +55,13 @@ export default function OrderChangeModal({ setModalOpen, item }: orderChange) {
     setModalOpen(false);
   };
 
-  console.log("변경된 수량: ", itemCount);
+  console.log("변경된 수량: ", quantity);
 
   const submitQuantity = async () => {
     const accesstoken =
       "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Nzk1ODA4NjEsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.yt6f7kUlU3A47756lxTUIwGXz0RQDYCZJSuZF4WDDJu7iSO302jcBB-BsEoO8u4Iu2v7OThdaRh1LjRDlirbFg";
     await axios.put(
-      `https://backend.grapefruit-honey-black-tea.shop/api/cart/${item.id}/${itemCount}`,
+      `https://backend.grapefruit-honey-black-tea.shop/api/cart/${item.id}/${quantity}`,
       {},
       {
         headers: {
@@ -64,8 +70,8 @@ export default function OrderChangeModal({ setModalOpen, item }: orderChange) {
       }
     );
 
-    console.log(item);
     setModalOpen(false);
+    setQuantity(quantity);
   };
 
   return (
@@ -97,8 +103,8 @@ export default function OrderChangeModal({ setModalOpen, item }: orderChange) {
         <ItemAmount
           price={item.product.price}
           setTotalPrice={setTotalPrice}
-          count={itemCount}
-          setCount={setItemCount}
+          count={quantity}
+          setCount={setQuantity}
         />
         <BottomFixedContainer>
           <div css={submitPrice}>
