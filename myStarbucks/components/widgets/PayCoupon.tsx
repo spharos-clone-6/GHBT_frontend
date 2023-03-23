@@ -9,9 +9,10 @@ export default function PayCoupon() {
             <p>쿠폰 및 할인</p>
             <div>
               <img
+                className="arrow"
                 src="/images/icons/arrow-down-sign-to-navigate.png"
                 alt=""
-                style={{ width: "15px" }}
+                style={{ width: "16px" }}
               />
             </div>
           </div>

@@ -1,32 +1,51 @@
-import React from "react";
+/** @jsxImportSource @emotion/react */
+import React, { useState } from "react";
+import { css } from "@emotion/react";
+import PayProductDetail from "./PayProductDetail";
 
 export default function PayProductList() {
+  const [detailOn, setDetailOn] = useState(false);
+
+  const payContainer = css`
+    background-color: #f4f4f4;
+    padding: 10px 14px;
+  `;
+
+  const payProductHeader = css`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f4f4f4;
+  `;
+
+  const showDetailHandler = () => {
+    setDetailOn(!detailOn);
+  };
+
   return (
-    <section id="payment" className="pay-products">
-      <details>
-        <summary>
-          <div>
-            <p>상품내역</p>
-            <div>
-              <img src="/images/icons/arrow-down-sign-to-navigate.png" alt="" />
-            </div>
-          </div>
-        </summary>
-        <div className="product-details">
-          <img src="/images/products/category/5.jpg" alt="" />
-          <div>
-            <p>23 체리블라썸 플라워 머그앤소서 237ml 외 1개</p>
-            <p>주문수량: 1개</p>
-            <p>34,000원</p>
-          </div>
+    <div css={payContainer}>
+      <div css={payProductHeader}>
+        <div
+          style={{ fontSize: "16px", fontWeight: "700", padding: "5px 0px" }}
+        >
+          상품내역
         </div>
-      </details>
-      <div className="product-summary">
-        <img src="/images/products/category/5.jpg" alt="" />
         <div>
-          <p style={{ fontWeight: 700 }}>23 리블라썸 플라워 머그앤소서 237ml</p>
+          <img
+            className="arrow"
+            src={
+              detailOn
+                ? "/images/icons/upload.png"
+                : "/images/icons/arrow-down-sign-to-navigate.png"
+            }
+            alt=""
+            style={{ width: "16px", height: "16px" }}
+            onClick={showDetailHandler}
+          />
         </div>
       </div>
-    </section>
+      {/* 주문 상품 목록 받아와서 맵돌리기: summary on off 필요 */}
+      <PayProductDetail detailOn={detailOn ? true : false} />
+    </div>
   );
 }

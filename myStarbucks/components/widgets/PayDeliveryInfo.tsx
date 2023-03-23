@@ -4,7 +4,7 @@ import { css } from "@emotion/react";
 export default function PaymentDeliveryInfo() {
   const div = css`
     margin: 5px 0px;
-    padding: 7px 0px;
+    padding: 10px 0px;
     border-top: 1px solid rgba(128, 128, 128, 0.381);
   `;
 
