@@ -9,7 +9,7 @@ import Price from "../ui/Price";
 
 export default function ProductDetailSubmit(props: { price: number, productName: string, handleIsOpen: React.MouseEventHandler<HTMLDivElement>}) {
   const { price, productName, handleIsOpen } = props
-  const [totalPrice, setTotalPrice] = useState<number>();
+  const [totalPrice, setTotalPrice] = useState<number>(0);
 
   const totalPriceStyle = css`
     text-align: right;
@@ -18,9 +18,6 @@ export default function ProductDetailSubmit(props: { price: number, productName:
     font-weight: bold;
   `
 
-
-
-  
   return (
     <div onClick={handleIsOpen}>
       <ItemAmount price={price} label={productName} setTotalPrice={setTotalPrice}/>

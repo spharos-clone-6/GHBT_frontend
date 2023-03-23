@@ -1,11 +1,82 @@
-import React from 'react'
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import Button from "../ui/Button";
+import DetailImage from "../ui/DetailImage";
 
-export default function Detail(props: {pid: string | string[] | undefined}) {
+interface imgData {
+  id: number;
+  productId: number;
+  url: string;
+}
+
+export default function Detail(props: { pid: string | string[] | undefined }) {
+  const [imgList, setImgList] = useState<imgData[]>([]);
+  const [showImgList, setShowImgList] = useState<imgData[]>([]);
+  const [isMore, setIsMore] = useState<boolean>(false);
+
+  const renderImgs = (): JSX.Element[] => {
+    const imgs = showImgList.map((image) => {
+      return <DetailImage key={image.id} url={image.url} />;
+    });
+    return imgs;
+  };
+
+  const handleMore = () => {
+    setShowImgList([...imgList]);
+    setIsMore(true);
+  };
+
+  const handleMoreClose = () => {
+    setShowImgList([imgList[0]]);
+    setIsMore(false);
+  };
+
+  useEffect(() => {
+    const getData = async () => {
+      const result = await axios.get(
+        `http://backend.grapefruit-honey-black-tea.shop/api/image/${props.pid}`
+      );
+      console.log(result.data.images);
+      setImgList([...result.data.images]);
+      setShowImgList([result.data.images[0]]);
+    };
+    getData();
+  }, []);
+
   return (
-    <section id="product-detail">
-      <p>상품 정보</p>
-      <img src="/images/products/product-detail.png" alt="" />
-      {/*JS "상품정보 더보기" 버튼 추가 필요*/}
-    </section>
-  )
+    <>
+      <section id="product-detail">
+        <p>상품 정보</p>
+        {renderImgs()}
+        <div
+          style={{ textAlign: "center", position: "relative", top: "-40px" }}
+        >
+          {!isMore && (
+            <Button type="more" btnType={"button"} btnEvent={handleMore}>
+              상품 정보 더보기
+              <img
+                src="/images/icons/upload.png"
+                width={"3%"}
+                style={{
+                  paddingRight: "5px",
+                  transform: "rotate(180deg)",
+                  opacity: "0.5",
+                }}
+              />
+            </Button>
+          )}
+          {isMore && (
+            <Button type="more" btnType={"button"} btnEvent={handleMoreClose}>
+              상품 정보 접기
+              <img
+                src="/images/icons/upload.png"
+                width={"3%"}
+                style={{ paddingLeft: "5px", opacity: "0.5" }}
+              />
+            </Button>
+          )}
+        </div>
+      </section>
+    </>
+  );
 }

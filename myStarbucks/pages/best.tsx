@@ -8,23 +8,22 @@ export default function best() {
   const [itemList, setItemList] = useState<productType[]>([]);
   const { query } = useRouter();
 
-  console.log(query.category)
+  console.log(query.category);
 
   useEffect(() => {
     const getData = async () => {
-      console.log(query)
-      const result = await axios.get(`http://backend.grapefruit-honey-black-tea.shop/api/product/search-category?name=${query.category}`)
+      console.log(query);
+      const result = await axios.get(
+        `http://backend.grapefruit-honey-black-tea.shop/api/product/search/c?filter=${query.category}`
+      );
       setItemList(result.data.content);
     };
     getData();
+  }, [query]);
 
-  }, [query])
-  
   return (
     <div className="first-section-sub-one">
-      <ProductContainerGrid 
-        itemList={itemList}
-      />
+      <ProductContainerGrid itemList={itemList} />
     </div>
   );
 }
