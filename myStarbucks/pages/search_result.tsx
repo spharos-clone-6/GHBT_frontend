@@ -15,6 +15,11 @@ export default function search_result() {
   // console.log(query.keyword);
 
   const [filterKeyword, setFilterKeyword] = useState<string[]>([]);
+  const [volumeKeyword, setVolumeKeyword] = useState<string[]>([]);
+  const [priceKeyword, setPriceKeyword] = useState<string[]>([]);
+  const [categoryKeyword, setCategoryKeyword] = useState<string[]>([]);
+  const [seasonKeyword, setSeasonKeyword] = useState<string[]>([]);
+
   const [categoryList, setCatogoryList] = useState<bigCategory[]>([]);
 
   function categoryIdx(name: string | string[] | undefined): number {
@@ -39,10 +44,18 @@ export default function search_result() {
         `http://backend.grapefruit-honey-black-tea.shop/api/product/search/type/${query.keyword}`
       );
       setCatogoryList([...categoryResult.data.content]);
-      console.log("big=", query.bigCategory);
     };
     getData();
   }, [query]);
+
+  useEffect(() => {
+    setFilterKeyword([
+      ...volumeKeyword,
+      ...priceKeyword,
+      ...categoryKeyword,
+      ...seasonKeyword,
+    ]);
+  }, [volumeKeyword, priceKeyword, categoryKeyword, seasonKeyword]);
 
   useEffect(() => {
     createUrl();
@@ -56,7 +69,6 @@ export default function search_result() {
       "&bigCategory=" +
       router.query.bigCategory;
     filterKeyword.map((k) => (url = url + "&filter=" + k));
-    console.log(url);
     router.push(url);
   };
   const handleReset = () => {
@@ -70,33 +82,33 @@ export default function search_result() {
         <div className="first-section"></div>
         {/* <StoreHeadCategory /> */}
         {categoryList.length !== 0 && <SearchHeader itemList={categoryList} />}
+
         {/* 용량 */}
         {(query.bigCategory?.includes("텀블러/보온병") ||
           query.bigCategory?.includes("머그/컵")) && (
           <StoreHeadFilter
             data={store_subhead[2]}
-            setFilterKeyword={setFilterKeyword}
-            filterKeyword={filterKeyword}
+            setFilterKeyword={setVolumeKeyword}
+            filterKeyword={volumeKeyword}
           />
         )}
-
         {/* 가격 */}
         <StoreHeadFilter
           data={store_subhead[0]}
-          setFilterKeyword={setFilterKeyword}
-          filterKeyword={filterKeyword}
+          setFilterKeyword={setPriceKeyword}
+          filterKeyword={priceKeyword}
         />
         {/* 중분류 카테고리 */}
         <StoreHeadFilter
           data={middleCategory[categoryIdx(query.bigCategory)]}
-          setFilterKeyword={setFilterKeyword}
-          filterKeyword={filterKeyword}
+          setFilterKeyword={setCategoryKeyword}
+          filterKeyword={categoryKeyword}
         />
         {/* 시즌 */}
         <StoreHeadFilter
           data={store_subhead[1]}
-          setFilterKeyword={setFilterKeyword}
-          filterKeyword={filterKeyword}
+          setFilterKeyword={setSeasonKeyword}
+          filterKeyword={seasonKeyword}
         />
         {filterKeyword.length !== 0 && (
           <div style={{ display: "flex", alignItems: "center" }}>
