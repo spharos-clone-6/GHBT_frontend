@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction } from "react";
-import FilterKeyword from "./FilterKeyword";
+import FilterKeyword from "../ui/FilterKeyword";
 
 interface filterList {
   id: number;

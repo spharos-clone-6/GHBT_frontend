@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import StoreHeadCategory from "@/components/ui/StoreHeadCategory";
-import StoreHeadFilter from "@/components/ui/StoreHeadFilter";
+import StoreHeadCategory from "@/components/widgets/StoreHeadCategory";
+import StoreHeadFilter from "@/components/widgets/StoreHeadFilter";
 import { store_subhead } from "@/data/StaticData";
 import SelectOrder from "@/components/ui/SelectOrder";
 import axios from "axios";
@@ -35,7 +35,7 @@ export default function search_result() {
       {/* 카테고리 & 필터링 */}
       <div id="store-head" className="search-result">
         <div className="first-section"></div>
-          <StoreHeadCategory />
+          {/* <StoreHeadCategory /> */}
           <StoreHeadFilter data={store_subhead[0]} setFilterKeyword={setFilterKeyword} filterKeyword={filterKeyword} />
           <StoreHeadFilter data={store_subhead[1]} setFilterKeyword={setFilterKeyword} filterKeyword={filterKeyword}/>
           <div style={{display: 'flex', alignItems: 'center'}}>
