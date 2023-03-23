@@ -151,6 +151,7 @@
   padding: 10px 25px;
   align-items: center;
   gap: 10px;
+  overflow: scroll;
 }
 
 #search-result-filter > img {

@@ -15,7 +15,7 @@ export default function SearchTop({ isView, setIsView }: ChildProps) {
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    router.push(`/search_result?keyword=${word}`);
+    router.push(`/search_result?keyword=${word}&bigCategory=${"전체"}`);
   };
 
   const typingHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,12 +44,9 @@ export default function SearchTop({ isView, setIsView }: ChildProps) {
             <img
               src="/images/icons/search.svg"
               onClick={() =>
-                router.push({
-                  pathname: "/search_result",
-                  query: {
-                    keyword: `${word}`,
-                  },
-                })
+                router.push(
+                  `/search_result?keyword=${word}&bigCategory=${"전체"}`
+                )
               }
             />
           </li>

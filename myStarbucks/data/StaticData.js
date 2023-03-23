@@ -35,6 +35,11 @@ export const store_subhead = [
       "Core",
     ],
   },
+  {
+    id: 3,
+    name: "용량",
+    value: ["Short", "Tall", "Grande", "Venti"],
+  }
 ];
 
 export const GENERAL_CART_LIST = [
@@ -91,3 +96,66 @@ export const FROZEN_CART_LIST = [
     img: "/images/products/cart-dummy/chocolate-cake.jpg",
   },
 ];
+
+export const middleCategory = [
+  {
+    id: 1,
+    name: "카테고리",
+    value: [
+      "홀케이크",
+      "롤케이크"
+    ],
+    bigType: "케이크"
+  },
+  {
+    id: 2,
+    name: "카테고리",
+    value: [
+      "플라스틱텀블러",
+      "스테인리스텀블러",
+      "보온병",
+      "콜드컵",
+    ],
+    bigType: "텀블러/보온병"
+  },
+  {
+    id: 3,
+    name: "카테고리",
+    value: [
+      "머그",
+      "글라스",
+      "리유저블",
+    ],
+    bigType: "머그/컵"
+  },
+  {
+    id: 4,
+    name: "카테고리",
+    value: [],
+    bigType: "라이프스타일"
+  },
+  {
+    id: 5,
+    name: "카테고리",
+    value: [
+
+    ],
+    bigType: "티/커피용품"
+  },
+  {
+    id: 6,
+    name: "카테고리",
+    value: [
+      "4+1"
+    ],
+    bigType: "세트"
+  },
+  {
+    id: 0,
+    name: "카테고리",
+    value: [
+
+    ],
+    bigType: "전체"
+  }
+]

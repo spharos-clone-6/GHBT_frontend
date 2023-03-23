@@ -15,7 +15,7 @@ export interface productType {
   createDate?: string;
   updateDate?: string;
   id?: number;
-  productId?: number;
+  productId: number;
   name: string;
   price: number;
   description?: string;
@@ -83,4 +83,9 @@ export interface detailProductType {
   thumbnailUrl?: string;
   isBest?: boolean;
   isNew?: boolean;
+}
+
+export interface bigCategory {
+  typeName: string;
+  typeCount: number;
 }

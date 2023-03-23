@@ -43,10 +43,6 @@
   text-align: center;
 }
 
-#store-head .header-sub nav ul li.active {
-  padding: 20px 10px 20px 0px;
-}
-
 #store-head .header-sub nav ul li.fix {
   color: black;
   font-weight: bolder;
@@ -54,10 +50,6 @@
 
 #store-head .header-sub nav ul li:first-child {
   padding-left: 10px;
-}
-
-#store-head .header-sub nav ul li a {
-  font-size: 0.8rem;
 }
 
 #store-head .header-sub nav .cat-title {
