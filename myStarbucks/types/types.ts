@@ -45,18 +45,26 @@ export interface eventType {
   tag: string;
 }
 
-// 장바구니 개별 상품
-export interface cartItem {
+// // 장바구니 개별 상품(더미)
+// export interface cartItem {
+//   id: number;
+//   name: string;
+//   price: number;
+//   quantity: number;
+//   img: string;
+//   isChecked?: boolean;
+// }
+
+export interface cartItemType {
   id: number;
-  name: string;
-  price: number;
   quantity: number;
-  img: string;
-  isChecked?: boolean;
+  user: object;
+  product: productType;
+  deleted: boolean;
+  checked: boolean;
 }
 
-// cartItem을 객체로 갖는 배열의 인터페이스 선언
-export interface IcartList extends Array<cartItem> {}
+export interface cartListType extends Array<cartItemType> {}
 
 export interface modal {
   modalOpen: boolean;

@@ -4,26 +4,33 @@ interface props {
   price: number;
   label?: string;
   setTotalPrice: Dispatch<SetStateAction<number>>;
+  count: number;
+  setCount: Dispatch<SetStateAction<number>>;
 }
 
-export default function ItemAmount({price, label='상품 주문 수량', setTotalPrice}: props) {
-  const [itemCount, setItemCount] = useState(1);
+export default function ItemAmount({
+  price,
+  label = "상품 주문 수량",
+  setTotalPrice,
+  count,
+  setCount,
+}: props) {
   const [isBtnValid, setIsBtnValid] = useState(false);
 
   const onClickAddHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    setItemCount(itemCount + 1);
+    setCount(count + 1);
   };
 
   const onClickMinusHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    setItemCount(itemCount - 1);
+    setCount(count - 1);
   };
 
   useEffect(() => {
-    setIsBtnValid(itemCount > 1);
-    setTotalPrice(price * itemCount);
-  }, [itemCount]);
+    setIsBtnValid(count > 1);
+    setTotalPrice(price * count);
+  }, [count]);
 
   return (
     <section id="change-quantity">
@@ -34,12 +41,12 @@ export default function ItemAmount({price, label='상품 주문 수량', setTota
             <button disabled={!isBtnValid} onClick={onClickMinusHandler}>
               <img src="/images/icons/minus.png" alt="" />
             </button>
-            <div>{itemCount}</div>
+            <div>{count}</div>
             <button onClick={onClickAddHandler}>
               <img src="/images/icons/add.png" alt="" />
             </button>
           </div>
-          <p>{`${(price * itemCount).toLocaleString("en")}원`}</p>
+          <p>{`${(price * count).toLocaleString("en")}원`}</p>
         </div>
       </div>
     </section>
