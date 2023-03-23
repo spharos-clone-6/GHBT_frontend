@@ -15,6 +15,7 @@ export default function Button(props: {
   let backgroundColor = "var(--color-light-green)";
   let fontColor = "var(--color-white)";
   let border = "none";
+  let boxShadow = "none";
 
   if (type === "disabled") {
     backgroundColor = "var(--color-gray-button)";
@@ -23,6 +24,11 @@ export default function Button(props: {
     backgroundColor = "var(--color-white)";
     fontColor = "var(--color-light-green)";
     border = "1px solid var(--color-light-green)";
+  } else if (type === "more") {
+    backgroundColor = "var(--color-white)";
+    fontColor = "var(--color-gray-text)";
+    border = "1px solid var(--color-gray-text)";
+    boxShadow = "0px 0px 20px 3px white, 2px 2px 4px 0px gray";
   }
 
   const style = css`
@@ -37,6 +43,7 @@ export default function Button(props: {
     color: ${fontColor};
     margin: 15px 0;
     letter-spacing: -0.2px;
+    box-shadow: ${boxShadow};
   `;
 
   return (

@@ -14,7 +14,8 @@ export interface recommandTitle {
 export interface productType {
   createDate?: string;
   updateDate?: string;
-  id: number;
+  id?: number;
+  productId?: number;
   name: string;
   price: number;
   description?: string;
@@ -23,6 +24,9 @@ export interface productType {
   isBest: boolean;
   isNew: boolean;
   likeCount?: number;
+  season?: string;
+  bigTyep?: string;
+  volume?: string;
 }
 
 export interface categoryType {
@@ -65,4 +69,18 @@ export interface cartListType extends Array<cartItemType> {}
 export interface modal {
   modalOpen: boolean;
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export interface detailProductType {
+  name: string;
+  productId: number;
+  description: string;
+  price: number;
+  subType: string;
+  bigType: string;
+  season: string;
+  volume: string;
+  thumbnailUrl?: string;
+  isBest?: boolean;
+  isNew?: boolean;
 }

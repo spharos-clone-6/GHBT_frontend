@@ -68,3 +68,8 @@ a {
   width: 18%;
   opacity: 70%;
 }
+
+button {
+  border: 0;
+  background-color: transparent;
+}

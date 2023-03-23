@@ -11,21 +11,20 @@ export default function ProductItemCol(props: {
 }) {
   const { pathname } = useRouter();
   const { item, idx } = props;
-  console.log(item)
   return (
-    <Link href={`/product/${item.id}`}>
+    <Link href={`/product/${item.productId}`}>
       <div className="product-item">
         {pathname === "/best" && (
           <div className="rank-label">
             <p>{idx + 1}</p>
           </div>
         )}
-        <img src={`https://storage.googleapis.com/ghbt/thumbnail_image/${item.thumbnailUrl}`} className="thumbnail" />
+        <img
+          src={`https://storage.googleapis.com/ghbt/product_thumbnail/${item.thumbnailUrl}`}
+          className="thumbnail"
+        />
         <div className="product-item-info">
-          <ProductLabel
-            isBest = {item.isBest}
-            isNew = {item.isNew}
-          />
+          <ProductLabel isBest={item.isBest} isNew={item.isNew} />
           <p className="product-item-name">{item.name}</p>
           <p className="product-item-price">
             <Price price={item.price} />
