@@ -11,7 +11,6 @@ export default function ProductItemCol(props: {
 }) {
   const { pathname } = useRouter();
   const { item, idx } = props;
-  console.log(item);
   return (
     <Link href={`/product/${item.productId}`}>
       <div className="product-item">

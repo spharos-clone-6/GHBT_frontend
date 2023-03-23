@@ -1,11 +1,45 @@
-import React from 'react'
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
-export default function Detail(props: {pid: string | string[] | undefined, url: string | undefined}) {
+interface imgData {
+  id: number;
+  productId: number;
+  url: string;
+}
+
+export default function Detail(props: { pid: string | string[] | undefined }) {
+  const [imgList, setImgList] = useState<imgData[]>([]);
+  const renderImgs = (): JSX.Element[] => {
+    const imgs = imgList.map((image) => {
+      return (
+        <img
+          key={image.id}
+          src={`https://storage.googleapis.com/ghbt/product_image/${image.url}`}
+          alt=""
+        />
+      );
+    });
+    return imgs;
+  };
+
+  useEffect(() => {
+    const getData = async () => {
+      const result = await axios.get(
+        `http://backend.grapefruit-honey-black-tea.shop/api/image/${props.pid}`
+      );
+      console.log(result.data.images);
+      setImgList([...result.data.images]);
+      console.log(imgList);
+    };
+    getData();
+  }, []);
+
   return (
-    <section id="product-detail">
-      <p>상품 정보</p>
-      <img src={`https://storage.googleapis.com/ghbt/product_image/${props.url}`} alt="" />
-      {/*JS "상품정보 더보기" 버튼 추가 필요*/}
-    </section>
-  )
+    <>
+      <section id="product-detail">
+        <p>상품 정보</p>
+        {renderImgs()}
+      </section>
+    </>
+  );
 }

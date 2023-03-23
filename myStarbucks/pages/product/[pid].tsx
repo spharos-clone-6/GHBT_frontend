@@ -112,7 +112,7 @@ export default function productDetail() {
           </div>
         </div>
       </section>
-      <Detail pid={query.pid} url={product?.thumbnailUrl} />
+      <Detail pid={query.pid} />
       {seasonProduct.length !== 0 && (
         <ProductContainerRecommand
           headerName={`${product.season} 상품`}
