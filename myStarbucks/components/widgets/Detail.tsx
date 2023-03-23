@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import Button from "../ui/Button";
 import DetailImage from "../ui/DetailImage";
 
 interface imgData {
@@ -10,11 +11,24 @@ interface imgData {
 
 export default function Detail(props: { pid: string | string[] | undefined }) {
   const [imgList, setImgList] = useState<imgData[]>([]);
+  const [showImgList, setShowImgList] = useState<imgData[]>([]);
+  const [isMore, setIsMore] = useState<boolean>(false);
+
   const renderImgs = (): JSX.Element[] => {
-    const imgs = imgList.map((image) => {
+    const imgs = showImgList.map((image) => {
       return <DetailImage key={image.id} url={image.url} />;
     });
     return imgs;
+  };
+
+  const handleMore = () => {
+    setShowImgList([...imgList]);
+    setIsMore(true);
+  };
+
+  const handleMoreClose = () => {
+    setShowImgList([imgList[0]]);
+    setIsMore(false);
   };
 
   useEffect(() => {
@@ -24,7 +38,7 @@ export default function Detail(props: { pid: string | string[] | undefined }) {
       );
       console.log(result.data.images);
       setImgList([...result.data.images]);
-      console.log(imgList);
+      setShowImgList([result.data.images[0]]);
     };
     getData();
   }, []);
@@ -34,6 +48,34 @@ export default function Detail(props: { pid: string | string[] | undefined }) {
       <section id="product-detail">
         <p>상품 정보</p>
         {renderImgs()}
+        <div
+          style={{ textAlign: "center", position: "relative", top: "-40px" }}
+        >
+          {!isMore && (
+            <Button type="more" btnType={"button"} btnEvent={handleMore}>
+              상품 정보 더보기
+              <img
+                src="/images/icons/upload.png"
+                width={"3%"}
+                style={{
+                  paddingRight: "5px",
+                  transform: "rotate(180deg)",
+                  opacity: "0.5",
+                }}
+              />
+            </Button>
+          )}
+          {isMore && (
+            <Button type="more" btnType={"button"} btnEvent={handleMoreClose}>
+              상품 정보 접기
+              <img
+                src="/images/icons/upload.png"
+                width={"3%"}
+                style={{ paddingLeft: "5px", opacity: "0.5" }}
+              />
+            </Button>
+          )}
+        </div>
       </section>
     </>
   );

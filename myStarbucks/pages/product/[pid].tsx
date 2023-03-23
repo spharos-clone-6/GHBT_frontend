@@ -90,10 +90,12 @@ export default function productDetail() {
     <>
       <section id="product-top">
         <div className="product-img">
-          <img
-            src={`https://storage.googleapis.com/ghbt/product_thumbnail/${product?.thumbnailUrl}`}
-            alt={product?.name}
-          />
+          {product?.thumbnailUrl && (
+            <img
+              src={`https://storage.googleapis.com/ghbt/product_thumbnail/${product?.thumbnailUrl}`}
+              alt={product?.name}
+            />
+          )}
         </div>
         <div className="product-info">
           <div className="product-name-container">
