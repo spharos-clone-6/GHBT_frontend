@@ -148,7 +148,7 @@
   justify-content: space-around;
 }
 
-#cart-list .item-purchase button {
+#cart-list .item-purchase > button {
   flex-grow: 1;
   height: 25px;
   line-height: 25px;

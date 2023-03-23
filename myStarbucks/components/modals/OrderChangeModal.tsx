@@ -15,6 +15,7 @@ interface orderChange {
 
 export default function OrderChangeModal({ setModalOpen, item }: orderChange) {
   const [totalPrice, setTotalPrice] = useState<number>(0);
+  const [itemCount, setItemCount] = useState(item.quantity);
   const modalStyle: Object = {
     position: "fixed",
     backgroundColor: "var(--color-white)",
@@ -46,6 +47,8 @@ export default function OrderChangeModal({ setModalOpen, item }: orderChange) {
     setModalOpen(false);
   };
 
+  console.log("변경된 수량: ", itemCount);
+
   return (
     <>
       <div style={modalStyle}>
@@ -72,7 +75,12 @@ export default function OrderChangeModal({ setModalOpen, item }: orderChange) {
             </div>
           </div>
         </div>
-        <ItemAmount price={item.product.price} setTotalPrice={setTotalPrice} />
+        <ItemAmount
+          price={item.product.price}
+          setTotalPrice={setTotalPrice}
+          count={itemCount}
+          setCount={setItemCount}
+        />
         <BottomFixedContainer>
           <div css={submitPrice}>
             <div>주문금액</div>
@@ -84,11 +92,7 @@ export default function OrderChangeModal({ setModalOpen, item }: orderChange) {
             </div>
           </div>
           <div css={buttonContainer}>
-            <Button
-              btnType="button"
-              btnEvent={() => alert("취소")}
-              type="white"
-            >
+            <Button btnType="button" btnEvent={closeModal} type="white">
               취소
             </Button>
             <Button btnType="button" btnEvent={() => alert("확인")}>

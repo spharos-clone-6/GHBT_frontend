@@ -103,8 +103,6 @@ export default function cart() {
 
   const frozenDelivery = frozenPrice > 30000 || frozenPrice === 0 ? 0 : 3000;
   const generalDelivery = generalPrice > 30000 || generalPrice === 0 ? 0 : 3000;
-  console.log("냉동배송비: ", frozenDelivery);
-  console.log("일반배송비: ", generalDelivery);
 
   const deliveryPrice = frozenDelivery + generalDelivery;
 
