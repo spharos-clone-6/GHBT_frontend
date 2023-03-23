@@ -13,6 +13,7 @@ export default function LatestSearchItem({ item }: SearchedItem) {
       pathname: "/search_result",
       query: {
         keyword: `${item}`,
+        bigCategory: `${"전체"}`,
       },
     });
 

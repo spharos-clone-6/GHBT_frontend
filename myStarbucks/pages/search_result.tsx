@@ -1,4 +1,4 @@
-import { useRouter } from "next/router";
+import router, { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import StoreHeadFilter from "@/components/widgets/StoreHeadFilter";
 import { middleCategory, store_subhead } from "@/data/StaticData";
@@ -39,11 +39,26 @@ export default function search_result() {
         `http://backend.grapefruit-honey-black-tea.shop/api/product/search/type/${query.keyword}`
       );
       setCatogoryList([...categoryResult.data.content]);
-      console.log(query.bigCategory);
+      console.log("big=", query.bigCategory);
     };
     getData();
   }, [query]);
 
+  useEffect(() => {
+    createUrl();
+  }, [filterKeyword]);
+
+  const createUrl = () => {
+    let url =
+      router.pathname +
+      "?keyword=" +
+      router.query.keyword +
+      "&bigCategory=" +
+      router.query.bigCategory;
+    filterKeyword.map((k) => (url = url + "&filter=" + k));
+    console.log(url);
+    router.push(url);
+  };
   const handleReset = () => {
     setFilterKeyword([]);
   };
@@ -56,11 +71,15 @@ export default function search_result() {
         {/* <StoreHeadCategory /> */}
         {categoryList.length !== 0 && <SearchHeader itemList={categoryList} />}
         {/* 용량 */}
-        <StoreHeadFilter
-          data={store_subhead[2]}
-          setFilterKeyword={setFilterKeyword}
-          filterKeyword={filterKeyword}
-        />
+        {(query.bigCategory?.includes("텀블러/보온병") ||
+          query.bigCategory?.includes("머그/컵")) && (
+          <StoreHeadFilter
+            data={store_subhead[2]}
+            setFilterKeyword={setFilterKeyword}
+            filterKeyword={filterKeyword}
+          />
+        )}
+
         {/* 가격 */}
         <StoreHeadFilter
           data={store_subhead[0]}

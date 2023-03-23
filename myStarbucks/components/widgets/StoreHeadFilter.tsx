@@ -1,3 +1,4 @@
+import router from "next/router";
 import React, { Dispatch, SetStateAction } from "react";
 import FilterKeyword from "../ui/FilterKeyword";
 
@@ -14,9 +15,16 @@ export default function StoreHeadFilter(props: {
   setFilterKeyword: Dispatch<SetStateAction<string[]>>;
 }) {
   const { data, filterKeyword, setFilterKeyword } = props;
+
   const handleKeyword = (keyword: string) => {
-    if (!filterKeyword.includes(keyword))
+    if (!filterKeyword.includes(keyword)) {
       setFilterKeyword([...filterKeyword, keyword]);
+      router.push(
+        // `${router.pathname}?keyword=${router.query.keyword}&bigCategory=${name}`
+        `${router.asPath}&filter=${keyword}`
+      );
+    }
+    console.log(router.asPath);
   };
 
   return (

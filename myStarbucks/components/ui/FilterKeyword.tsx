@@ -1,11 +1,15 @@
 /** @jsxImportSource @emotion/react */
 
-import { css } from '@emotion/react'
-import React, { Dispatch, SetStateAction } from "react";
+import { css } from "@emotion/react";
+import { useRouter } from "next/router";
+import React, { Dispatch, SetStateAction, useEffect } from "react";
 
-
-export default function FilterKeyword(props: {keyword: string, filterKeyword: string[], setFilterKeyword: Dispatch<SetStateAction<string[]>> }) {
-  const {keyword, filterKeyword, setFilterKeyword} = props
+export default function FilterKeyword(props: {
+  keyword: string;
+  filterKeyword: string[];
+  setFilterKeyword: Dispatch<SetStateAction<string[]>>;
+}) {
+  const { keyword, filterKeyword, setFilterKeyword } = props;
   const buttonStyle = css`
     vertical-align: baseline;
     background-color: var(--color-light-green);
@@ -14,17 +18,18 @@ export default function FilterKeyword(props: {keyword: string, filterKeyword: st
     border-radius: 3px;
     padding: 7px 15px;
     white-space: nowrap;
-  `
+  `;
 
+  const router = useRouter();
   const handelDelete = (key: string) => {
     let list = filterKeyword.filter((el) => el !== key);
-    setFilterKeyword([...list])
-  }
+    setFilterKeyword([...list]);
+  };
 
   return (
     <button css={buttonStyle} onClick={() => handelDelete(keyword)}>
       <p>{keyword}</p>
-      <p style={{marginLeft: '8px'}}>X</p>
+      <p style={{ marginLeft: "8px" }}>X</p>
     </button>
-  )
+  );
 }
