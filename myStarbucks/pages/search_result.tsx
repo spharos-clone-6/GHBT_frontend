@@ -30,6 +30,20 @@ export default function search_result() {
   const [cItemList, setCItemList] = useState<productType[]>([]);
   const [sItemList, setSItemList] = useState<productType[]>([]);
 
+  useEffect(() => {
+    const getData = async () => {
+      const result = await axios.get(
+        `http://backend.grapefruit-honey-black-tea.shop/api/product/search/${query.keyword}`
+      );
+      console.log(result.data === "");
+      if (result.data !== "") {
+        setItemList([...result.data.content]);
+        setAllItem([...result.data.content]);
+      }
+    };
+    getData();
+  }, []);
+
   function categoryIdx(name: string | string[] | undefined): number {
     if (name === undefined) {
       return 6;
@@ -49,17 +63,6 @@ export default function search_result() {
     };
     getData();
   }, [query]);
-
-  useEffect(() => {
-    const getData = async () => {
-      const result = await axios.get(
-        `http://backend.grapefruit-honey-black-tea.shop/api/product/search/${query.keyword}`
-      );
-      setItemList([...result.data.content]);
-      setAllItem([...result.data.content]);
-    };
-    getData();
-  }, []);
 
   useEffect(() => {
     setFilterKeyword([
