@@ -20,11 +20,12 @@ export default function store_all() {
   console.log(query.page);
   const [itemList, setItemList] = useState<productType[]>([]);
   const [isData, setIsData] = useState<boolean>(true);
+  const [page, setPage] = useState<number>(0);
   
   useEffect(() => {
     const getData = async () => {
       const result = await axios.get(
-        `${baseUrl}/api/product?page=${query.page}`
+        `${baseUrl}/api/product?page=${page}`
       );
       console.log(result.data === "");
       if (result.data !== "") {
@@ -32,16 +33,21 @@ export default function store_all() {
       }
     };
     getData();
-  }, [query.page]);
+  }, []);
+
+  useEffect(()=>{
+    console.log(itemList)
+    console.log(isData)
+  },[itemList])
 
   const handleMoreData = () => {
 
-    axios.get(`${baseUrl}/api/product?page=${Number(query.page) + 1}`)
+    axios.get(`${baseUrl}/api/product?page=${page + 1}`)
     .then((res) => {
+      console.log(res.data)
       setItemList([...itemList, ...res.data.content]);
-      if(res.data.content.length === 0){
-        setIsData(false);
-      }
+      setPage(page + 1)
+      setIsData(!res.data.last)
     })
     .catch((err) => {
       console.log(err);
@@ -49,6 +55,7 @@ export default function store_all() {
 
   }
  
+  
 
 
   return (
@@ -61,6 +68,7 @@ export default function store_all() {
         next={handleMoreData}
         hasMore={isData}
         loader={<h4>Loading...</h4>}
+        endMessage={<h4>NoData</h4>}
       >
       {/* 상품 출력 */}
       {itemList.length !== 0 ? (
