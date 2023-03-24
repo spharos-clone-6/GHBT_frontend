@@ -31,6 +31,12 @@ export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
   const showModal = () => {
     setModalOpen(true);
   };
+
+  useEffect(() => {
+    if(router.pathname === "/store_all" ) {
+      setModalOpen(false);
+    }
+  },[router.pathname])
   
   // useEffect(() => {
   //   setCartList(DUMMY_ITEM_LIST);

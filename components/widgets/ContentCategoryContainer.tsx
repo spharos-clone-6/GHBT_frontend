@@ -25,7 +25,7 @@ export default function ContentCategoryContainer() {
   return (
     <section id="category-items">
       <div className="get-all-items">
-        <RightArrowMenu menuName={'전체 상품 보기'} link={'/'} />
+        <RightArrowMenu menuName={'전체 상품 보기'} link={'/store_all'} />
       </div>
       <div className="contents-container">
         {
