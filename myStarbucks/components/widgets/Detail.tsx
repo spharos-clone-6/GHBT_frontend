@@ -15,9 +15,16 @@ export default function Detail(props: { pid: string | string[] | undefined }) {
   const [isMore, setIsMore] = useState<boolean>(false);
 
   const renderImgs = (): JSX.Element[] => {
-    const imgs = showImgList.map((image) => {
-      return <DetailImage key={image.id} url={image.url} />;
-    });
+    const imgs =
+      showImgList &&
+      showImgList.map((image) => {
+        if (image === undefined) {
+          return (
+            <p style={{ fontSize: "0.8rem", color: "gray" }}>상세이미지 없음</p>
+          );
+        }
+        return <DetailImage key={image.id} url={image.url} />;
+      });
     return imgs;
   };
 
@@ -51,7 +58,7 @@ export default function Detail(props: { pid: string | string[] | undefined }) {
         <div
           style={{ textAlign: "center", position: "relative", top: "-40px" }}
         >
-          {!isMore && (
+          {imgList.length > 1 && !isMore && (
             <Button type="more" btnType={"button"} btnEvent={handleMore}>
               상품 정보 더보기
               <img
@@ -65,7 +72,7 @@ export default function Detail(props: { pid: string | string[] | undefined }) {
               />
             </Button>
           )}
-          {isMore && (
+          {imgList.length > 1 && isMore && (
             <Button type="more" btnType={"button"} btnEvent={handleMoreClose}>
               상품 정보 접기
               <img

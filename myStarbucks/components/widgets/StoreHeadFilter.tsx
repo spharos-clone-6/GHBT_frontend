@@ -30,7 +30,11 @@ export default function StoreHeadFilter(props: {
         <ul>
           {data.value.length !== 0 &&
             data.value.map((el, idx) => (
-              <li key={idx} onClick={() => handleKeyword(el)}>
+              <li
+                key={idx}
+                onClick={() => handleKeyword(el)}
+                className={filterKeyword.includes(el) ? "active" : ""}
+              >
                 {el}
               </li>
             ))}

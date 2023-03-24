@@ -30,6 +30,20 @@ export default function search_result() {
   const [cItemList, setCItemList] = useState<productType[]>([]);
   const [sItemList, setSItemList] = useState<productType[]>([]);
 
+  useEffect(() => {
+    const getData = async () => {
+      const result = await axios.get(
+        `http://backend.grapefruit-honey-black-tea.shop/api/product/search/${query.keyword}`
+      );
+      console.log(result.data === "");
+      if (result.data !== "") {
+        setItemList([...result.data.content]);
+        setAllItem([...result.data.content]);
+      }
+    };
+    getData();
+  }, []);
+
   function categoryIdx(name: string | string[] | undefined): number {
     if (name === undefined) {
       return 6;
@@ -51,17 +65,6 @@ export default function search_result() {
   }, [query]);
 
   useEffect(() => {
-    const getData = async () => {
-      const result = await axios.get(
-        `http://backend.grapefruit-honey-black-tea.shop/api/product/search/${query.keyword}`
-      );
-      setItemList([...result.data.content]);
-      setAllItem([...result.data.content]);
-    };
-    getData();
-  }, []);
-
-  useEffect(() => {
     setFilterKeyword([
       ...volumeKeyword,
       ...priceKeyword,
@@ -77,7 +80,6 @@ export default function search_result() {
   function isIn(itemList: productType[], x: number) {
     let itemIdList: number[] = [];
     itemList && itemList.map((item) => itemIdList.push(item.productId));
-    console.log("isin=", itemList);
     return itemIdList.includes(x);
   }
 
@@ -98,7 +100,6 @@ export default function search_result() {
     if (seasonKeyword.length !== 0) {
       items = items.filter((x) => isIn(sItemList, x.productId));
     }
-    console.log("items=", items);
     setItemList([...items]);
   }, [
     vItemList,
@@ -112,7 +113,7 @@ export default function search_result() {
     seasonKeyword,
   ]);
 
-  /** 대분류 필터링 */
+  /** 대분류 필터링 --> 페이징 없는 버전으로 API 교체 필요 */
   useEffect(() => {
     const getData = async () => {
       const result = await axios.get(
@@ -168,7 +169,6 @@ export default function search_result() {
           items = [...items, ...allItem.filter((x) => x.price >= 50000)];
         }
       });
-    console.log(priceKeyword);
     setPItemList([...items]);
   }, [priceKeyword]);
 
@@ -290,9 +290,17 @@ export default function search_result() {
         )}
       </div>
 
-      {/* 상품 */}
+      {/* 정렬 기준 */}
       <SelectOrder />
-      {itemList && <ProductContainerGrid itemList={itemList} />}
+
+      {/* 상품 출력 */}
+      {itemList.length !== 0 ? (
+        <ProductContainerGrid itemList={itemList} />
+      ) : (
+        <div style={{ textAlign: "center", marginTop: "30%" }}>
+          <p>조회되는 상품이 없습니다.</p>
+        </div>
+      )}
     </>
   );
 }
