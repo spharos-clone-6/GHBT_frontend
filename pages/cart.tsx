@@ -11,11 +11,14 @@ import CartControlBar from "@/components/widgets/CartControlBar";
 import { cartListType } from "@/types/types";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
 import CartEmpty from "../components/widgets/CartEmpty";
 import { css } from "@emotion/react";
+import { useRecoilState } from "recoil";
+import Config from "@/configs/config.export";
 
 export default function cart() {
+
+  const { baseUrl } = Config();
   const [frozenCart, setFrozenCart] =
     useRecoilState<cartListType>(frozenCartListState);
   const [generalCart, setGeneralCart] =
@@ -43,7 +46,7 @@ export default function cart() {
     "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Nzk2NjAwNDQsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.vF5m5sIUztpsuNvqGcswMf84eC2uuwZUzNlCqFNZNry4gk6thxKSz5RBmg-3klBBeRQiyQwI45vaFwex3kApOg";
   async function fetchGeneralData() {
     const generalResult = await axios.get(
-      "https://backend.grapefruit-honey-black-tea.shop/api/cart/my_cart",
+      `${baseUrl}/api/cart/my_cart`,
       {
         headers: {
           Authorization: accesstoken,
