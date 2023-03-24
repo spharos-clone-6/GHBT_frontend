@@ -1,119 +1,84 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import router, { useRouter } from "next/router";
+import Config from '@/configs/config.export';
+
+import axios from "axios";
+import useInfiniteScroll from 'react-infinite-scroll-hook';
+
+import SelectOrder from "@/components/ui/SelectOrder";
+import ProductContainerGrid from "@/components/layouts/ProductContainerGrid";
+
+import { bigCategory, productType } from "@/types/types";
+import InfiniteScroll from "react-infinite-scroll-component";
+
 
 export default function store_all() {
+
+  const { query } = useRouter();
+  const { baseUrl } = Config();
+  // console.log(query.keyword);
+  console.log(query.page);
+  const [itemList, setItemList] = useState<productType[]>([]);
+  const [isData, setIsData] = useState<boolean>(true);
+  const [page, setPage] = useState<number>(0);
+  
+  useEffect(() => {
+    const getData = async () => {
+      const result = await axios.get(
+        `${baseUrl}/api/product?page=${page}`
+      );
+      console.log(result.data === "");
+      if (result.data !== "") {
+        setItemList([...result.data.content]);
+      }
+    };
+    getData();
+  }, []);
+
+  useEffect(()=>{
+    console.log(itemList)
+    console.log(isData)
+  },[itemList])
+
+  const handleMoreData = () => {
+
+    axios.get(`${baseUrl}/api/product?page=${page + 1}`)
+    .then((res) => {
+      console.log(res.data)
+      setItemList([...itemList, ...res.data.content]);
+      setPage(page + 1)
+      setIsData(!res.data.last)
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+
+  }
+ 
+  
+
+
   return (
     <>
-      <div className="container">
-        <div>
-          <header id="store-head">
-            <div className="store-header-top header-top">
-              <div className="menu-icon">
-                <img src="/assets/images/icons/menu.svg" alt="" />
-              </div>
-              <h1>
-                <a href="">온라인 스토어</a>
-              </h1>
-              <nav>
-                <ul>
-                  <li>
-                    <img src="/assets/images/icons/search.svg" />
-                  </li>
-                  <li>
-                    <img src="/assets/images/icons/shopping-cart.svg" />
-                  </li>
-                  <li>
-                    <img src="/assets/images/icons/close.png" />
-                  </li>
-                </ul>
-              </nav>
-            </div>
-            <div className="header-sub">
-              <nav>
-                <ul>
-                  <li className="active">
-                    <a href="">전체</a>
-                  </li>
-                  <li>
-                    <a href="store-cake.html">케이크</a>
-                  </li>
-                  <li>
-                    <a href="store-tumbler.html">텀블러/보온병</a>
-                  </li>
-                  <li>
-                    <a href="store-mug.html">머그/컵</a>
-                  </li>
-                  <li>
-                    <a href="store-lifestyle.html">라이프스타일</a>
-                  </li>
-                  <li>
-                    <a href="store-tea.html">티/커피용품</a>
-                  </li>
-                  <li>
-                    <a href="store-set.html">세트</a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-            <div className="header-sub">
-              <nav>
-                <p className="cat-title">가격</p>
-                <ul>
-                  <li>
-                    <a href="">1만원미만</a>
-                  </li>
-                  <li>
-                    <a href="">1만원대</a>
-                  </li>
-                  <li>
-                    <a href="">2만원대</a>
-                  </li>
-                  <li>
-                    <a href="">3만원대</a>
-                  </li>
-                  <li>
-                    <a href="">4만원대</a>
-                  </li>
-                  <li>
-                    <a href="">5만원이상</a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-            <details>
-              <summary> 접기 </summary>
-              <div className="header-sub">
-                <nav>
-                  <p className="cat-title">시즌</p>
-                  <ul>
-                    <li>
-                      <a href="">체리블라썸</a>
-                    </li>
-                    <li>
-                      <a href="">발렌타인데이</a>
-                    </li>
-                    <li>
-                      <a href="">New Year</a>
-                    </li>
-                    <li>
-                      <a href="">데스크 컬렉션</a>
-                    </li>
-                    <li>
-                      <a href="">Christmas</a>
-                    </li>
-                  </ul>
-                </nav>
-              </div>
-            </details>
-            <div className="products-order">
-              <p>신상품순</p>
-              <img src="/assets/images/icons/arrow-down-sign-to-navigate.png" />
-            </div>
-          </header>
+      
+      {/* 정렬 기준 */}
+      <SelectOrder />
+      <InfiniteScroll
+        dataLength={itemList.length}
+        next={handleMoreData}
+        hasMore={isData}
+        loader={<h4>Loading...</h4>}
+        endMessage={<h4>NoData</h4>}
+      >
+      {/* 상품 출력 */}
+      {itemList.length !== 0 ? (
+        <ProductContainerGrid itemList={itemList} />
+      ) : (
+        <div style={{ textAlign: "center", marginTop: "30%" }}>
+          <p>조회되는 상품이 없습니다.</p>
         </div>
-        <section id="products">
-          <div></div>
-        </section>
-      </div>
+      )}
+      </InfiniteScroll>
     </>
   );
 }
