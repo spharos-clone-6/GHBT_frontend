@@ -1,74 +1,67 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import EventBanner from "@/components/widgets/EventBanner";
 import ProductContainerRecommand from "@/components/layouts/ProductContainerRecommand";
 import ProductContainerVertical from "@/components/layouts/ProductContainerVertical";
 import { productType } from "@/types/types";
+import Config from "@/configs/config.export";
+import axios from "axios";
 
 export default function index() {
-  const dummy: productType[] = [
-    {
-      id: 1,
-      name: "23 SS 체리 밸류 로맨틱 텀블러 355ml",
-      price: 32000,
-      thumbnailUrl: "/images/products/01.png",
-      isBest: false,
-      isNew: true,
-    },
-    {
-      id: 2,
-      name: "테스트2",
-      price: 17000,
-      thumbnailUrl: "/images/products/01.png",
-      isBest: true,
-      isNew: true,
-    },
-    {
-      id: 3,
-      name: "테스트2",
-      price: 17000,
-      thumbnailUrl: "/images/products/01.png",
-      isBest: true,
-      isNew: true,
-    },
-    {
-      id: 4,
-      name: "테스트2",
-      price: 17000,
-      thumbnailUrl: "/images/products/01.png",
-      isBest: true,
-      isNew: true,
-    },
-    {
-      id: 5,
-      name: "테스트2",
-      price: 17000,
-      thumbnailUrl: "/images/products/01.png",
-      isBest: true,
-      isNew: true,
-    }
-  ];
+  const { baseUrl } = Config();
+
+  const [recommand1, setRecommand1] = useState<productType[]>([]);
+  const [recommand2, setRecommand2] = useState<productType[]>([]);
+  const [recommand3, setRecommand3] = useState<productType[]>([]);
+  const [recommand4, setRecommand4] = useState<productType[]>([]);
+
+  useEffect(() => {
+    axios
+      .get(`${baseUrl}/api/product/search/c?filter=${"라인프렌즈"}`)
+      .then((res) => {
+        setRecommand1([...res.data.content]);
+      });
+
+    axios
+      .get(`${baseUrl}/api/product/search/c?filter=${"체리블라썸"}`)
+      .then((res) => {
+        setRecommand2([...res.data.content]);
+      });
+
+    axios
+      .get(`${baseUrl}/api/product/search/c?filter=${"케이크"}`)
+      .then((res) => {
+        setRecommand3([...res.data.content]);
+      });
+
+    axios
+      .get(`${baseUrl}/api/product/search/c?filter=${"Core"}`)
+      .then((res) => {
+        setRecommand4([...res.data.content]);
+      });
+  }, []);
+
   return (
     <div className="container">
       <EventBanner />
       <ProductContainerRecommand
         sectionId="recommand-md-1"
-        headerName="Cherry Blossom 🌸"
-        itemList={dummy}
+        headerName="귀여운 곰돌이 🐻"
+        itemList={recommand1}
       />
-      <ProductContainerRecommand 
+      <ProductContainerRecommand
         sectionId="recommand-md-2"
-        headerName="Cherry Blossom 💜"
-        itemList={dummy}
+        headerName="Cherry Blossom 🌸"
+        itemList={recommand2}
       />
-      <ProductContainerRecommand 
+      <ProductContainerRecommand
         sectionId="recommand-md-3"
         headerName="달콤한 스타벅스 케이크 🍰"
-        itemList={dummy}
+        itemList={recommand3}
       />
-      <ProductContainerVertical 
+      <ProductContainerVertical
         sectionId="chunsik"
-        headerName="바리스타 춘식 💛"
-        itemList={dummy}
+        headerName="Core 🏠"
+        itemList={recommand4}
       />
     </div>
   );

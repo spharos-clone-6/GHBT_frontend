@@ -33,12 +33,12 @@ export default function search_result() {
   useEffect(() => {
     const getData = async () => {
       const result = await axios.get(
-        `http://backend.grapefruit-honey-black-tea.shop/api/product/search/${query.keyword}`
+        `http://backend.grapefruit-honey-black-tea.shop/api/product/n/search/${query.keyword}`
       );
       console.log(result.data === "");
       if (result.data !== "") {
-        setItemList([...result.data.content]);
-        setAllItem([...result.data.content]);
+        setItemList([...result.data]);
+        setAllItem([...result.data]);
       }
     };
     getData();
@@ -57,9 +57,9 @@ export default function search_result() {
   useEffect(() => {
     const getData = async () => {
       const categoryResult = await axios.get(
-        `http://backend.grapefruit-honey-black-tea.shop/api/product/search/type/${query.keyword}`
+        `http://backend.grapefruit-honey-black-tea.shop/api/product/n/search/type/${query.keyword}`
       );
-      setCatogoryList([...categoryResult.data.content]);
+      setCatogoryList([...categoryResult.data]);
     };
     getData();
   }, [query]);
@@ -117,9 +117,9 @@ export default function search_result() {
   useEffect(() => {
     const getData = async () => {
       const result = await axios.get(
-        `http://backend.grapefruit-honey-black-tea.shop/api/product/search/c?filter=${query.bigCategory}`
+        `http://backend.grapefruit-honey-black-tea.shop/api/product/n/search/c?filter=${query.bigCategory}`
       );
-      setBItemList(result.data.content);
+      setBItemList(result.data);
     };
     getData();
     // setItemList([...itemList, ...vItemList]);
@@ -130,9 +130,9 @@ export default function search_result() {
     const url = requestUrl("v");
     const getData = async () => {
       const result = await axios.get(
-        `http://backend.grapefruit-honey-black-tea.shop/api/product/search/${url}`
+        `http://backend.grapefruit-honey-black-tea.shop/api/product/n/search/${url}`
       );
-      setVItemList(result.data.content);
+      setVItemList(result.data);
     };
     getData();
     // setItemList([...itemList, ...vItemList]);
@@ -177,9 +177,10 @@ export default function search_result() {
     const url = requestUrl("c");
     const getData = async () => {
       const result = await axios.get(
-        `http://backend.grapefruit-honey-black-tea.shop/api/product/search/${url}`
+        `http://backend.grapefruit-honey-black-tea.shop/api/product/n/search/${url}`
       );
-      setCItemList(result.data.content);
+      console.log(result.data);
+      setCItemList(result.data);
     };
     getData();
     // setItemList([...itemList, ...vItemList]);
@@ -190,9 +191,9 @@ export default function search_result() {
     const url = requestUrl("s");
     const getData = async () => {
       const result = await axios.get(
-        `http://backend.grapefruit-honey-black-tea.shop/api/product/search/${url}`
+        `http://backend.grapefruit-honey-black-tea.shop/api/product/n/search/${url}`
       );
-      setSItemList(result.data.content);
+      setSItemList(result.data);
     };
     getData();
     // setItemList([...itemList, ...vItemList]);

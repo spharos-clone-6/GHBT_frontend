@@ -31,7 +31,7 @@ export default function event() {
       <section id="event-info">
         <div className="first-section-sub-one">
           <img
-            src={`https://storage.googleapis.com${eventInfo?.descriptionUrl}`}
+            src={`https://storage.googleapis.com/ghbt/event/${eventInfo?.descriptionUrl}`}
             width="100%"
             height="100%"
           />
