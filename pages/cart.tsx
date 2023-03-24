@@ -17,7 +17,6 @@ import { useRecoilState } from "recoil";
 import Config from "@/configs/config.export";
 
 export default function cart() {
-
   const { baseUrl } = Config();
   const [frozenCart, setFrozenCart] =
     useRecoilState<cartListType>(frozenCartListState);
@@ -45,26 +44,20 @@ export default function cart() {
   const accesstoken =
     "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Nzk2NjAwNDQsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.vF5m5sIUztpsuNvqGcswMf84eC2uuwZUzNlCqFNZNry4gk6thxKSz5RBmg-3klBBeRQiyQwI45vaFwex3kApOg";
   async function fetchGeneralData() {
-    const generalResult = await axios.get(
-      `${baseUrl}/api/cart/my_cart`,
-      {
-        headers: {
-          Authorization: accesstoken,
-        },
-      }
-    );
+    const generalResult = await axios.get(`${baseUrl}/api/cart/my_cart`, {
+      headers: {
+        Authorization: accesstoken,
+      },
+    });
     console.log("일반 상품 :", generalResult);
     setGeneralCart(generalResult.data);
   }
   async function fetchFrozenData() {
-    const frozenResult = await axios.get(
-      "https://backend.grapefruit-honey-black-tea.shop/api/cart/my_cart/ice",
-      {
-        headers: {
-          Authorization: accesstoken,
-        },
-      }
-    );
+    const frozenResult = await axios.get(`${baseUrl}/api/cart/my_cart/ice`, {
+      headers: {
+        Authorization: accesstoken,
+      },
+    });
     console.log("냉동 상품 :", frozenResult);
     setFrozenCart(frozenResult.data);
     setIsLoading(false);
