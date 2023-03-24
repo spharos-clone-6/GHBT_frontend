@@ -20,11 +20,14 @@ export default function PrimaryLayout(props: { children: React.ReactNode }) {
   return (
     <>
       {/* <SearchModal isView={isView} setIsView={setIsView} /> */}
-      <LoginModal isView={isView} setIsView={setIsView} />
       <div className="container">
         <header>
           <MainHeaderTop isView={isView} setIsView={setIsView} />
-          {pathname === "/search_result" ? <SearchResultInfo keyword={keyword} /> : ""}
+          {pathname === "/search_result" ? (
+            <SearchResultInfo keyword={keyword} />
+          ) : (
+            ""
+          )}
           {mainMenu.includes(pathname) ? <MainHeaderBottom /> : ""}
           {pathname === "/best" || pathname === "/event" ? <SubHeader /> : ""}
         </header>
