@@ -3,7 +3,6 @@ import { Router, useRouter } from "next/router";
 import Link from "next/link";
 import Badge from "../ui/Badge";
 import { useRecoilState } from "recoil";
-import { IcartList } from "@/types/types";
 import ContentsModal from "../modals/ContentsModal";
 
 export interface ChildProps {
@@ -33,11 +32,11 @@ export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
   };
 
   useEffect(() => {
-    if(router.pathname === "/store_all" ) {
+    if (router.pathname === "/store_all") {
       setModalOpen(false);
     }
-  },[router.pathname])
-  
+  }, [router.pathname]);
+
   // useEffect(() => {
   //   setCartList(DUMMY_ITEM_LIST);
   // }, []);
@@ -51,10 +50,10 @@ export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
           <img onClick={handleBack} src="/images/icons/left.png" alt="" />
         ) : (
           <div>
-            <button onClick={showModal}><img src="/images/icons/menu.svg" alt="" /></button>
-            {modalOpen && (
-              <ContentsModal setModalOpen={setModalOpen} />
-            )}
+            <button onClick={showModal}>
+              <img src="/images/icons/menu.svg" alt="" />
+            </button>
+            {modalOpen && <ContentsModal setModalOpen={setModalOpen} />}
           </div>
         )}
       </div>
@@ -74,8 +73,10 @@ export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
               <img src="/images/icons/shopping-cart.svg" />
             </Link>
           </li>
-          <li onClick={handleOpenLogin}>
-            <img src="/images/icons/close.png" />
+          <li>
+            <Link href="/login">
+              <img src="/images/icons/close.png" />
+            </Link>
           </li>
         </ul>
       </nav>

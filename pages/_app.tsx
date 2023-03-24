@@ -1,4 +1,5 @@
 import PrimaryLayout from "@/components/layouts/PrimaryLayout";
+import { AxiosInterceptor } from "@/utils/axiosInstance";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import "public/css/style.css";
@@ -9,13 +10,15 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <RecoilRoot>
-      {pathname === "/search" ? (
-        <Component {...pageProps} />
-      ) : (
-        <PrimaryLayout>
+      <AxiosInterceptor>
+        {pathname === "/search" ? (
           <Component {...pageProps} />
-        </PrimaryLayout>
-      )}
+        ) : (
+          <PrimaryLayout>
+            <Component {...pageProps} />
+          </PrimaryLayout>
+        )}
+      </AxiosInterceptor>
     </RecoilRoot>
   );
 }
