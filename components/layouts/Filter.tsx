@@ -3,11 +3,14 @@
 import Config from "@/configs/config.export";
 import { store_subhead, middleCategory } from "@/data/StaticData";
 import useFilter from "@/hooks/useFilter";
+import { useRecent } from "@/hooks/useRecent";
+import { recentSearchKeyword } from "@/state/recentKeywordState";
 import { bigCategory, productType } from "@/types/types";
 import { css } from "@emotion/react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
 import SearchHeader from "../widgets/SearchHeader";
 import StoreHeadFilter from "../widgets/StoreHeadFilter";
 
@@ -21,6 +24,8 @@ export default function Filter(props: {
   const { query } = useRouter();
   const { baseUrl } = Config();
   const { allItem, setAllItem, itemList, setItemList } = props;
+
+  const [recentSearchKeywords] = useRecoilValue(recentSearchKeyword);
 
   const [categoryList, setCatogoryList] = useState<bigCategory[]>([]);
 
@@ -132,7 +137,7 @@ export default function Filter(props: {
     let url =
       router.pathname +
       "?keyword=" +
-      getQuery(router.query.keyword, "텀블러") +
+      getQuery(router.query.keyword, recentSearchKeywords) +
       "&bigCategory=" +
       getQuery(router.query.bigCategory, "전체");
     volumeKeyword.map((k) => (url = url + "&volume=" + k));
