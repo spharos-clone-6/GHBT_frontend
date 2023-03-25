@@ -14,6 +14,8 @@ interface orderChange {
   item: cartItemType;
   quantity: number;
   setQuantity: React.Dispatch<React.SetStateAction<number>>;
+  totalPrice: number;
+  setTotalPrice: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export default function OrderChangeModal({
@@ -21,8 +23,10 @@ export default function OrderChangeModal({
   item,
   quantity,
   setQuantity,
+  totalPrice,
+  setTotalPrice,
 }: orderChange) {
-  const [totalPrice, setTotalPrice] = useState<number>(0);
+  // const [totalPrice, setTotalPrice] = useState<number>(0);
   // const [itemCount, setItemCount] = useState(item.quantity);
   const modalStyle: Object = {
     position: "fixed",
@@ -59,7 +63,7 @@ export default function OrderChangeModal({
 
   const submitQuantity = async () => {
     const accesstoken =
-      "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Nzk2NjAwNDQsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.vF5m5sIUztpsuNvqGcswMf84eC2uuwZUzNlCqFNZNry4gk6thxKSz5RBmg-3klBBeRQiyQwI45vaFwex3kApOg";
+      "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Nzk3NTI4ODQsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.GN_klQEwTzyqWLlYPxhyFP9tbUim6Iix6i_wPjkqaSaydYcgzniwSQVNbHXugBhGhZs4bjA_m9WupZMH2XvOsA";
     await axios.put(
       `https://backend.grapefruit-honey-black-tea.shop/api/cart/${item.id}/${quantity}`,
       {},
@@ -72,6 +76,7 @@ export default function OrderChangeModal({
 
     setModalOpen(false);
     setQuantity(quantity);
+    setTotalPrice(quantity * item.product.price);
   };
 
   return (

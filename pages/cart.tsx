@@ -42,7 +42,7 @@ export default function cart() {
 
   // 데이터 불러오기
   const accesstoken =
-    "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Nzk2NjAwNDQsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.vF5m5sIUztpsuNvqGcswMf84eC2uuwZUzNlCqFNZNry4gk6thxKSz5RBmg-3klBBeRQiyQwI45vaFwex3kApOg";
+    "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Nzk3NTI4ODQsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.GN_klQEwTzyqWLlYPxhyFP9tbUim6Iix6i_wPjkqaSaydYcgzniwSQVNbHXugBhGhZs4bjA_m9WupZMH2XvOsA";
   async function fetchGeneralData() {
     const generalResult = await axios.get(`${baseUrl}/api/cart/my_cart`, {
       headers: {
@@ -82,16 +82,21 @@ export default function cart() {
   let TotalPrice = 0;
   let frozenPrice = 0;
   let generalPrice = 0;
+
   frozenCart.map((item) =>
     item.checked
       ? (frozenPrice += item.product.price * item.quantity)
       : (frozenPrice += 0)
   );
+
+  console.log("냉동 선택 가격 : ", frozenPrice);
+
   generalCart.map((item) =>
     item.checked
       ? (generalPrice += item.product.price * item.quantity)
       : (generalPrice += 0)
   );
+
   TotalPrice = frozenPrice + generalPrice;
 
   const frozenDelivery = frozenPrice > 30000 || frozenPrice === 0 ? 0 : 3000;

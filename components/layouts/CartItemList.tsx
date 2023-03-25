@@ -52,7 +52,7 @@ export default function CartItemList({ title }: cartType) {
   const deliveryComment =
     listPrice >= 30000
       ? "무료배송"
-      : `${30000 - listPrice}원 더 담으면 무료배송`;
+      : `${(30000 - listPrice).toLocaleString("en")}원 더 담으면 무료배송`;
 
   useEffect(() => {
     setTotalDeliveryPrice(totalDeliveryPrice + deliveryPrice);
