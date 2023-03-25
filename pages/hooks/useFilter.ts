@@ -1,9 +1,9 @@
 import Config from "@/configs/config.export";
 import { productType } from "@/types/types";
 import axios from "axios";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-export default (url: string, keyword: string[]): productType[] => {
+export default (url: string, keyword: string | string[]): productType[] => {
   const [data, setData] = useState<productType[]>([]);
   const { baseUrl } = Config();
 
@@ -11,7 +11,7 @@ export default (url: string, keyword: string[]): productType[] => {
     axios
       .get(`${baseUrl}/api/product/n/search/${url}`)
       .then((res) => {
-        setData(res.data);
+        setData([...res.data]);
       })
       .catch((err) => {
         console.log(err);
