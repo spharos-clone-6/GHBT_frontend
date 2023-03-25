@@ -263,7 +263,7 @@ export default function search_result() {
       </div>
 
       {/* 정렬 기준 */}
-      <SelectOrder />
+      <SelectOrder itemList={itemList} setItemList={setItemList} />
 
       {/* 상품 출력 */}
       {itemList.length !== 0 ? (
