@@ -28,7 +28,11 @@ export default function SearchHistoryList() {
           </div>
         </div>
       ) : (
-        <div>없음</div>
+        <div
+          style={{ textAlign: "center", marginTop: "30%", fontSize: "1rem" }}
+        >
+          최근 검색어가 없습니다.
+        </div>
       )}
     </div>
   );
