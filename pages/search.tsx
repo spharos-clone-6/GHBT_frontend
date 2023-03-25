@@ -6,12 +6,7 @@ import React from "react";
 export default function search() {
   return (
     <>
-      <SearchTop
-        isView={true}
-        setIsView={function (value: React.SetStateAction<Boolean>): void {
-          throw new Error("Function not implemented.");
-        }}
-      />
+      <SearchTop />
       <SearchHistoryList />
       <SearchRecommandList />
     </>

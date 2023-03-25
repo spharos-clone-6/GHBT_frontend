@@ -1,7 +1,11 @@
 import React from "react";
+import { useRecoilValue } from "recoil";
 import SearchHistoryItem from "../ui/SearchHistoryItem";
+import { recentSearchKeyword } from "@/state/recentKeywordState";
 
 export default function SearchHistoryList() {
+  const keywords = useRecoilValue(recentSearchKeyword);
+
   return (
     <div className="search-latest">
       <div className="search-latest-title">
