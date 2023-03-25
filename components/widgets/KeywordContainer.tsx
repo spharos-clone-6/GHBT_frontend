@@ -1,6 +1,6 @@
-import { Router, useRouter } from "next/router";
+/** @jsxImportSource @emotion/react */
 import React, { Dispatch, SetStateAction } from "react";
-import FilterKeyword from "../ui/FilterKeyword";
+import { css } from "@emotion/react";
 
 export default function KeywordContainer(props: {
   filterKeyword: string[];
@@ -27,25 +27,37 @@ export default function KeywordContainer(props: {
     setSeasonKeyword,
   } = props;
 
+  const handelDelete = (key: string) => {
+    setFilterKeyword([...filterKeyword.filter((el) => el !== key)]);
+
+    volumeKeyword.includes(key) &&
+      setVolumeKeyword([...volumeKeyword.filter((el) => el !== key)]);
+    priceKeyword.includes(key) &&
+      setPriceKeyword([...priceKeyword.filter((el) => el !== key)]);
+    categoryKeyword.includes(key) &&
+      setCategoryKeyword([...categoryKeyword.filter((el) => el !== key)]);
+    seasonKeyword.includes(key) &&
+      setSeasonKeyword([...seasonKeyword.filter((el) => el !== key)]);
+  };
+
+  const buttonStyle = css`
+    vertical-align: baseline;
+    background-color: var(--color-light-green);
+    color: var(--color-white);
+    border: none;
+    border-radius: 3px;
+    padding: 7px 15px;
+    white-space: nowrap;
+  `;
   return (
     <>
       {filterKeyword && (
         <div id="search-result-filter" style={{ height: "32px" }}>
           {filterKeyword.map((keyword, idx) => (
-            <FilterKeyword
-              key={idx}
-              keyword={keyword}
-              setFilterKeyword={setFilterKeyword}
-              filterKeyword={filterKeyword}
-              volumeKeyword={volumeKeyword}
-              setVolumeKeyword={setVolumeKeyword}
-              priceKeyword={priceKeyword}
-              setPriceKeyword={setPriceKeyword}
-              categoryKeyword={categoryKeyword}
-              setCategoryKeyword={setCategoryKeyword}
-              seasonKeyword={seasonKeyword}
-              setSeasonKeyword={setSeasonKeyword}
-            />
+            <button css={buttonStyle} onClick={() => handelDelete(keyword)}>
+              <p>{keyword}</p>
+              <p style={{ marginLeft: "8px" }}>X</p>
+            </button>
           ))}
         </div>
       )}

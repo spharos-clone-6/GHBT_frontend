@@ -27,9 +27,9 @@ export default function search_result() {
 
   const [bItemList, setBItemList] = useState<productType[]>([]);
 
-  const [vItemList, setVItemList] = useFilter(requestUrl("v"), volumeKeyword);
-  const [cItemList, setCItemList] = useFilter(requestUrl("c"), categoryKeyword);
-  const [sItemList, setSItemList] = useFilter(requestUrl("s"), seasonKeyword);
+  const vItemList = useFilter(requestUrl("v"), volumeKeyword);
+  const cItemList = useFilter(requestUrl("c"), categoryKeyword);
+  const sItemList = useFilter(requestUrl("s"), seasonKeyword);
   const [pItemList, setPItemList] = useState<productType[]>([]);
 
   useEffect(() => {

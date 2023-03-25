@@ -3,10 +3,7 @@ import { productType } from "@/types/types";
 import axios from "axios";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
-export default (
-  url: string,
-  keyword: string[]
-): [productType[], Dispatch<SetStateAction<productType[]>>] => {
+export default (url: string, keyword: string[]): productType[] => {
   const [data, setData] = useState<productType[]>([]);
   const { baseUrl } = Config();
 
@@ -19,7 +16,8 @@ export default (
       .catch((err) => {
         console.log(err);
       });
+    console.log("키워드 변경으로 API 호출: ", keyword);
   }, [keyword]);
 
-  return [data, setData];
+  return data;
 };
