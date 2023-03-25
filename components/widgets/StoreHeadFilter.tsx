@@ -1,6 +1,5 @@
 import router from "next/router";
 import React, { Dispatch, SetStateAction } from "react";
-import FilterKeyword from "../ui/FilterKeyword";
 
 interface filterList {
   id: number;
@@ -20,6 +19,8 @@ export default function StoreHeadFilter(props: {
     if (!filterKeyword.includes(keyword)) {
       setFilterKeyword([...filterKeyword, keyword]);
       router.push(`${router.asPath}&filter=${keyword}`);
+    } else {
+      setFilterKeyword([...filterKeyword.filter((el) => el !== keyword)]);
     }
   };
 
