@@ -32,13 +32,12 @@ export default function SearchRecommandItem({ item = "" }: RecommandItem) {
     } else {
       // 없을 경우 앞에 추가
       setRecentSearchKeywords([keyword, ...recentSearchKeywords]);
-    }
-
-    //추가했는데 개수가 10개 초과인 경우 제일 오래된 값 제거
-    if (recentSearchKeywords.length >= 10) {
-      let keywords: string[] = [keyword, ...recentSearchKeywords];
-      keywords.pop();
-      setRecentSearchKeywords([...keywords]);
+      //추가했는데 개수가 10개 초과인 경우 제일 오래된 값 제거
+      if (recentSearchKeywords.length >= 10) {
+        let keywords: string[] = [keyword, ...recentSearchKeywords];
+        keywords.pop();
+        setRecentSearchKeywords([...keywords]);
+      }
     }
   }
 
