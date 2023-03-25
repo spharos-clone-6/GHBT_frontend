@@ -2,7 +2,7 @@
 
 import Config from "@/configs/config.export";
 import { store_subhead, middleCategory } from "@/data/StaticData";
-import useFilter from "@/pages/hooks/useFilter";
+import useFilter from "@/hooks/useFilter";
 import { bigCategory, productType } from "@/types/types";
 import { css } from "@emotion/react";
 import axios from "axios";

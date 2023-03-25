@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { recentSearchKeyword, useRecent } from "@/state/recentKeywordState";
+import { useRecent } from "@/hooks/useRecent";
 
 export interface ChildProps {
   isView: Boolean;
@@ -31,8 +30,28 @@ export default function SearchTop() {
     if (word === "") {
       alert("검색어를 입력해주세요");
     } else {
-      setRecentSearchKeywords([...recentSearchKeywords, word]);
+      putKeyword(word);
       router.push(`/search_result?keyword=${word}&bigCategory=${"전체"}`);
+    }
+  }
+
+  function putKeyword(keyword: string) {
+    //이미 있는 키워드 재검색 시 가장 앞으로 갱신
+    if (recentSearchKeywords.includes(keyword)) {
+      setRecentSearchKeywords([
+        keyword,
+        ...recentSearchKeywords.filter((k) => k !== keyword),
+      ]);
+    } else {
+      // 없을 경우 앞에 추가
+      setRecentSearchKeywords([keyword, ...recentSearchKeywords]);
+    }
+
+    //추가했는데 개수가 10개 초과인 경우 제일 오래된 값 제거
+    if (recentSearchKeywords.length >= 10) {
+      let keywords: string[] = [keyword, ...recentSearchKeywords];
+      keywords.pop();
+      setRecentSearchKeywords([...keywords]);
     }
   }
 

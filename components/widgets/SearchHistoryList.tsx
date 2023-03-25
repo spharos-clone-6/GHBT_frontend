@@ -1,7 +1,8 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
 import SearchHistoryItem from "../ui/SearchHistoryItem";
-import { recentSearchKeyword, useRecent } from "@/state/recentKeywordState";
+import { recentSearchKeyword } from "@/state/recentKeywordState";
+import { useRecent } from "@/hooks/useRecent";
 
 export default function SearchHistoryList() {
   const [keywords, setKeywords] = useRecent();

@@ -9,14 +9,3 @@ export const recentSearchKeyword = atom<string[]>({
   default: [],
   effects_UNSTABLE: [persistAtom],
 });
-
-export function useRecent() {
-  const [isInitial, setIsInitial] = useState(true);
-  const [keyword, setKeyword] = useRecoilState(recentSearchKeyword);
-
-  useEffect(() => {
-    setIsInitial(false);
-  });
-
-  return [isInitial === true ? [] : keyword, setKeyword] as const;
-}
