@@ -8,6 +8,7 @@ import { bigCategory, productType } from "@/types/types";
 import ProductContainerGrid from "@/components/layouts/ProductContainerGrid";
 import KeywordContainer from "@/components/widgets/KeywordContainer";
 import SearchHeader from "@/components/widgets/SearchHeader";
+import useFilter from "./hooks/useFilter";
 
 export default function search_result() {
   const { query } = useRouter();
@@ -25,10 +26,11 @@ export default function search_result() {
   const [allItem, setAllItem] = useState<productType[]>([]);
 
   const [bItemList, setBItemList] = useState<productType[]>([]);
-  const [vItemList, setVItemList] = useState<productType[]>([]);
+
+  const [vItemList, setVItemList] = useFilter(requestUrl("v"), volumeKeyword);
+  const [cItemList, setCItemList] = useFilter(requestUrl("c"), categoryKeyword);
+  const [sItemList, setSItemList] = useFilter(requestUrl("s"), seasonKeyword);
   const [pItemList, setPItemList] = useState<productType[]>([]);
-  const [cItemList, setCItemList] = useState<productType[]>([]);
-  const [sItemList, setSItemList] = useState<productType[]>([]);
 
   useEffect(() => {
     const getData = async () => {
@@ -113,7 +115,7 @@ export default function search_result() {
     seasonKeyword,
   ]);
 
-  /** 대분류 필터링 --> 페이징 없는 버전으로 API 교체 필요 */
+  /** 대분류 필터링 */
   useEffect(() => {
     const getData = async () => {
       const result = await axios.get(
@@ -124,19 +126,6 @@ export default function search_result() {
     getData();
     // setItemList([...itemList, ...vItemList]);
   }, [query.bigCategory]);
-
-  /** 용량 필터링 */
-  useEffect(() => {
-    const url = requestUrl("v");
-    const getData = async () => {
-      const result = await axios.get(
-        `http://backend.grapefruit-honey-black-tea.shop/api/product/n/search/${url}`
-      );
-      setVItemList(result.data);
-    };
-    getData();
-    // setItemList([...itemList, ...vItemList]);
-  }, [volumeKeyword]);
 
   /** 가격 필터링 */
   useEffect(() => {
@@ -171,33 +160,6 @@ export default function search_result() {
       });
     setPItemList([...items]);
   }, [priceKeyword]);
-
-  /** 카테고리(중) 필터링 */
-  useEffect(() => {
-    const url = requestUrl("c");
-    const getData = async () => {
-      const result = await axios.get(
-        `http://backend.grapefruit-honey-black-tea.shop/api/product/n/search/${url}`
-      );
-      console.log(result.data);
-      setCItemList(result.data);
-    };
-    getData();
-    // setItemList([...itemList, ...vItemList]);
-  }, [categoryKeyword]);
-
-  /** 시즌 필터링 */
-  useEffect(() => {
-    const url = requestUrl("s");
-    const getData = async () => {
-      const result = await axios.get(
-        `http://backend.grapefruit-honey-black-tea.shop/api/product/n/search/${url}`
-      );
-      setSItemList(result.data);
-    };
-    getData();
-    // setItemList([...itemList, ...vItemList]);
-  }, [seasonKeyword]);
 
   useEffect(() => {
     console.log("new item list=", itemList);
