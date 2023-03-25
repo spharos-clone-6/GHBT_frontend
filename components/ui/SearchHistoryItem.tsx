@@ -1,5 +1,7 @@
+import { recentSearchKeyword, useRecent } from "@/state/recentKeywordState";
 import { useRouter } from "next/router";
 import React from "react";
+import { useRecoilState } from "recoil";
 
 type SearchedItem = {
   item?: string;
@@ -7,6 +9,8 @@ type SearchedItem = {
 
 export default function LatestSearchItem({ item }: SearchedItem) {
   const router = useRouter();
+
+  const [recentSearchKeywords, setRecentSearchKeywords] = useRecent();
 
   const onClickHandler = () =>
     router.push({
@@ -17,15 +21,15 @@ export default function LatestSearchItem({ item }: SearchedItem) {
       },
     });
 
+  const deleteHandler = () => {
+    const res = recentSearchKeywords.filter((k) => k !== item);
+    setRecentSearchKeywords([...res]);
+  };
+
   return (
     <div className="keywords">
-      <div
-        // type="button"
-        onClick={onClickHandler}
-      >
-        {item}
-      </div>
-      <img src="/images/icons/close.png" />
+      <div onClick={onClickHandler}>{item}</div>
+      <img src="/images/icons/close.png" onClick={deleteHandler} />
     </div>
   );
 }

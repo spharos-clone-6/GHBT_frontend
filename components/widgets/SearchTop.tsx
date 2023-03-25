@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { recentSearchKeyword } from "@/state/recentKeywordState";
+import { recentSearchKeyword, useRecent } from "@/state/recentKeywordState";
 
 export interface ChildProps {
   isView: Boolean;
@@ -14,13 +14,11 @@ export default function SearchTop() {
   const router = useRouter();
   const [word, setWord] = useState<string>("");
 
-  const [recentSearchKeywords, setRecentSearchKeywords] =
-    useRecoilState<string[]>(recentSearchKeyword);
+  const [recentSearchKeywords, setRecentSearchKeywords] = useRecent();
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setRecentSearchKeywords([...recentSearchKeywords, word]);
-    router.push(`/search_result?keyword=${word}&bigCategory=${"전체"}`);
+    resultHandler();
   };
 
   const typingHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,10 +27,14 @@ export default function SearchTop() {
     console.log(word);
   };
 
-  const iconClickHandler = () => {
-    setRecentSearchKeywords([...recentSearchKeywords, word]);
-    router.push(`/search_result?keyword=${word}&bigCategory=${"전체"}`);
-  };
+  function resultHandler() {
+    if (word === "") {
+      alert("검색어를 입력해주세요");
+    } else {
+      setRecentSearchKeywords([...recentSearchKeywords, word]);
+      router.push(`/search_result?keyword=${word}&bigCategory=${"전체"}`);
+    }
+  }
 
   return (
     <div className="search-top">
@@ -48,7 +50,7 @@ export default function SearchTop() {
       <div className="search-icons">
         <ul>
           <li>
-            <img src="/images/icons/search.svg" onClick={iconClickHandler} />
+            <img src="/images/icons/search.svg" onClick={resultHandler} />
           </li>
           <li>
             <a href="javascript:window.history.back();">
