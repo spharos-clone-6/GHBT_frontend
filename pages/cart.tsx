@@ -2,6 +2,7 @@
 
 import CartItemList from "@/components/layouts/CartItemList";
 import {
+  cartOrder,
   frozenCartListState,
   generalCartListState,
 } from "@/components/recoil/cart";
@@ -15,6 +16,8 @@ import CartEmpty from "../components/widgets/CartEmpty";
 import { css } from "@emotion/react";
 import { useRecoilState } from "recoil";
 import Config from "@/configs/config.export";
+import { recoilPersist } from "recoil-persist";
+import { useRouter } from "next/router";
 
 export default function cart() {
   const { baseUrl } = Config();
@@ -42,7 +45,7 @@ export default function cart() {
 
   // 데이터 불러오기
   const accesstoken =
-    "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Nzk2NjAwNDQsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.vF5m5sIUztpsuNvqGcswMf84eC2uuwZUzNlCqFNZNry4gk6thxKSz5RBmg-3klBBeRQiyQwI45vaFwex3kApOg";
+    "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Nzk4NDIyNzYsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.jKBsy0fIlgNO0gRDW23DHYUTBEKnx9MCmMcDUu894-Grg4TkAiyhd14Y0b3Ejos2gc-q2z3US_GEuyb_ukRr1Q";
   async function fetchGeneralData() {
     const generalResult = await axios.get(`${baseUrl}/api/cart/my_cart`, {
       headers: {
@@ -82,22 +85,38 @@ export default function cart() {
   let TotalPrice = 0;
   let frozenPrice = 0;
   let generalPrice = 0;
+
   frozenCart.map((item) =>
     item.checked
       ? (frozenPrice += item.product.price * item.quantity)
       : (frozenPrice += 0)
   );
+
   generalCart.map((item) =>
     item.checked
       ? (generalPrice += item.product.price * item.quantity)
       : (generalPrice += 0)
   );
+
   TotalPrice = frozenPrice + generalPrice;
 
   const frozenDelivery = frozenPrice > 30000 || frozenPrice === 0 ? 0 : 3000;
   const generalDelivery = generalPrice > 30000 || generalPrice === 0 ? 0 : 3000;
 
   const deliveryPrice = frozenDelivery + generalDelivery;
+
+  // 결제하기에 넘겨줄 경우: checked=true 인것만 체크해서 넘겨주기
+  const [orderList, setOrderList] = useRecoilState(cartOrder);
+  const frozenOrder = frozenCart.filter((item) => item.checked);
+  const generalOrder = generalCart.filter((item) => item.checked);
+  const result = frozenOrder.concat(generalOrder);
+  console.log("토탈 : ", result);
+
+  const router = useRouter();
+  const onClickHandler = () => {
+    setOrderList(result);
+    router.push("/payment");
+  };
 
   return (
     <>
@@ -174,7 +193,7 @@ export default function cart() {
                 >
                   선물하기
                 </Button>
-                <Button btnType="button" btnEvent={() => alert("구매하기")}>
+                <Button btnType="button" btnEvent={onClickHandler}>
                   구매하기
                 </Button>
               </div>

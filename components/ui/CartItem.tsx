@@ -7,6 +7,9 @@ import axios from "axios";
 
 export default function CartItem(props: { item: cartItemType; title: string }) {
   const [quantity, setQuantity] = useState(props.item.quantity);
+  const [itemPrice, setItemPrice] = useState(
+    props.item.quantity * props.item.product.price
+  );
   const [isItem, setIsItem] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
   const [cartList, setCartList] =
@@ -32,7 +35,7 @@ export default function CartItem(props: { item: cartItemType; title: string }) {
 
   const deleteItem = async () => {
     const accesstoken =
-      "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Nzk2NjAwNDQsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.vF5m5sIUztpsuNvqGcswMf84eC2uuwZUzNlCqFNZNry4gk6thxKSz5RBmg-3klBBeRQiyQwI45vaFwex3kApOg";
+      "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Nzk4NDIyNzYsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.jKBsy0fIlgNO0gRDW23DHYUTBEKnx9MCmMcDUu894-Grg4TkAiyhd14Y0b3Ejos2gc-q2z3US_GEuyb_ukRr1Q";
     await axios.delete(
       `https://backend.grapefruit-honey-black-tea.shop/api/cart/${props.item.id}`,
       {
@@ -81,12 +84,7 @@ export default function CartItem(props: { item: cartItemType; title: string }) {
             </div>
             <div className="item-price">
               <p>주문 금액</p>
-              <p>
-                {(
-                  props.item.quantity * props.item.product.price
-                ).toLocaleString("en")}
-                원
-              </p>
+              <p>{itemPrice.toLocaleString("en")}원</p>
             </div>
             <div className="item-purchase">
               <button onClick={showModal}>주문 수정</button>
@@ -96,6 +94,8 @@ export default function CartItem(props: { item: cartItemType; title: string }) {
                   item={props.item}
                   quantity={quantity}
                   setQuantity={setQuantity}
+                  totalPrice={itemPrice}
+                  setTotalPrice={setItemPrice}
                 />
               )}
               <button>바로 구매</button>
