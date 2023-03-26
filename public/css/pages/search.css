@@ -57,7 +57,7 @@
 
 .search-latest {
   margin: 15px;
-  height: 50%;
+  height: 25vh;
 }
 
 .search-latest-title h3 {
@@ -91,10 +91,10 @@
   opacity: 0.5;
 }
 
-.search-latest .delete-keywords {
+.delete-keywords {
   float: right;
 }
-.search-latest .delete-keywords button {
+.delete-keywords button {
   font-weight: bold;
   border: none;
   background-color: white;
