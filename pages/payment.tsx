@@ -20,7 +20,7 @@ export default function payment() {
         <p className="title">결제하기</p>
       </section>
       <PayDeliveryInfo />
-      <PayProductList />
+      <PayProductList itemList={orderList} />
       <PayCoupon />
       <RightArrowMenu
         iconSrc=""

@@ -1,7 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
-export default function PayProductDetail(props: { detailOn: boolean }) {
+import { cartListType } from "@/types/types";
+
+interface orderItems {
+  detailOn: boolean;
+  itemList: cartListType;
+}
+
+export default function PayProductDetail({ detailOn, itemList }: orderItems) {
   const productDetails = css`
     display: flex;
     align-items: center;
@@ -16,27 +23,37 @@ export default function PayProductDetail(props: { detailOn: boolean }) {
     margin: 10px 20px 10px 0px;
     border: 1px solid rgba(128, 128, 128, 0.381);
   `;
+  console.log("맵돌릴 아이템: ", itemList);
 
   return (
     <>
-      {props.detailOn && (
-        <div css={productDetails}>
-          <img src="/images/products/category/5.jpg" alt="" css={img} />
-          <div>
-            <p>23 체리블라썸 플라워 머그앤소서 237ml </p>
-            <p style={{ color: "var(--color-gray-text)", fontSize: "11px" }}>
-              주문수량: 1개
-            </p>
-            <p style={{ fontWeight: "700" }}>34,000원</p>
+      {detailOn &&
+        itemList.map((item) => (
+          <div css={productDetails}>
+            <img
+              src={`https://storage.googleapis.com/ghbt/product_thumbnail/${item.product.thumbnailUrl}`}
+              alt=""
+              css={img}
+            />
+            <div>
+              <p>{item.product.name}</p>
+              <p style={{ color: "var(--color-gray-text)", fontSize: "11px" }}>
+                주문수량: {item.quantity}개
+              </p>
+              <p style={{ fontWeight: "700" }}>34,000원</p>
+            </div>
           </div>
-        </div>
-      )}
-      {!props.detailOn && (
+        ))}
+      {!detailOn && (
         <div css={productDetails}>
-          <img src="/images/products/category/5.jpg" alt="" css={img} />
+          <img
+            src={`https://storage.googleapis.com/ghbt/product_thumbnail/${itemList[0].product.thumbnailUrl}`}
+            alt=""
+            css={img}
+          />
           <div>
             <p style={{ fontWeight: "700" }}>
-              23 체리블라썸 플라워 머그앤소서 237ml 외 2개
+              {itemList[0].product.name}외 {itemList.length - 1}개
             </p>
           </div>
         </div>

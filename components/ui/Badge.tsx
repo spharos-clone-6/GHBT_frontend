@@ -25,7 +25,6 @@ export default function Badge() {
         Authorization: accesstoken,
       },
     });
-    console.log("일반 상품 :", generalResult);
     setGeneralCart(generalResult.data);
   }
   async function fetchFrozenData() {
@@ -34,7 +33,6 @@ export default function Badge() {
         Authorization: accesstoken,
       },
     });
-    console.log("냉동 상품 :", frozenResult);
     setFrozenCart(frozenResult.data);
   }
   useEffect(() => {

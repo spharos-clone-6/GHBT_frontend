@@ -61,7 +61,7 @@ export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
         <ul>
           {router.pathname === "/payment" ? (
             <li className="close-icon">
-              <img src="assets/images/icons/menu.svg" alt="" />
+              <img src="/images/icons/menu.svg" alt="" />
             </li>
           ) : (
             <>
