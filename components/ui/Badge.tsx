@@ -1,13 +1,46 @@
 /** @jsxImportSource @emotion/react */
+import Config from "@/configs/config.export";
 import { cartListType } from "@/types/types";
 import { css } from "@emotion/react";
-import { useRecoilValue } from "recoil";
+import axios from "axios";
+import { useEffect } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { frozenCartListState, generalCartListState } from "../recoil/cart";
 
 export default function Badge() {
-  const frozenCart = useRecoilValue<cartListType>(frozenCartListState);
-  const generalCart = useRecoilValue<cartListType>(generalCartListState);
+  const { baseUrl } = Config();
+
+  const [frozenCart, setFrozenCart] =
+    useRecoilState<cartListType>(frozenCartListState);
+  const [generalCart, setGeneralCart] =
+    useRecoilState<cartListType>(generalCartListState);
   const totalItem = frozenCart.length + generalCart.length;
+
+  // 데이터 불러오기
+  const accesstoken =
+    "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Nzk4NDIyNzYsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.jKBsy0fIlgNO0gRDW23DHYUTBEKnx9MCmMcDUu894-Grg4TkAiyhd14Y0b3Ejos2gc-q2z3US_GEuyb_ukRr1Q";
+  async function fetchGeneralData() {
+    const generalResult = await axios.get(`${baseUrl}/api/cart/my_cart`, {
+      headers: {
+        Authorization: accesstoken,
+      },
+    });
+    console.log("일반 상품 :", generalResult);
+    setGeneralCart(generalResult.data);
+  }
+  async function fetchFrozenData() {
+    const frozenResult = await axios.get(`${baseUrl}/api/cart/my_cart/ice`, {
+      headers: {
+        Authorization: accesstoken,
+      },
+    });
+    console.log("냉동 상품 :", frozenResult);
+    setFrozenCart(frozenResult.data);
+  }
+  useEffect(() => {
+    fetchGeneralData();
+    fetchFrozenData();
+  }, []);
 
   const badge = css`
     position: absolute;

@@ -2,8 +2,11 @@
 import React, { useState } from "react";
 import { css } from "@emotion/react";
 import PayProductDetail from "./PayProductDetail";
+import { useRecoilValue } from "recoil";
+import { cartOrder } from "../recoil/cart";
 
 export default function PayProductList() {
+  const orderList = useRecoilValue(cartOrder);
   const [detailOn, setDetailOn] = useState(false);
 
   const payContainer = css`

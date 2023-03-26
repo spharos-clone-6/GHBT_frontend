@@ -2,6 +2,11 @@ import { FROZEN_CART_LIST, GENERAL_CART_LIST } from "@/data/StaticData";
 import { cartListType } from "@/types/types";
 import { atom } from "recoil";
 import CartItem from "../ui/CartItem";
+import { recoilPersist } from "recoil-persist";
+
+const { persistAtom } = recoilPersist({
+  key: "cartOrder",
+});
 
 export const generalCartListState = atom<cartListType>({
   key: "generalCart",
@@ -13,12 +18,8 @@ export const frozenCartListState = atom<cartListType>({
   default: [],
 });
 
-// export const cartDeliveryPrice = atom<number>({
-//   key: "cartDeliveryPrice",
-//   default: 0,
-// });
-
-// export const cartTotalItemPrice = atom<number>({
-//   key: "cartTotalItemPrice",
-//   default: 0,
-// });
+export const cartOrder = atom<cartListType>({
+  key: "cartOrder",
+  default: [],
+  effects_UNSTABLE: [persistAtom],
+});

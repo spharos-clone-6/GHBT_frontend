@@ -2,6 +2,7 @@
 
 import CartItemList from "@/components/layouts/CartItemList";
 import {
+  cartOrder,
   frozenCartListState,
   generalCartListState,
 } from "@/components/recoil/cart";
@@ -15,6 +16,8 @@ import CartEmpty from "../components/widgets/CartEmpty";
 import { css } from "@emotion/react";
 import { useRecoilState } from "recoil";
 import Config from "@/configs/config.export";
+import { recoilPersist } from "recoil-persist";
+import { useRouter } from "next/router";
 
 export default function cart() {
   const { baseUrl } = Config();
@@ -89,8 +92,6 @@ export default function cart() {
       : (frozenPrice += 0)
   );
 
-  console.log("냉동 선택 가격 : ", frozenPrice);
-
   generalCart.map((item) =>
     item.checked
       ? (generalPrice += item.product.price * item.quantity)
@@ -103,6 +104,19 @@ export default function cart() {
   const generalDelivery = generalPrice > 30000 || generalPrice === 0 ? 0 : 3000;
 
   const deliveryPrice = frozenDelivery + generalDelivery;
+
+  // 결제하기에 넘겨줄 경우: checked=true 인것만 체크해서 넘겨주기
+  const [orderList, setOrderList] = useRecoilState(cartOrder);
+  const frozenOrder = frozenCart.filter((item) => item.checked);
+  const generalOrder = generalCart.filter((item) => item.checked);
+  const result = frozenOrder.concat(generalOrder);
+  console.log("토탈 : ", result);
+
+  const router = useRouter();
+  const onClickHandler = () => {
+    setOrderList(result);
+    router.push("/payment");
+  };
 
   return (
     <>
@@ -179,7 +193,7 @@ export default function cart() {
                 >
                   선물하기
                 </Button>
-                <Button btnType="button" btnEvent={() => alert("구매하기")}>
+                <Button btnType="button" btnEvent={onClickHandler}>
                   구매하기
                 </Button>
               </div>
