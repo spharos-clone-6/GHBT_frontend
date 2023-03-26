@@ -42,7 +42,7 @@ export default function cart() {
 
   // 데이터 불러오기
   const accesstoken =
-    "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Nzk3NTI4ODQsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.GN_klQEwTzyqWLlYPxhyFP9tbUim6Iix6i_wPjkqaSaydYcgzniwSQVNbHXugBhGhZs4bjA_m9WupZMH2XvOsA";
+    "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Nzk4NDIyNzYsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.jKBsy0fIlgNO0gRDW23DHYUTBEKnx9MCmMcDUu894-Grg4TkAiyhd14Y0b3Ejos2gc-q2z3US_GEuyb_ukRr1Q";
   async function fetchGeneralData() {
     const generalResult = await axios.get(`${baseUrl}/api/cart/my_cart`, {
       headers: {

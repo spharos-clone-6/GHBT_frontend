@@ -1,10 +1,14 @@
 /** @jsxImportSource @emotion/react */
-import { cartItem, IcartList } from "@/types/types";
+import { cartListType } from "@/types/types";
 import { css } from "@emotion/react";
 import { useRecoilValue } from "recoil";
+import { frozenCartListState, generalCartListState } from "../recoil/cart";
 
 export default function Badge() {
-  // const cartList = useRecoilValue<IcartList>();
+  const frozenCart = useRecoilValue<cartListType>(frozenCartListState);
+  const generalCart = useRecoilValue<cartListType>(generalCartListState);
+  const totalItem = frozenCart.length + generalCart.length;
+
   const badge = css`
     position: absolute;
     right: 38px;
@@ -20,7 +24,7 @@ export default function Badge() {
     z-index: 100;
   `;
 
-  return <p css={badge}>0</p>;
+  return <p css={badge}>{totalItem}</p>;
 }
 
 /**
