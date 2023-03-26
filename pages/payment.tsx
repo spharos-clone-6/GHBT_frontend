@@ -20,7 +20,7 @@ export default function payment() {
         <p className="title">결제하기</p>
       </section>
       <PayDeliveryInfo />
-      <PayProductList />
+      <PayProductList itemList={orderList} />
       <PayCoupon />
       <RightArrowMenu
         iconSrc=""
@@ -30,6 +30,13 @@ export default function payment() {
         padding="15px 10px"
       />
       <PayMethod />
+      <RightArrowMenu
+        iconSrc=""
+        menuName="현금영수증"
+        link=""
+        fontType="bold"
+        padding="15px 10px"
+      />
       <PayInfo />
       <section id="pay-info">
         <div className="pay">

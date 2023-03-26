@@ -4,8 +4,13 @@ import { css } from "@emotion/react";
 import PayProductDetail from "./PayProductDetail";
 import { useRecoilValue } from "recoil";
 import { cartOrder } from "../recoil/cart";
+import { cartListType } from "@/types/types";
 
-export default function PayProductList() {
+interface orderItems {
+  itemList: cartListType;
+}
+
+export default function PayProductList({ itemList }: orderItems) {
   const orderList = useRecoilValue(cartOrder);
   const [detailOn, setDetailOn] = useState(false);
 
@@ -48,7 +53,10 @@ export default function PayProductList() {
         </div>
       </div>
       {/* 주문 상품 목록 받아와서 맵돌리기: summary on off 필요 */}
-      <PayProductDetail detailOn={detailOn ? true : false} />
+      <PayProductDetail
+        detailOn={detailOn ? true : false}
+        itemList={orderList}
+      />
     </div>
   );
 }
