@@ -18,7 +18,6 @@ export default function StoreHeadFilter(props: {
   const handleKeyword = (keyword: string) => {
     if (!filterKeyword.includes(keyword)) {
       setFilterKeyword([...filterKeyword, keyword]);
-      router.push(`${router.asPath}&filter=${keyword}`);
     } else {
       setFilterKeyword([...filterKeyword.filter((el) => el !== keyword)]);
     }
