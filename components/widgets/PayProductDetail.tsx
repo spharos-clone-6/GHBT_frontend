@@ -27,8 +27,8 @@ export default function PayProductDetail({ detailOn, itemList }: orderItems) {
   return (
     <>
       {detailOn &&
-        itemList.map((item) => (
-          <div css={productDetails}>
+        itemList.map((item, index) => (
+          <div css={productDetails} key={index}>
             <img
               src={`https://storage.googleapis.com/ghbt/product_thumbnail/${item.product.thumbnailUrl}`}
               alt=""
