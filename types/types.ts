@@ -27,6 +27,7 @@ export interface productType {
   season?: string;
   bigTyep?: string;
   volume?: string;
+  subType?: string;
 }
 
 export interface categoryType {
