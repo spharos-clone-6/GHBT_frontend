@@ -30,6 +30,13 @@ export default function payment() {
         padding="15px 10px"
       />
       <PayMethod />
+      <RightArrowMenu
+        iconSrc=""
+        menuName="현금영수증"
+        link=""
+        fontType="bold"
+        padding="15px 10px"
+      />
       <PayInfo />
       <section id="pay-info">
         <div className="pay">

@@ -23,7 +23,6 @@ export default function PayProductDetail({ detailOn, itemList }: orderItems) {
     margin: 10px 20px 10px 0px;
     border: 1px solid rgba(128, 128, 128, 0.381);
   `;
-  console.log("맵돌릴 아이템: ", itemList);
 
   return (
     <>
@@ -44,7 +43,7 @@ export default function PayProductDetail({ detailOn, itemList }: orderItems) {
             </div>
           </div>
         ))}
-      {!detailOn && (
+      {!detailOn && itemList[0] && (
         <div css={productDetails}>
           <img
             src={`https://storage.googleapis.com/ghbt/product_thumbnail/${itemList[0].product.thumbnailUrl}`}
