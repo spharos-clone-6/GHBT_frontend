@@ -38,6 +38,7 @@ export default function store_all() {
 
   const handleMoreData = () => {
     console.log("moreData");
+    console.log("query.bigcategory", query.bigCategory);
     /** 전체 */
     if (query.bigCategory === "전체") {
       axios
@@ -70,9 +71,9 @@ export default function store_all() {
   };
 
   const renderItem = (): JSX.Element => {
-    if (isData !== false) {
-      handleMoreData();
-    }
+    // if (isData !== false) {
+    //   handleMoreData();
+    // }
     return (
       <div style={{ textAlign: "center", marginTop: "30%" }}>
         <p>조회되는 상품이 없습니다.</p>

@@ -65,7 +65,9 @@ export default function AllFilter(props: {
     axios.get(`${baseUrl}/api/category`).then((res) => {
       setCatogoryList(res.data.filter((c: categoryType) => c.type === "대"));
     });
-  });
+    createUrl();
+  }, []);
+
   useDidMountEffect(() => {
     axios.get(`${baseUrl}/api/category`).then((res) => {
       setCatogoryList(res.data.filter((c: categoryType) => c.type === "대"));
@@ -209,7 +211,7 @@ export default function AllFilter(props: {
     let url =
       router.pathname +
       "?" +
-      "&bigCategory=" +
+      "bigCategory=" +
       getQuery(router.query.bigCategory, "전체");
     volumeKeyword.map((k) => (url = url + "&volume=" + k));
     priceKeyword.map((k) => (url = url + "&price=" + k));
