@@ -1,22 +1,19 @@
-import React, { useEffect, useState } from "react";
-import router, { useRouter } from "next/router";
+import React, { ReactNode, useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import Config from "@/configs/config.export";
 
-import axios, { all } from "axios";
+import axios from "axios";
 
 import SelectOrder from "@/components/ui/SelectOrder";
 import ProductContainerGrid from "@/components/layouts/ProductContainerGrid";
 
-import { bigCategory, productType } from "@/types/types";
+import { productType } from "@/types/types";
 import InfiniteScroll from "react-infinite-scroll-component";
-import Filter from "@/components/layouts/Filter";
 import AllFilter from "@/components/layouts/AllFilter";
 
 export default function store_all() {
   const { query } = useRouter();
   const { baseUrl } = Config();
-  // console.log(query.keyword);
-  console.log(query.page);
   const [itemList, setItemList] = useState<productType[]>([]);
   const [allItem, setAllItem] = useState<productType[]>([]);
   const [isData, setIsData] = useState<boolean>(true);
@@ -25,22 +22,22 @@ export default function store_all() {
   useEffect(() => {
     const getData = async () => {
       const result = await axios.get(`${baseUrl}/api/product?page=${page}`);
-      console.log(result.data === "");
       if (result.data !== "") {
         setAllItem([...result.data.content]);
-        setItemList([...result.data.content]);
+        // setItemList([...result.data.content]);
       }
     };
     getData();
   }, []);
 
   useEffect(() => {
-    console.log("itemList, 무한=", itemList);
-    console.log("all item=", allItem);
-    console.log("isData=", isData);
+    // console.log("itemList, 무한=", itemList);
+    // console.log("all item=", allItem);
+    // console.log("isData=", isData);
   }, [allItem]);
 
   const handleMoreData = () => {
+    console.log("moreData");
     /** 전체 */
     if (query.bigCategory === "전체") {
       axios
@@ -72,6 +69,17 @@ export default function store_all() {
     }
   };
 
+  const renderItem = (): JSX.Element => {
+    if (isData !== false) {
+      handleMoreData();
+    }
+    return (
+      <div style={{ textAlign: "center", marginTop: "30%" }}>
+        <p>조회되는 상품이 없습니다.</p>
+      </div>
+    );
+  };
+
   return (
     <>
       <AllFilter
@@ -92,12 +100,10 @@ export default function store_all() {
         endMessage={<h4>NoData</h4>}
       >
         {/* 상품 출력 */}
-        {itemList.length !== 0 ? (
-          <ProductContainerGrid itemList={itemList} />
+        {itemList.length === 0 ? (
+          renderItem()
         ) : (
-          <div style={{ textAlign: "center", marginTop: "30%" }}>
-            <p>조회되는 상품이 없습니다.</p>
-          </div>
+          <ProductContainerGrid itemList={itemList} />
         )}
       </InfiniteScroll>
     </>

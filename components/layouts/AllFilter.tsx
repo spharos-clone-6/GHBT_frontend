@@ -2,6 +2,7 @@
 
 import Config from "@/configs/config.export";
 import { store_subhead, middleCategory } from "@/data/StaticData";
+import { useDidMountEffect } from "@/hooks/useDidmount";
 import { categoryType, productType } from "@/types/types";
 import { css } from "@emotion/react";
 import axios from "axios";
@@ -37,9 +38,9 @@ export default function AllFilter(props: {
   const [sItemList, setSItemList] = useState<productType[]>([]);
   const [vItemList, setVItemList] = useState<productType[]>([]);
 
-  useEffect(() => {
+  useDidMountEffect(() => {
     console.log("아이템이 추가되었습니다 다시 필터링 ㄲ");
-
+    console.log("현재 전체 아이템은 이것입니다.", allItem);
     let items = [...allItem];
     if (volumeKeyword.length !== 0) {
       items = items.filter((x) => isIn(vItemList, x.productId));
@@ -64,6 +65,11 @@ export default function AllFilter(props: {
     axios.get(`${baseUrl}/api/category`).then((res) => {
       setCatogoryList(res.data.filter((c: categoryType) => c.type === "대"));
     });
+  });
+  useDidMountEffect(() => {
+    axios.get(`${baseUrl}/api/category`).then((res) => {
+      setCatogoryList(res.data.filter((c: categoryType) => c.type === "대"));
+    });
 
     setPage(0);
     setIsData(true);
@@ -71,7 +77,6 @@ export default function AllFilter(props: {
     if (query.bigCategory === "전체") {
       const getData = async () => {
         const result = await axios.get(`${baseUrl}/api/product?page=0`);
-        console.log(result.data === "");
         if (result.data !== "") {
           setAllItem([...result.data.content]);
           setItemList([...result.data.content]);
@@ -98,9 +103,7 @@ export default function AllFilter(props: {
     handleReset();
   }, [query.bigCategory]);
 
-  /** 키워드 변경 */
-  useEffect(() => {
-    // console.log("키워드를 다시 세팅할게요");
+  useDidMountEffect(() => {
     createUrl();
     if (
       volumeKeyword.length === 0 &&
@@ -115,7 +118,7 @@ export default function AllFilter(props: {
   }, [volumeKeyword, priceKeyword, categoryKeyword, seasonKeyword]);
 
   /** 보여줄 아이템 리스트 변경 */
-  useEffect(() => {
+  useDidMountEffect(() => {
     let items = [...allItem];
     if (volumeKeyword.length !== 0) {
       items = items.filter((x) => isIn(vItemList, x.productId));
@@ -134,7 +137,7 @@ export default function AllFilter(props: {
   }, [vItemList, pItemList, cItemList, sItemList]);
 
   /** 가격 필터링 */
-  useEffect(() => {
+  useDidMountEffect(() => {
     let items: productType[] = [];
     priceKeyword &&
       priceKeyword.map((p) => {
@@ -165,37 +168,37 @@ export default function AllFilter(props: {
         }
       });
     setPItemList([...items]);
-  }, [priceKeyword]);
+  }, [priceKeyword, allItem]);
 
   /** 볼륨 */
-  useEffect(() => {
+  useDidMountEffect(() => {
     let items: productType[] = [];
     volumeKeyword &&
       volumeKeyword.map((k) => {
         items = [...items, ...allItem.filter((x) => x.volume === k)];
       });
     setVItemList([...items]);
-  }, [volumeKeyword]);
+  }, [volumeKeyword, allItem]);
 
   /** 중 카테고리 */
-  useEffect(() => {
+  useDidMountEffect(() => {
     let items: productType[] = [];
     categoryKeyword &&
       categoryKeyword.map((k) => {
         items = [...items, ...allItem.filter((x) => x.subType === k)];
       });
     setCItemList([...items]);
-  }, [categoryKeyword]);
+  }, [categoryKeyword, allItem]);
 
   /** 시즌 */
-  useEffect(() => {
+  useDidMountEffect(() => {
     let items: productType[] = [];
     seasonKeyword &&
       seasonKeyword.map((k) => {
         items = [...items, ...allItem.filter((x) => x.season === k)];
       });
     setSItemList([...items]);
-  }, [seasonKeyword]);
+  }, [seasonKeyword, allItem]);
 
   /** 결과 확인용 */
   useEffect(() => {
