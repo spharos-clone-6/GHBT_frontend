@@ -8,24 +8,48 @@ import PayDeliveryInfo from "@/components/widgets/PayDeliveryInfo";
 import PayInfo from "@/components/widgets/PayInfo";
 import PayMethod from "@/components/widgets/PayMethod";
 import PayProductList from "@/components/widgets/PayProductList";
-import React from "react";
+import Config from "@/configs/config.export";
+import { deliveryListType } from "@/types/types";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 
 export default function payment() {
+  const { baseUrl } = Config();
+  const [deliveryList, setDeliveryList] = useState<deliveryListType>([]);
+
   const orderList = useRecoilValue(cartOrder);
   const deliveryP = useRecoilValue(deliveryPrice);
-  console.log("결제할 물품 목록: ", orderList);
-  console.log("배송비: ", deliveryP);
 
   let totalPrice = 0;
   orderList.map((item) => (totalPrice += item.product.price * item.quantity));
-  console.log("총 아이템 가격: ", totalPrice);
+
+  // 배송지 데이터 불러오기
+  const AT =
+    "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Nzk5MTc5MjksInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.w0w0qf6e1VstsXCFizf8GN9ZNX0pwmSrp8SVQ0GldMLBCqsnPypGw3Idp-YwjGhAxxACeKVXufax0OToSTVMkQ";
+  async function fetchDelivery() {
+    const delivery = await axios.get(`${baseUrl}/api/shipping-address`, {
+      headers: {
+        Authorization: AT,
+      },
+    });
+    console.log("대표 배송지 :", delivery.data.shippingAddress[0]);
+    setDeliveryList(delivery.data.shippingAddress);
+  }
+
+  useEffect(() => {
+    fetchDelivery();
+  }, []);
+
   return (
     <>
       <section id="pay-title">
         <p className="title">결제하기</p>
       </section>
-      <PayDeliveryInfo />
+      <PayDeliveryInfo
+        deliveryList={deliveryList}
+        setDeliveryList={setDeliveryList}
+      />
       <PayProductList itemList={orderList} />
       <PayCoupon />
       <RightArrowMenu
@@ -68,4 +92,7 @@ export default function payment() {
       </BottomFixedContainer>
     </>
   );
+}
+function setDeliveryList(shippingAddress: any) {
+  throw new Error("Function not implemented.");
 }
