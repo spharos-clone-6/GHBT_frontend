@@ -1,16 +1,18 @@
 import BottomFixedContainer from "@/components/ui/BottomFixedContainer";
 import Button from "@/components/ui/Button";
+import Config from "@/configs/config.export";
 import { accessTokenState } from "@/state/accessTokenState";
 import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useRecoilState } from "recoil";
+import Image from "next/image";
 
 export default function LoginModal() {
   // if (!isView) {
   //   return null;
   // }
-
+  const { baseUrl } = Config();
   const router = useRouter();
 
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
@@ -21,7 +23,7 @@ export default function LoginModal() {
   const onClickLogin = async () => {
     const result = await axios
       .post(
-        "http://localhost:5000/api/auth/login",
+        `${baseUrl}/api/auth/login`,
         {
           email,
           password,
@@ -60,10 +62,14 @@ export default function LoginModal() {
 
   return (
     <div style={modalStyle}>
-      <div>
-        <a href="javascript:window.history.back();">
-          <img src="./images/icons/left.png" className="back-button" />
-        </a>
+      <div onClick={() => router.back()}>
+        <Image
+          src="/images/icons/left.png"
+          alt="뒤로가기"
+          className="back-button"
+          width={20}
+          height={20}
+        />
       </div>
       <div>
         <section className="login-header">
