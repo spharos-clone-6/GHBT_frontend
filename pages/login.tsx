@@ -5,6 +5,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useRecoilState } from "recoil";
+import Image from "next/image";
 
 export default function LoginModal() {
   // if (!isView) {
@@ -60,10 +61,14 @@ export default function LoginModal() {
 
   return (
     <div style={modalStyle}>
-      <div>
-        <a href="javascript:window.history.back();">
-          <img src="./images/icons/left.png" className="back-button" />
-        </a>
+      <div onClick={() => router.back()}>
+        <Image
+          src="/images/icons/left.png"
+          alt="뒤로가기"
+          className="back-button"
+          width={20}
+          height={20}
+        />
       </div>
       <div>
         <section className="login-header">
