@@ -29,7 +29,12 @@ export default function ModalHeader(props: {
     <div css={header}>
       <div> </div>
       <h2 css={item}>{headerName}</h2>
-      <CloseIcon style={{ padding: "16px 6px" }} onClickHandler={closeModal} />
+      <CloseIcon
+        style={{ padding: "16px 6px" }}
+        onClickHandler={closeModal}
+        width={15}
+        height={15}
+      />
     </div>
   );
 }

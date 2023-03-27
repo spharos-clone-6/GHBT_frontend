@@ -1,12 +1,27 @@
 /** @jsxImportSource @emotion/react */
+import Config from "@/configs/config.export";
 import { css } from "@emotion/react";
+import axios from "axios";
 
 export default function PaymentDeliveryInfo() {
+  const { baseUrl } = Config();
+
   const div = css`
     margin: 5px 0px;
     padding: 10px 0px;
     border-top: 1px solid rgba(128, 128, 128, 0.381);
   `;
+
+  // const AT =
+  //   "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Nzk5MTc5MjksInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.w0w0qf6e1VstsXCFizf8GN9ZNX0pwmSrp8SVQ0GldMLBCqsnPypGw3Idp-YwjGhAxxACeKVXufax0OToSTVMkQ";
+  // async function fetchDelivery() {
+  //   const delivery = await axios.get(`${baseUrl}/api/cart/my_cart`, {
+  //     headers: {
+  //       Authorization: AT,
+  //     },
+  //   });
+  //   console.log("배송지 :", delivery);
+  // }
 
   return (
     <>
