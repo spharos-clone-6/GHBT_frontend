@@ -1,4 +1,6 @@
+import { useDidMountEffect } from "@/hooks/useDidmount";
 import axios from "axios";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import Button from "../ui/Button";
 import DetailImage from "../ui/DetailImage";
@@ -13,6 +15,8 @@ export default function Detail(props: { pid: string | string[] | undefined }) {
   const [imgList, setImgList] = useState<imgData[]>([]);
   const [showImgList, setShowImgList] = useState<imgData[]>([]);
   const [isMore, setIsMore] = useState<boolean>(false);
+
+  const router = useRouter();
 
   const renderImgs = (): JSX.Element[] => {
     const imgs =
@@ -39,16 +43,17 @@ export default function Detail(props: { pid: string | string[] | undefined }) {
   };
 
   useEffect(() => {
+    if (router.query.pid === undefined) router.query.pid = "1";
     const getData = async () => {
       const result = await axios.get(
-        `http://backend.grapefruit-honey-black-tea.shop/api/image/${props.pid}`
+        `http://backend.grapefruit-honey-black-tea.shop/api/image/${router.query.pid}`
       );
       console.log(result.data.images);
       setImgList([...result.data.images]);
       setShowImgList([result.data.images[0]]);
     };
     getData();
-  }, []);
+  }, [router.isReady]);
 
   return (
     <>
