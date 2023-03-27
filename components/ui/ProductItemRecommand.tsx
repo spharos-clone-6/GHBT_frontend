@@ -3,6 +3,7 @@ import Link from "next/link";
 import React from "react";
 import Price from "./Price";
 import ProductLabel from "./ProductLabel";
+import Image from "next/image";
 
 type Item = {
   item: productType;
@@ -27,10 +28,13 @@ const ProductContainerRecommand = ({ item }: Item) => {
     <Link href={`/product/${item.productId}`}>
       <div className="recommand-product-item">
         <div className="recommand-product-item__img">
-          <img
-            src={`https://storage.googleapis.com/ghbt/product_thumbnail/${item.thumbnailUrl}`}
+          <Image
+            style={{ borderRadius: "15px" }}
+            src={`https://storage.googleapis.com/ghbt/product_thumbnail/${item?.thumbnailUrl}`}
             alt={item.name}
-            width="150px"
+            width={140}
+            height={140}
+            priority={true}
           />
         </div>
         <div className="recommand-product-item__info">

@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import AllItemHeader from "../widgets/AllItemHeader";
 import StoreHeadFilter from "../widgets/StoreHeadFilter";
+import Image from "next/image";
 
 export default function AllFilter(props: {
   allItem: productType[];
@@ -293,10 +294,11 @@ export default function AllFilter(props: {
       />
       {!isNullKeyword && (
         <div style={{ display: "flex", alignItems: "center" }}>
-          <img
+          <Image
             src="/images/icons/reload.png"
-            width={"5%"}
-            height={"5%"}
+            width={20}
+            height={20}
+            alt={"초기화 버튼"}
             style={{ padding: "5px", marginLeft: "15px" }}
             onClick={handleReset}
           />

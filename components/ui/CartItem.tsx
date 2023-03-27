@@ -4,6 +4,7 @@ import OrderChangeModal from "../modals/OrderChangeModal";
 import { useRecoilState } from "recoil";
 import { frozenCartListState, generalCartListState } from "../recoil/cart";
 import axios from "axios";
+import CloseIcon from "./CloseIcon";
 
 export default function CartItem(props: { item: cartItemType; title: string }) {
   const [quantity, setQuantity] = useState(props.item.quantity);
@@ -71,12 +72,7 @@ export default function CartItem(props: { item: cartItemType; title: string }) {
                     {props.item.product.price.toLocaleString("en")}원
                   </p>
                 </div>
-                <img
-                  src="/images/icons/close.png"
-                  alt=""
-                  className="close-icon"
-                  onClick={deleteItem}
-                />
+                <CloseIcon className="close-icon" />
               </div>
             </div>
             <div className="count">

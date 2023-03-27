@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { useRecent } from "@/hooks/useRecent";
+import CloseIcon from "../ui/CloseIcon";
 
 export interface ChildProps {
   isView: Boolean;
@@ -72,7 +73,7 @@ export default function SearchTop() {
           </li>
           <li>
             <a href="javascript:window.history.back();">
-              <img src="/images/icons/close.png" />
+              <CloseIcon />
             </a>
           </li>
         </ul>

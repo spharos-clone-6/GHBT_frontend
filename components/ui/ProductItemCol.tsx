@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import Price from "./Price";
 import ProductLabel from "./ProductLabel";
+import Image from "next/image";
 
 export default function ProductItemCol(props: {
   item: productType;
@@ -13,15 +14,19 @@ export default function ProductItemCol(props: {
   const { item, idx } = props;
   return (
     <Link href={`/product/${item?.productId}`}>
-      <div className="product-item">
+      <div className="product-item" style={{ width: "40vw" }}>
         {pathname === "/best" && (
           <div className="rank-label">
             <p>{idx + 1}</p>
           </div>
         )}
-        <img
+        <Image
+          style={{ borderRadius: "15px" }}
           src={`https://storage.googleapis.com/ghbt/product_thumbnail/${item?.thumbnailUrl}`}
-          className="thumbnail"
+          alt={item.name}
+          width={170}
+          height={170}
+          priority={true}
         />
         <div className="product-item-info">
           <ProductLabel isBest={item?.isBest} isNew={item?.isNew} />

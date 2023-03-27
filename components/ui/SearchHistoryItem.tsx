@@ -1,6 +1,8 @@
 import { useRecent } from "@/hooks/useRecent";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
+import CloseIcon from "./CloseIcon";
 
 type SearchedItem = {
   item?: string;
@@ -49,7 +51,7 @@ export default function LatestSearchItem({ item = "" }: SearchedItem) {
   return (
     <div className="keywords">
       <div onClick={onClickHandler}>{item}</div>
-      <img src="/images/icons/close.png" onClick={deleteHandler} />
+      <CloseIcon onClickHandler={onClickHandler} />
     </div>
   );
 }
