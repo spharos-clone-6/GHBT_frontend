@@ -9,7 +9,7 @@ import ProductLabel from "@/components/ui/ProductLabel";
 import Detail from "@/components/widgets/Detail";
 import InfoList from "@/components/widgets/InfoList";
 import ProductDetailSubmit from "@/components/widgets/ProductDetailSubmit";
-import { detailProductType, productType } from "@/types/types";
+import { cartListType, detailProductType, productType } from "@/types/types";
 import { css } from "@emotion/react";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -89,12 +89,25 @@ export default function productDetail() {
   console.log(product);
 
   // 결제하기 페이지로 데이터 넘기기
+  const [itemCount, setItemCount] = useState<number>(1);
+
+  const sendData: cartListType = [
+    {
+      id: 0,
+      quantity: itemCount,
+      product: product,
+      deleted: false,
+      checked: false,
+    },
+  ];
+
   const setOrderList = useSetRecoilState(cartOrder);
   const router = useRouter();
   const onClickHandler = () => {
-    setOrderList(product);
+    setOrderList(sendData);
     router.push("/payment");
   };
+
   return (
     <>
       <section id="product-top">
@@ -146,6 +159,8 @@ export default function productDetail() {
             price={product.price}
             productName={product.name}
             handleIsOpen={handleIsOpen}
+            itemCount={itemCount}
+            setItemCount={setItemCount}
           />
         </div>
       </BottomFixedContainer>
@@ -162,7 +177,7 @@ export default function productDetail() {
           >
             선물하기
           </Button>
-          <Button btnType="button" btnEvent={() => alert("구매하기")}>
+          <Button btnType="button" btnEvent={onClickHandler}>
             구매하기
           </Button>
         </div>
