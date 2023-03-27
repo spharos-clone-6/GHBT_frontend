@@ -27,6 +27,7 @@ export default function ModalHeader(props: {
 
   const closeModal = () => {
     setContentsIsView(false);
+    // props.setModalOpen(false);
   };
 
   return (

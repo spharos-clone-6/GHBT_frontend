@@ -17,6 +17,7 @@ export default function PaymentDeliveryInfo({
   setDeliveryList,
 }: delivery) {
   const [modalOpen, setModalOpen] = useState(false);
+
   const div = css`
     margin: 5px 0px;
     padding: 10px 0px;
@@ -35,7 +36,13 @@ export default function PaymentDeliveryInfo({
           <div className="delivery-change" onClick={showModal}>
             변경
           </div>
-          {modalOpen && <DeliveryChangeModal />}
+          {modalOpen && (
+            <DeliveryChangeModal
+              setModalOpen={setModalOpen}
+              deliveryList={deliveryList}
+              setDeliveryList={setDeliveryList}
+            />
+          )}
         </div>
         <div className="delivery-info">
           <div className="delivery-name">
