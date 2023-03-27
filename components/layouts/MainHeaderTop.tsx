@@ -4,6 +4,8 @@ import Link from "next/link";
 import Badge from "../ui/Badge";
 import { useRecoilState } from "recoil";
 import ContentsModal from "../modals/ContentsModal";
+import Image from "next/image";
+import CloseIcon from "../ui/CloseIcon";
 
 export interface ChildProps {
   isView: Boolean;
@@ -44,11 +46,22 @@ export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
         router.pathname.includes("/product") ||
         router.pathname === "/cart" ||
         router.pathname === "/payment" ? (
-          <img onClick={handleBack} src="/images/icons/left.png" alt="" />
+          <Image
+            onClick={handleBack}
+            src="/images/icons/left.png"
+            alt=""
+            width={20}
+            height={20}
+          />
         ) : (
           <div>
             <button onClick={showModal}>
-              <img src="/images/icons/menu.svg" alt="" />
+              <Image
+                src="/images/icons/menu.svg"
+                alt=""
+                width={20}
+                height={20}
+              />
             </button>
             {modalOpen && <ContentsModal setModalOpen={setModalOpen} />}
           </div>
@@ -61,23 +74,38 @@ export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
         <ul>
           {router.pathname === "/payment" ? (
             <li className="close-icon">
-              <img src="/images/icons/menu.svg" alt="" />
+              <Image
+                src="/images/icons/menu.svg"
+                alt=""
+                width={20}
+                height={20}
+              />
             </li>
           ) : (
             <>
               <li>
                 <Link href="/search">
-                  <img src="/images/icons/search.svg" />
+                  <Image
+                    src="/images/icons/search.svg"
+                    alt="검색아이콘"
+                    width={20}
+                    height={20}
+                  />
                 </Link>
               </li>
               <li>
-                <Badge />
+                {/* <Badge /> */}
                 <Link href="/cart">
-                  <img src="/images/icons/shopping-cart.svg" />
+                  <Image
+                    src="/images/icons/shopping-cart.svg"
+                    alt="장바구니 아이콘"
+                    width={20}
+                    height={20}
+                  />
                 </Link>
               </li>
               <li onClick={handleOpenLogin}>
-                <img src="/images/icons/close.png" />
+                <CloseIcon />
               </li>
             </>
           )}

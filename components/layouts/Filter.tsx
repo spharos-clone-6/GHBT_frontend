@@ -13,6 +13,7 @@ import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import SearchHeader from "../widgets/SearchHeader";
 import StoreHeadFilter from "../widgets/StoreHeadFilter";
+import Image from "next/image";
 
 export default function Filter(props: {
   allItem: productType[];
@@ -229,10 +230,11 @@ export default function Filter(props: {
       />
       {!isNullKeyword && (
         <div style={{ display: "flex", alignItems: "center" }}>
-          <img
+          <Image
             src="/images/icons/reload.png"
-            width={"5%"}
-            height={"5%"}
+            alt="초기화 버튼"
+            width={20}
+            height={20}
             style={{ padding: "5px", marginLeft: "15px" }}
             onClick={handleReset}
           />

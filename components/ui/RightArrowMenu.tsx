@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -56,13 +57,27 @@ export default function RightArrowMenu(props: {
     <div css={menu}>
       <Link href={link} css={linkStyle}>
         <div className="menu-info">
-          <img className="icon" src={iconSrc} />
+          {iconSrc && (
+            <Image
+              className="icon"
+              alt="메뉴아이콘"
+              src={iconSrc}
+              width={20}
+              height={20}
+            />
+          )}
           <div>
             <p css={name}>{menuName}</p>
             <p css={descStyle}>{description}</p>
           </div>
         </div>
-        <img className="arrow" src="/images/icons/arrow-point-to-right.png" />
+        <Image
+          className="arrow"
+          alt="화살표 아이콘"
+          src="/images/icons/arrow-point-to-right.png"
+          width={20}
+          height={20}
+        />
       </Link>
     </div>
   );

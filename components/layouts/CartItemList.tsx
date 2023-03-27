@@ -4,6 +4,7 @@ import { DefaultValue, useRecoilState } from "recoil";
 import { cartListType } from "@/types/types";
 import { frozenCartListState, generalCartListState } from "../recoil/cart";
 import Link from "next/link";
+import Image from "next/image";
 
 interface cartType {
   title: string;
@@ -68,7 +69,11 @@ export default function CartItemList({ title }: cartType) {
               className={listAllCheck ? "sbCheckBoxOn" : "sbCheckBox"}
               onClick={() => handleCartListAllCheck(listAllCheck)}
             >
-              <img src="/images/icons/check.png" style={{ width: "100%" }} />
+              <Image
+                src="/images/icons/check.png"
+                style={{ width: "100%" }}
+                alt={"체크이미지"}
+              />
             </div>
             <p className="cart-select-btn">{title}</p>
           </div>

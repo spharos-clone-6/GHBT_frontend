@@ -1,12 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
+import Image from "next/image";
 import Link from "next/link";
+import CloseIcon from "./CloseIcon";
 
 export default function ModalHeader(props: {
-  setModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
-  headerName?: string
+  setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  headerName?: string;
 }) {
-  const { setModalOpen, headerName } = props
+  const { setModalOpen, headerName } = props;
   const header = css`
     display: flex;
     text-align: center;
@@ -27,11 +29,7 @@ export default function ModalHeader(props: {
     <div css={header}>
       <div> </div>
       <h2 css={item}>{headerName}</h2>
-      <img
-        src="/images/icons/close.png"
-        style={{ width: "15px", padding: '16px 6px' }}
-        onClick={closeModal}
-      />
+      <CloseIcon style={{ padding: "16px 6px" }} onClickHandler={closeModal} />
     </div>
   );
 }
