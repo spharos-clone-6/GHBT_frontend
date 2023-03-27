@@ -16,8 +16,6 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import Image from "next/image";
-import Config from "@/configs/config.export";
-import { useDidMountEffect } from "@/hooks/useDidmount";
 
 export default function productDetail() {
   const dummy = {
@@ -30,14 +28,19 @@ export default function productDetail() {
     isNew: false,
   };
 
+  const router = useRouter();
   const { query, isReady } = useRouter();
   const [product, setProduct] = useState<productType>(dummy);
   const [seasonProduct, setSeasonProduct] = useState<productType[]>([]);
   const [subProduct, setSubProduct] = useState<productType[]>([]);
 
+  // 결제하기 페이지로 데이터 넘기기
+  const [itemCount, setItemCount] = useState<number>(1);
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [randomkey, setRandomKey] = useState<number>(Math.random());
 
+  // 상세 데이터 설정
   useEffect(() => {
     const getData = async () => {
       if (query.pid === undefined) query.pid = "1";
@@ -71,29 +74,12 @@ export default function productDetail() {
     getData();
   }, [isReady, query]);
 
+  // 구매하기 한번 눌렀을 때 구매하기, 선물하기, 아이템 수량 항목 나오게 핸들링
   const handleIsOpen = () => {
     console.log(isOpen);
     setRandomKey(Math.random());
     setIsOpen(!isOpen);
   };
-
-  const buttonContainer = css`
-    display: flex;
-    gap: 15px;
-    padding: 0 30px;
-    align-items: center;
-  `;
-
-  const iconStyle = css`
-    padding: 0;
-    margin: 0;
-    width: 30%;
-  `;
-
-  console.log(product);
-
-  // 결제하기 페이지로 데이터 넘기기
-  const [itemCount, setItemCount] = useState<number>(1);
 
   const sendData: cartListType = [
     {
@@ -106,17 +92,18 @@ export default function productDetail() {
   ];
 
   const setOrderList = useSetRecoilState(cartOrder);
-  const router = useRouter();
   const onClickHandler = () => {
     setOrderList(sendData);
     router.push("/payment");
   };
 
+  // 카카오톡 공유 init
   useEffect(() => {
     if (!window.Kakao.isInitialized())
       window.Kakao.init("3516958a9b5f02f44ab75393b932aa86");
   }, []);
 
+  // 공유하기 API 호출
   const shareKakao = () => {
     window.Kakao.Share.sendCustom({
       templateId: 91771,
@@ -154,7 +141,6 @@ export default function productDetail() {
               />
             </div>
           </div>
-
           <div className="description">{product?.description}</div>
           <div className="price">
             <Price price={product.price} />
@@ -219,3 +205,16 @@ export default function productDetail() {
     </>
   );
 }
+
+const buttonContainer = css`
+  display: flex;
+  gap: 15px;
+  padding: 0 30px;
+  align-items: center;
+`;
+
+const iconStyle = css`
+  padding: 0;
+  margin: 0;
+  width: 30%;
+`;
