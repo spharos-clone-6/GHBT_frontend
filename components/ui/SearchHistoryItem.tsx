@@ -51,7 +51,7 @@ export default function LatestSearchItem({ item = "" }: SearchedItem) {
   return (
     <div className="keywords">
       <div onClick={onClickHandler}>{item}</div>
-      <CloseIcon onClickHandler={onClickHandler} />
+      <CloseIcon onClickHandler={deleteHandler} />
     </div>
   );
 }

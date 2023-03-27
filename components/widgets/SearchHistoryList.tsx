@@ -18,8 +18,8 @@ export default function SearchHistoryList() {
       {keywords.length !== 0 ? (
         <div>
           <div className="search-latest-keywords">
-            {keywords.map((k) => (
-              <SearchHistoryItem item={k} />
+            {keywords.map((k, idx) => (
+              <SearchHistoryItem key={idx} item={k} />
             ))}
             <hr />
           </div>
