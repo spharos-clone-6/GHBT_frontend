@@ -39,7 +39,9 @@ export default function PayProductDetail({ detailOn, itemList }: orderItems) {
               <p style={{ color: "var(--color-gray-text)", fontSize: "11px" }}>
                 주문수량: {item.quantity}개
               </p>
-              <p style={{ fontWeight: "700" }}>34,000원</p>
+              <p style={{ fontWeight: "700" }}>
+                {(item.product.price * item.quantity).toLocaleString("en")}원
+              </p>
             </div>
           </div>
         ))}

@@ -1,4 +1,4 @@
-import { cartOrder } from "@/components/recoil/cart";
+import { cartOrder, deliveryPrice } from "@/components/recoil/cart";
 import BottomFixedContainer from "@/components/ui/BottomFixedContainer";
 import Button from "@/components/ui/Button";
 import ModalHeader from "@/components/ui/ModalHeader";
@@ -13,7 +13,14 @@ import { useRecoilValue } from "recoil";
 
 export default function payment() {
   const orderList = useRecoilValue(cartOrder);
+  const deliveryP = useRecoilValue(deliveryPrice);
   console.log("결제할 물품 목록: ", orderList);
+  console.log("배송비: ", deliveryP);
+
+  let totalPrice = 0;
+  orderList.map((item) => (totalPrice += item.product.price * item.quantity));
+  console.log(orderList);
+  console.log("총 가격: ", totalPrice);
   return (
     <>
       <section id="pay-title">
@@ -37,7 +44,7 @@ export default function payment() {
         fontType="bold"
         padding="15px 10px"
       />
-      <PayInfo />
+      <PayInfo itemPrice={totalPrice} delivery={deliveryP} />
       <section id="pay-info">
         <div className="pay">
           <div className="pay-price">
