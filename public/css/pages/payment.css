@@ -254,6 +254,7 @@
   margin-bottom: 0px;
   padding: 0px 10px;
   background-color: var(--color-white);
+  border-top: 1px solid rgba(128, 128, 128, 0.381);
   border-bottom: 1px solid rgba(128, 128, 128, 0.381);
 }
 

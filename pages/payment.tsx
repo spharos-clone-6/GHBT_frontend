@@ -19,8 +19,7 @@ export default function payment() {
 
   let totalPrice = 0;
   orderList.map((item) => (totalPrice += item.product.price * item.quantity));
-  console.log(orderList);
-  console.log("총 가격: ", totalPrice);
+  console.log("총 아이템 가격: ", totalPrice);
   return (
     <>
       <section id="pay-title">
@@ -49,7 +48,9 @@ export default function payment() {
         <div className="pay">
           <div className="pay-price">
             <p className="title">최종 결제 금액</p>
-            <p className="title price">33,000원</p>
+            <p className="title price">
+              {(totalPrice + deliveryP).toLocaleString("en")}원
+            </p>
           </div>
         </div>
         <div className="notice">
@@ -62,7 +63,7 @@ export default function payment() {
       </section>
       <BottomFixedContainer>
         <Button btnType="button" btnEvent={() => alert("구매?")}>
-          33,000원 결제하기
+          {(totalPrice + deliveryP).toLocaleString("en")}원 결제하기
         </Button>
       </BottomFixedContainer>
     </>
