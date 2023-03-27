@@ -71,8 +71,9 @@ export default function CartItemList({ title }: cartType) {
             >
               <Image
                 src="/images/icons/check.png"
-                style={{ width: "100%" }}
                 alt={"체크이미지"}
+                width={15}
+                height={15}
               />
             </div>
             <p className="cart-select-btn">{title}</p>

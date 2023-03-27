@@ -103,6 +103,7 @@
   justify-content: space-between;
   align-items: flex-start;
   padding: 0px 0px 0px 15px;
+  width: 250px;
 }
 
 .cart-product .item-info .name {
@@ -115,9 +116,9 @@
   font-weight: 700;
 }
 
-.cart-product .close-icon {
+/* .cart-product .close-icon {
   width: 3.5%;
-}
+} */
 
 #cart-list .count {
   text-align: left;

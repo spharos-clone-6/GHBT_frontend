@@ -72,7 +72,12 @@ export default function CartItem(props: { item: cartItemType; title: string }) {
                     {props.item.product.price.toLocaleString("en")}원
                   </p>
                 </div>
-                <CloseIcon className="close-icon" />
+                <CloseIcon
+                  className="close-icon"
+                  onClickHandler={deleteItem}
+                  width={10}
+                  height={10}
+                />
               </div>
             </div>
             <div className="count">

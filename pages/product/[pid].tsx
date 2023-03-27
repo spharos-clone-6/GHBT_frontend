@@ -21,6 +21,7 @@ export default function productDetail() {
     productId: 0,
     name: "테스트",
     price: 1000,
+    description: "",
     thumbnailUrl: "",
     isBest: false,
     isNew: false,
