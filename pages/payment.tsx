@@ -1,7 +1,6 @@
 import { cartOrder, deliveryPrice } from "@/components/recoil/cart";
 import BottomFixedContainer from "@/components/ui/BottomFixedContainer";
 import Button from "@/components/ui/Button";
-import ModalHeader from "@/components/ui/ModalHeader";
 import RightArrowMenu from "@/components/ui/RightArrowMenu";
 import PayCoupon from "@/components/widgets/PayCoupon";
 import PayDeliveryInfo from "@/components/widgets/PayDeliveryInfo";
@@ -9,7 +8,7 @@ import PayInfo from "@/components/widgets/PayInfo";
 import PayMethod from "@/components/widgets/PayMethod";
 import PayProductList from "@/components/widgets/PayProductList";
 import Config from "@/configs/config.export";
-import { deliveryListType } from "@/types/types";
+import { deliveryListType, deliveryType } from "@/types/types";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
@@ -17,6 +16,7 @@ import { useRecoilValue } from "recoil";
 export default function payment() {
   const { baseUrl } = Config();
   const [deliveryList, setDeliveryList] = useState<deliveryListType>([]);
+  const [deliveryPlace, setDeliveryPlace] = useState<deliveryListType>([]);
 
   const orderList = useRecoilValue(cartOrder);
   const deliveryP = useRecoilValue(deliveryPrice);
@@ -35,6 +35,7 @@ export default function payment() {
     });
     console.log("대표 배송지 :", delivery.data.shippingAddress[0]);
     setDeliveryList(delivery.data.shippingAddress);
+    setDeliveryPlace(delivery.data.shippingAddress[0]);
   }
 
   useEffect(() => {
@@ -46,10 +47,15 @@ export default function payment() {
       <section id="pay-title">
         <p className="title">결제하기</p>
       </section>
-      <PayDeliveryInfo
-        deliveryList={deliveryList}
-        setDeliveryList={setDeliveryList}
-      />
+      {deliveryPlace && (
+        <PayDeliveryInfo
+          deliveryList={deliveryList}
+          setDeliveryList={setDeliveryList}
+          deliveryPlace={deliveryPlace}
+          setDeliveryPlace={setDeliveryPlace}
+        />
+      )}
+
       <PayProductList itemList={orderList} />
       <PayCoupon />
       <RightArrowMenu
@@ -92,7 +98,4 @@ export default function payment() {
       </BottomFixedContainer>
     </>
   );
-}
-function setDeliveryList(shippingAddress: any) {
-  throw new Error("Function not implemented.");
 }

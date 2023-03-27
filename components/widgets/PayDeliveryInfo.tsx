@@ -1,20 +1,21 @@
 /** @jsxImportSource @emotion/react */
-import Config from "@/configs/config.export";
 import { deliveryListType, deliveryType } from "@/types/types";
 import { css } from "@emotion/react";
-import axios from "axios";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import DeliveryChangeModal from "../modals/DeliveryChangeModal";
 
 interface delivery {
   deliveryList: deliveryListType;
   setDeliveryList: React.Dispatch<React.SetStateAction<deliveryListType>>;
+  deliveryPlace: deliveryListType;
+  setDeliveryPlace: React.Dispatch<React.SetStateAction<deliveryListType>>;
 }
 
 export default function PaymentDeliveryInfo({
   deliveryList,
   setDeliveryList,
+  deliveryPlace,
+  setDeliveryPlace,
 }: delivery) {
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -41,6 +42,8 @@ export default function PaymentDeliveryInfo({
               setModalOpen={setModalOpen}
               deliveryList={deliveryList}
               setDeliveryList={setDeliveryList}
+              deliveryPlace={deliveryPlace}
+              setDeliveryPlace={setDeliveryPlace}
             />
           )}
         </div>

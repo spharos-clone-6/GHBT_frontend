@@ -12,12 +12,16 @@ interface deliveryChange {
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   deliveryList: deliveryListType;
   setDeliveryList: React.Dispatch<React.SetStateAction<deliveryListType>>;
+  deliveryPlace: deliveryListType;
+  setDeliveryPlace: React.Dispatch<React.SetStateAction<deliveryListType>>;
 }
 
 export default function DeliveryChangeModal({
   setModalOpen,
   deliveryList,
   setDeliveryList,
+  deliveryPlace,
+  setDeliveryPlace,
 }: deliveryChange) {
   const modalStyle: Object = {
     position: "fixed",
@@ -42,8 +46,8 @@ export default function DeliveryChangeModal({
           <span>새 배송지 추가</span>
         </a>
       </section>
-      {deliveryList.map((item) => (
-        <DeliveryItem item={item} />
+      {deliveryList.map((item, index) => (
+        <DeliveryItem item={item} key={index} />
       ))}
       <BottomFixedContainer>
         <Button btnType="button" btnEvent={closeModal}>

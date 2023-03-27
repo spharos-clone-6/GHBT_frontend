@@ -6,11 +6,12 @@ import Link from "next/link";
 import { useSetRecoilState } from "recoil";
 import CloseIcon from "./CloseIcon";
 
-export default function ModalHeader(props: {
+interface modalHeader {
   headerName?: string;
   setModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
-  const { headerName } = props;
+}
+
+export default function ModalHeader({ headerName, setModalOpen }: modalHeader) {
   const setContentsIsView = useSetRecoilState<boolean>(contentsModalState);
 
   const header = css`
@@ -27,7 +28,7 @@ export default function ModalHeader(props: {
 
   const closeModal = () => {
     setContentsIsView(false);
-    // props.setModalOpen(false);
+    setModalOpen && setModalOpen(false);
   };
 
   return (
