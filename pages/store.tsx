@@ -10,6 +10,7 @@ import ProductContainerGrid from "@/components/layouts/ProductContainerGrid";
 import { productType } from "@/types/types";
 import InfiniteScroll from "react-infinite-scroll-component";
 import AllFilter from "@/components/layouts/AllFilter";
+import Loading from "@/components/ui/Loading";
 
 export default function store_all() {
   const { query } = useRouter();
@@ -97,8 +98,8 @@ export default function store_all() {
         dataLength={itemList.length} // 반복 컴포넌트 개수
         next={handleMoreData} // 데이터 불러오는 함수
         hasMore={isData} // 추가 데이터 있는지?
-        loader={<h4>Loading...</h4>}
-        endMessage={<h4>NoData</h4>}
+        loader={isData && <Loading />}
+        endMessage={<h4>마지막 데이터입니다.</h4>}
       >
         {/* 상품 출력 */}
         {itemList.length === 0 ? (
