@@ -72,9 +72,7 @@ export default function SearchTop() {
             <img src="/images/icons/search.svg" onClick={resultHandler} />
           </li>
           <li>
-            <a href="javascript:window.history.back();">
-              <CloseIcon />
-            </a>
+            <CloseIcon onClickHandler={() => router.back()} />
           </li>
         </ul>
       </div>

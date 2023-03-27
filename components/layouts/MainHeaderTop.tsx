@@ -6,6 +6,7 @@ import { useRecoilState } from "recoil";
 import ContentsModal from "../modals/ContentsModal";
 import Image from "next/image";
 import CloseIcon from "../ui/CloseIcon";
+import { contentsModalState } from "@/state/contentsModalState";
 
 export interface ChildProps {
   isView: Boolean;
@@ -15,7 +16,8 @@ export interface ChildProps {
 export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
   const router = useRouter();
   // console.log(router.pathname);
-  const [modalOpen, setModalOpen] = useState(false);
+  const [contentsIsView, setContentsIsView] =
+    useRecoilState<boolean>(contentsModalState);
 
   const handleOpenLogin = () => {
     setIsView(true);
@@ -30,14 +32,8 @@ export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
   };
 
   const showModal = () => {
-    setModalOpen(true);
+    setContentsIsView(true);
   };
-
-  useEffect(() => {
-    if (router.pathname === "/store_all") {
-      setModalOpen(false);
-    }
-  }, [router.pathname]);
 
   return (
     <div className="header-top">
@@ -63,7 +59,7 @@ export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
                 height={20}
               />
             </button>
-            {modalOpen && <ContentsModal setModalOpen={setModalOpen} />}
+            {contentsIsView && <ContentsModal />}
           </div>
         )}
       </div>
