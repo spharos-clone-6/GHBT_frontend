@@ -9,12 +9,15 @@ import ProductLabel from "@/components/ui/ProductLabel";
 import Detail from "@/components/widgets/Detail";
 import InfoList from "@/components/widgets/InfoList";
 import ProductDetailSubmit from "@/components/widgets/ProductDetailSubmit";
-import { cartListType, detailProductType, productType } from "@/types/types";
+import { cartListType, productType } from "@/types/types";
 import { css } from "@emotion/react";
 import axios from "axios";
 import { useRouter } from "next/router";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
+import Image from "next/image";
+import Config from "@/configs/config.export";
+import { useDidMountEffect } from "@/hooks/useDidmount";
 
 export default function productDetail() {
   const dummy = {
@@ -27,7 +30,7 @@ export default function productDetail() {
     isNew: false,
   };
 
-  const { query } = useRouter();
+  const { query, isReady } = useRouter();
   const [product, setProduct] = useState<productType>(dummy);
   const [seasonProduct, setSeasonProduct] = useState<productType[]>([]);
   const [subProduct, setSubProduct] = useState<productType[]>([]);
@@ -66,7 +69,7 @@ export default function productDetail() {
       setProduct(result.data);
     };
     getData();
-  }, []);
+  }, [isReady, query]);
 
   const handleIsOpen = () => {
     console.log(isOpen);
@@ -109,6 +112,22 @@ export default function productDetail() {
     router.push("/payment");
   };
 
+  useEffect(() => {
+    if (!window.Kakao.isInitialized())
+      window.Kakao.init("3516958a9b5f02f44ab75393b932aa86");
+  }, []);
+
+  const shareKakao = () => {
+    window.Kakao.Share.sendCustom({
+      templateId: 91771,
+      templateArgs: {
+        TITLE: product.name,
+        THU: `https://storage.googleapis.com/ghbt/product_thumbnail/${product?.thumbnailUrl}`,
+        ID: query.pid,
+      },
+    });
+  };
+
   return (
     <>
       <section id="product-top">
@@ -126,8 +145,13 @@ export default function productDetail() {
               <p>{product?.name}</p>
               <ProductLabel isBest={product?.isBest} isNew={product?.isNew} />
             </div>
-            <div className="share-icon">
-              <img src="/images/icons/share.png" alt="" />
+            <div className="share-icon" onClick={shareKakao}>
+              <Image
+                src="/images/icons/share.png"
+                alt="공유 버튼"
+                width={20}
+                height={20}
+              />
             </div>
           </div>
 
