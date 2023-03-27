@@ -3,11 +3,13 @@ import Config from "@/configs/config.export";
 import { cartListType } from "@/types/types";
 import { css } from "@emotion/react";
 import axios from "axios";
-import { useEffect } from "react";
+import { use, useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
+import CartItemList from "../layouts/CartItemList";
 import { frozenCartListState, generalCartListState } from "../recoil/cart";
 
 export default function Badge() {
+  const [isUser, setIsUser] = useState(true);
   const { baseUrl } = Config();
 
   const [frozenCart, setFrozenCart] =
@@ -18,23 +20,38 @@ export default function Badge() {
 
   // 데이터 불러오기
   const accesstoken =
-    "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Nzk4NDIyNzYsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.jKBsy0fIlgNO0gRDW23DHYUTBEKnx9MCmMcDUu894-Grg4TkAiyhd14Y0b3Ejos2gc-q2z3US_GEuyb_ukRr1Q";
+    "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Nzk5MTc5MjksInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.w0w0qf6e1VstsXCFizf8GN9ZNX0pwmSrp8SVQ0GldMLBCqsnPypGw3Idp-YwjGhAxxACeKVXufax0OToSTVMkQ";
   async function fetchGeneralData() {
-    const generalResult = await axios.get(`${baseUrl}/api/cart/my_cart`, {
-      headers: {
-        Authorization: accesstoken,
-      },
-    });
-    setGeneralCart(generalResult.data);
+    try {
+      const generalResult = await axios.get(`${baseUrl}/api/cart/my_cart`, {
+        headers: {
+          Authorization: accesstoken,
+        },
+      });
+      setGeneralCart(generalResult.data);
+    } catch (ex: any) {
+      if (ex.response && ex.response.status === 401) {
+        console.log("비회원");
+        setIsUser(false);
+      }
+    }
   }
   async function fetchFrozenData() {
-    const frozenResult = await axios.get(`${baseUrl}/api/cart/my_cart/ice`, {
-      headers: {
-        Authorization: accesstoken,
-      },
-    });
-    setFrozenCart(frozenResult.data);
+    try {
+      const frozenResult = await axios.get(`${baseUrl}/api/cart/my_cart/ice`, {
+        headers: {
+          Authorization: accesstoken,
+        },
+      });
+      setFrozenCart(frozenResult.data);
+    } catch (ex: any) {
+      if (ex.response && ex.response.status === 401) {
+        console.log("비회원");
+        setIsUser(false);
+      }
+    }
   }
+
   useEffect(() => {
     fetchGeneralData();
     fetchFrozenData();
@@ -55,7 +72,7 @@ export default function Badge() {
     z-index: 100;
   `;
 
-  return <p css={badge}>{totalItem}</p>;
+  return isUser ? <p css={badge}>{totalItem}</p> : "";
 }
 
 /**
