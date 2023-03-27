@@ -46,20 +46,10 @@ export interface eventType {
   tag: string;
 }
 
-// // 장바구니 개별 상품(더미)
-// export interface cartItem {
-//   id: number;
-//   name: string;
-//   price: number;
-//   quantity: number;
-//   img: string;
-//   isChecked?: boolean;
-// }
-
 export interface cartItemType {
   id: number;
   quantity: number;
-  user: object;
+  user?: object;
   product: productType;
   deleted: boolean;
   checked: boolean;

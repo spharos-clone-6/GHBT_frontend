@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import ProductContainerRecommand from "@/components/layouts/ProductContainerRecommand";
+import { cartOrder } from "@/components/recoil/cart";
 import BottomFixedContainer from "@/components/ui/BottomFixedContainer";
 import Button from "@/components/ui/Button";
 import Price from "@/components/ui/Price";
@@ -8,26 +9,25 @@ import ProductLabel from "@/components/ui/ProductLabel";
 import Detail from "@/components/widgets/Detail";
 import InfoList from "@/components/widgets/InfoList";
 import ProductDetailSubmit from "@/components/widgets/ProductDetailSubmit";
-import { detailProductType, productType } from "@/types/types";
+import { cartListType, detailProductType, productType } from "@/types/types";
 import { css } from "@emotion/react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
+import { useSetRecoilState } from "recoil";
 
 export default function productDetail() {
   const dummy = {
-    name: "테스트 데이터",
-    productId: 1,
-    description: "더미",
-    price: 10000,
-    subType: "홀케이크",
-    bigType: "케이크",
-    season: "",
-    volume: "",
+    productId: 0,
+    name: "테스트",
+    price: 1000,
+    thumbnailUrl: "",
+    isBest: false,
+    isNew: false,
   };
 
   const { query } = useRouter();
-  const [product, setProduct] = useState<detailProductType>(dummy);
+  const [product, setProduct] = useState<productType>(dummy);
   const [seasonProduct, setSeasonProduct] = useState<productType[]>([]);
   const [subProduct, setSubProduct] = useState<productType[]>([]);
 
@@ -86,6 +86,28 @@ export default function productDetail() {
     width: 30%;
   `;
 
+  console.log(product);
+
+  // 결제하기 페이지로 데이터 넘기기
+  const [itemCount, setItemCount] = useState<number>(1);
+
+  const sendData: cartListType = [
+    {
+      id: 0,
+      quantity: itemCount,
+      product: product,
+      deleted: false,
+      checked: false,
+    },
+  ];
+
+  const setOrderList = useSetRecoilState(cartOrder);
+  const router = useRouter();
+  const onClickHandler = () => {
+    setOrderList(sendData);
+    router.push("/payment");
+  };
+
   return (
     <>
       <section id="product-top">
@@ -137,6 +159,8 @@ export default function productDetail() {
             price={product.price}
             productName={product.name}
             handleIsOpen={handleIsOpen}
+            itemCount={itemCount}
+            setItemCount={setItemCount}
           />
         </div>
       </BottomFixedContainer>
@@ -153,7 +177,7 @@ export default function productDetail() {
           >
             선물하기
           </Button>
-          <Button btnType="button" btnEvent={() => alert("구매하기")}>
+          <Button btnType="button" btnEvent={onClickHandler}>
             구매하기
           </Button>
         </div>

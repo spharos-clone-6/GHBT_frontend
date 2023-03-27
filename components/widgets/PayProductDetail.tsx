@@ -52,7 +52,10 @@ export default function PayProductDetail({ detailOn, itemList }: orderItems) {
           />
           <div>
             <p style={{ fontWeight: "700" }}>
-              {itemList[0].product.name}외 {itemList.length - 1}개
+              {itemList.length > 1
+                ? `${itemList[0].product.name}외
+              ${itemList.length - 1}개`
+                : `${itemList[0].product.name}`}
             </p>
           </div>
         </div>
