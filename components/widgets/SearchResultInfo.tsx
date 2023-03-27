@@ -9,7 +9,7 @@ export default function SearchResultInfo({
 }: SearchKeyword) {
   return (
     <div className="header-sub search-info">
-      <p className="serach-keyword">&quot{keyword}&quot의 검색결과</p>
+      <p className="serach-keyword">&quot;{keyword}&quot;의 검색결과</p>
     </div>
   );
 }
