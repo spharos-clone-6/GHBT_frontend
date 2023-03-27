@@ -6,7 +6,7 @@ import { productType } from "@/types/types";
 import Config from "@/configs/config.export";
 import axios from "axios";
 
-export default function index() {
+export default function Home() {
   const { baseUrl } = Config();
 
   const [recommand1, setRecommand1] = useState<productType[]>([]);

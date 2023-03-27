@@ -17,7 +17,7 @@ import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import Image from "next/image";
 
-export default function productDetail() {
+export default function ProductDetail() {
   const dummy = {
     productId: 0,
     name: "테스트",

@@ -11,7 +11,7 @@ export default function order_change() {
           <p>19,900원</p>
         </div>
       </section>
-      <ItemAmount price={5000} />
+      {/* <ItemAmount price={5000} /> */}
       <section className="submit-container">
         {" "}
         {/*class="submit-container"*/}

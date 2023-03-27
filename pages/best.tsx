@@ -5,7 +5,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 
-export default function best() {
+export default function Best() {
   const [loading, setLoading] = useState<boolean>(true);
   const [itemList, setItemList] = useState<productType[]>([]);
   const { query } = useRouter();

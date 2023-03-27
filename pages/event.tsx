@@ -4,7 +4,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 
-export default function event() {
+export default function Event() {
   const [itemList, setItemList] = useState<productType[]>([]);
   const [eventInfo, setEventInfo] = useState<eventType>();
   const { query } = useRouter();

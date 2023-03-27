@@ -11,7 +11,7 @@ import PayProductList from "@/components/widgets/PayProductList";
 import React from "react";
 import { useRecoilValue } from "recoil";
 
-export default function payment() {
+export default function Payment() {
   const orderList = useRecoilValue(cartOrder);
   console.log("결제할 물품 목록: ", orderList);
   return (
