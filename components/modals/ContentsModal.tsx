@@ -1,12 +1,13 @@
 import ModalHeader from "@/components/ui/ModalHeader";
 import RightArrowMenu from "@/components/ui/RightArrowMenu";
 import ContentCategoryContainer from "@/components/widgets/ContentCategoryContainer";
+import { contentsModalState } from "@/state/contentsModalState";
 import React from "react";
-import Image from "next/image";
+import { useSetRecoilState } from "recoil";
 
-export default function Contents(props: {
-  setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
+export default function Contents() {
+  const setContentsIsView = useSetRecoilState(contentsModalState);
+
   const modalStyle: Object = {
     position: "fixed",
     backgroundColor: "var(--color-white)",
@@ -17,9 +18,13 @@ export default function Contents(props: {
     height: "100%",
   };
 
+  const closeModal = () => {
+    setContentsIsView(false);
+  };
+
   return (
     <div style={modalStyle}>
-      <ModalHeader setModalOpen={props.setModalOpen} />
+      <ModalHeader />
       <section className="contents-head">
         {/*본문*/}
         <div className="contents-msg">
@@ -34,19 +39,24 @@ export default function Contents(props: {
       <ContentCategoryContainer />
       {/*기획전/베스트 이동*/}
       <section id="nav-event-best">
-        <RightArrowMenu
-          menuName={"기획전"}
-          link={"/event?category=케이크"}
-          fontType="strong"
-          description="진행중인 기획전을 만나보세요."
-        />
+        <div onClick={closeModal}>
+          <RightArrowMenu
+            menuName={"기획전"}
+            link={"/event?category=라인프렌즈"}
+            fontType="strong"
+            description="진행중인 기획전을 만나보세요."
+          />
+        </div>
+
         <hr style={{ margin: "15px 0" }} />
-        <RightArrowMenu
-          menuName={"베스트"}
-          link={"/best?category=케이크"}
-          fontType="strong"
-          description="스타벅스의 베스트 상품을 만나보세요."
-        />
+        <div onClick={closeModal}>
+          <RightArrowMenu
+            menuName={"베스트"}
+            link={"/best?category=케이크"}
+            fontType="strong"
+            description="스타벅스의 베스트 상품을 만나보세요."
+          />
+        </div>
       </section>
     </div>
   );

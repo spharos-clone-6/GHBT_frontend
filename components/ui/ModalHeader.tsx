@@ -1,14 +1,15 @@
 /** @jsxImportSource @emotion/react */
+import { contentsModalState } from "@/state/contentsModalState";
 import { css } from "@emotion/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useSetRecoilState } from "recoil";
 import CloseIcon from "./CloseIcon";
 
-export default function ModalHeader(props: {
-  setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  headerName?: string;
-}) {
-  const { setModalOpen, headerName } = props;
+export default function ModalHeader(props: { headerName?: string }) {
+  const { headerName } = props;
+  const setContentsIsView = useSetRecoilState<boolean>(contentsModalState);
+
   const header = css`
     display: flex;
     text-align: center;
@@ -22,7 +23,7 @@ export default function ModalHeader(props: {
   `;
 
   const closeModal = () => {
-    setModalOpen(false);
+    setContentsIsView(false);
   };
 
   return (
