@@ -15,7 +15,7 @@ export default function Event() {
 
   console.log(query.category);
 
-  useDidMountEffect(() => {
+  useEffect(() => {
     const getData = async () => {
       console.log(query);
       const result = await axios.get(
@@ -28,7 +28,7 @@ export default function Event() {
       setEventInfo(eventResult.data);
       setLoading(false);
     };
-    getData();
+    if (query.category !== undefined) getData();
   }, [query]);
 
   return (
