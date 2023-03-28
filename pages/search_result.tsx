@@ -9,7 +9,7 @@ import ProductContainerGrid from "@/components/layouts/ProductContainerGrid";
 import Config from "@/configs/config.export";
 import Filter from "@/components/layouts/Filter";
 
-export default function search_result() {
+export default function SearchResult() {
   const router = useRouter();
   const { query } = useRouter();
   const { baseUrl } = Config();
@@ -33,7 +33,7 @@ export default function search_result() {
     };
     getData();
     console.log("초기 데이터 세팅");
-  }, [router.isReady]);
+  }, [router.isReady, query.keyword, baseUrl]);
 
   return (
     <>

@@ -1,31 +1,70 @@
 /** @jsxImportSource @emotion/react */
+import { deliveryListType, deliveryType } from "@/types/types";
 import { css } from "@emotion/react";
+import { useEffect, useState } from "react";
+import DeliveryChangeModal from "../modals/DeliveryChangeModal";
 
-export default function PaymentDeliveryInfo() {
+interface delivery {
+  deliveryList: deliveryListType;
+  setDeliveryList: React.Dispatch<React.SetStateAction<deliveryListType>>;
+  deliveryPlace: deliveryListType;
+  setDeliveryPlace: React.Dispatch<React.SetStateAction<deliveryListType>>;
+}
+
+export default function PaymentDeliveryInfo({
+  deliveryList,
+  setDeliveryList,
+  deliveryPlace,
+  setDeliveryPlace,
+}: delivery) {
+  const [modalOpen, setModalOpen] = useState(false);
+
   const div = css`
     margin: 5px 0px;
     padding: 10px 0px;
     border-top: 1px solid rgba(128, 128, 128, 0.381);
   `;
 
+  const showModal = () => {
+    setModalOpen(true);
+  };
+
   return (
     <>
       <section id="pay-delivery">
         <div className="delivery-info-title">
           <p>배송 정보</p>
-          <a href="">
-            <div className="delivery-change">변경</div>
-          </a>
+          <div className="delivery-change" onClick={showModal}>
+            변경
+          </div>
+          {modalOpen && (
+            <DeliveryChangeModal
+              setModalOpen={setModalOpen}
+              deliveryList={deliveryList}
+              setDeliveryList={setDeliveryList}
+              deliveryPlace={deliveryPlace}
+              setDeliveryPlace={setDeliveryPlace}
+            />
+          )}
         </div>
         <div className="delivery-info">
           <div className="delivery-name">
-            <div className="name">춘식이 (집)</div>
-            <div className="is-primary">기본</div>
+            <div className="name">
+              {deliveryPlace[0]?.receiver} ({deliveryPlace[0]?.addressNickname})
+            </div>
+            {deliveryPlace[0]?.isDefault ? (
+              <div className="is-primary">기본</div>
+            ) : (
+              ""
+            )}
           </div>
-          <p>(48058) 부산광역시 해운대구 센텀남대로 35(우동) 2층</p>
-          <p>010-1234-5678</p>
+          <p>
+            ({deliveryPlace[0]?.zipCode}) {deliveryPlace[0]?.baseAddress}{" "}
+            {deliveryPlace[0]?.detailAddress}
+          </p>
+          <p>{deliveryPlace[0]?.phoneNumber1}</p>
         </div>
-        <div css={div}>배송메세지 표시공간</div>
+        <div css={div}>{deliveryPlace[0]?.notice}</div>
       </section>
     </>
   );

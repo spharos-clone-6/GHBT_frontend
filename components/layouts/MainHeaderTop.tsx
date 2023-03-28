@@ -35,6 +35,10 @@ export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
     setContentsIsView(true);
   };
 
+  const closeModal = () => {
+    setContentsIsView(false);
+  };
+
   return (
     <div className="header-top">
       <div className="menu-icon">
@@ -64,7 +68,7 @@ export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
         )}
       </div>
       <Link href={"/"}>
-        <h1>온라인 스토어</h1>
+        <h1 onClick={closeModal}>온라인 스토어</h1>
       </Link>
       <nav>
         <ul>

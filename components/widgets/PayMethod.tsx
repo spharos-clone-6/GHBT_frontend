@@ -11,7 +11,7 @@ export default function PayMethod() {
           <input type="radio" name="pay" /> 스타벅스 카드
         </div>
         <div>
-          <input type="radio" name="pay" /> 신용카드
+          <input type="radio" name="pay" /> 카카오페이
         </div>
       </div>
     </section>

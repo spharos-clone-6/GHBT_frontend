@@ -19,7 +19,6 @@ export default function PrimaryLayout(props: { children: React.ReactNode }) {
   const mainMenu = ["/", "/event", "/best", "/mypage"];
   return (
     <>
-      {/* <SearchModal isView={isView} setIsView={setIsView} /> */}
       <div className="container">
         <header>
           <MainHeaderTop isView={isView} setIsView={setIsView} />

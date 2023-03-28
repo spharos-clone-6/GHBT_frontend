@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import ProductContainerRecommand from "@/components/layouts/ProductContainerRecommand";
-import { cartOrder } from "@/components/recoil/cart";
+import { cartOrder, deliveryPrice } from "@/state/cart";
 import BottomFixedContainer from "@/components/ui/BottomFixedContainer";
 import Button from "@/components/ui/Button";
 import Price from "@/components/ui/Price";
@@ -9,31 +9,38 @@ import ProductLabel from "@/components/ui/ProductLabel";
 import Detail from "@/components/widgets/Detail";
 import InfoList from "@/components/widgets/InfoList";
 import ProductDetailSubmit from "@/components/widgets/ProductDetailSubmit";
-import { cartListType, detailProductType, productType } from "@/types/types";
+import { cartListType, productType } from "@/types/types";
 import { css } from "@emotion/react";
 import axios from "axios";
 import { useRouter } from "next/router";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
+import Image from "next/image";
 
-export default function productDetail() {
+export default function ProductDetail() {
   const dummy = {
     productId: 0,
     name: "테스트",
     price: 1000,
+    description: "",
     thumbnailUrl: "",
     isBest: false,
     isNew: false,
   };
 
-  const { query } = useRouter();
+  const router = useRouter();
+  const { query, isReady } = useRouter();
   const [product, setProduct] = useState<productType>(dummy);
   const [seasonProduct, setSeasonProduct] = useState<productType[]>([]);
   const [subProduct, setSubProduct] = useState<productType[]>([]);
 
+  // 결제하기 페이지로 데이터 넘기기
+  const [itemCount, setItemCount] = useState<number>(1);
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [randomkey, setRandomKey] = useState<number>(Math.random());
 
+  // 상세 데이터 설정
   useEffect(() => {
     const getData = async () => {
       if (query.pid === undefined) query.pid = "1";
@@ -65,31 +72,14 @@ export default function productDetail() {
       setProduct(result.data);
     };
     getData();
-  }, []);
+  }, [isReady, query]);
 
+  // 구매하기 한번 눌렀을 때 구매하기, 선물하기, 아이템 수량 항목 나오게 핸들링
   const handleIsOpen = () => {
     console.log(isOpen);
     setRandomKey(Math.random());
     setIsOpen(!isOpen);
   };
-
-  const buttonContainer = css`
-    display: flex;
-    gap: 15px;
-    padding: 0 30px;
-    align-items: center;
-  `;
-
-  const iconStyle = css`
-    padding: 0;
-    margin: 0;
-    width: 30%;
-  `;
-
-  console.log(product);
-
-  // 결제하기 페이지로 데이터 넘기기
-  const [itemCount, setItemCount] = useState<number>(1);
 
   const sendData: cartListType = [
     {
@@ -102,10 +92,30 @@ export default function productDetail() {
   ];
 
   const setOrderList = useSetRecoilState(cartOrder);
-  const router = useRouter();
+  const setDelivery = useSetRecoilState(deliveryPrice);
+
   const onClickHandler = () => {
     setOrderList(sendData);
+    setDelivery(itemCount * product.price > 30000 ? 0 : 3000);
     router.push("/payment");
+  };
+
+  // 카카오톡 공유 init
+  useEffect(() => {
+    if (!window.Kakao.isInitialized())
+      window.Kakao.init("3516958a9b5f02f44ab75393b932aa86");
+  }, []);
+
+  // 공유하기 API 호출
+  const shareKakao = () => {
+    window.Kakao.Share.sendCustom({
+      templateId: 91771,
+      templateArgs: {
+        TITLE: product.name,
+        THU: `https://storage.googleapis.com/ghbt/product_thumbnail/${product?.thumbnailUrl}`,
+        ID: query.pid,
+      },
+    });
   };
 
   return (
@@ -113,9 +123,13 @@ export default function productDetail() {
       <section id="product-top">
         <div className="product-img">
           {product?.thumbnailUrl && (
-            <img
+            <Image
               src={`https://storage.googleapis.com/ghbt/product_thumbnail/${product?.thumbnailUrl}`}
-              alt={product?.name}
+              alt={product.name}
+              priority
+              width={414}
+              height={414}
+              style={{ height: "100%", width: "100%" }}
             />
           )}
         </div>
@@ -125,18 +139,22 @@ export default function productDetail() {
               <p>{product?.name}</p>
               <ProductLabel isBest={product?.isBest} isNew={product?.isNew} />
             </div>
-            <div className="share-icon">
-              <img src="/images/icons/share.png" alt="" />
+            <div className="share-icon" onClick={shareKakao}>
+              <Image
+                src="/images/icons/share.png"
+                alt="공유 버튼"
+                width={20}
+                height={20}
+              />
             </div>
           </div>
-
           <div className="description">{product?.description}</div>
           <div className="price">
             <Price price={product.price} />
           </div>
         </div>
       </section>
-      <Detail pid={query.pid} />
+      <Detail />
       {seasonProduct.length !== 0 && (
         <ProductContainerRecommand
           headerName={`${product.season} 상품`}
@@ -168,7 +186,12 @@ export default function productDetail() {
       <BottomFixedContainer>
         <div css={buttonContainer} className={isOpen ? "" : "hide"}>
           <div css={iconStyle}>
-            <img src="/images/icons/shopping-cart.svg" width={"60%"} />
+            <Image
+              src="/images/icons/shopping-cart.svg"
+              width={20}
+              height={20}
+              alt="장바구니"
+            />
           </div>
           <Button
             btnType="button"
@@ -194,3 +217,16 @@ export default function productDetail() {
     </>
   );
 }
+
+const buttonContainer = css`
+  display: flex;
+  gap: 15px;
+  padding: 0 30px;
+  align-items: center;
+`;
+
+const iconStyle = css`
+  padding: 0;
+  margin: 0;
+  width: 30%;
+`;

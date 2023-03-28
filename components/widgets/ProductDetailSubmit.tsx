@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useSetRecoilState } from "recoil";
-import { cartOrder } from "../recoil/cart";
+import { cartOrder } from "../../state/cart";
 import Button from "../ui/Button";
 import ItemAmount from "../ui/ItemAmount";
 import Price from "../ui/Price";

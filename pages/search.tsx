@@ -3,7 +3,7 @@ import SearchRecommandList from "@/components/widgets/SearchRecommandList";
 import SearchTop from "@/components/widgets/SearchTop";
 import React from "react";
 
-export default function search() {
+export default function Search() {
   return (
     <>
       <SearchTop />

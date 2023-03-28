@@ -2,7 +2,7 @@ import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import CartItem from "../ui/CartItem";
 import { DefaultValue, useRecoilState } from "recoil";
 import { cartListType } from "@/types/types";
-import { frozenCartListState, generalCartListState } from "../recoil/cart";
+import { frozenCartListState, generalCartListState } from "../../state/cart";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -71,8 +71,9 @@ export default function CartItemList({ title }: cartType) {
             >
               <Image
                 src="/images/icons/check.png"
-                style={{ width: "100%" }}
                 alt={"체크이미지"}
+                width={15}
+                height={15}
               />
             </div>
             <p className="cart-select-btn">{title}</p>

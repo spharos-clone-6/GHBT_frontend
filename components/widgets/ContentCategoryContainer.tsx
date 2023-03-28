@@ -1,14 +1,12 @@
 import { categoryType } from "@/types/types";
 import axios from "axios";
-import Link from "next/link";
-import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import CategoryButton from "../ui/CategoryButton";
+import Loading from "../ui/Loading";
 import RightArrowMenu from "../ui/RightArrowMenu";
 
 export default function ContentCategoryContainer() {
-  const router = useRouter();
-  const { pathname, query } = useRouter();
+  const [loading, setLoading] = useState<boolean>(true);
   const [categoryList, setCatogoryList] = useState<categoryType[]>();
 
   const getCategory = async () => {
@@ -18,6 +16,7 @@ export default function ContentCategoryContainer() {
     const filtered = result.data.filter((c: categoryType) => c.type === "대");
     console.log(filtered);
     setCatogoryList(filtered);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -29,6 +28,7 @@ export default function ContentCategoryContainer() {
       <div className="get-all-items">
         <RightArrowMenu menuName={"전체 상품 보기"} link={"/store"} />
       </div>
+      {loading && <Loading />}
       <div className="contents-container">
         {categoryList &&
           categoryList.map((c) => <CategoryButton key={c.id} category={c} />)}

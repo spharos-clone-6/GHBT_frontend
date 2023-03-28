@@ -1,5 +1,6 @@
 import { productType } from "@/types/types";
 import { useEffect } from "react";
+import NoItem from "../ui/NoItem";
 import ProductItemCol from "../ui/ProductItemCol";
 
 type Item = {
@@ -12,11 +13,17 @@ export default function ProductContainerGrid({ itemList = [] }: Item) {
   }, []);
 
   return (
-    <div className="product-container">
-      {itemList &&
-        itemList.map((item: productType, idx: number) => (
-          <ProductItemCol key={idx} item={item} idx={idx} />
-        ))}
-    </div>
+    <>
+      {itemList.length === 0 ? (
+        <NoItem />
+      ) : (
+        <div className="product-container">
+          {itemList &&
+            itemList.map((item: productType, idx: number) => (
+              <ProductItemCol key={idx} item={item} idx={idx} />
+            ))}
+        </div>
+      )}
+    </>
   );
 }

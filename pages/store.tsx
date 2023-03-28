@@ -10,25 +10,27 @@ import ProductContainerGrid from "@/components/layouts/ProductContainerGrid";
 import { productType } from "@/types/types";
 import InfiniteScroll from "react-infinite-scroll-component";
 import AllFilter from "@/components/layouts/AllFilter";
+import Loading from "@/components/ui/Loading";
 
-export default function store_all() {
-  const { query } = useRouter();
+export default function StoreAll() {
   const { baseUrl } = Config();
+  const { query, isReady } = useRouter();
+  const [ready, setReady] = useState<boolean>(false);
   const [itemList, setItemList] = useState<productType[]>([]);
   const [allItem, setAllItem] = useState<productType[]>([]);
   const [isData, setIsData] = useState<boolean>(true);
   const [page, setPage] = useState<number>(0);
 
-  useEffect(() => {
-    const getData = async () => {
-      const result = await axios.get(`${baseUrl}/api/product?page=${page}`);
-      if (result.data !== "") {
-        setAllItem([...result.data.content]);
-        // setItemList([...result.data.content]);
-      }
-    };
-    getData();
-  }, []);
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     const result = await axios.get(`${baseUrl}/api/product?page=0`);
+  //     if (result.data !== "") {
+  //       setAllItem([...result.data.content]);
+  //       // setItemList([...result.data.content]);
+  //     }
+  //   };
+  //   getData();
+  // }, [baseUrl]);
 
   useEffect(() => {
     // console.log("itemList, 무한=", itemList);
@@ -44,7 +46,7 @@ export default function store_all() {
       axios
         .get(`${baseUrl}/api/product?page=${page + 1}`)
         .then((res) => {
-          setAllItem([...allItem, ...res.data.content]);
+          res.data.content && setAllItem([...allItem, ...res.data.content]);
           setPage(page + 1);
           setIsData(!res.data.last);
         })
@@ -60,7 +62,7 @@ export default function store_all() {
           }`
         )
         .then((res) => {
-          setAllItem([...allItem, ...res.data.content]);
+          res.data.content && setAllItem([...allItem, ...res.data.content]);
           setPage(page + 1);
           setIsData(!res.data.last);
         })
@@ -68,10 +70,14 @@ export default function store_all() {
           console.log(err);
         });
     }
+
+    if (isData && itemList.length < 20) setReady(true);
+    else setReady(false);
   };
 
-  const renderItem = (): JSX.Element => {
+  const noItem = (): JSX.Element => {
     // if (isData !== false) {
+    //   console.log("데이터는 더 있습니다!");
     //   handleMoreData();
     // }
     return (
@@ -93,20 +99,21 @@ export default function store_all() {
       />
       {/* 정렬 기준 */}
       <SelectOrder itemList={itemList} setItemList={setItemList} />
-      <InfiniteScroll
-        dataLength={itemList.length} // 반복 컴포넌트 개수
-        next={handleMoreData} // 데이터 불러오는 함수
-        hasMore={isData} // 추가 데이터 있는지?
-        loader={<h4>Loading...</h4>}
-        endMessage={<h4>NoData</h4>}
-      >
-        {/* 상품 출력 */}
-        {itemList.length === 0 ? (
-          renderItem()
-        ) : (
+      {itemList.length !== 0 || isData ? (
+        <InfiniteScroll
+          dataLength={itemList.length} // 반복 컴포넌트 개수
+          next={handleMoreData} // 데이터 불러오는 함수
+          hasMore={isData} // 추가 데이터 있는지?
+          loader={isData && <Loading />}
+          endMessage={<h4>마지막 데이터입니다.</h4>}
+        >
+          {/* 상품 출력 */}
           <ProductContainerGrid itemList={itemList} />
-        )}
-      </InfiniteScroll>
+        </InfiniteScroll>
+      ) : (
+        noItem()
+      )}
+      {/* {ready && handleMoreData()} */}
     </>
   );
 }

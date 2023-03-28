@@ -5,6 +5,12 @@ import { useRouter } from "next/router";
 import "public/css/style.css";
 import { RecoilRoot } from "recoil";
 
+declare global {
+  interface Window {
+    Kakao: any;
+  }
+}
+
 export default function App({ Component, pageProps }: AppProps) {
   const { pathname } = useRouter();
 

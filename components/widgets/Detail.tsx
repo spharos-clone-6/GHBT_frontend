@@ -1,7 +1,10 @@
 import axios from "axios";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { Loader } from "semantic-ui-react";
 import Button from "../ui/Button";
 import DetailImage from "../ui/DetailImage";
+import Loading from "../ui/Loading";
 
 interface imgData {
   id: number;
@@ -9,18 +12,23 @@ interface imgData {
   url: string;
 }
 
-export default function Detail(props: { pid: string | string[] | undefined }) {
+export default function Detail() {
   const [imgList, setImgList] = useState<imgData[]>([]);
   const [showImgList, setShowImgList] = useState<imgData[]>([]);
   const [isMore, setIsMore] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  const router = useRouter();
 
   const renderImgs = (): JSX.Element[] => {
     const imgs =
       showImgList &&
-      showImgList.map((image) => {
+      showImgList.map((image, idx) => {
         if (image === undefined) {
           return (
-            <p style={{ fontSize: "0.8rem", color: "gray" }}>상세이미지 없음</p>
+            <p key={idx} style={{ fontSize: "0.8rem", color: "gray" }}>
+              상세이미지 없음
+            </p>
           );
         }
         return <DetailImage key={image.id} url={image.url} />;
@@ -39,21 +47,28 @@ export default function Detail(props: { pid: string | string[] | undefined }) {
   };
 
   useEffect(() => {
+    if (router.query.pid === undefined) router.query.pid = "1";
     const getData = async () => {
       const result = await axios.get(
-        `http://backend.grapefruit-honey-black-tea.shop/api/image/${props.pid}`
+        `http://backend.grapefruit-honey-black-tea.shop/api/image/${router.query.pid}`
       );
       console.log(result.data.images);
       setImgList([...result.data.images]);
       setShowImgList([result.data.images[0]]);
+      setIsLoading(false);
     };
     getData();
-  }, []);
+  }, [router.isReady, router.query]);
 
   return (
     <>
       <section id="product-detail">
         <p>상품 정보</p>
+        {isLoading && (
+          // <div style={{ width: "100vw", height: "100vh", paddingTop: "55%" }}>
+          <Loading size={40} />
+          // </div>
+        )}
         {renderImgs()}
         <div
           style={{ textAlign: "center", position: "relative", top: "-40px" }}

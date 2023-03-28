@@ -3,9 +3,10 @@
 import CartItemList from "@/components/layouts/CartItemList";
 import {
   cartOrder,
+  deliveryPrice,
   frozenCartListState,
   generalCartListState,
-} from "@/components/recoil/cart";
+} from "@/state/cart";
 import BottomFixedContainer from "@/components/ui/BottomFixedContainer";
 import Button from "@/components/ui/Button";
 import CartControlBar from "@/components/widgets/CartControlBar";
@@ -14,12 +15,12 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import CartEmpty from "../components/widgets/CartEmpty";
 import { css } from "@emotion/react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import Config from "@/configs/config.export";
 import { recoilPersist } from "recoil-persist";
 import { useRouter } from "next/router";
 
-export default function cart() {
+export default function Cart() {
   const { baseUrl } = Config();
   const [frozenCart, setFrozenCart] =
     useRecoilState<cartListType>(frozenCartListState);
@@ -45,7 +46,7 @@ export default function cart() {
 
   // 데이터 불러오기
   const accesstoken =
-    "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Nzk5MTc5MjksInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.w0w0qf6e1VstsXCFizf8GN9ZNX0pwmSrp8SVQ0GldMLBCqsnPypGw3Idp-YwjGhAxxACeKVXufax0OToSTVMkQ";
+    "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODAwMjc2NDgsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.PZo4ZDbGExGXNS03EaGF7jhX2bM7mjxKRfLueKFSYj7-MJ0h10BCdtQdyWI5W-erlJFhgjgbbN42QAgfTtN6Hg";
   async function fetchGeneralData() {
     const generalResult = await axios.get(`${baseUrl}/api/cart/my_cart`, {
       headers: {
@@ -103,10 +104,12 @@ export default function cart() {
   const frozenDelivery = frozenPrice > 30000 || frozenPrice === 0 ? 0 : 3000;
   const generalDelivery = generalPrice > 30000 || generalPrice === 0 ? 0 : 3000;
 
-  const deliveryPrice = frozenDelivery + generalDelivery;
+  const deliveryP = frozenDelivery + generalDelivery;
 
   // 결제하기에 넘겨줄 경우: checked=true 인것만 체크해서 넘겨주기
   const [orderList, setOrderList] = useRecoilState(cartOrder);
+  const setDelivery = useSetRecoilState(deliveryPrice);
+
   const frozenOrder = frozenCart.filter((item) => item.checked);
   const generalOrder = generalCart.filter((item) => item.checked);
   const result = frozenOrder.concat(generalOrder);
@@ -115,6 +118,7 @@ export default function cart() {
   const router = useRouter();
   const onClickHandler = () => {
     setOrderList(result);
+    setDelivery(deliveryP);
     router.push("/payment");
   };
 
@@ -149,15 +153,13 @@ export default function cart() {
                   </div>
                   <div className="cart-price">
                     <p>배송비</p>
-                    <p className="price">
-                      {deliveryPrice.toLocaleString("en")}원
-                    </p>
+                    <p className="price">{deliveryP.toLocaleString("en")}원</p>
                   </div>
                 </div>
                 <div className="total-price">
                   <p>최종 결제 금액</p>
                   <p className="price">
-                    {(TotalPrice + deliveryPrice).toLocaleString("en")}원
+                    {(TotalPrice + deliveryP).toLocaleString("en")}원
                   </p>
                 </div>
 
@@ -182,7 +184,7 @@ export default function cart() {
                   건 / 20건
                 </div>
                 <div style={{ fontSize: "20px" }}>
-                  {(TotalPrice + deliveryPrice).toLocaleString("en")}원
+                  {(TotalPrice + deliveryP).toLocaleString("en")}원
                 </div>
               </div>
               <div css={buttonContainer}>
