@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import LinkImage from "../ui/LinkImage";
 import axios from "axios";
 import { eventType } from "@/types/types";
+import Loading from "../ui/Loading";
 
 function NextArrow(props: { style?: any }) {
   const { style } = props;
@@ -17,6 +18,7 @@ function PrevArrow(props: { style?: any }) {
 }
 
 export default function EventBanner() {
+  const [loading, setLoading] = useState<boolean>(true);
   const [eventList, setEventList] = useState<eventType[]>();
 
   const getEvent = async () => {
@@ -24,6 +26,7 @@ export default function EventBanner() {
       "http://backend.grapefruit-honey-black-tea.shop/api/event"
     );
     setEventList(result.data);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -45,17 +48,31 @@ export default function EventBanner() {
   return (
     <section id="event-banner" className="first-section">
       <div className="event-banner">
-        <Slider {...settings}>
-          {eventList &&
-            eventList.map((e: eventType) => (
-              <LinkImage
-                key={e.id}
-                route={`/event?category=${e.tag}`}
-                imageSrc={`https://storage.googleapis.com/ghbt/event_thumbnail/${e.thumbnailUrl}`}
-                alt={e.description}
-              />
-            ))}
-        </Slider>
+        {loading ? (
+          <div
+            style={{
+              zIndex: 1,
+              width: "100vw",
+              height: "100vh",
+              backgroundColor: "rgba( 255, 255, 255, 0.5 )",
+              paddingTop: "50%",
+            }}
+          >
+            <Loading />
+          </div>
+        ) : (
+          <Slider {...settings}>
+            {eventList &&
+              eventList.map((e: eventType) => (
+                <LinkImage
+                  key={e.id}
+                  route={`/event?category=${e.tag}`}
+                  imageSrc={`https://storage.googleapis.com/ghbt/event_thumbnail/${e.thumbnailUrl}`}
+                  alt={e.description}
+                />
+              ))}
+          </Slider>
+        )}
       </div>
     </section>
   );
