@@ -243,7 +243,7 @@ export default function ProductDetail() {
       )}
 
       {isCart && (
-        <BottomFixedContainer>
+        <BottomFixedContainer animation={true}>
           <div css={CartContainer}>
             장바구니에 추가되었습니다.
             <CloseIcon
@@ -258,7 +258,7 @@ export default function ProductDetail() {
           <div css={buttonContainer}>
             <Button
               btnType="button"
-              btnEvent={() => alert("장바구니로 이동")}
+              btnEvent={() => router.push("/cart")}
               type="white"
             >
               장바구니 가기

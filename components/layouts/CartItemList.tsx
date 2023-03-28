@@ -61,39 +61,45 @@ export default function CartItemList({ title }: cartType) {
 
   return (
     <>
-      <section id="cart-list">
-        <div className="select">
-          {/* 일반 / 냉동 일괄 선택 체크박스 */}
-          <div className="select-items">
-            <div
-              className={listAllCheck ? "sbCheckBoxOn" : "sbCheckBox"}
-              onClick={() => handleCartListAllCheck(listAllCheck)}
-            >
-              <Image
-                src="/images/icons/check.png"
-                alt={"체크이미지"}
-                width={15}
-                height={15}
-              />
-            </div>
-            <p className="cart-select-btn">{title}</p>
-          </div>
-        </div>
-        {cartItems.map((item) => (
-          <CartItem item={item} key={item.id} title={title} />
-        ))}
-      </section>
-      {!checkedItemQuantity ? (
+      {cartItems.length === 0 ? (
         ""
       ) : (
-        <div className="cart-delivery">
-          <p>
-            상품 {checkedItemQuantity}건 {listPrice.toLocaleString("en")}원 +
-            배송비 {deliveryPrice.toLocaleString("en")}원 = 총{" "}
-            {(listPrice + deliveryPrice).toLocaleString("en")}원
-          </p>
-          <p style={{ fontWeight: "bold" }}>{deliveryComment}</p>
-          <Link href="/store_all">더 담으러 가기</Link>
+        <div>
+          <section id="cart-list">
+            <div className="select">
+              {/* 일반 / 냉동 일괄 선택 체크박스 */}
+              <div className="select-items">
+                <div
+                  className={listAllCheck ? "sbCheckBoxOn" : "sbCheckBox"}
+                  onClick={() => handleCartListAllCheck(listAllCheck)}
+                >
+                  <Image
+                    src="/images/icons/check.png"
+                    alt={"체크이미지"}
+                    width={15}
+                    height={15}
+                  />
+                </div>
+                <p className="cart-select-btn">{title}</p>
+              </div>
+            </div>
+            {cartItems.map((item) => (
+              <CartItem item={item} key={item.id} title={title} />
+            ))}
+          </section>
+          {!checkedItemQuantity ? (
+            ""
+          ) : (
+            <div className="cart-delivery">
+              <p>
+                상품 {checkedItemQuantity}건 {listPrice.toLocaleString("en")}원
+                + 배송비 {deliveryPrice.toLocaleString("en")}원 = 총{" "}
+                {(listPrice + deliveryPrice).toLocaleString("en")}원
+              </p>
+              <p style={{ fontWeight: "bold" }}>{deliveryComment}</p>
+              <Link href="/store_all">더 담으러 가기</Link>
+            </div>
+          )}
         </div>
       )}
     </>
