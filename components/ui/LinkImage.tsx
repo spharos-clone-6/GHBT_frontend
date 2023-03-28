@@ -8,7 +8,13 @@ export default function LinkImage(props: {
 }) {
   return (
     <Link href={props.route}>
-      <img src={props.imageSrc} width="100%" height="100%" alt={props.alt} />
+      <img
+        src={props.imageSrc}
+        width="100%"
+        height="330px"
+        alt={props.alt}
+        style={{ objectFit: "cover", objectPosition: "0 0" }}
+      />
     </Link>
   );
 }
