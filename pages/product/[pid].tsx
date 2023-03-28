@@ -183,7 +183,12 @@ export default function ProductDetail() {
       <BottomFixedContainer>
         <div css={buttonContainer} className={isOpen ? "" : "hide"}>
           <div css={iconStyle}>
-            <img src="/images/icons/shopping-cart.svg" width={"60%"} />
+            <Image
+              src="/images/icons/shopping-cart.svg"
+              width={20}
+              height={20}
+              alt="장바구니"
+            />
           </div>
           <Button
             btnType="button"
