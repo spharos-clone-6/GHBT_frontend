@@ -6,8 +6,12 @@ import Link from "next/link";
 import { useSetRecoilState } from "recoil";
 import CloseIcon from "./CloseIcon";
 
-export default function ModalHeader(props: { headerName?: string }) {
-  const { headerName } = props;
+interface modalHeader {
+  headerName?: string;
+  setModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function ModalHeader({ headerName, setModalOpen }: modalHeader) {
   const setContentsIsView = useSetRecoilState<boolean>(contentsModalState);
 
   const header = css`
@@ -24,12 +28,13 @@ export default function ModalHeader(props: { headerName?: string }) {
 
   const closeModal = () => {
     setContentsIsView(false);
+    setModalOpen && setModalOpen(false);
   };
 
   return (
     <div css={header}>
       <div> </div>
-      <h2 css={item}>{headerName}</h2>
+      <h3 css={item}>{headerName}</h3>
       <CloseIcon
         style={{ padding: "16px 6px" }}
         onClickHandler={closeModal}
