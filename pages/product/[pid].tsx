@@ -266,8 +266,7 @@ export default function ProductDetail() {
             <Button
               btnType="button"
               btnEvent={() => {
-                setIsCart(false);
-                setIsOpen(false);
+                router.push("/store");
               }}
             >
               상품 더보기
