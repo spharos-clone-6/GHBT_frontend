@@ -1,8 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { contentsModalState } from "@/state/contentsModalState";
 import { css } from "@emotion/react";
-import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { Dispatch, SetStateAction } from "react";
 import { useSetRecoilState } from "recoil";
@@ -12,7 +10,7 @@ export default function ModalHeader(props: {
   headerName?: string;
   setModalOpen?: Dispatch<SetStateAction<boolean>>;
 }) {
-  const { headerName, setModalOp
+  const { headerName, setModalOpen } = props;
   const setContentsIsView = useSetRecoilState<boolean>(contentsModalState);
   const router = useRouter();
 

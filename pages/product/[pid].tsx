@@ -93,8 +93,7 @@ export default function ProductDetail() {
 
   const setOrderList = useSetRecoilState(cartOrder);
   const setDelivery = useSetRecoilState(deliveryPrice);
-  const router = useRouter();
-  
+
   const onClickHandler = () => {
     setOrderList(sendData);
     setDelivery(itemCount * product.price > 30000 ? 0 : 3000);
