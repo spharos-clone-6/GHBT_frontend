@@ -16,6 +16,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import Image from "next/image";
+import CloseIcon from "@/components/ui/CloseIcon";
 
 export default function ProductDetail() {
   const dummy = {
@@ -118,6 +119,27 @@ export default function ProductDetail() {
     });
   };
 
+  // 장바구니에 아이템 추가
+  const [isCart, setIsCart] = useState(false);
+  const addCartHandler = () => {
+    const AT =
+      "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODAwMjc2NDgsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.PZo4ZDbGExGXNS03EaGF7jhX2bM7mjxKRfLueKFSYj7-MJ0h10BCdtQdyWI5W-erlJFhgjgbbN42QAgfTtN6Hg";
+    axios.post(
+      "http://backend.grapefruit-honey-black-tea.shop/api/cart",
+      {
+        productId: query.pid,
+        quantity: itemCount,
+      },
+      {
+        headers: {
+          Authorization: AT,
+        },
+      }
+    );
+    console.log("장바구니 담기 성공!");
+    setIsCart(true);
+  };
+
   return (
     <>
       <section id="product-top">
@@ -170,50 +192,88 @@ export default function ProductDetail() {
       )}
 
       <InfoList />
-      <BottomFixedContainer animation={true} key={randomkey}>
-        <div className="toggle-icon" onClick={handleIsOpen}></div>
-        <div className={isOpen ? "" : "hide"}>
-          <ProductDetailSubmit
-            price={product.price}
-            productName={product.name}
-            handleIsOpen={handleIsOpen}
-            itemCount={itemCount}
-            setItemCount={setItemCount}
-          />
-        </div>
-      </BottomFixedContainer>
+      {!isCart && (
+        <div>
+          <BottomFixedContainer animation={true} key={randomkey}>
+            <div className="toggle-icon" onClick={handleIsOpen}></div>
+            <div className={isOpen ? "" : "hide"}>
+              <ProductDetailSubmit
+                price={product.price}
+                productName={product.name}
+                handleIsOpen={handleIsOpen}
+                itemCount={itemCount}
+                setItemCount={setItemCount}
+              />
+            </div>
+          </BottomFixedContainer>
 
-      <BottomFixedContainer>
-        <div css={buttonContainer} className={isOpen ? "" : "hide"}>
-          <div css={iconStyle}>
-            <Image
-              src="/images/icons/shopping-cart.svg"
-              width={20}
-              height={20}
-              alt="장바구니"
+          <BottomFixedContainer>
+            <div css={buttonContainer} className={isOpen ? "" : "hide"}>
+              <div css={iconStyle}>
+                <Image
+                  src="/images/icons/shopping-cart.svg"
+                  width={20}
+                  height={20}
+                  alt="장바구니"
+                  onClick={addCartHandler}
+                />
+              </div>
+              <Button
+                btnType="button"
+                btnEvent={() => alert("선물하기")}
+                type="white"
+              >
+                선물하기
+              </Button>
+              <Button btnType="button" btnEvent={onClickHandler}>
+                구매하기
+              </Button>
+            </div>
+            <div
+              className={isOpen ? "hide" : "toggle-icon"}
+              onClick={handleIsOpen}
+            ></div>
+            <div className={isOpen ? "hide" : ""}>
+              <Button btnType="button" btnEvent={handleIsOpen}>
+                구매하기
+              </Button>
+            </div>
+          </BottomFixedContainer>
+        </div>
+      )}
+
+      {isCart && (
+        <BottomFixedContainer animation={true}>
+          <div css={CartContainer}>
+            장바구니에 추가되었습니다.
+            <CloseIcon
+              width={15}
+              height={15}
+              onClickHandler={() => {
+                setIsCart(false);
+                setIsOpen(false);
+              }}
             />
           </div>
-          <Button
-            btnType="button"
-            btnEvent={() => alert("선물하기")}
-            type="white"
-          >
-            선물하기
-          </Button>
-          <Button btnType="button" btnEvent={onClickHandler}>
-            구매하기
-          </Button>
-        </div>
-        <div
-          className={isOpen ? "hide" : "toggle-icon"}
-          onClick={handleIsOpen}
-        ></div>
-        <div className={isOpen ? "hide" : ""}>
-          <Button btnType="button" btnEvent={handleIsOpen}>
-            구매하기
-          </Button>
-        </div>
-      </BottomFixedContainer>
+          <div css={buttonContainer}>
+            <Button
+              btnType="button"
+              btnEvent={() => router.push("/cart")}
+              type="white"
+            >
+              장바구니 가기
+            </Button>
+            <Button
+              btnType="button"
+              btnEvent={() => {
+                router.push("/store");
+              }}
+            >
+              상품 더보기
+            </Button>
+          </div>
+        </BottomFixedContainer>
+      )}
     </>
   );
 }
@@ -229,4 +289,13 @@ const iconStyle = css`
   padding: 0;
   margin: 0;
   width: 30%;
+`;
+
+const CartContainer = css`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 10px 30px 0px 30px;
 `;
