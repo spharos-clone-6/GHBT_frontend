@@ -1,7 +1,4 @@
-import {
-  frozenCartListState,
-  generalCartListState,
-} from "@/components/recoil/cart";
+import { frozenCartListState, generalCartListState } from "@/state/cart";
 import { recentSearchKeyword } from "@/state/recentKeywordState";
 import { cartListType } from "@/types/types";
 import { useState, useEffect } from "react";

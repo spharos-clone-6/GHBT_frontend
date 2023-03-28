@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { Dispatch, SetStateAction } from "react";
 import { useSetRecoilState } from "recoil";
 import CloseIcon from "./CloseIcon";
+import Image from "next/image";
 
 export default function ModalHeader(props: {
   headerName?: string;
@@ -18,7 +19,7 @@ export default function ModalHeader(props: {
     display: flex;
     text-align: center;
     align-items: center;
-    justify-contents: space-between;
+    justify-content: space-between;
     padding: 0px 10px;
   `;
 
@@ -34,8 +35,15 @@ export default function ModalHeader(props: {
 
   return (
     <div css={header}>
-      <div> </div>
-      <h3 css={item}>{headerName}</h3>
+      <div>
+        <Image
+          src="/images/icons/blank.png"
+          alt={"투명"}
+          width={30}
+          height={30}
+        />
+      </div>
+      <h3>{headerName}</h3>
       <CloseIcon
         style={{ padding: "16px 6px" }}
         onClickHandler={closeModal}

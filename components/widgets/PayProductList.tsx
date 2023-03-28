@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { css } from "@emotion/react";
 import PayProductDetail from "./PayProductDetail";
 import { useRecoilValue } from "recoil";
-import { cartOrder } from "../recoil/cart";
+import { cartOrder } from "../../state/cart";
 import { cartListType } from "@/types/types";
 
 interface orderItems {

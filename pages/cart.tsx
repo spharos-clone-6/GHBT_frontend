@@ -6,7 +6,7 @@ import {
   deliveryPrice,
   frozenCartListState,
   generalCartListState,
-} from "@/components/recoil/cart";
+} from "@/state/cart";
 import BottomFixedContainer from "@/components/ui/BottomFixedContainer";
 import Button from "@/components/ui/Button";
 import CartControlBar from "@/components/widgets/CartControlBar";
@@ -46,7 +46,7 @@ export default function Cart() {
 
   // 데이터 불러오기
   const accesstoken =
-    "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Nzk5MTc5MjksInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.w0w0qf6e1VstsXCFizf8GN9ZNX0pwmSrp8SVQ0GldMLBCqsnPypGw3Idp-YwjGhAxxACeKVXufax0OToSTVMkQ";
+    "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODAwMjc2NDgsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.PZo4ZDbGExGXNS03EaGF7jhX2bM7mjxKRfLueKFSYj7-MJ0h10BCdtQdyWI5W-erlJFhgjgbbN42QAgfTtN6Hg";
   async function fetchGeneralData() {
     const generalResult = await axios.get(`${baseUrl}/api/cart/my_cart`, {
       headers: {

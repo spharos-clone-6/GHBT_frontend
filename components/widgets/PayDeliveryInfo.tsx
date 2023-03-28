@@ -50,19 +50,21 @@ export default function PaymentDeliveryInfo({
         <div className="delivery-info">
           <div className="delivery-name">
             <div className="name">
-              {deliveryList[0] && deliveryList[0].receiver} (
-              {deliveryList[0] && deliveryList[0].addressNickname})
+              {deliveryPlace[0]?.receiver} ({deliveryPlace[0]?.addressNickname})
             </div>
-            <div className="is-primary">기본</div>
+            {deliveryPlace[0]?.isDefault ? (
+              <div className="is-primary">기본</div>
+            ) : (
+              ""
+            )}
           </div>
           <p>
-            ({deliveryList[0] && deliveryList[0].zipCode}){" "}
-            {deliveryList[0] && deliveryList[0].baseAddress}{" "}
-            {deliveryList[0] && deliveryList[0].detailAddress}
+            ({deliveryPlace[0]?.zipCode}) {deliveryPlace[0]?.baseAddress}{" "}
+            {deliveryPlace[0]?.detailAddress}
           </p>
-          <p>{deliveryList[0] && deliveryList[0].phoneNumber1}</p>
+          <p>{deliveryPlace[0]?.phoneNumber1}</p>
         </div>
-        <div css={div}>{deliveryList[0] && deliveryList[0].notice}</div>
+        <div css={div}>{deliveryPlace[0]?.notice}</div>
       </section>
     </>
   );
