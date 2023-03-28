@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { cartItemType, cartListType } from "@/types/types";
 import OrderChangeModal from "../modals/OrderChangeModal";
 import { useRecoilState } from "recoil";
 import { frozenCartListState, generalCartListState } from "../recoil/cart";
 import axios from "axios";
 import CloseIcon from "./CloseIcon";
+import { useCart } from "@/hooks/useCart";
 
 export default function CartItem(props: { item: cartItemType; title: string }) {
   const [quantity, setQuantity] = useState(props.item.quantity);
@@ -13,10 +14,7 @@ export default function CartItem(props: { item: cartItemType; title: string }) {
   );
   const [isItem, setIsItem] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
-  const [cartList, setCartList] =
-    props.title === "일반상품"
-      ? useRecoilState<cartListType>(generalCartListState)
-      : useRecoilState<cartListType>(frozenCartListState);
+  const [cartList, setCartList] = useCart(props.title);
 
   const showModal = () => {
     setModalOpen(true);

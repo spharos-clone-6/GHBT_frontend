@@ -1,8 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { contentsModalState } from "@/state/contentsModalState";
 import { css } from "@emotion/react";
-import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { Dispatch, SetStateAction } from "react";
 import { useSetRecoilState } from "recoil";
@@ -37,7 +35,7 @@ export default function ModalHeader(props: {
   return (
     <div css={header}>
       <div> </div>
-      <h2 css={item}>{headerName}</h2>
+      <h3 css={item}>{headerName}</h3>
       <CloseIcon
         style={{ padding: "16px 6px" }}
         onClickHandler={closeModal}

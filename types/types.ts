@@ -80,3 +80,17 @@ export interface bigCategory {
   typeName: string;
   typeCount: number;
 }
+
+export interface deliveryType {
+  addressNickname: string;
+  baseAddress: string;
+  detailAddress: string;
+  isDefault: boolean;
+  notice: string;
+  phoneNumber1: string;
+  phoneNumber2: string;
+  receiver: string;
+  zipCode: string;
+}
+
+export interface deliveryListType extends Array<deliveryType> {}
