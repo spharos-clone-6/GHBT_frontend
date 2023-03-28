@@ -34,7 +34,7 @@ export default function CartItem(props: { item: cartItemType; title: string }) {
 
   const deleteItem = async () => {
     const accesstoken =
-      "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Nzk5MTc5MjksInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.w0w0qf6e1VstsXCFizf8GN9ZNX0pwmSrp8SVQ0GldMLBCqsnPypGw3Idp-YwjGhAxxACeKVXufax0OToSTVMkQ";
+      "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODAwMjc2NDgsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.PZo4ZDbGExGXNS03EaGF7jhX2bM7mjxKRfLueKFSYj7-MJ0h10BCdtQdyWI5W-erlJFhgjgbbN42QAgfTtN6Hg";
     await axios.delete(
       `https://backend.grapefruit-honey-black-tea.shop/api/cart/${props.item.id}`,
       {
