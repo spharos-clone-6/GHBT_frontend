@@ -118,6 +118,25 @@ export default function ProductDetail() {
     });
   };
 
+  // 장바구니에 아이템 추가
+  const addCartHandler = () => {
+    const AT =
+      "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODAwMjc2NDgsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.PZo4ZDbGExGXNS03EaGF7jhX2bM7mjxKRfLueKFSYj7-MJ0h10BCdtQdyWI5W-erlJFhgjgbbN42QAgfTtN6Hg";
+    axios.post(
+      "http://backend.grapefruit-honey-black-tea.shop/api/cart",
+      {
+        productId: query.pid,
+        quantity: itemCount,
+      },
+      {
+        headers: {
+          Authorization: AT,
+        },
+      }
+    );
+    console.log("장바구니 담기 성공!");
+  };
+
   return (
     <>
       <section id="product-top">
@@ -191,6 +210,7 @@ export default function ProductDetail() {
               width={20}
               height={20}
               alt="장바구니"
+              onClick={addCartHandler}
             />
           </div>
           <Button
