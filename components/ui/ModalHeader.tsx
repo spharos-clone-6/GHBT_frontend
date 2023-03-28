@@ -12,7 +12,7 @@ export default function ModalHeader(props: {
   headerName?: string;
   setModalOpen?: Dispatch<SetStateAction<boolean>>;
 }) {
-  const { headerName, setModalOpen } = props;
+  const { headerName, setModalOp
   const setContentsIsView = useSetRecoilState<boolean>(contentsModalState);
   const router = useRouter();
 
@@ -37,7 +37,7 @@ export default function ModalHeader(props: {
   return (
     <div css={header}>
       <div> </div>
-      <h2 css={item}>{headerName}</h2>
+      <h3 css={item}>{headerName}</h3>
       <CloseIcon
         style={{ padding: "16px 6px" }}
         onClickHandler={closeModal}
