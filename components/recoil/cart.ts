@@ -23,3 +23,9 @@ export const cartOrder = atom<cartListType>({
   default: [],
   effects_UNSTABLE: [persistAtom],
 });
+
+export const deliveryPrice = atom<number>({
+  key: "deliveryPrice",
+  default: 0,
+  effects_UNSTABLE: [persistAtom],
+});

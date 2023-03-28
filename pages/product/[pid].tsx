@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import ProductContainerRecommand from "@/components/layouts/ProductContainerRecommand";
-import { cartOrder } from "@/components/recoil/cart";
+import { cartOrder, deliveryPrice } from "@/components/recoil/cart";
 import BottomFixedContainer from "@/components/ui/BottomFixedContainer";
 import Button from "@/components/ui/Button";
 import Price from "@/components/ui/Price";
@@ -92,8 +92,11 @@ export default function ProductDetail() {
   ];
 
   const setOrderList = useSetRecoilState(cartOrder);
+  const setDelivery = useSetRecoilState(deliveryPrice);
+
   const onClickHandler = () => {
     setOrderList(sendData);
+    setDelivery(itemCount * product.price > 30000 ? 0 : 3000);
     router.push("/payment");
   };
 
