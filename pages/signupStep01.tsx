@@ -5,12 +5,12 @@ export default function signup() {
     <>
       <header>
         <a href="javascript:window.history.back();">
-          <img src="./assets/images/icons/close.png" className="back-button" />
+          <img src="./images/icons/close.png" className="back-button" />
         </a>
       </header>
       <div>
         <section className="greeting first-section">
-          <img id="starbucks-logo" src="./assets/images/starbucks-logo.png" />
+          <img id="starbucks-logo" src="./images/starbucks-logo.png" />
           <h2 className="signup-info">
             고객님
             <br />
@@ -26,7 +26,7 @@ export default function signup() {
           <a href="/best_cake.html">
             <img
               className="arrow"
-              src="/assets/images/icons/arrow-point-to-right.png"
+              src="/images/icons/arrow-point-to-right.png"
             />
           </a>
           <br />
@@ -37,7 +37,7 @@ export default function signup() {
           <a>
             <img
               className="arrow"
-              src="/assets/images/icons/arrow-point-to-right.png"
+              src="/images/icons/arrow-point-to-right.png"
             />
           </a>
           <br />
@@ -46,7 +46,7 @@ export default function signup() {
           <a>
             <img
               className="arrow"
-              src="/assets/images/icons/arrow-point-to-right.png"
+              src="/images/icons/arrow-point-to-right.png"
             />
           </a>
           <br />
@@ -59,7 +59,7 @@ export default function signup() {
           </div>
         </section>
         <section className="submit-container">
-          <a href="/signup_certified.html">
+          <a href="/signupStep02">
             <button type="submit">다음</button>
           </a>
         </section>
