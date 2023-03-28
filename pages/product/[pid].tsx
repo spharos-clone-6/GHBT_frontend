@@ -120,9 +120,13 @@ export default function ProductDetail() {
       <section id="product-top">
         <div className="product-img">
           {product?.thumbnailUrl && (
-            <img
+            <Image
               src={`https://storage.googleapis.com/ghbt/product_thumbnail/${product?.thumbnailUrl}`}
-              alt={product?.name}
+              alt={product.name}
+              priority
+              width={414}
+              height={414}
+              style={{ height: "100%", width: "100%" }}
             />
           )}
         </div>
@@ -147,7 +151,7 @@ export default function ProductDetail() {
           </div>
         </div>
       </section>
-      <Detail pid={query.pid} />
+      <Detail />
       {seasonProduct.length !== 0 && (
         <ProductContainerRecommand
           headerName={`${product.season} 상품`}

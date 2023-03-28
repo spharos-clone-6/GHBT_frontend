@@ -1,6 +1,6 @@
 body {
   margin: 0px;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 12px;
 }
 
@@ -9,9 +9,8 @@ section {
   padding: 0 14px;
 }
 
-
 h1 {
-  color : black;
+  color: black;
 }
 
 a {
@@ -38,7 +37,6 @@ a {
   opacity: 0.5;
 }
 
-
 #starbucks-logo {
   width: 80px;
 }
@@ -58,6 +56,7 @@ a {
 .arrow {
   opacity: 0.3;
   height: 1rem;
+  width: auto;
 }
 
 .select-toggle {
