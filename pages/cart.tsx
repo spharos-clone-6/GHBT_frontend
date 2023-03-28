@@ -20,7 +20,7 @@ import Config from "@/configs/config.export";
 import { recoilPersist } from "recoil-persist";
 import { useRouter } from "next/router";
 
-export default function cart() {
+export default function Cart() {
   const { baseUrl } = Config();
   const [frozenCart, setFrozenCart] =
     useRecoilState<cartListType>(frozenCartListState);

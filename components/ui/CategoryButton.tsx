@@ -7,8 +7,8 @@ export default function CategoryButton(props: { category: categoryType }) {
   const { category } = props;
   const router = useRouter();
 
-  const handleLink = (c: string = "케이크") => {
-    router.push(`/best?category=${c}`);
+  const handleLink = (c: string) => {
+    router.push(`store?bigCategory=${c}`);
   };
   // 목차에 누르면 해당 카테고리로 이동하는 사진 포함 버튼
   return (

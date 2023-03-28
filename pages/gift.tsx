@@ -1,16 +1,8 @@
-import React from 'react'
+import React from "react";
 
 export default function gift() {
   return (
     <>
-      <meta charSet="UTF-8" />
-      <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <meta name="description" content="StarBucks Clone Site" />
-      <meta name="keywords" content="StarBucks, Clone, Site" />
-      <meta name="author" content="ys" />
-      <link rel="stylesheet" href="/assets/css/style.css" />
-      <title>Store cake</title>
       <div className="container">
         <header id="store-head">
           <div className="store-header-top header-top">
@@ -107,6 +99,5 @@ export default function gift() {
         </a>
       </section>
     </>
-
-  )
+  );
 }

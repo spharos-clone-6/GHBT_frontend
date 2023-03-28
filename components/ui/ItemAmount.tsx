@@ -1,4 +1,5 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import Image from "next/image";
 
 interface props {
   price: number;
@@ -39,11 +40,21 @@ export default function ItemAmount({
         <div className="change">
           <div className="quantity">
             <button disabled={!isBtnValid} onClick={onClickMinusHandler}>
-              <img src="/images/icons/minus.png" alt="" />
+              <Image
+                src="/images/icons/minus.png"
+                alt=""
+                height={10}
+                width={10}
+              />
             </button>
             <div>{count}</div>
             <button onClick={onClickAddHandler}>
-              <img src="/images/icons/add.png" alt="" />
+              <Image
+                src="/images/icons/add.png"
+                alt=""
+                height={10}
+                width={10}
+              />
             </button>
           </div>
           <p>{`${(price * count).toLocaleString("en")}원`}</p>

@@ -3,16 +3,18 @@ import { contentsModalState } from "@/state/contentsModalState";
 import { css } from "@emotion/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { Dispatch, SetStateAction } from "react";
 import { useSetRecoilState } from "recoil";
 import CloseIcon from "./CloseIcon";
 
-interface modalHeader {
+export default function ModalHeader(props: {
   headerName?: string;
-  setModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-export default function ModalHeader({ headerName, setModalOpen }: modalHeader) {
+  setModalOpen?: Dispatch<SetStateAction<boolean>>;
+}) {
+  const { headerName, setModalOp
   const setContentsIsView = useSetRecoilState<boolean>(contentsModalState);
+  const router = useRouter();
 
   const header = css`
     display: flex;
@@ -29,6 +31,7 @@ export default function ModalHeader({ headerName, setModalOpen }: modalHeader) {
   const closeModal = () => {
     setContentsIsView(false);
     setModalOpen && setModalOpen(false);
+    router.back();
   };
 
   return (
