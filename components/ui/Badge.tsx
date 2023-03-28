@@ -6,7 +6,7 @@ import axios from "axios";
 import { use, useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import CartItemList from "../layouts/CartItemList";
-import { frozenCartListState, generalCartListState } from "../recoil/cart";
+import { frozenCartListState, generalCartListState } from "../../state/cart";
 
 export default function Badge() {
   const [isUser, setIsUser] = useState(true);

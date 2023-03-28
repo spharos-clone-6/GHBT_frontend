@@ -6,7 +6,7 @@ import {
   deliveryPrice,
   frozenCartListState,
   generalCartListState,
-} from "@/components/recoil/cart";
+} from "@/state/cart";
 import BottomFixedContainer from "@/components/ui/BottomFixedContainer";
 import Button from "@/components/ui/Button";
 import CartControlBar from "@/components/widgets/CartControlBar";

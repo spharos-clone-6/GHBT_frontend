@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { cartItemType, cartListType } from "@/types/types";
 import OrderChangeModal from "../modals/OrderChangeModal";
 import { useRecoilState } from "recoil";
-import { frozenCartListState, generalCartListState } from "../recoil/cart";
+import { frozenCartListState, generalCartListState } from "../../state/cart";
 import axios from "axios";
 import CloseIcon from "./CloseIcon";
 import { useCart } from "@/hooks/useCart";

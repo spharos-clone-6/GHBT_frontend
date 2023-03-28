@@ -1,4 +1,4 @@
-import { cartOrder, deliveryPrice } from "@/components/recoil/cart";
+import { cartOrder, deliveryPrice } from "@/state/cart";
 import BottomFixedContainer from "@/components/ui/BottomFixedContainer";
 import Button from "@/components/ui/Button";
 import RightArrowMenu from "@/components/ui/RightArrowMenu";

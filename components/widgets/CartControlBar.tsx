@@ -1,7 +1,7 @@
 import { cartListType } from "@/types/types";
 import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
-import { frozenCartListState, generalCartListState } from "../recoil/cart";
+import { frozenCartListState, generalCartListState } from "../../state/cart";
 
 export default function CartControlBar() {
   const [frozenCart, setFrozenCart] =

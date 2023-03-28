@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import ProductContainerRecommand from "@/components/layouts/ProductContainerRecommand";
-import { cartOrder, deliveryPrice } from "@/components/recoil/cart";
+import { cartOrder, deliveryPrice } from "@/state/cart";
 import BottomFixedContainer from "@/components/ui/BottomFixedContainer";
 import Button from "@/components/ui/Button";
 import Price from "@/components/ui/Price";
