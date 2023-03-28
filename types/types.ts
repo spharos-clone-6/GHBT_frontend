@@ -82,6 +82,7 @@ export interface bigCategory {
 }
 
 export interface deliveryType {
+  id: number;
   addressNickname: string;
   baseAddress: string;
   detailAddress: string;

@@ -47,7 +47,11 @@ export default function DeliveryChangeModal({
         </a>
       </section>
       {deliveryList.map((item, index) => (
-        <DeliveryItem item={item} key={index} />
+        <DeliveryItem
+          item={item}
+          key={index}
+          setDeliveryPlace={setDeliveryPlace}
+        />
       ))}
       <BottomFixedContainer>
         <Button btnType="button" btnEvent={closeModal}>
