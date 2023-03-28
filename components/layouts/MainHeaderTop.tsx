@@ -28,7 +28,10 @@ export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
   };
 
   const handleBack = () => {
-    router.back();
+    if (router.pathname === "store") {
+      router.push("/");
+      setContentsIsView(false);
+    } else router.back();
   };
 
   const showModal = () => {
