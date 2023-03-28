@@ -1,17 +1,21 @@
 import ProductContainerGrid from "@/components/layouts/ProductContainerGrid";
+import Loading from "@/components/ui/Loading";
+import { useDidMountEffect } from "@/hooks/useDidmount";
 import { eventType, productType } from "@/types/types";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 
 export default function Event() {
+  const [loading, setLoading] = useState<boolean>(true);
+
   const [itemList, setItemList] = useState<productType[]>([]);
   const [eventInfo, setEventInfo] = useState<eventType>();
   const { query } = useRouter();
 
   console.log(query.category);
 
-  useEffect(() => {
+  useDidMountEffect(() => {
     const getData = async () => {
       console.log(query);
       const result = await axios.get(
@@ -22,22 +26,31 @@ export default function Event() {
       );
       setItemList(result.data.content);
       setEventInfo(eventResult.data);
+      setLoading(false);
     };
     getData();
   }, [query]);
 
   return (
-    <div className="container">
-      <section id="event-info">
-        <div className="first-section-sub-one">
-          <img
-            src={`https://storage.googleapis.com/ghbt/event/${eventInfo?.descriptionUrl}`}
-            width="100%"
-            height="100%"
-          />
+    <>
+      {loading ? (
+        <div style={{ width: "100vw", height: "100vh", paddingTop: "55%" }}>
+          <Loading size={40} />
         </div>
-      </section>
-      <ProductContainerGrid itemList={itemList} />
-    </div>
+      ) : (
+        <div className="container">
+          <section id="event-info">
+            <div className="first-section-sub-one">
+              <img
+                src={`https://storage.googleapis.com/ghbt/event/${eventInfo?.descriptionUrl}`}
+                width="100%"
+                height="100%"
+              />
+            </div>
+          </section>
+          <ProductContainerGrid itemList={itemList} />
+        </div>
+      )}
+    </>
   );
 }
