@@ -21,16 +21,16 @@ export default function StoreAll() {
   const [isData, setIsData] = useState<boolean>(true);
   const [page, setPage] = useState<number>(0);
 
-  useEffect(() => {
-    const getData = async () => {
-      const result = await axios.get(`${baseUrl}/api/product?page=0`);
-      if (result.data !== "") {
-        setAllItem([...result.data.content]);
-        // setItemList([...result.data.content]);
-      }
-    };
-    getData();
-  }, [baseUrl]);
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     const result = await axios.get(`${baseUrl}/api/product?page=0`);
+  //     if (result.data !== "") {
+  //       setAllItem([...result.data.content]);
+  //       // setItemList([...result.data.content]);
+  //     }
+  //   };
+  //   getData();
+  // }, [baseUrl]);
 
   useEffect(() => {
     // console.log("itemList, 무한=", itemList);
@@ -46,7 +46,7 @@ export default function StoreAll() {
       axios
         .get(`${baseUrl}/api/product?page=${page + 1}`)
         .then((res) => {
-          setAllItem([...allItem, ...res.data.content]);
+          res.data.content && setAllItem([...allItem, ...res.data.content]);
           setPage(page + 1);
           setIsData(!res.data.last);
         })
@@ -62,7 +62,7 @@ export default function StoreAll() {
           }`
         )
         .then((res) => {
-          setAllItem([...allItem, ...res.data.content]);
+          res.data.content && setAllItem([...allItem, ...res.data.content]);
           setPage(page + 1);
           setIsData(!res.data.last);
         })
@@ -72,10 +72,12 @@ export default function StoreAll() {
     }
 
     if (isData && itemList.length < 20) setReady(true);
+    else setReady(false);
   };
 
   const noItem = (): JSX.Element => {
     // if (isData !== false) {
+    //   console.log("데이터는 더 있습니다!");
     //   handleMoreData();
     // }
     return (
@@ -111,7 +113,7 @@ export default function StoreAll() {
       ) : (
         noItem()
       )}
-      {ready && handleMoreData()}
+      {/* {ready && handleMoreData()} */}
     </>
   );
 }

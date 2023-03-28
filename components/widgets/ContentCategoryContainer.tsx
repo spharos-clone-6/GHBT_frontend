@@ -1,15 +1,11 @@
 import { categoryType } from "@/types/types";
 import axios from "axios";
-import Link from "next/link";
-import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import CategoryButton from "../ui/CategoryButton";
 import Loading from "../ui/Loading";
 import RightArrowMenu from "../ui/RightArrowMenu";
 
 export default function ContentCategoryContainer() {
-  const router = useRouter();
-  const { pathname, query } = useRouter();
   const [loading, setLoading] = useState<boolean>(true);
   const [categoryList, setCatogoryList] = useState<categoryType[]>();
 

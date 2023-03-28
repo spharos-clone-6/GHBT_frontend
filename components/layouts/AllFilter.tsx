@@ -69,7 +69,7 @@ export default function AllFilter(props: {
     createUrl();
   }, []);
 
-  useDidMountEffect(() => {
+  useEffect(() => {
     axios.get(`${baseUrl}/api/category`).then((res) => {
       setCatogoryList(res.data.filter((c: categoryType) => c.type === "대"));
     });
