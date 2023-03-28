@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { useRecent } from "@/hooks/useRecent";
 import CloseIcon from "../ui/CloseIcon";
+import Image from "next/image";
 
 export interface ChildProps {
   isView: Boolean;
@@ -69,7 +70,13 @@ export default function SearchTop() {
       <div className="search-icons">
         <ul>
           <li>
-            <img src="/images/icons/search.svg" onClick={resultHandler} />
+            <Image
+              src="/images/icons/search.svg"
+              onClick={resultHandler}
+              alt="검색아이콘"
+              width={20}
+              height={20}
+            />
           </li>
           <li>
             <CloseIcon onClickHandler={() => router.back()} />
