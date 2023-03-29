@@ -7,12 +7,21 @@ import Image from "next/image";
 import { privateAgreeType } from "@/types/types";
 import CheckBox from "@/components/ui/CheckBox";
 
+type adAgreeType = {
+  email: boolean;
+  sms: boolean;
+};
+
 export default function SignUp01() {
   const router = useRouter();
 
   const [isAllAgree, setIsAllAgree] = useState<boolean>(false);
   const [required, setRequired] = useState<boolean>(false);
 
+  const [adAgree, setAdAgree] = useState<string>("none");
+  const [adAgreeArray, setAdAgreeArray] = useState<adAgreeType>(
+    {} as adAgreeType
+  );
   const [agreeArray, setAgreeArray] = useState<privateAgreeType>(
     {} as privateAgreeType
   );
@@ -35,6 +44,23 @@ export default function SignUp01() {
     }
   }, [agreeArray]);
 
+  useEffect(() => {
+    // setInputData({ ...inputData, privateAgree: agreeArray });
+    if (adAgreeArray.email && adAgreeArray.sms) {
+      setAdAgree("all");
+      setAgreeArray({ ...agreeArray, isAdvertisingConfirm: true });
+    } else if (adAgreeArray.email) {
+      setAdAgree("email");
+      setAgreeArray({ ...agreeArray, isAdvertisingConfirm: true });
+    } else if (adAgreeArray.sms) {
+      setAdAgree("sms");
+      setAgreeArray({ ...agreeArray, isAdvertisingConfirm: true });
+    } else {
+      setAdAgree("none");
+      setAgreeArray({ ...agreeArray, isAdvertisingConfirm: false });
+    }
+  }, [adAgreeArray]);
+
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;
 
@@ -50,6 +76,14 @@ export default function SignUp01() {
         [name]: checked,
       });
     }
+  };
+
+  const handleADInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = e.target;
+    setAdAgreeArray({
+      ...adAgreeArray,
+      [name]: checked,
+    });
   };
 
   return (
@@ -116,8 +150,14 @@ export default function SignUp01() {
                 bottom: "2px",
               }}
             />
-            <input type="checkbox" id="advertising-email" />
-            <label htmlFor="advertising-email">E-mail</label>
+            <input
+              type="checkbox"
+              id="email"
+              name="email"
+              style={{ marginLeft: "40px" }}
+              onChange={handleADInput}
+            />
+            <label htmlFor="email">E-mail</label>
             <Image
               src="/images/icons/check_white.png"
               alt="체크 이미지"
@@ -130,13 +170,21 @@ export default function SignUp01() {
                 bottom: "2px",
               }}
             />
-            <input type="checkbox" id="advertising-sms" />
-            <label htmlFor="advertising-sms">SMS</label>
+            <input
+              type="checkbox"
+              id="sms"
+              name="sms"
+              onChange={handleADInput}
+            />
+            <label htmlFor="sms">SMS</label>
           </div>
         </section>
         <BottomFixedContainer>
           {required ? (
-            <Button btnType={"button"} btnEvent={() => router.push("/signup2")}>
+            <Button
+              btnType={"button"}
+              btnEvent={() => router.push(`/signup2?ad=${adAgree}`)}
+            >
               다음
             </Button>
           ) : (

@@ -6,6 +6,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { useRecoilTransactionObserver_UNSTABLE } from "recoil";
+import Swal from "sweetalert2";
 
 export default function SignUp02() {
   const { baseUrl } = Config();
@@ -48,12 +49,14 @@ export default function SignUp02() {
   const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
     SetPassword(e.target.value);
     if (!passwordRegex.test(e.target.value))
-      SetPasswordErrMsg("비밀번호 형식이 잘못 되었습니다.");
+      SetPasswordErrMsg(
+        "⚠️ 비밀번호 형식을 확인해주세요(10자리 이상의 문자, 숫자 조합)"
+      );
     else SetPasswordErrMsg("");
     //비밀번호 검증과 현재 비밀번호가 일치하지 않다면 setPasswordValidationErrmsg 설정
     if (e.target.value === passwordValidation) setPasswordValidationErrMsg("");
     else if (e.target.value && e.target.value !== passwordValidation)
-      setPasswordValidationErrMsg("비밀번호가 일치하지 않습니다.");
+      setPasswordValidationErrMsg("⚠️ 비밀번호가 일치하지 않습니다");
   };
   const onChangeToken = (e: ChangeEvent<HTMLInputElement>) => {
     setEmailToken(e.target.value);
@@ -67,11 +70,26 @@ export default function SignUp02() {
     else setPasswordValidationErrMsg("");
   };
 
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "center",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
+
   //이메일 검증 및 인증번호 전달
   const sendEmailValidate = async () => {
     // 이메일 양식 체크
-    if (!emailErrMsg === null || email === "") {
-      alert("이메일 양식을 지켜주세요");
+    if (!(emailErrMsg === null) || email === "") {
+      Toast.fire({
+        icon: "warning",
+        title: "이메일을 다시 확인해주세요",
+      });
       return;
     }
 
@@ -167,7 +185,7 @@ export default function SignUp02() {
           type="text"
           id="user_email"
           name="email"
-          placeholder=""
+          placeholder="이메일@example.com"
           onChange={onChangeEmail}
         />
         <div style={{ width: `60px` }}>
