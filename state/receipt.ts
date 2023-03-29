@@ -4,7 +4,7 @@ import { recoilPersist } from "recoil-persist";
 
 const { persistAtom } = recoilPersist({});
 
-export const Receipt = atom<receipt>({
+export const payReceipt = atom<receipt>({
   key: "receipt",
   default: {
     purchaseList: [],

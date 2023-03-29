@@ -11,8 +11,9 @@ import Config from "@/configs/config.export";
 import { deliveryListType, deliveryType } from "@/types/types";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import Price from "@/components/ui/Price";
+import { payReceipt } from "@/state/receipt";
 
 export default function Payment() {
   const { baseUrl } = Config();
@@ -21,13 +22,14 @@ export default function Payment() {
 
   const orderList = useRecoilValue(cartOrder);
   const deliveryP = useRecoilValue(deliveryPrice);
+  const [receipt, setReceipt] = useRecoilState(payReceipt);
 
   let totalPrice = 0;
   orderList.map((item) => (totalPrice += item.product.price * item.quantity));
 
   // 배송지 데이터 불러오기
   const AT =
-    "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODAwOTA5NzMsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.QLzE0bGHgYpxeAxghujjYRxiycg9-mDrnD3xZnUWhLwkpj-nV17nUBI9YunC6XYEE0bTI_zRuLnAubfPj847Dw";
+    "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODAxMDAxNjUsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.gVk9ce0RU3153yFWOLJp1dz80uIBJ0oi91l2bU19xi96C-oDgfDhWbfmL9tHPyNVPm0xnRxu7ni-pIjsyMrkAw";
   async function fetchDelivery() {
     const delivery = await axios.get(`${baseUrl}/api/shipping-address`, {
       headers: {
@@ -45,6 +47,30 @@ export default function Payment() {
   useEffect(() => {
     setDeliveryPlace([deliveryList[0]]);
   }, [deliveryList]);
+
+  useEffect(() => {
+    setReceipt({
+      purchaseList: orderList.map((item) => ({
+        productId: item.id,
+        productName: item.product.name,
+        productQuantity: item.quantity,
+        productPrice: item.product.price,
+      })),
+      shippingAddress: `${
+        deliveryPlace[0]?.baseAddress + deliveryPlace[0]?.detailAddress
+      }`,
+      shippingPrice: deliveryP,
+      paymentType: "kakao-pay",
+      couponId: 0,
+      couponPrice: 0,
+      cashReceipts: "현금영수증",
+      totalPrice: totalPrice + deliveryP,
+    });
+  }, [deliveryPlace]);
+
+  const purchase = () => {
+    console.log("영수증: ", receipt);
+  };
 
   return (
     <>
@@ -96,7 +122,7 @@ export default function Payment() {
         </div>
       </section>
       <BottomFixedContainer>
-        <Button btnType="button" btnEvent={() => alert("구매?")}>
+        <Button btnType="button" btnEvent={purchase}>
           <Price price={totalPrice + deliveryP} /> 결제하기
         </Button>
       </BottomFixedContainer>
