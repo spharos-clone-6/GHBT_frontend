@@ -1,6 +1,6 @@
-import React from 'react'
+import React from "react";
 
-export default function purchase_list() {
+export default function PurchaseList() {
   return (
     <>
       <div className="container">
@@ -79,9 +79,10 @@ export default function purchase_list() {
             </section>
           </div>
         </section>
-        <section className="purchase-list-product">주문 내역이 없습니다.</section>
+        <section className="purchase-list-product">
+          주문 내역이 없습니다.
+        </section>
       </div>
     </>
-
-  )
+  );
 }

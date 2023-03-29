@@ -28,6 +28,7 @@ export default function RightArrowMenu(props: {
   const menu = css`
     padding: ${props.padding || `10px`};
     display: block;
+    width: -webkit-fill-available;
   `;
 
   const linkStyle = css`

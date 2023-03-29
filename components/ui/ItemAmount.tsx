@@ -43,8 +43,8 @@ export default function ItemAmount({
               <Image
                 src="/images/icons/minus.png"
                 alt=""
-                height={10}
-                width={10}
+                height={15}
+                width={15}
               />
             </button>
             <div>{count}</div>
@@ -52,8 +52,8 @@ export default function ItemAmount({
               <Image
                 src="/images/icons/add.png"
                 alt=""
-                height={10}
-                width={10}
+                height={15}
+                width={15}
               />
             </button>
           </div>

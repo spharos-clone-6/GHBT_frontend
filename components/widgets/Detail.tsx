@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { Loader } from "semantic-ui-react";
+import Image from "next/image";
 import Button from "../ui/Button";
 import DetailImage from "../ui/DetailImage";
 import Loading from "../ui/Loading";
@@ -76,9 +76,11 @@ export default function Detail() {
           {imgList.length > 1 && !isMore && (
             <Button type="more" btnType={"button"} btnEvent={handleMore}>
               상품 정보 더보기
-              <img
+              <Image
                 src="/images/icons/upload.png"
-                width={"3%"}
+                alt="더보기 버튼"
+                width={10}
+                height={10}
                 style={{
                   paddingRight: "5px",
                   transform: "rotate(180deg)",
@@ -90,9 +92,11 @@ export default function Detail() {
           {imgList.length > 1 && isMore && (
             <Button type="more" btnType={"button"} btnEvent={handleMoreClose}>
               상품 정보 접기
-              <img
+              <Image
                 src="/images/icons/upload.png"
-                width={"3%"}
+                width={10}
+                height={10}
+                alt="접기 아이콘"
                 style={{ paddingLeft: "5px", opacity: "0.5" }}
               />
             </Button>
