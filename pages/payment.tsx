@@ -28,7 +28,7 @@ export default function Payment() {
   let totalPrice = 0;
   orderList.map((item) => (totalPrice += item.product.price * item.quantity));
 
-  console.log(orderList);
+  console.log("주문내역: ", orderList);
   // 배송지 데이터 불러오기
   const AT =
     "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODAxMTM2NzAsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.V-KnRVv85F6acHum_I2lOsDcKbB6TIdDjJIUB-QC5nTnWVU584Z9bjnQjcNiQgmKfV1TDPAumhr58KFROVTgxw";
@@ -53,12 +53,16 @@ export default function Payment() {
 
   useEffect(() => {
     setReceipt({
-      purchaseList: orderList.map((item) => ({
-        productId: item.product.productId,
-        productName: item.product.name,
-        productQuantity: item.quantity,
-        productPrice: item.product.price,
-      })),
+      purchaseList: orderList.map(function (item) {
+        let pId = String(item.product.productId);
+        if (pId === undefined) pId = String(item.product.id);
+        return {
+          productId: Number(pId),
+          productName: item.product.name,
+          productQuantity: item.quantity,
+          productPrice: item.product.price,
+        };
+      }),
       shippingAddress: `부산시`,
       // shippingPrice: deliveryP,
       paymentType: `${payMethod}`,
@@ -76,7 +80,13 @@ export default function Payment() {
       .post(
         "http://backend.grapefruit-honey-black-tea.shop/api/purchase",
         {
-          receipt,
+          purchaseList: receipt.purchaseList,
+          shippingAddress: receipt.shippingAddress,
+          paymentType: receipt.paymentType,
+          couponPrice: receipt.couponPrice,
+          couponId: receipt.couponId,
+          cashReceipts: receipt.cashReceipts,
+          totalPrice: receipt.totalPrice,
         },
         {
           headers: {

@@ -71,6 +71,7 @@ export default function ProductDetail() {
         setSubProduct(filtered);
       }
       setProduct(result.data);
+      console.log(result.data);
     };
     getData();
   }, [isReady, query]);
