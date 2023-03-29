@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Router, useRouter } from "next/router";
+import React from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
-import Badge from "../ui/Badge";
 import { useRecoilState } from "recoil";
 import ContentsModal from "../modals/ContentsModal";
 import Image from "next/image";
-import CloseIcon from "../ui/CloseIcon";
 import { contentsModalState } from "@/state/contentsModalState";
+import { CgProfile } from "react-icons/cg";
+import { GrCart, GrSearch } from "react-icons/gr";
 
 export default function MainHeaderTop() {
   const router = useRouter();
@@ -75,27 +75,19 @@ export default function MainHeaderTop() {
             <>
               <li>
                 <Link href="/search">
-                  <Image
-                    src="/images/icons/search.svg"
-                    alt="검색아이콘"
-                    width={20}
-                    height={20}
-                  />
+                  <GrSearch size={20} />
                 </Link>
               </li>
               <li>
                 {/* <Badge /> */}
                 <Link href="/cart">
-                  <Image
-                    src="/images/icons/shopping-cart.svg"
-                    alt="장바구니 아이콘"
-                    width={20}
-                    height={20}
-                  />
+                  <GrCart size={20} />
                 </Link>
               </li>
               <li>
-                <CloseIcon />
+                <Link href="/login">
+                  <CgProfile size={20} />
+                </Link>
               </li>
             </>
           )}
