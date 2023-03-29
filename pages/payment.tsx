@@ -13,7 +13,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 
-export default function payment() {
+export default function Payment() {
   const { baseUrl } = Config();
   const [deliveryList, setDeliveryList] = useState<deliveryListType>([]);
   const [deliveryPlace, setDeliveryPlace] = useState<deliveryListType>([]);
