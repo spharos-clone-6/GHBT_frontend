@@ -39,6 +39,7 @@ export default function Timer() {
             padding: "2px",
             margin: "2px",
             width: "40%",
+            textAlign: "center",
           }}
         >
           {min}분 {sec}초

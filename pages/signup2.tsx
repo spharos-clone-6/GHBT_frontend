@@ -31,7 +31,7 @@ export default function SignUp02() {
   const [isTokenValid, setIsTokenValid] = useState(false);
   const [time, setTime] = useState(180);
 
-  const [isShow, setIsShow] = useState("none");
+  const [isShow, setIsShow] = useState<boolean>(false);
 
   const emailRegex =
     /^[0-9a-zA-Z]([-_ .]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
@@ -111,7 +111,7 @@ export default function SignUp02() {
       });
       return;
     }
-    setIsShow("flex");
+    setIsShow(true);
 
     //있으면 이메일 보내기
     axios
@@ -153,7 +153,7 @@ export default function SignUp02() {
       icon: "success",
       title: "인증되었습니다",
     });
-    setIsShow("none");
+    setIsShow(false);
   };
 
   const onClickSignup = async () => {
@@ -222,20 +222,23 @@ export default function SignUp02() {
       </section>
       <div className="signup-error">{emailErrMsg}</div>
 
-      <section className="email-input" style={{ display: isShow }}>
-        <Timer />
-        <input
-          type="text"
-          id="user_token_validate"
-          placeholder="인증번호"
-          onChange={onChangeToken}
-        />
-        <div style={{ width: `60px` }}>
-          <Button btnType={"button"} btnEvent={checkTokenValidation}>
-            확인
-          </Button>
-        </div>
-      </section>
+      {isShow && (
+        <section className="email-input" style={{ display: "flex" }}>
+          <Timer />
+          <input
+            type="text"
+            id="user_token_validate"
+            placeholder="인증번호"
+            onChange={onChangeToken}
+          />
+          <div style={{ width: "90px" }}>
+            <Button btnType={"button"} btnEvent={checkTokenValidation}>
+              확인
+            </Button>
+          </div>
+        </section>
+      )}
+
       <section id="id-password-input">
         <input
           type="password"
