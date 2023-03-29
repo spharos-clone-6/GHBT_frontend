@@ -8,10 +8,7 @@ import React, { useState } from "react";
 import { useRecoilState } from "recoil";
 import Image from "next/image";
 
-export default function LoginModal() {
-  // if (!isView) {
-  //   return null;
-  // }
+export default function Login() {
   const { baseUrl } = Config();
   const router = useRouter();
 

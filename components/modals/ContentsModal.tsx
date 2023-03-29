@@ -2,6 +2,7 @@ import ModalHeader from "@/components/ui/ModalHeader";
 import RightArrowMenu from "@/components/ui/RightArrowMenu";
 import ContentCategoryContainer from "@/components/widgets/ContentCategoryContainer";
 import { contentsModalState } from "@/state/contentsModalState";
+import Link from "next/link";
 import React from "react";
 import { useSetRecoilState } from "recoil";
 
@@ -30,7 +31,7 @@ export default function Contents() {
         <div className="contents-msg">
           <div className="msg-title">Sign in to Online Store</div>
           <div>
-            <a href="">로그인</a> 후 이용해 보세요.
+            <Link href="/login">로그인</Link> 후 이용해 보세요.
           </div>
         </div>
         <hr className="contents-line" />

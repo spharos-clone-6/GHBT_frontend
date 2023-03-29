@@ -1,10 +1,12 @@
 import Button from "@/components/ui/Button";
+import Config from "@/configs/config.export";
 import axios from "axios";
 import { useRouter } from "next/router";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { useRecoilTransactionObserver_UNSTABLE } from "recoil";
 
 export default function signup_id() {
+  const { baseUrl } = Config();
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [emailTokenValidation, setEmailTokenValidation] = useState(false);
@@ -73,7 +75,7 @@ export default function signup_id() {
 
     //중복 이메일 체크
     const check = await axios
-      .post("http://localhost:5000/api/email/duplicate", { email })
+      .post(`${baseUrl}/api/email/duplicate`, { email })
       .then((res) => {
         return res.status;
       })
@@ -89,7 +91,7 @@ export default function signup_id() {
 
     //있으면 이메일 보내기
     axios
-      .post("http://localhost:5000/api/email", {
+      .post(`${baseUrl}/api/email`, {
         email,
       })
       .catch((error) => {
@@ -101,7 +103,7 @@ export default function signup_id() {
   // 인증번호 검증 및 검증 후 알림, 검증버튼 제거
   const checkTokenValidation = async () => {
     const validation = await axios
-      .post("http://localhost:5000/api/email/validate", {
+      .post(`${baseUrl}/api/email/validate`, {
         email: email,
         authCode: emailToken,
       })
@@ -131,7 +133,7 @@ export default function signup_id() {
       return;
     } else if (!passwordErrMsg && !passwordValidationErrMsg && !emailErrMsg) {
       await axios
-        .post("http://localhost:5000/api/auth/signup", { email, password })
+        .post(`${baseUrl}/api/auth/signup`, { email, password })
         .then((res) => {
           router.push("/login");
         })
