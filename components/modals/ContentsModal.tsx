@@ -31,7 +31,10 @@ export default function Contents() {
         <div className="contents-msg">
           <div className="msg-title">Sign in to Online Store</div>
           <div>
-            <Link href="/login">로그인</Link> 후 이용해 보세요.
+            <Link href="/login" onClick={closeModal}>
+              로그인
+            </Link>{" "}
+            후 이용해 보세요.
           </div>
         </div>
         <hr className="contents-line" />

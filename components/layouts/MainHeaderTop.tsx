@@ -8,24 +8,11 @@ import Image from "next/image";
 import CloseIcon from "../ui/CloseIcon";
 import { contentsModalState } from "@/state/contentsModalState";
 
-export interface ChildProps {
-  isView: Boolean;
-  setIsView: React.Dispatch<React.SetStateAction<Boolean>>;
-}
-
-export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
+export default function MainHeaderTop() {
   const router = useRouter();
   // console.log(router.pathname);
   const [contentsIsView, setContentsIsView] =
     useRecoilState<boolean>(contentsModalState);
-
-  const handleOpenLogin = () => {
-    setIsView(true);
-  };
-
-  const handleOpenSearch = () => {
-    setIsView(true);
-  };
 
   const handleBack = () => {
     if (router.pathname === "store") {
@@ -107,7 +94,7 @@ export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
                   />
                 </Link>
               </li>
-              <li onClick={handleOpenLogin}>
+              <li>
                 <CloseIcon />
               </li>
             </>

@@ -1,3 +1,4 @@
+import BackIcon from "@/components/ui/BackIcon";
 import Button from "@/components/ui/Button";
 import Config from "@/configs/config.export";
 import axios from "axios";
@@ -148,9 +149,7 @@ export default function signup_id() {
     <>
       <header>
         <div className="signup-header">
-          <a href="javascript:window.history.back();">
-            <img src="./images/icons/close.png" className="back-button" />
-          </a>
+          <BackIcon />
         </div>
         <section className="greeting">
           <h2 className="signup-info">
