@@ -19,6 +19,7 @@ export default function Payment() {
   const { baseUrl } = Config();
   const [deliveryList, setDeliveryList] = useState<deliveryListType>([]);
   const [deliveryPlace, setDeliveryPlace] = useState<deliveryListType>([]);
+  const [payMethod, setPayMethod] = useState<string>("");
 
   const orderList = useRecoilValue(cartOrder);
   const deliveryP = useRecoilValue(deliveryPrice);
@@ -29,7 +30,7 @@ export default function Payment() {
 
   // 배송지 데이터 불러오기
   const AT =
-    "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODAxMDAxNjUsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.gVk9ce0RU3153yFWOLJp1dz80uIBJ0oi91l2bU19xi96C-oDgfDhWbfmL9tHPyNVPm0xnRxu7ni-pIjsyMrkAw";
+    "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODAxMTM2NzAsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.V-KnRVv85F6acHum_I2lOsDcKbB6TIdDjJIUB-QC5nTnWVU584Z9bjnQjcNiQgmKfV1TDPAumhr58KFROVTgxw";
   async function fetchDelivery() {
     const delivery = await axios.get(`${baseUrl}/api/shipping-address`, {
       headers: {
@@ -60,16 +61,28 @@ export default function Payment() {
         deliveryPlace[0]?.baseAddress + deliveryPlace[0]?.detailAddress
       }`,
       shippingPrice: deliveryP,
-      paymentType: "kakao-pay",
+      paymentType: `${payMethod}`,
       couponId: 0,
       couponPrice: 0,
       cashReceipts: "현금영수증",
       totalPrice: totalPrice + deliveryP,
     });
-  }, [deliveryPlace]);
+  }, [deliveryPlace, payMethod]);
 
-  const purchase = () => {
-    console.log("영수증: ", receipt);
+  const purchase = async () => {
+    console.log("주문서: ", receipt);
+    const res = await axios.post(
+      "http:/backend.grapefruit-honey-black-tea.shop/api/purchase",
+      {
+        receipt,
+      },
+      {
+        headers: {
+          Authorization: AT,
+        },
+      }
+    );
+    console.log(res);
   };
 
   return (
@@ -95,7 +108,7 @@ export default function Payment() {
         fontType="bold"
         padding="15px 10px"
       />
-      <PayMethod />
+      <PayMethod method={payMethod} setMethod={setPayMethod} />
       <RightArrowMenu
         iconSrc=""
         menuName="현금영수증"

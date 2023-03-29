@@ -20,6 +20,7 @@ import Config from "@/configs/config.export";
 import { recoilPersist } from "recoil-persist";
 import { useRouter } from "next/router";
 import Price from "@/components/ui/Price";
+import Loading from "@/components/ui/Loading";
 
 export default function Cart() {
   const { baseUrl } = Config();
@@ -47,7 +48,7 @@ export default function Cart() {
 
   // 데이터 불러오기
   const accesstoken =
-    "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODAwOTA5NzMsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.QLzE0bGHgYpxeAxghujjYRxiycg9-mDrnD3xZnUWhLwkpj-nV17nUBI9YunC6XYEE0bTI_zRuLnAubfPj847Dw";
+    "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODAxMTM2NzAsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.V-KnRVv85F6acHum_I2lOsDcKbB6TIdDjJIUB-QC5nTnWVU584Z9bjnQjcNiQgmKfV1TDPAumhr58KFROVTgxw";
   async function fetchGeneralData() {
     const generalResult = await axios.get(`${baseUrl}/api/cart/my_cart`, {
       headers: {
@@ -125,7 +126,11 @@ export default function Cart() {
 
   return (
     <>
-      {isLoading && <div style={{ padding: "300px 150px" }}>Loading</div>}
+      {isLoading && (
+        <div style={{ width: "100vw", height: "100vh", paddingTop: "55%" }}>
+          <Loading />
+        </div>
+      )}
       {!isLoading &&
         (totalCart === 0 ? (
           <CartEmpty />

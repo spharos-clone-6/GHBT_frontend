@@ -1,6 +1,18 @@
-import React from "react";
+import { payReceipt } from "@/state/receipt";
+import React, { Dispatch, SetStateAction } from "react";
+import { useRecoilState } from "recoil";
 
-export default function PayMethod() {
+interface payMethod {
+  method: string;
+  setMethod: Dispatch<SetStateAction<string>>;
+}
+
+export default function PayMethod({ method, setMethod }: payMethod) {
+  const handleChange = (e: any) => {
+    console.log("선택한 값:", e.target.value);
+    setMethod(e.target.value);
+  };
+
   return (
     <section id="pay-method">
       <div>
@@ -8,10 +20,22 @@ export default function PayMethod() {
       </div>
       <div className="pay-choice">
         <div>
-          <input type="radio" name="pay" /> 스타벅스 카드
+          <input
+            type="radio"
+            name="pay"
+            value="starbucks-card"
+            onChange={handleChange}
+          />{" "}
+          스타벅스 카드
         </div>
         <div>
-          <input type="radio" name="pay" /> 카카오페이
+          <input
+            type="radio"
+            name="pay"
+            value="kakao-pay"
+            onChange={handleChange}
+          />{" "}
+          카카오페이
         </div>
       </div>
     </section>

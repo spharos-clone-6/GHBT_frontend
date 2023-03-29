@@ -8,9 +8,7 @@ interface change {
 
 export default function DeliveryItem({ item, setDeliveryPlace }: change) {
   const handleChange = (e: any) => {
-    console.log(`*****handleChange*****`);
     console.log(`선택한 값 : ${e.target.value}`);
-
     setDeliveryPlace([item]);
   };
 
