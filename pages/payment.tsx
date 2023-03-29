@@ -12,6 +12,7 @@ import { deliveryListType, deliveryType } from "@/types/types";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
+import Price from "@/components/ui/Price";
 
 export default function Payment() {
   const { baseUrl } = Config();
@@ -82,7 +83,7 @@ export default function Payment() {
           <div className="pay-price">
             <p className="title">최종 결제 금액</p>
             <p className="title price">
-              {(totalPrice + deliveryP).toLocaleString("en")}원
+              <Price price={totalPrice + deliveryP} />
             </p>
           </div>
         </div>
@@ -96,7 +97,7 @@ export default function Payment() {
       </section>
       <BottomFixedContainer>
         <Button btnType="button" btnEvent={() => alert("구매?")}>
-          {(totalPrice + deliveryP).toLocaleString("en")}원 결제하기
+          <Price price={totalPrice + deliveryP} /> 결제하기
         </Button>
       </BottomFixedContainer>
     </>

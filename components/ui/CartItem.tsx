@@ -6,6 +6,7 @@ import { frozenCartListState, generalCartListState } from "../../state/cart";
 import axios from "axios";
 import CloseIcon from "./CloseIcon";
 import { useCart } from "@/hooks/useCart";
+import Price from "./Price";
 
 export default function CartItem(props: { item: cartItemType; title: string }) {
   const [quantity, setQuantity] = useState(props.item.quantity);
@@ -67,7 +68,7 @@ export default function CartItem(props: { item: cartItemType; title: string }) {
                 <div>
                   <p className="name">{props.item.product.name}</p>
                   <p className="price">
-                    {props.item.product.price.toLocaleString("en")}원
+                    <Price price={props.item.product.price} />
                   </p>
                 </div>
                 <CloseIcon
@@ -83,7 +84,9 @@ export default function CartItem(props: { item: cartItemType; title: string }) {
             </div>
             <div className="item-price">
               <p>주문 금액</p>
-              <p>{itemPrice.toLocaleString("en")}원</p>
+              <p>
+                <Price price={itemPrice} />
+              </p>
             </div>
             <div className="item-purchase">
               <button onClick={showModal}>주문 수정</button>

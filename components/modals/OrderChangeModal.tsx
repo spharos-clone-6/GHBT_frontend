@@ -9,6 +9,7 @@ import ModalHeader from "../ui/ModalHeader";
 import { css } from "@emotion/react";
 import axios from "axios";
 import { useCart } from "@/hooks/useCart";
+import Price from "../ui/Price";
 
 interface orderChange {
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -109,7 +110,7 @@ export default function OrderChangeModal({
               <div>
                 <p className="name">{item.product.name}</p>
                 <p className="price">
-                  {item.product.price.toLocaleString("en")}원
+                  <Price price={item.product.price} />
                 </p>
               </div>
               <img
@@ -133,7 +134,7 @@ export default function OrderChangeModal({
             <div className="price">
               합계{" "}
               <span style={{ fontSize: "16px" }}>
-                {totalPrice.toLocaleString("en")}원
+                <Price price={totalPrice} />
               </span>
             </div>
           </div>

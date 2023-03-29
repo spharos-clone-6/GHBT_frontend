@@ -19,6 +19,7 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import Config from "@/configs/config.export";
 import { recoilPersist } from "recoil-persist";
 import { useRouter } from "next/router";
+import Price from "@/components/ui/Price";
 
 export default function Cart() {
   const { baseUrl } = Config();
@@ -145,7 +146,9 @@ export default function Cart() {
                 <div className="prices">
                   <div className="cart-price">
                     <p>상품 금액</p>
-                    <p className="price">{TotalPrice.toLocaleString("en")}원</p>
+                    <p className="price">
+                      <Price price={TotalPrice} />
+                    </p>
                   </div>
                   <div className="cart-price">
                     <p>할인 금액</p>
@@ -153,13 +156,15 @@ export default function Cart() {
                   </div>
                   <div className="cart-price">
                     <p>배송비</p>
-                    <p className="price">{deliveryP.toLocaleString("en")}원</p>
+                    <p className="price">
+                      <Price price={deliveryP} />
+                    </p>
                   </div>
                 </div>
                 <div className="total-price">
                   <p>최종 결제 금액</p>
                   <p className="price">
-                    {(TotalPrice + deliveryP).toLocaleString("en")}원
+                    <Price price={TotalPrice + deliveryP} />
                   </p>
                 </div>
 
@@ -184,7 +189,7 @@ export default function Cart() {
                   건 / 20건
                 </div>
                 <div style={{ fontSize: "20px" }}>
-                  {(TotalPrice + deliveryP).toLocaleString("en")}원
+                  <Price price={TotalPrice + deliveryP} />
                 </div>
               </div>
               <div css={buttonContainer}>
