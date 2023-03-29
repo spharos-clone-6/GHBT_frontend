@@ -229,7 +229,7 @@ input[type="checkbox"]:checked {
   color: var(--color-gray-text);
 }
 
-#email-input {
+.email-input {
   margin-top: 15px;
   margin-bottom: 0;
   padding: 0 10px 0 25px;
@@ -237,7 +237,7 @@ input[type="checkbox"]:checked {
   align-items: baseline;
 }
 
-#email-input-token {
+.email-input-token {
   margin-top: 15px;
   margin-bottom: 0;
   padding: 0 25px;
@@ -252,7 +252,7 @@ input[type="checkbox"]:checked {
   align-items: baseline;
 }
 
-#email-input select {
+.email-input select {
   appearance: none;
   border: none;
   font-size: 1.2rem;
@@ -269,7 +269,7 @@ input[type="checkbox"]:checked {
   color: var(--color-gray-text);
 }
 
-#email-input input {
+.email-input input {
   border: 0;
   border-bottom: 1.5px solid rgba(128, 128, 128, 0.381);
   font-size: 1.2rem;
@@ -282,15 +282,15 @@ input[type="checkbox"]:checked {
   margin-bottom: 15px;
 }
 
-#email-input p {
+.email-input p {
   font-size: 1.3rem;
   color: var(--color-gray-text);
 }
 
-#email-input input:focus {
+.email-input input:focus {
   border-bottom: 1.5px solid var(--color-light-green);
 }
 
-#email-input select option {
+.email-input select option {
   font-size: 0.8rem;
 }

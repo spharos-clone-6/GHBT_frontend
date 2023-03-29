@@ -1,6 +1,7 @@
 import BackIcon from "@/components/ui/BackIcon";
 import BottomFixedContainer from "@/components/ui/BottomFixedContainer";
 import Button from "@/components/ui/Button";
+import Timer from "@/components/ui/Timer";
 import Config from "@/configs/config.export";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -50,7 +51,7 @@ export default function SignUp02() {
     SetPassword(e.target.value);
     if (!passwordRegex.test(e.target.value))
       SetPasswordErrMsg(
-        "⚠️ 비밀번호 형식을 확인해주세요(10자리 이상의 문자, 숫자 조합)"
+        "⚠️ 비밀번호 형식을 확인해주세요 (10자리 이상의 문자, 숫자 조합)"
       );
     else SetPasswordErrMsg("");
     //비밀번호 검증과 현재 비밀번호가 일치하지 않다면 setPasswordValidationErrmsg 설정
@@ -66,7 +67,7 @@ export default function SignUp02() {
   const onChangePasswordValidation = (e: ChangeEvent<HTMLInputElement>) => {
     setPasswordValidation(e.target.value);
     if (password !== e.target.value)
-      setPasswordValidationErrMsg("비밀번호가 일치하지 않습니다.");
+      setPasswordValidationErrMsg("⚠️ 비밀번호가 일치하지 않습니다");
     else setPasswordValidationErrMsg("");
   };
 
@@ -74,7 +75,7 @@ export default function SignUp02() {
     toast: true,
     position: "center",
     showConfirmButton: false,
-    timer: 3000,
+    timer: 1500,
     timerProgressBar: true,
     didOpen: (toast) => {
       toast.addEventListener("mouseenter", Swal.stopTimer);
@@ -104,7 +105,10 @@ export default function SignUp02() {
       });
 
     if (check === 409) {
-      alert("중복된 이메일입니다");
+      Toast.fire({
+        icon: "warning",
+        title: "이미 존재하는 이메일입니다",
+      });
       return;
     }
     setIsShow("flex");
@@ -116,7 +120,10 @@ export default function SignUp02() {
       })
       .catch((error) => {
         console.log(error);
-        alert("인증요청 실패");
+        Toast.fire({
+          icon: "error",
+          title: "인증실패",
+        });
       });
   };
 
@@ -134,31 +141,50 @@ export default function SignUp02() {
     if (validation.status === 202) {
       setEmailTokenValidation(false);
 
-      alert("인증 실패");
+      Toast.fire({
+        icon: "warning",
+        title: "인증번호가 맞지 않습니다",
+      });
       return;
     }
 
     setEmailTokenValidation(true);
-    alert("인증 성공!!");
+    Toast.fire({
+      icon: "success",
+      title: "인증되었습니다",
+    });
     setIsShow("none");
   };
 
   const onClickSignup = async () => {
     //회원가입 요청
     if (passwordErrMsg || passwordValidationErrMsg || emailErrMsg) {
-      alert("필수입력란을 확인해 주세요!!!");
+      Toast.fire({
+        icon: "error",
+        title: "잘못된 값이 존재합니다",
+      });
       return;
     } else if (!emailTokenValidation) {
-      alert("메일 인증해주세요");
+      Toast.fire({
+        icon: "warning",
+        title: "이메일 인증을 완료해주세요",
+      });
       return;
     } else if (!passwordErrMsg && !passwordValidationErrMsg && !emailErrMsg) {
       await axios
         .post(`${baseUrl}/api/auth/signup`, { email, password })
-        .then((res) => {
+        .then(() => {
           router.push("/login");
+          Toast.fire({
+            icon: "success",
+            title: "회원가입 완료",
+          });
         })
-        .catch((error) => {
-          alert("회원가입에 실패하였습니다.");
+        .catch(() => {
+          Toast.fire({
+            icon: "error",
+            title: "회원가입에 실패하였습니다",
+          });
           return;
         });
     }
@@ -180,7 +206,7 @@ export default function SignUp02() {
         </h2>
       </section>
 
-      <section id="email-input">
+      <section className="email-input">
         <input
           type="text"
           id="user_email"
@@ -196,7 +222,8 @@ export default function SignUp02() {
       </section>
       <div className="signup-error">{emailErrMsg}</div>
 
-      <section id="email-input-token" style={{ display: isShow }}>
+      <section className="email-input" style={{ display: isShow }}>
+        <Timer />
         <input
           type="text"
           id="user_token_validate"
