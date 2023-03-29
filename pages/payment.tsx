@@ -28,6 +28,7 @@ export default function Payment() {
   let totalPrice = 0;
   orderList.map((item) => (totalPrice += item.product.price * item.quantity));
 
+  console.log(orderList);
   // 배송지 데이터 불러오기
   const AT =
     "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODAxMTM2NzAsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.V-KnRVv85F6acHum_I2lOsDcKbB6TIdDjJIUB-QC5nTnWVU584Z9bjnQjcNiQgmKfV1TDPAumhr58KFROVTgxw";
@@ -38,6 +39,7 @@ export default function Payment() {
       },
     });
     console.log("대표 배송지 :", delivery.data.shippingAddress[0]);
+
     setDeliveryList(delivery.data.shippingAddress);
   }
 
@@ -52,36 +54,39 @@ export default function Payment() {
   useEffect(() => {
     setReceipt({
       purchaseList: orderList.map((item) => ({
-        productId: item.id,
+        productId: item.product.productId,
         productName: item.product.name,
         productQuantity: item.quantity,
         productPrice: item.product.price,
       })),
-      shippingAddress: `${
-        deliveryPlace[0]?.baseAddress + deliveryPlace[0]?.detailAddress
-      }`,
-      shippingPrice: deliveryP,
+      shippingAddress: `부산시`,
+      // shippingPrice: deliveryP,
       paymentType: `${payMethod}`,
-      couponId: 0,
-      couponPrice: 0,
+      couponId: 1,
+      couponPrice: 1,
       cashReceipts: "현금영수증",
       totalPrice: totalPrice + deliveryP,
     });
   }, [deliveryPlace, payMethod]);
 
   const purchase = async () => {
-    console.log("주문서: ", receipt);
-    const res = await axios.post(
-      "http:/backend.grapefruit-honey-black-tea.shop/api/purchase",
-      {
-        receipt,
-      },
-      {
-        headers: {
-          Authorization: AT,
+    console.log("==========주문서==========");
+    console.log(receipt);
+    const res = await axios
+      .post(
+        "http://backend.grapefruit-honey-black-tea.shop/api/purchase",
+        {
+          receipt,
         },
-      }
-    );
+        {
+          headers: {
+            Authorization: AT,
+          },
+        }
+      )
+      .catch((er) => {
+        console.log("err", er);
+      });
     console.log(res);
   };
 

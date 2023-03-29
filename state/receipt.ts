@@ -9,7 +9,6 @@ export const payReceipt = atom<receipt>({
   default: {
     purchaseList: [],
     shippingAddress: "",
-    shippingPrice: 0,
     paymentType: "",
     couponId: 0,
     couponPrice: 0,
