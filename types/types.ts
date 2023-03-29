@@ -95,3 +95,21 @@ export interface deliveryType {
 }
 
 export interface deliveryListType extends Array<deliveryType> {}
+
+export interface payItem {
+  productId: number;
+  productName: string;
+  productQuantity: number;
+  productPrice: number;
+}
+
+export interface receipt {
+  purchaseList: payItem[];
+  shippingAddress: string;
+  shippingPrice: number;
+  paymentType: string;
+  couponId: number;
+  couponPrice: number;
+  cashReceipts: string;
+  totalPrice: number;
+}
