@@ -8,6 +8,7 @@ import ItemAmount from "../ui/ItemAmount";
 import ModalHeader from "../ui/ModalHeader";
 import { css } from "@emotion/react";
 import axios from "axios";
+import { useCart } from "@/hooks/useCart";
 
 interface orderChange {
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -16,6 +17,7 @@ interface orderChange {
   setQuantity: React.Dispatch<React.SetStateAction<number>>;
   totalPrice: number;
   setTotalPrice: React.Dispatch<React.SetStateAction<number>>;
+  title: string;
 }
 
 export default function OrderChangeModal({
@@ -25,9 +27,12 @@ export default function OrderChangeModal({
   setQuantity,
   totalPrice,
   setTotalPrice,
+  title,
 }: orderChange) {
   // const [totalPrice, setTotalPrice] = useState<number>(0);
   // const [itemCount, setItemCount] = useState(item.quantity);
+  const [cartList, setCartList] = useCart(title);
+
   const modalStyle: Object = {
     position: "fixed",
     backgroundColor: "var(--color-white)",
@@ -63,7 +68,7 @@ export default function OrderChangeModal({
 
   const submitQuantity = async () => {
     const accesstoken =
-      "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Nzk5MTc5MjksInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.w0w0qf6e1VstsXCFizf8GN9ZNX0pwmSrp8SVQ0GldMLBCqsnPypGw3Idp-YwjGhAxxACeKVXufax0OToSTVMkQ";
+      "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODAwOTA5NzMsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.QLzE0bGHgYpxeAxghujjYRxiycg9-mDrnD3xZnUWhLwkpj-nV17nUBI9YunC6XYEE0bTI_zRuLnAubfPj847Dw";
     await axios.put(
       `https://backend.grapefruit-honey-black-tea.shop/api/cart/${item.id}/${quantity}`,
       {},
@@ -77,6 +82,16 @@ export default function OrderChangeModal({
     setModalOpen(false);
     setQuantity(quantity);
     setTotalPrice(quantity * item.product.price);
+
+    setCartList(
+      cartList.map((data) => {
+        const itemResult = { ...data };
+        if (data.product.id === item.product.id) {
+          itemResult.quantity = quantity;
+        }
+        return itemResult;
+      })
+    );
   };
 
   return (

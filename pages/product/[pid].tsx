@@ -123,7 +123,7 @@ export default function ProductDetail() {
   const [isCart, setIsCart] = useState(false);
   const addCartHandler = () => {
     const AT =
-      "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODAwMjc2NDgsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.PZo4ZDbGExGXNS03EaGF7jhX2bM7mjxKRfLueKFSYj7-MJ0h10BCdtQdyWI5W-erlJFhgjgbbN42QAgfTtN6Hg";
+      "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODAwOTA5NzMsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.QLzE0bGHgYpxeAxghujjYRxiycg9-mDrnD3xZnUWhLwkpj-nV17nUBI9YunC6XYEE0bTI_zRuLnAubfPj847Dw";
     axios.post(
       "http://backend.grapefruit-honey-black-tea.shop/api/cart",
       {
