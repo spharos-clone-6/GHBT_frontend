@@ -1,4 +1,5 @@
 import BackIcon from "@/components/ui/BackIcon";
+import BottomFixedContainer from "@/components/ui/BottomFixedContainer";
 import Button from "@/components/ui/Button";
 import Config from "@/configs/config.export";
 import axios from "axios";
@@ -6,7 +7,7 @@ import { useRouter } from "next/router";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { useRecoilTransactionObserver_UNSTABLE } from "recoil";
 
-export default function signup_id() {
+export default function SignUp02() {
   const { baseUrl } = Config();
   const router = useRouter();
   const [email, setEmail] = useState("");
@@ -39,7 +40,7 @@ export default function signup_id() {
   const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
     if (!emailRegex.test(e.target.value))
-      setEmailErrMsg("이메일 형식이 올바르지 않습니다.");
+      setEmailErrMsg(`⚠️ 이메일 형식을 확인해주세요`);
     else setEmailErrMsg(null);
   };
 
@@ -151,68 +152,72 @@ export default function signup_id() {
         <div className="signup-header">
           <BackIcon />
         </div>
-        <section className="greeting">
-          <h2 className="signup-info">
-            아이디와 비밀번호를
-            <br />
-            입력해 주세요.
-          </h2>
-        </section>
-
-        <section id="email-input">
-          <input
-            type="text"
-            id="user_email"
-            name="email"
-            placeholder=""
-            onChange={onChangeEmail}
-          />
-          <div style={{ width: `60px` }}>
-            <Button btnType={"button"} btnEvent={sendEmailValidate}>
-              인증
-            </Button>
-          </div>
-        </section>
-        <div id="email-error">{emailErrMsg}</div>
-
-        <section id="email-input-token" style={{ display: isShow }}>
-          <input
-            type="text"
-            id="user_token_validate"
-            placeholder="인증번호"
-            onChange={onChangeToken}
-          />
-          <div style={{ width: `60px` }}>
-            <Button btnType={"button"} btnEvent={checkTokenValidation}>
-              확인
-            </Button>
-          </div>
-        </section>
-        <section id="id-password-input">
-          <input
-            type="password"
-            id="user_password"
-            name="password"
-            placeholder="비밀번호 (10-20자리 이내)"
-            onChange={onChangePassword}
-          />
-          <div>{passwordErrMsg}</div>
-          <input
-            type="password"
-            id="user_password_check"
-            name="password_check"
-            placeholder="비밀번호 확인"
-            onChange={onChangePasswordValidation}
-          />
-          <div>{passwordValidationErrMsg}</div>
-        </section>
-        <section className="submit-container">
-          <Button btnType={"submit"} btnEvent={onClickSignup}>
-            회원가입
-          </Button>
-        </section>
       </header>
-      <section id="identification-input"></section>
+
+      <section className="greeting">
+        <h2 className="signup-info">
+          아이디와 비밀번호를
+          <br />
+          입력해 주세요.
+        </h2>
+      </section>
+
+      <section id="email-input">
+        <input
+          type="text"
+          id="user_email"
+          name="email"
+          placeholder=""
+          onChange={onChangeEmail}
+        />
+        <div style={{ width: `60px` }}>
+          <Button btnType={"button"} btnEvent={sendEmailValidate}>
+            인증
+          </Button>
+        </div>
+      </section>
+      <div className="signup-error">{emailErrMsg}</div>
+
+      <section id="email-input-token" style={{ display: isShow }}>
+        <input
+          type="text"
+          id="user_token_validate"
+          placeholder="인증번호"
+          onChange={onChangeToken}
+        />
+        <div style={{ width: `60px` }}>
+          <Button btnType={"button"} btnEvent={checkTokenValidation}>
+            확인
+          </Button>
+        </div>
+      </section>
+      <section id="id-password-input">
+        <input
+          type="password"
+          id="user_password"
+          name="password"
+          placeholder="비밀번호 (10-20자리 이내)"
+          onChange={onChangePassword}
+        />
+        <div className="signup-error" style={{ paddingLeft: "0" }}>
+          {passwordErrMsg}
+        </div>
+        <input
+          type="password"
+          id="user_password_check"
+          name="password_check"
+          placeholder="비밀번호 확인"
+          onChange={onChangePasswordValidation}
+        />
+        <div className="signup-error" style={{ paddingLeft: "0" }}>
+          {passwordValidationErrMsg}
+        </div>
+      </section>
+      <BottomFixedContainer>
+        <Button btnType={"submit"} btnEvent={onClickSignup}>
+          회원가입
+        </Button>
+      </BottomFixedContainer>
     </>
   );
 }
