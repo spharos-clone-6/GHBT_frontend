@@ -54,7 +54,7 @@ export default function Payment() {
     setReceipt({
       purchaseList: orderList.map(function (item) {
         let pId = String(item.product.productId);
-        if (pId === undefined) pId = String(item.product.id);
+        if (pId === "undefined") pId = String(item.product.id);
         return {
           productId: Number(pId),
           productName: item.product.name,
