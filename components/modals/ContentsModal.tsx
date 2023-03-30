@@ -1,13 +1,15 @@
 import ModalHeader from "@/components/ui/ModalHeader";
 import RightArrowMenu from "@/components/ui/RightArrowMenu";
 import ContentCategoryContainer from "@/components/widgets/ContentCategoryContainer";
+import { accessTokenState } from "@/state/accessTokenState";
 import { contentsModalState } from "@/state/contentsModalState";
 import Link from "next/link";
 import React from "react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 
 export default function Contents() {
   const setContentsIsView = useSetRecoilState(contentsModalState);
+  const accessToken = useRecoilValue(accessTokenState);
 
   const modalStyle: Object = {
     position: "fixed",
@@ -28,12 +30,25 @@ export default function Contents() {
       <ModalHeader />
       <section className="contents-head">
         {/*본문*/}
-        <div className="contents-msg">
-          <div className="msg-title">Sign in to Online Store</div>
-          <div>
-            <Link href="/login">로그인</Link> 후 이용해 보세요.
+        {accessToken ? (
+          <div className="contents-msg">
+            <div className="msg-title">Welcome !</div>
+            <p style={{ fontSize: "1rem" }}>
+              온라인 스토어에 오신 것을 환영합니다.
+            </p>
           </div>
-        </div>
+        ) : (
+          <div className="contents-msg">
+            <div className="msg-title">Sign in to Online Store</div>
+            <div>
+              <Link href="/login" onClick={closeModal}>
+                <ins>로그인</ins>
+              </Link>{" "}
+              후 이용해 보세요.
+            </div>
+          </div>
+        )}
+
         <hr className="contents-line" />
       </section>
       {/* 제품 카테고리 */}

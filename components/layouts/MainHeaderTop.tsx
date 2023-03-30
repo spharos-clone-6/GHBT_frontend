@@ -1,31 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { Router, useRouter } from "next/router";
+import React from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
-import Badge from "../ui/Badge";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import ContentsModal from "../modals/ContentsModal";
 import Image from "next/image";
-import CloseIcon from "../ui/CloseIcon";
 import { contentsModalState } from "@/state/contentsModalState";
+import { CgProfile } from "react-icons/cg";
+import { GrCart, GrSearch } from "react-icons/gr";
+import { accessTokenState } from "@/state/accessTokenState";
 
-export interface ChildProps {
-  isView: Boolean;
-  setIsView: React.Dispatch<React.SetStateAction<Boolean>>;
-}
-
-export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
+export default function MainHeaderTop() {
   const router = useRouter();
   // console.log(router.pathname);
   const [contentsIsView, setContentsIsView] =
     useRecoilState<boolean>(contentsModalState);
-
-  const handleOpenLogin = () => {
-    setIsView(true);
-  };
-
-  const handleOpenSearch = () => {
-    setIsView(true);
-  };
+  const accessToken = useRecoilValue(accessTokenState);
 
   const handleBack = () => {
     if (router.pathname === "store") {
@@ -88,27 +77,19 @@ export default function MainHeaderTop({ isView, setIsView }: ChildProps) {
             <>
               <li>
                 <Link href="/search">
-                  <Image
-                    src="/images/icons/search.svg"
-                    alt="검색아이콘"
-                    width={20}
-                    height={20}
-                  />
+                  <GrSearch size={20} />
                 </Link>
               </li>
               <li>
                 {/* <Badge /> */}
                 <Link href="/cart">
-                  <Image
-                    src="/images/icons/shopping-cart.svg"
-                    alt="장바구니 아이콘"
-                    width={20}
-                    height={20}
-                  />
+                  <GrCart size={20} />
                 </Link>
               </li>
-              <li onClick={handleOpenLogin}>
-                <CloseIcon />
+              <li>
+                <Link href={!accessToken ? "/login" : "/mypage"}>
+                  <CgProfile size={20} />
+                </Link>
               </li>
             </>
           )}

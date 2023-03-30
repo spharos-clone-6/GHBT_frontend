@@ -35,7 +35,7 @@ export default function Event() {
     <>
       {loading ? (
         <div style={{ width: "100vw", height: "100vh", paddingTop: "55%" }}>
-          <Loading size={40} />
+          <Loading size={20} />
         </div>
       ) : (
         <div className="container">
