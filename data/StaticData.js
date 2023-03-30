@@ -159,3 +159,8 @@ export const middleCategory = [
     bigType: "전체"
   }
 ]
+
+export const firstCategory = {
+  event: "spring",
+  best: "케이크",
+}

@@ -1,6 +1,7 @@
 import ModalHeader from "@/components/ui/ModalHeader";
 import RightArrowMenu from "@/components/ui/RightArrowMenu";
 import ContentCategoryContainer from "@/components/widgets/ContentCategoryContainer";
+import { firstCategory } from "@/data/StaticData";
 import { accessTokenState } from "@/state/accessTokenState";
 import { contentsModalState } from "@/state/contentsModalState";
 import Link from "next/link";
@@ -58,7 +59,7 @@ export default function Contents() {
         <div onClick={closeModal}>
           <RightArrowMenu
             menuName={"기획전"}
-            link={"/event?category=라인프렌즈"}
+            link={`/event?category=${firstCategory.event}`}
             fontType="strong"
             description="진행중인 기획전을 만나보세요."
           />
@@ -68,7 +69,7 @@ export default function Contents() {
         <div onClick={closeModal}>
           <RightArrowMenu
             menuName={"베스트"}
-            link={"/best?category=케이크"}
+            link={`/best?category=${firstCategory.best}`}
             fontType="strong"
             description="스타벅스의 베스트 상품을 만나보세요."
           />
