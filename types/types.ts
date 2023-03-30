@@ -95,3 +95,9 @@ export interface deliveryType {
 }
 
 export interface deliveryListType extends Array<deliveryType> {}
+
+export interface privateAgreeType {
+  isAgree: boolean;
+  isUseConfirm: boolean;
+  isAdvertisingConfirm: boolean;
+}

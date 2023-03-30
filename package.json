@@ -26,6 +26,7 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
     "react-infinite-scroll-component": "^6.1.0",
+    "react-lottie": "^1.2.3",
     "react-modal": "^3.16.1",
     "react-slick": "^0.29.0",
     "react-spinners": "^0.13.8",
@@ -33,7 +34,8 @@
     "recoil-persist": "^4.2.0",
     "semantic-ui-css": "^2.5.0",
     "semantic-ui-react": "^2.1.4",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "sweetalert2": "^11.7.3"
   },
   "devDependencies": {
     "@types/node": "18.14.6",

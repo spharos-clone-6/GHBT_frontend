@@ -28,7 +28,7 @@ export default function Best() {
     <>
       {loading ? (
         <div style={{ width: "100vw", height: "100vh", paddingTop: "55%" }}>
-          <Loading size={40} />
+          <Loading size={20} />
         </div>
       ) : (
         <div className="first-section-sub-one">

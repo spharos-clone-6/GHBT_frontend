@@ -7,6 +7,8 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useRecoilState } from "recoil";
 import Image from "next/image";
+import BackIcon from "@/components/ui/BackIcon";
+import Link from "next/link";
 
 export default function Login() {
   const { baseUrl } = Config();
@@ -47,27 +49,19 @@ export default function Login() {
     setPassword(event.target.value);
   };
 
-  const modalStyle: Object = {
-    position: "fixed",
-    backgroundColor: "white",
-    top: "0",
-    left: "0",
-    zIndex: 999,
-    width: "100%",
-    height: "100%",
-  };
+  // const modalStyle: Object = {
+  //   position: "fixed",
+  //   backgroundColor: "white",
+  //   top: "0",
+  //   left: "0",
+  //   zIndex: 999,
+  //   width: "100%",
+  //   height: "100%",
+  // };
 
   return (
-    <div style={modalStyle}>
-      <div onClick={() => router.back()}>
-        <Image
-          src="/images/icons/left.png"
-          alt="뒤로가기"
-          className="back-button"
-          width={20}
-          height={20}
-        />
-      </div>
+    <div>
+      <BackIcon />
       <div>
         <section className="login-header">
           <h1>로그인</h1>
@@ -91,9 +85,9 @@ export default function Login() {
           />
         </section>
         <section id="login-service">
-          <a>아이디 찾기</a>
-          <a>비밀번호 찾기</a>
-          <a>회원가입</a>
+          <Link href="/">아이디 찾기</Link>
+          <Link href="/">비밀번호 찾기</Link>
+          <Link href="/signup">회원가입</Link>
         </section>
         <BottomFixedContainer>
           <Button btnType={"submit"} btnEvent={onClickLogin}>
