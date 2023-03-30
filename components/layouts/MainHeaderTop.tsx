@@ -1,18 +1,20 @@
 import React from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import ContentsModal from "../modals/ContentsModal";
 import Image from "next/image";
 import { contentsModalState } from "@/state/contentsModalState";
 import { CgProfile } from "react-icons/cg";
 import { GrCart, GrSearch } from "react-icons/gr";
+import { accessTokenState } from "@/state/accessTokenState";
 
 export default function MainHeaderTop() {
   const router = useRouter();
   // console.log(router.pathname);
   const [contentsIsView, setContentsIsView] =
     useRecoilState<boolean>(contentsModalState);
+  const accessToken = useRecoilValue(accessTokenState);
 
   const handleBack = () => {
     if (router.pathname === "store") {
@@ -85,7 +87,7 @@ export default function MainHeaderTop() {
                 </Link>
               </li>
               <li>
-                <Link href="/login">
+                <Link href={!accessToken ? "/login" : "/mypage"}>
                   <CgProfile size={20} />
                 </Link>
               </li>
