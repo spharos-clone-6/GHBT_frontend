@@ -17,6 +17,7 @@ export default function SignUp02() {
   const [emailToken, setEmailToken] = useState("");
   const [password, SetPassword] = useState("");
   const [passwordValidation, setPasswordValidation] = useState("");
+  const [adAgreement, setAdAgreement] = useState<string | string[]>("none");
 
   const [emailErrMsg, setEmailErrMsg] = useState<string | null>("");
   const [emailValidationErrMsg, setEmailValidationErrMsg] = useState<
@@ -37,6 +38,11 @@ export default function SignUp02() {
     /^[0-9a-zA-Z]([-_ .]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 
   const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{10,}$/;
+
+  // 광고 동의 정보
+  useEffect(() => {
+    router.query.ad && setAdAgreement(router.query.ad);
+  }, [router.query.ad]);
 
   //이메일 확인
   const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
@@ -118,11 +124,17 @@ export default function SignUp02() {
       .post(`${baseUrl}/api/email`, {
         email,
       })
+      .then(() => {
+        Toast.fire({
+          icon: "success",
+          title: "이메일이 전송되었습니다",
+        });
+      })
       .catch((error) => {
         console.log(error);
         Toast.fire({
           icon: "error",
-          title: "인증실패",
+          title: "이메일 전송 실패, 잠시 후 다시 시도해주세요",
         });
       });
   };
@@ -172,7 +184,7 @@ export default function SignUp02() {
       return;
     } else if (!passwordErrMsg && !passwordValidationErrMsg && !emailErrMsg) {
       await axios
-        .post(`${baseUrl}/api/auth/signup`, { email, password })
+        .post(`${baseUrl}/api/auth/signup`, { email, password, adAgreement })
         .then(() => {
           router.push("/login");
           Toast.fire({
