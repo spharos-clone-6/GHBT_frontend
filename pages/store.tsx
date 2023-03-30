@@ -11,6 +11,7 @@ import { productType } from "@/types/types";
 import InfiniteScroll from "react-infinite-scroll-component";
 import AllFilter from "@/components/layouts/AllFilter";
 import Loading from "@/components/ui/Loading";
+import ToTheTop from "@/components/ui/ToTheTop";
 
 export default function StoreAll() {
   const { baseUrl } = Config();
@@ -89,6 +90,7 @@ export default function StoreAll() {
 
   return (
     <>
+      <ToTheTop />
       <AllFilter
         allItem={allItem}
         setAllItem={setAllItem}

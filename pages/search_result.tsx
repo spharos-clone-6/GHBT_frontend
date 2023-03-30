@@ -8,6 +8,7 @@ import { productType } from "@/types/types";
 import ProductContainerGrid from "@/components/layouts/ProductContainerGrid";
 import Config from "@/configs/config.export";
 import Filter from "@/components/layouts/Filter";
+import ToTheTop from "@/components/ui/ToTheTop";
 
 export default function SearchResult() {
   const router = useRouter();
@@ -47,6 +48,7 @@ export default function SearchResult() {
         </div>
       ) : (
         <>
+          <ToTheTop />
           <div className={result ? "" : "hide"}>
             <Filter
               allItem={allItem}
