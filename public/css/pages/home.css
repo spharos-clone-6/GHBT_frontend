@@ -66,7 +66,7 @@ section
   border-radius: 5px;
 }
 
-.item-price span {
+.item-price > span {
   font-weight: bold;
   font-size: 1rem;
   letter-spacing: 1px;

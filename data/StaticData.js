@@ -39,7 +39,7 @@ export const store_subhead = [
     id: 3,
     name: "용량",
     value: ["Short", "Tall", "Grande", "Venti"],
-  }
+  },
 ];
 
 export const GENERAL_CART_LIST = [
@@ -101,66 +101,51 @@ export const middleCategory = [
   {
     id: 1,
     name: "카테고리",
-    value: [
-      "홀케이크",
-      "롤케이크"
-    ],
-    bigType: "케이크"
+    value: ["홀케이크", "롤케이크"],
+    bigType: "케이크",
   },
   {
     id: 2,
     name: "카테고리",
-    value: [
-      "플라스틱텀블러",
-      "스테인리스텀블러",
-      "보온병",
-      "콜드컵",
-    ],
-    bigType: "텀블러/보온병"
+    value: ["플라스틱텀블러", "스테인리스텀블러", "보온병", "콜드컵"],
+    bigType: "텀블러/보온병",
   },
   {
     id: 3,
     name: "카테고리",
-    value: [
-      "머그",
-      "글라스",
-      "리유저블",
-    ],
-    bigType: "머그/컵"
+    value: ["머그", "글라스", "리유저블"],
+    bigType: "머그/컵",
   },
   {
     id: 4,
     name: "카테고리",
     value: [],
-    bigType: "라이프스타일"
+    bigType: "라이프스타일",
   },
   {
     id: 5,
     name: "카테고리",
-    value: [
-
-    ],
-    bigType: "티/커피용품"
+    value: [],
+    bigType: "티/커피용품",
   },
   {
     id: 6,
     name: "카테고리",
-    value: [
-      "4+1"
-    ],
-    bigType: "세트"
+    value: ["4+1"],
+    bigType: "세트",
   },
   {
     id: 0,
     name: "카테고리",
-    value: [
-
-    ],
-    bigType: "전체"
-  }
-]
+    value: [],
+    bigType: "전체",
+  },
+];
 
 export const firstCategory = {
   event: "spring",
   best: "케이크",
 }
+
+export const AT =
+  "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODAxODAxMzQsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.RobwUZveLi8RAigwviONuqrq35BeE8q7fZxV7NRmraAPXxCrWhsGrYLMYNpfZHHNiXNshn9Yut1bSYMNQyFU4w";

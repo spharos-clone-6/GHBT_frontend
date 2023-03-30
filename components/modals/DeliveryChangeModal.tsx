@@ -7,6 +7,7 @@ import BottomFixedContainer from "../ui/BottomFixedContainer";
 import Button from "../ui/Button";
 import { deliveryListType } from "@/types/types";
 import DeliveryItem from "../ui/DeliveryItem";
+import Link from "next/link";
 
 interface deliveryChange {
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -41,10 +42,9 @@ export default function DeliveryChangeModal({
       <ModalHeader headerName="배송지 변경" setModalOpen={setModalOpen} />
       <section id="delivery-header">
         <p>배송지 선택</p>
-        <a href="">
-          <img src="./assets/images/icons/search.svg" alt="" />
+        <Link href="">
           <span>새 배송지 추가</span>
-        </a>
+        </Link>
       </section>
       {deliveryList.map((item, index) => (
         <DeliveryItem

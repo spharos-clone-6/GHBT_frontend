@@ -5,6 +5,7 @@ import { cartListType } from "@/types/types";
 import { frozenCartListState, generalCartListState } from "../../state/cart";
 import Link from "next/link";
 import Image from "next/image";
+import Price from "../ui/Price";
 
 interface cartType {
   title: string;
@@ -92,12 +93,14 @@ export default function CartItemList({ title }: cartType) {
           ) : (
             <div className="cart-delivery">
               <p>
-                상품 {checkedItemQuantity}건 {listPrice.toLocaleString("en")}원
-                + 배송비 {deliveryPrice.toLocaleString("en")}원 = 총{" "}
-                {(listPrice + deliveryPrice).toLocaleString("en")}원
+                상품 {checkedItemQuantity}건 <Price price={listPrice} /> +
+                배송비 <Price price={deliveryPrice} /> = 총{" "}
+                <Price price={listPrice + deliveryPrice} />
               </p>
               <p style={{ fontWeight: "bold" }}>{deliveryComment}</p>
-              <Link href="/store_all">더 담으러 가기</Link>
+              <Link href="/store_all" style={{ textDecoration: "underline" }}>
+                더 담으러 가기
+              </Link>
             </div>
           )}
         </div>

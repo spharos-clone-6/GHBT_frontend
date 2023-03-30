@@ -2,6 +2,7 @@
 import React from "react";
 import { css } from "@emotion/react";
 import { cartListType } from "@/types/types";
+import Price from "../ui/Price";
 
 interface orderItems {
   detailOn: boolean;
@@ -40,7 +41,7 @@ export default function PayProductDetail({ detailOn, itemList }: orderItems) {
                 주문수량: {item.quantity}개
               </p>
               <p style={{ fontWeight: "700" }}>
-                {(item.product.price * item.quantity).toLocaleString("en")}원
+                <Price price={item.product.price * item.quantity} />
               </p>
             </div>
           </div>

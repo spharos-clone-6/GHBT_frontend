@@ -12,13 +12,15 @@ import Button from "@/components/ui/Button";
 import CartControlBar from "@/components/widgets/CartControlBar";
 import { cartListType } from "@/types/types";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import CartEmpty from "../components/widgets/CartEmpty";
 import { css } from "@emotion/react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import Config from "@/configs/config.export";
-import { recoilPersist } from "recoil-persist";
 import { useRouter } from "next/router";
+import Price from "@/components/ui/Price";
+import Loading from "@/components/ui/Loading";
+import { AT } from "@/data/StaticData";
 
 export default function Cart() {
   const { baseUrl } = Config();
@@ -45,12 +47,10 @@ export default function Cart() {
   `;
 
   // 데이터 불러오기
-  const accesstoken =
-    "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODAwOTA5NzMsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.QLzE0bGHgYpxeAxghujjYRxiycg9-mDrnD3xZnUWhLwkpj-nV17nUBI9YunC6XYEE0bTI_zRuLnAubfPj847Dw";
   async function fetchGeneralData() {
     const generalResult = await axios.get(`${baseUrl}/api/cart/my_cart`, {
       headers: {
-        Authorization: accesstoken,
+        Authorization: AT,
       },
     });
     console.log("일반 상품 :", generalResult);
@@ -59,7 +59,7 @@ export default function Cart() {
   async function fetchFrozenData() {
     const frozenResult = await axios.get(`${baseUrl}/api/cart/my_cart/ice`, {
       headers: {
-        Authorization: accesstoken,
+        Authorization: AT,
       },
     });
     console.log("냉동 상품 :", frozenResult);
@@ -124,7 +124,11 @@ export default function Cart() {
 
   return (
     <>
-      {isLoading && <div style={{ padding: "300px 150px" }}>Loading</div>}
+      {isLoading && (
+        <div style={{ width: "100vw", height: "100vh", paddingTop: "55%" }}>
+          <Loading />
+        </div>
+      )}
       {!isLoading &&
         (totalCart === 0 ? (
           <CartEmpty />
@@ -145,7 +149,9 @@ export default function Cart() {
                 <div className="prices">
                   <div className="cart-price">
                     <p>상품 금액</p>
-                    <p className="price">{TotalPrice.toLocaleString("en")}원</p>
+                    <p className="price">
+                      <Price price={TotalPrice} />
+                    </p>
                   </div>
                   <div className="cart-price">
                     <p>할인 금액</p>
@@ -153,13 +159,15 @@ export default function Cart() {
                   </div>
                   <div className="cart-price">
                     <p>배송비</p>
-                    <p className="price">{deliveryP.toLocaleString("en")}원</p>
+                    <p className="price">
+                      <Price price={deliveryP} />
+                    </p>
                   </div>
                 </div>
                 <div className="total-price">
                   <p>최종 결제 금액</p>
                   <p className="price">
-                    {(TotalPrice + deliveryP).toLocaleString("en")}원
+                    <Price price={TotalPrice + deliveryP} />
                   </p>
                 </div>
 
@@ -184,7 +192,7 @@ export default function Cart() {
                   건 / 20건
                 </div>
                 <div style={{ fontSize: "20px" }}>
-                  {(TotalPrice + deliveryP).toLocaleString("en")}원
+                  <Price price={TotalPrice + deliveryP} />
                 </div>
               </div>
               <div css={buttonContainer}>

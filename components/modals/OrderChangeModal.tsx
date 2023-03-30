@@ -9,6 +9,8 @@ import ModalHeader from "../ui/ModalHeader";
 import { css } from "@emotion/react";
 import axios from "axios";
 import { useCart } from "@/hooks/useCart";
+import Price from "../ui/Price";
+import { AT } from "@/data/StaticData";
 
 interface orderChange {
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -67,14 +69,12 @@ export default function OrderChangeModal({
   console.log("변경된 수량: ", quantity);
 
   const submitQuantity = async () => {
-    const accesstoken =
-      "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODAwOTA5NzMsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.QLzE0bGHgYpxeAxghujjYRxiycg9-mDrnD3xZnUWhLwkpj-nV17nUBI9YunC6XYEE0bTI_zRuLnAubfPj847Dw";
     await axios.put(
       `https://backend.grapefruit-honey-black-tea.shop/api/cart/${item.id}/${quantity}`,
       {},
       {
         headers: {
-          Authorization: accesstoken,
+          Authorization: AT,
         },
       }
     );
@@ -109,7 +109,7 @@ export default function OrderChangeModal({
               <div>
                 <p className="name">{item.product.name}</p>
                 <p className="price">
-                  {item.product.price.toLocaleString("en")}원
+                  <Price price={item.product.price} />
                 </p>
               </div>
               <img
@@ -133,7 +133,7 @@ export default function OrderChangeModal({
             <div className="price">
               합계{" "}
               <span style={{ fontSize: "16px" }}>
-                {totalPrice.toLocaleString("en")}원
+                <Price price={totalPrice} />
               </span>
             </div>
           </div>
