@@ -44,6 +44,15 @@ export default function CartItem(props: { item: cartItemType; title: string }) {
       }
     );
     setIsItem(false);
+    setCartList(
+      cartList.map((data) => {
+        const itemResult = { ...data };
+        if (data.product.id === props.item.product.id) {
+          cartList.splice(cartList.indexOf(data));
+        }
+        return itemResult;
+      })
+    );
   };
 
   return (
