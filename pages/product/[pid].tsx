@@ -17,6 +17,7 @@ import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import Image from "next/image";
 import CloseIcon from "@/components/ui/CloseIcon";
+import { AT } from "@/data/StaticData";
 
 export default function ProductDetail() {
   const dummy = {
@@ -123,8 +124,6 @@ export default function ProductDetail() {
   // 장바구니에 아이템 추가
   const [isCart, setIsCart] = useState(false);
   const addCartHandler = () => {
-    const AT =
-      "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODAwOTA5NzMsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.QLzE0bGHgYpxeAxghujjYRxiycg9-mDrnD3xZnUWhLwkpj-nV17nUBI9YunC6XYEE0bTI_zRuLnAubfPj847Dw";
     axios.post(
       "http://backend.grapefruit-honey-black-tea.shop/api/cart",
       {
