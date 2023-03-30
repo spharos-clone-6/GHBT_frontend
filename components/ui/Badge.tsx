@@ -3,10 +3,10 @@ import Config from "@/configs/config.export";
 import { cartListType } from "@/types/types";
 import { css } from "@emotion/react";
 import axios from "axios";
-import { use, useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
-import CartItemList from "../layouts/CartItemList";
+import { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
 import { frozenCartListState, generalCartListState } from "../../state/cart";
+import { AT } from "@/data/StaticData";
 
 export default function Badge() {
   const [isUser, setIsUser] = useState(true);
@@ -19,13 +19,11 @@ export default function Badge() {
   const totalItem = frozenCart.length + generalCart.length;
 
   // 데이터 불러오기
-  const accesstoken =
-    "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2Nzk5MTc5MjksInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.w0w0qf6e1VstsXCFizf8GN9ZNX0pwmSrp8SVQ0GldMLBCqsnPypGw3Idp-YwjGhAxxACeKVXufax0OToSTVMkQ";
   async function fetchGeneralData() {
     try {
       const generalResult = await axios.get(`${baseUrl}/api/cart/my_cart`, {
         headers: {
-          Authorization: accesstoken,
+          Authorization: AT,
         },
       });
       setGeneralCart(generalResult.data);
@@ -40,7 +38,7 @@ export default function Badge() {
     try {
       const frozenResult = await axios.get(`${baseUrl}/api/cart/my_cart/ice`, {
         headers: {
-          Authorization: accesstoken,
+          Authorization: AT,
         },
       });
       setFrozenCart(frozenResult.data);

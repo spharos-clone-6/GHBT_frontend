@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { cartItemType, cartListType } from "@/types/types";
 import OrderChangeModal from "../modals/OrderChangeModal";
-import { useRecoilState } from "recoil";
-import { frozenCartListState, generalCartListState } from "../../state/cart";
 import axios from "axios";
 import CloseIcon from "./CloseIcon";
 import { useCart } from "@/hooks/useCart";
+import Price from "./Price";
+import { AT } from "@/data/StaticData";
 
 export default function CartItem(props: { item: cartItemType; title: string }) {
   const [quantity, setQuantity] = useState(props.item.quantity);
@@ -33,17 +33,18 @@ export default function CartItem(props: { item: cartItemType; title: string }) {
   };
 
   const deleteItem = async () => {
-    const accesstoken =
-      "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODAwOTA5NzMsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.QLzE0bGHgYpxeAxghujjYRxiycg9-mDrnD3xZnUWhLwkpj-nV17nUBI9YunC6XYEE0bTI_zRuLnAubfPj847Dw";
     await axios.delete(
       `https://backend.grapefruit-honey-black-tea.shop/api/cart/${props.item.id}`,
       {
         headers: {
-          Authorization: accesstoken,
+          Authorization: AT,
         },
       }
     );
     setIsItem(false);
+    setCartList([
+      ...cartList.filter((item) => item.product.id !== props.item.product.id),
+    ]);
   };
 
   return (
@@ -67,7 +68,7 @@ export default function CartItem(props: { item: cartItemType; title: string }) {
                 <div>
                   <p className="name">{props.item.product.name}</p>
                   <p className="price">
-                    {props.item.product.price.toLocaleString("en")}원
+                    <Price price={props.item.product.price} />
                   </p>
                 </div>
                 <CloseIcon
@@ -83,7 +84,9 @@ export default function CartItem(props: { item: cartItemType; title: string }) {
             </div>
             <div className="item-price">
               <p>주문 금액</p>
-              <p>{itemPrice.toLocaleString("en")}원</p>
+              <p>
+                <Price price={itemPrice} />
+              </p>
             </div>
             <div className="item-purchase">
               <button onClick={showModal}>주문 수정</button>

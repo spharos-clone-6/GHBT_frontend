@@ -11,22 +11,26 @@ import Config from "@/configs/config.export";
 import { deliveryListType, deliveryType } from "@/types/types";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
+import Price from "@/components/ui/Price";
+import { payReceipt } from "@/state/receipt";
+import { AT } from "@/data/StaticData";
 
 export default function Payment() {
   const { baseUrl } = Config();
   const [deliveryList, setDeliveryList] = useState<deliveryListType>([]);
   const [deliveryPlace, setDeliveryPlace] = useState<deliveryListType>([]);
+  const [payMethod, setPayMethod] = useState<string>("");
 
   const orderList = useRecoilValue(cartOrder);
   const deliveryP = useRecoilValue(deliveryPrice);
+  const [receipt, setReceipt] = useRecoilState(payReceipt);
 
   let totalPrice = 0;
   orderList.map((item) => (totalPrice += item.product.price * item.quantity));
 
+  console.log("주문내역: ", orderList);
   // 배송지 데이터 불러오기
-  const AT =
-    "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODAwOTA5NzMsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.QLzE0bGHgYpxeAxghujjYRxiycg9-mDrnD3xZnUWhLwkpj-nV17nUBI9YunC6XYEE0bTI_zRuLnAubfPj847Dw";
   async function fetchDelivery() {
     const delivery = await axios.get(`${baseUrl}/api/shipping-address`, {
       headers: {
@@ -34,6 +38,7 @@ export default function Payment() {
       },
     });
     console.log("대표 배송지 :", delivery.data.shippingAddress[0]);
+
     setDeliveryList(delivery.data.shippingAddress);
   }
 
@@ -44,6 +49,55 @@ export default function Payment() {
   useEffect(() => {
     setDeliveryPlace([deliveryList[0]]);
   }, [deliveryList]);
+
+  useEffect(() => {
+    setReceipt({
+      purchaseList: orderList.map(function (item) {
+        let pId = String(item.product.productId);
+        if (pId === undefined) pId = String(item.product.id);
+        return {
+          productId: Number(pId),
+          productName: item.product.name,
+          productQuantity: item.quantity,
+          productPrice: item.product.price,
+        };
+      }),
+      shippingAddress: `부산시`,
+      // shippingPrice: deliveryP,
+      paymentType: `${payMethod}`,
+      couponId: 1,
+      couponPrice: 1,
+      cashReceipts: "현금영수증",
+      totalPrice: totalPrice + deliveryP,
+    });
+  }, [deliveryPlace, payMethod]);
+
+  const purchase = async () => {
+    console.log("==========주문서==========");
+    console.log(receipt);
+    const res = await axios
+      .post(
+        "http://backend.grapefruit-honey-black-tea.shop/api/purchase",
+        {
+          purchaseList: receipt.purchaseList,
+          shippingAddress: receipt.shippingAddress,
+          paymentType: receipt.paymentType,
+          couponPrice: receipt.couponPrice,
+          couponId: receipt.couponId,
+          cashReceipts: receipt.cashReceipts,
+          totalPrice: receipt.totalPrice,
+        },
+        {
+          headers: {
+            Authorization: AT,
+          },
+        }
+      )
+      .catch((er) => {
+        console.log("err", er);
+      });
+    console.log(res);
+  };
 
   return (
     <>
@@ -68,7 +122,7 @@ export default function Payment() {
         fontType="bold"
         padding="15px 10px"
       />
-      <PayMethod />
+      <PayMethod method={payMethod} setMethod={setPayMethod} />
       <RightArrowMenu
         iconSrc=""
         menuName="현금영수증"
@@ -82,7 +136,7 @@ export default function Payment() {
           <div className="pay-price">
             <p className="title">최종 결제 금액</p>
             <p className="title price">
-              {(totalPrice + deliveryP).toLocaleString("en")}원
+              <Price price={totalPrice + deliveryP} />
             </p>
           </div>
         </div>
@@ -95,8 +149,8 @@ export default function Payment() {
         </div>
       </section>
       <BottomFixedContainer>
-        <Button btnType="button" btnEvent={() => alert("구매?")}>
-          {(totalPrice + deliveryP).toLocaleString("en")}원 결제하기
+        <Button btnType="button" btnEvent={purchase}>
+          <Price price={totalPrice + deliveryP} /> 결제하기
         </Button>
       </BottomFixedContainer>
     </>

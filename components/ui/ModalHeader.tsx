@@ -29,7 +29,6 @@ export default function ModalHeader(props: {
 
   const closeModal = () => {
     setContentsIsView(false);
-    setModalOpen && setModalOpen(false);
     router.back();
   };
 
@@ -46,7 +45,7 @@ export default function ModalHeader(props: {
       <h3>{headerName}</h3>
       <CloseIcon
         style={{ padding: "16px 6px" }}
-        onClickHandler={closeModal}
+        onClickHandler={() => (setModalOpen ? setModalOpen(false) : closeModal)}
         width={15}
         height={15}
       />

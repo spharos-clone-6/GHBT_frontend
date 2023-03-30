@@ -1,5 +1,6 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Image from "next/image";
+import Price from "./Price";
 
 interface props {
   price: number;
@@ -57,7 +58,9 @@ export default function ItemAmount({
               />
             </button>
           </div>
-          <p>{`${(price * count).toLocaleString("en")}원`}</p>
+          <p>
+            <Price price={price * count} />
+          </p>
         </div>
       </div>
     </section>
