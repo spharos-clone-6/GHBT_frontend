@@ -208,6 +208,7 @@ export default function AllFilter(props: {
     console.log("new item list=", itemList);
   }, [itemList]);
 
+  /** url 새로 푸시하지 않고 SearchParams로 쿼리만 세팅하도록 변경할 수 있을듯 */
   const createUrl = () => {
     let url =
       router.pathname +
