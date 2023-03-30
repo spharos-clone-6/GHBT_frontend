@@ -18,6 +18,7 @@ export default function LoginRequired() {
       autoplay: true,
       animationData: require("public/lottie/warning.json"),
     });
+    lottie.setSpeed(0.6);
   }, []);
   return (
     <div
