@@ -10,12 +10,12 @@ export default function ContentCategoryContainer() {
   const [categoryList, setCatogoryList] = useState<categoryType[]>();
 
   const getCategory = async () => {
-    const result = await axios.get(
-      `http://backend.grapefruit-honey-black-tea.shop/api/category`
-    );
-    const filtered = result.data.filter((c: categoryType) => c.type === "대");
-    console.log(filtered);
-    setCatogoryList(filtered);
+    const result = await axios
+      .get(`http://backend.grapefruit-honey-black-tea.shop/api/category`)
+      .then((res) =>
+        setCatogoryList(res.data.filter((c: categoryType) => c.type === "대"))
+      )
+      .catch((err) => console.log(err));
     setLoading(false);
   };
 

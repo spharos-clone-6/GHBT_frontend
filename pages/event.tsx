@@ -18,14 +18,20 @@ export default function Event() {
   useEffect(() => {
     const getData = async () => {
       console.log(query);
-      const result = await axios.get(
-        `http://backend.grapefruit-honey-black-tea.shop/api/product/search/c?filter=${query.category}`
-      );
-      const eventResult = await axios.get(
-        `http://backend.grapefruit-honey-black-tea.shop/api/event/name/${query.category}`
-      );
-      setItemList(result.data.content);
-      setEventInfo(eventResult.data);
+      const result = await axios
+        .get(
+          `http://backend.grapefruit-honey-black-tea.shop/api/product/search/c?filter=${query.category}`
+        )
+        .then((result) => setItemList(result.data.content))
+        .catch((err) => console.log(err));
+
+      const eventResult = await axios
+        .get(
+          `http://backend.grapefruit-honey-black-tea.shop/api/event/name/${query.category}`
+        )
+        .then((eventResult) => setEventInfo(eventResult.data))
+        .catch((err) => console.log(err));
+
       setLoading(false);
     };
     if (query.category !== undefined) getData();

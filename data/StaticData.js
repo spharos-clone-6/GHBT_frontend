@@ -142,5 +142,10 @@ export const middleCategory = [
   },
 ];
 
+export const firstCategory = {
+  event: "spring",
+  best: "케이크",
+}
+
 export const AT =
   "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODAxODAxMzQsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.RobwUZveLi8RAigwviONuqrq35BeE8q7fZxV7NRmraAPXxCrWhsGrYLMYNpfZHHNiXNshn9Yut1bSYMNQyFU4w";
