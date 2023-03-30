@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { cartItemType, cartListType } from "@/types/types";
 import OrderChangeModal from "../modals/OrderChangeModal";
-import { useRecoilState } from "recoil";
-import { frozenCartListState, generalCartListState } from "../../state/cart";
 import axios from "axios";
 import CloseIcon from "./CloseIcon";
 import { useCart } from "@/hooks/useCart";
@@ -44,15 +42,15 @@ export default function CartItem(props: { item: cartItemType; title: string }) {
       }
     );
     setIsItem(false);
-    setCartList(
-      cartList.map((data) => {
-        const itemResult = { ...data };
-        if (data.product.id === props.item.product.id) {
-          cartList.splice(cartList.indexOf(data));
-        }
-        return itemResult;
-      })
-    );
+    // setCartList(
+    //   cartList.map((data) => {
+    //     const itemResult = { ...data };
+    //     if (data.product.id === props.item.product.id) {
+
+    //     }
+    //     return itemResult
+    //   })
+    // );
   };
 
   return (
