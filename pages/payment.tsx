@@ -15,7 +15,6 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import Price from "@/components/ui/Price";
 import { payReceipt } from "@/state/receipt";
 import { AT } from "@/data/StaticData";
-import Link from "next/link";
 
 export default function Payment() {
   const { baseUrl } = Config();
