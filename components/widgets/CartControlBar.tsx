@@ -1,3 +1,4 @@
+import { useCart } from "@/hooks/useCart";
 import { cartListType } from "@/types/types";
 import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
@@ -45,6 +46,16 @@ export default function CartControlBar() {
     );
   };
 
+  const selectDeleteHandler = () => {
+    setFrozenCart([...frozenCart.filter((item) => !item.checked)]);
+    setGeneralCart([...generalCart.filter((item) => !item.checked)]);
+  };
+
+  const allDeleteHandler = () => {
+    setFrozenCart([]);
+    setGeneralCart([]);
+  };
+
   return (
     <div className="cart-select">
       <div className="select-all">
@@ -57,8 +68,12 @@ export default function CartControlBar() {
         <p className="cart-select-btn">전체선택</p>
       </div>
       <div className="select-del">
-        <a className="cart-select-btn">선택삭제</a>
-        <a className="cart-select-btn">전체삭제</a>
+        <a className="cart-select-btn" onClick={selectDeleteHandler}>
+          선택삭제
+        </a>
+        <a className="cart-select-btn" onClick={allDeleteHandler}>
+          전체삭제
+        </a>
       </div>
     </div>
   );
