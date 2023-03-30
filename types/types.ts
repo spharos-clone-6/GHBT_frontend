@@ -112,6 +112,7 @@ export interface receipt {
   couponPrice: number;
   cashReceipts: string;
   totalPrice: number;
+}
 
 export interface privateAgreeType {
   isAgree: boolean;
