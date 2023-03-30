@@ -54,7 +54,7 @@ export default function Payment() {
     setReceipt({
       purchaseList: orderList.map(function (item) {
         let pId = String(item.product.productId);
-        if (pId === undefined) pId = String(item.product.id);
+        if (pId === "undefined") pId = String(item.product.id);
         return {
           productId: Number(pId),
           productName: item.product.name,
@@ -75,29 +75,28 @@ export default function Payment() {
   const purchase = async () => {
     console.log("==========주문서==========");
     console.log(receipt);
-    const res = await axios
-      .post(
-        "http://backend.grapefruit-honey-black-tea.shop/api/purchase",
-        {
-          purchaseList: receipt.purchaseList,
-          shippingAddress: receipt.shippingAddress,
-          paymentType: receipt.paymentType,
-          couponPrice: receipt.couponPrice,
-          couponId: receipt.couponId,
-          cashReceipts: receipt.cashReceipts,
-          totalPrice: receipt.totalPrice,
+    const result = await axios.post(
+      "https://backend.grapefruit-honey-black-tea.shop/api/purchase",
+      {
+        purchaseList: receipt.purchaseList,
+        shippingAddress: receipt.shippingAddress,
+        paymentType: receipt.paymentType,
+        couponPrice: receipt.couponPrice,
+        couponId: receipt.couponId,
+        cashReceipts: receipt.cashReceipts,
+        totalPrice: receipt.totalPrice,
+      },
+      {
+        headers: {
+          Authorization: AT,
         },
-        {
-          headers: {
-            Authorization: AT,
-          },
-        }
-      )
-      .catch((er) => {
-        console.log("err", er);
-      });
-    console.log(res);
+      }
+    );
+    console.log("이동할 URL: ", result.data.next_redirect_pc_url);
+    window.location.href = result.data.next_redirect_pc_url;
   };
+
+  useEffect(() => {});
 
   return (
     <>
