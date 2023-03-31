@@ -8,6 +8,7 @@ import { contentsModalState } from "@/state/contentsModalState";
 import { CgProfile } from "react-icons/cg";
 import { GrCart, GrSearch } from "react-icons/gr";
 import { accessTokenState } from "@/state/accessTokenState";
+import Badge from "../ui/Badge";
 
 export default function MainHeaderTop() {
   const router = useRouter();
@@ -81,7 +82,7 @@ export default function MainHeaderTop() {
                 </Link>
               </li>
               <li>
-                {/* <Badge /> */}
+                <Badge />
                 <Link href="/cart">
                   <GrCart size={20} />
                 </Link>

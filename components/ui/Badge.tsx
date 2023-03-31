@@ -70,7 +70,7 @@ export default function Badge() {
     z-index: 100;
   `;
 
-  return isUser ? <p css={badge}>{totalItem}</p> : "";
+  return <>{isUser && <p css={badge}>{totalItem}</p>}</>;
 }
 
 /**

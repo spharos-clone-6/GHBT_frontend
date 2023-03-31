@@ -45,7 +45,9 @@ export default function ModalHeader(props: {
       <h3>{headerName}</h3>
       <CloseIcon
         style={{ padding: "16px 6px" }}
-        onClickHandler={() => (setModalOpen ? setModalOpen(false) : closeModal)}
+        onClickHandler={() =>
+          setModalOpen ? setModalOpen(false) : closeModal()
+        }
         width={15}
         height={15}
       />
