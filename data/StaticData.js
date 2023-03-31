@@ -145,7 +145,7 @@ export const middleCategory = [
 export const firstCategory = {
   event: "spring",
   best: "케이크",
-}
+};
 
 export const AT =
-  "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODAxODAxMzQsInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.RobwUZveLi8RAigwviONuqrq35BeE8q7fZxV7NRmraAPXxCrWhsGrYLMYNpfZHHNiXNshn9Yut1bSYMNQyFU4w";
+  "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODAyNjUyNDksInN1YiI6ImFjY2Vzcy10b2tlbiIsImh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCI6dHJ1ZSwiZW1haWwiOiIxIiwicm9sZSI6IlJPTEVfVVNFUiJ9.kIfFP-QQya85zPdh0nEW0Ck6KiA4Org064onkEc_M_nYsCNShrsnkrYZ6MNruhXXJi0B38cTipG3Jon3pkDHUg";

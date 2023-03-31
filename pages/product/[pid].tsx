@@ -125,7 +125,7 @@ export default function ProductDetail() {
   const [isCart, setIsCart] = useState(false);
   const addCartHandler = () => {
     axios.post(
-      `${baseUrl}/cart`,
+      `${baseUrl}/api/cart`,
       {
         productId: query.pid,
         quantity: itemCount,
