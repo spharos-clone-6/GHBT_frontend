@@ -20,22 +20,26 @@ export default function PayMethod({ method, setMethod }: payMethod) {
       </div>
       <div className="pay-choice">
         <div>
-          <input
-            type="radio"
-            name="pay"
-            value="starbucks-card"
-            onChange={handleChange}
-          />{" "}
-          스타벅스 카드
+          <label style={{ fontSize: "0.9rem" }}>
+            <input
+              type="radio"
+              name="pay"
+              value="starbucks-card"
+              onChange={handleChange}
+            />{" "}
+            스타벅스 카드
+          </label>
         </div>
         <div>
-          <input
-            type="radio"
-            name="pay"
-            value="kakao-pay"
-            onChange={handleChange}
-          />{" "}
-          카카오페이
+          <label style={{ fontSize: "0.9rem" }}>
+            <input
+              type="radio"
+              name="pay"
+              value="kakao-pay"
+              onChange={handleChange}
+            />{" "}
+            카카오페이
+          </label>
         </div>
       </div>
     </section>

@@ -34,7 +34,7 @@ export default function Button(props: {
   const style = css`
     border-radius: 30px;
     width: 90%;
-    height: 35px;
+    height: 3rem;
     background-color: var(--color-light-green);
     border: none;
     color: var(--color-white);
@@ -44,6 +44,7 @@ export default function Button(props: {
     margin: 15px 0;
     letter-spacing: -0.2px;
     box-shadow: ${boxShadow};
+    font-size: 0.9rem;
   `;
 
   return (

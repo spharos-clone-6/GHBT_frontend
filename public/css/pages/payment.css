@@ -59,20 +59,22 @@
 
 #pay-delivery .delivery-info .name {
   font-weight: 700;
+  font-size: 0.9rem;
 }
 
 #pay-delivery .delivery-info .is-primary {
-  width: 25px;
-  font-size: 4px;
-  font-weight: 200;
+  width: 1.5rem;
+  font-size: 0.7rem;
+  font-weight: 300;
   text-align: center;
   margin: 0px 10px;
-  background-color: rgba(167, 255, 236, 0.507);
+  background-color: rgba(167, 255, 236, 0.37);
   color: var(--color-light-green);
 }
 
 #pay-delivery .delivery-info p {
   margin: 8px 0px;
+  font-size: 0.9rem;
 }
 
 .pay-products {
@@ -259,7 +261,7 @@
 }
 
 #pay-info > div > p {
-  font-size: 16px;
+  font-size: 1.2rem;
   font-weight: 700;
   padding: 20px 0px 10px 0px;
   margin: 0;
@@ -277,15 +279,17 @@
 
 #pay-info .pay-price p {
   margin: 5px 0px;
+  font-size: 0.9rem;
 }
 
 #pay-info .pay-price .title {
-  font-size: 14px;
+  font-size: 1rem;
   font-weight: 700;
 }
 
 #pay-info .pay-price .price {
   font-weight: 700;
+  font-size: 0.9rem;
 }
 
 #pay-info .notice {
