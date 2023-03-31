@@ -9,6 +9,7 @@ import { useRecoilState } from "recoil";
 import Image from "next/image";
 import BackIcon from "@/components/ui/BackIcon";
 import Link from "next/link";
+import Swal from "sweetalert2";
 
 export default function Login() {
   const { baseUrl } = Config();
@@ -33,11 +34,18 @@ export default function Login() {
         if (res.headers?.authorization) {
           const setAccess = res.headers.authorization.replace(/Bearer /g, "");
           setAccessToken(setAccess);
+          Toast.fire({
+            icon: "success",
+            title: "성공적으로 로그인되었습니다",
+          });
           router.push("/");
         }
       })
       .catch((err) => {
-        alert("로그인 실패!!!!");
+        Toast.fire({
+          icon: "warning",
+          title: "아이디와 비밀번호를 다시 확인해주세요.",
+        });
       });
   };
 
@@ -59,6 +67,18 @@ export default function Login() {
   //   height: "100%",
   // };
 
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "center",
+    showConfirmButton: false,
+    timer: 1500,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
+
   return (
     <div>
       <BackIcon />
@@ -76,7 +96,11 @@ export default function Login() {
           <p>회원 서비스 이용을 위해 로그인 해주세요.</p>
         </section>
         <section id="login-input">
-          <input type="text" placeholder="아이디" onChange={setEmailFunction} />
+          <input
+            type="text"
+            placeholder="아이디(이메일 형식)"
+            onChange={setEmailFunction}
+          />
           <br />
           <input
             type="password"

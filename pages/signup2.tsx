@@ -110,7 +110,8 @@ export default function SignUp02() {
         return error.response.status;
       });
 
-    if (check === 409) {
+    console.log(check);
+    if (check === "409") {
       Toast.fire({
         icon: "warning",
         title: "이미 존재하는 이메일입니다",
@@ -186,11 +187,7 @@ export default function SignUp02() {
       await axios
         .post(`${baseUrl}/api/auth/signup`, { email, password, adAgreement })
         .then(() => {
-          router.push("/login");
-          Toast.fire({
-            icon: "success",
-            title: "회원가입 완료",
-          });
+          router.push(`/signup_success?id=${email.split("@")[0]}`);
         })
         .catch(() => {
           Toast.fire({

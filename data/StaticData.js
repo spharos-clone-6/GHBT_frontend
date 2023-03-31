@@ -143,7 +143,7 @@ export const middleCategory = [
 ];
 
 export const firstCategory = {
-  event: "spring",
+  event: "케이크",
   best: "케이크",
 };
 
