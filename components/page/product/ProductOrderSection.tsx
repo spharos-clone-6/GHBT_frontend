@@ -1,16 +1,22 @@
+/** @jsxImportSource @emotion/react */
+
 import React, { useState } from "react";
 import Sheet, { SheetRef } from "react-modal-sheet";
 import myStyle from "./ProductOrderSection.module.css";
 import Button from "@/components/ui/Button";
+import Image from "next/image";
 import ProductDetailSubmit from "@/components/widgets/ProductDetailSubmit";
 import ItemAmount from "@/components/ui/ItemAmount";
 import { productType } from "@/types/types";
 import Price from "@/components/ui/Price";
+import { css } from "@emotion/react";
 
 export default function ProductOrderSection(props: {
   product: productType;
   itemCount: number;
   setItemCount: React.Dispatch<React.SetStateAction<number>>;
+  purchaseHandler: () => void;
+  addCartHandler: () => void;
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [totalPrice, setTotalPrice] = useState<number>(0);
@@ -29,9 +35,27 @@ export default function ProductOrderSection(props: {
           />
         ) : null}
         {isOpen ? (
-          <Button btnType="button" btnEvent={() => setIsOpen(false)}>
-            장바구니
-          </Button>
+          <div css={buttonContainer} className={isOpen ? "" : "hide"}>
+            <div css={iconStyle}>
+              <Image
+                src="/images/icons/shopping-cart.svg"
+                width={20}
+                height={20}
+                alt="장바구니"
+                onClick={props.addCartHandler}
+              />
+            </div>
+            <Button
+              btnType="button"
+              btnEvent={() => alert("선물하기")}
+              type="white"
+            >
+              선물하기
+            </Button>
+            <Button btnType="button" btnEvent={props.purchaseHandler}>
+              구매하기
+            </Button>
+          </div>
         ) : (
           <Button btnType="button" btnEvent={() => setIsOpen(true)}>
             구매하기
@@ -54,6 +78,7 @@ export default function ProductOrderSection(props: {
                 paddingBottom: "2.3rem",
                 paddingTop: "1rem",
               }}
+              onClick={() => setIsOpen(false)}
             >
               {isOpen ? (
                 <div
@@ -71,7 +96,7 @@ export default function ProductOrderSection(props: {
               <p
                 style={{
                   textAlign: "right",
-                  padding: "0 30px",
+                  padding: "0 15px 0 30px",
                   marginBottom: "80px",
                   fontWeight: "bold",
                 }}
@@ -85,3 +110,15 @@ export default function ProductOrderSection(props: {
     </>
   );
 }
+const buttonContainer = css`
+  display: flex;
+  gap: 15px;
+  padding: 0 30px;
+  align-items: center;
+`;
+
+const iconStyle = css`
+  padding: 0;
+  margin: 0;
+  width: 30%;
+`;

@@ -143,59 +143,15 @@ export default function ProductDetail() {
       )}
 
       <InfoList />
-      <ProductOrderSection
-        product={product}
-        itemCount={itemCount}
-        setItemCount={setItemCount}
-      />
-      {/* {!isCart && (
-        <div>
-          <BottomFixedContainer animation={true} key={randomkey}>
-            <div className="toggle-icon" onClick={handleIsOpen}></div>
-            <div className={isOpen ? "" : "hide"}>
-              <ProductDetailSubmit
-                price={product.price}
-                productName={product.name}
-                handleIsOpen={handleIsOpen}
-                itemCount={itemCount}
-                setItemCount={setItemCount}
-              />
-            </div>
-          </BottomFixedContainer>
 
-          <BottomFixedContainer>
-            <div css={buttonContainer} className={isOpen ? "" : "hide"}>
-              <div css={iconStyle}>
-                <Image
-                  src="/images/icons/shopping-cart.svg"
-                  width={20}
-                  height={20}
-                  alt="장바구니"
-                  onClick={addCartHandler}
-                />
-              </div>
-              <Button
-                btnType="button"
-                btnEvent={() => alert("선물하기")}
-                type="white"
-              >
-                선물하기
-              </Button>
-              <Button btnType="button" btnEvent={onClickHandler}>
-                구매하기
-              </Button>
-            </div>
-            <div
-              className={isOpen ? "hide" : "toggle-icon"}
-              onClick={handleIsOpen}
-            ></div>
-            <div className={isOpen ? "hide" : ""}>
-              <Button btnType="button" btnEvent={handleIsOpen}>
-                구매하기
-              </Button>
-            </div>
-          </BottomFixedContainer>
-        </div>
+      {!isCart && (
+        <ProductOrderSection
+          product={product}
+          itemCount={itemCount}
+          setItemCount={setItemCount}
+          purchaseHandler={onClickHandler}
+          addCartHandler={addCartHandler}
+        />
       )}
 
       {isCart && (
