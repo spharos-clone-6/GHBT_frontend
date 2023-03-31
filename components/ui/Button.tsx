@@ -44,6 +44,7 @@ export default function Button(props: {
     margin: 15px 0;
     letter-spacing: -0.2px;
     box-shadow: ${boxShadow};
+    white-space: nowrap;
   `;
 
   return (
