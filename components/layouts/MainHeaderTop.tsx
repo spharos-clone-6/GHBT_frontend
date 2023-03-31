@@ -82,7 +82,7 @@ export default function MainHeaderTop() {
                 </Link>
               </li>
               <li>
-                <Badge />
+                {accessToken && <Badge />}
                 <Link href="/cart">
                   <GrCart size={20} />
                 </Link>
