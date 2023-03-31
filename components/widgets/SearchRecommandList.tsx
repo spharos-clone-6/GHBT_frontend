@@ -11,7 +11,7 @@ export default function SearchRecommandList() {
         <SearchRecommandItem item="케이크" />
         <SearchRecommandItem item="리유저블" />
         <SearchRecommandItem item="도트머그" />
-        <SearchRecommandItem item="케이크" />
+        <SearchRecommandItem item="스프링" />
       </div>
     </div>
   );
