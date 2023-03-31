@@ -105,7 +105,7 @@ export interface payItem {
 
 export interface receipt {
   purchaseList: payItem[];
-  shippingAddress: string;
+  shippingAddressId: number;
   shippingPrice: number;
   paymentType: string;
   cashReceipts: string;
