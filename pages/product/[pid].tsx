@@ -170,7 +170,7 @@ export default function ProductDetail() {
             <Button
               btnType="button"
               btnEvent={() => {
-                router.push("/store");
+                router.push("/store?bigCategory=전체");
               }}
             >
               상품 더보기

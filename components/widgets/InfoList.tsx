@@ -42,7 +42,7 @@ export default function InfoList() {
     <div
       css={css`
         padding-left: 20px;
-        margin-bottom: 70px;
+        margin-bottom: 100px;
       `}
     >
       <Modal
@@ -71,10 +71,7 @@ export default function InfoList() {
         style={modalStyle}
         onRequestClose={() => setIsOpen2(false)}
       >
-        <ModalHeader
-          setModalOpen={setIsOpen2}
-          headerName="상품제공정보고시"
-        />
+        <ModalHeader setModalOpen={setIsOpen2} headerName="상품제공정보고시" />
         <InfoModal />
       </Modal>
       <button onClick={() => setIsOpen2(true)} style={{ width: "100%" }}>
@@ -86,24 +83,17 @@ export default function InfoList() {
       </button>
 
       <hr css={hr} />
-      
+
       <Modal
         isOpen={isOpen3}
         style={modalStyle}
         onRequestClose={() => setIsOpen3(false)}
       >
-        <ModalHeader
-          setModalOpen={setIsOpen3}
-          headerName="교환/반품 안내"
-        />
+        <ModalHeader setModalOpen={setIsOpen3} headerName="교환/반품 안내" />
         <InfoModal />
       </Modal>
       <button onClick={() => setIsOpen3(true)} style={{ width: "100%" }}>
-        <RightArrowMenu
-          menuName="교환/반품 안내"
-          link="#"
-          fontType="strong"
-        />
+        <RightArrowMenu menuName="교환/반품 안내" link="#" fontType="strong" />
       </button>
 
       <hr css={hr} />
@@ -113,18 +103,11 @@ export default function InfoList() {
         style={modalStyle}
         onRequestClose={() => setIsOpen4(false)}
       >
-        <ModalHeader
-          setModalOpen={setIsOpen4}
-          headerName="취소/환불 안내"
-        />
+        <ModalHeader setModalOpen={setIsOpen4} headerName="취소/환불 안내" />
         <InfoModal />
       </Modal>
       <button onClick={() => setIsOpen4(true)} style={{ width: "100%" }}>
-        <RightArrowMenu
-          menuName="취소/환불 안내"
-          link="#"
-          fontType="strong"
-        />
+        <RightArrowMenu menuName="취소/환불 안내" link="#" fontType="strong" />
       </button>
     </div>
   );

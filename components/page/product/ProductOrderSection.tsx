@@ -100,7 +100,7 @@ export default function ProductOrderSection(props: {
                   fontWeight: "bold",
                 }}
               >
-                합계 <Price price={totalPrice} size="large" />
+                합계 <Price price={totalPrice} size="x-large" />
               </p>
             </div>
           </Sheet.Content>
