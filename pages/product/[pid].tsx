@@ -4,18 +4,14 @@ import ProductContainerRecommand from "@/components/layouts/ProductContainerReco
 import { cartOrder, deliveryPrice } from "@/state/cart";
 import BottomFixedContainer from "@/components/ui/BottomFixedContainer";
 import Button from "@/components/ui/Button";
-import Price from "@/components/ui/Price";
-import ProductLabel from "@/components/ui/ProductLabel";
 import Detail from "@/components/widgets/Detail";
 import InfoList from "@/components/widgets/InfoList";
-import ProductDetailSubmit from "@/components/widgets/ProductDetailSubmit";
 import { cartListType, productType } from "@/types/types";
 import { css } from "@emotion/react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
-import Image from "next/image";
 import CloseIcon from "@/components/ui/CloseIcon";
 import { AT } from "@/data/StaticData";
 import Config from "@/configs/config.export";
@@ -134,16 +130,13 @@ export default function ProductDetail() {
           itemList={seasonProduct}
         />
       )}
-
       {subProduct.length !== 0 && (
         <ProductContainerRecommand
           headerName={"비슷한 상품을 확인해보세요"}
           itemList={subProduct}
         />
       )}
-
       <InfoList />
-
       {!isCart && (
         <ProductOrderSection
           product={product}
@@ -153,7 +146,6 @@ export default function ProductDetail() {
           addCartHandler={addCartHandler}
         />
       )}
-
       {isCart && (
         <BottomFixedContainer animation={true}>
           <div css={CartContainer}>
@@ -185,7 +177,8 @@ export default function ProductDetail() {
             </Button>
           </div>
         </BottomFixedContainer>
-      )} */}
+      )}{" "}
+      */
     </>
   );
 }
@@ -195,12 +188,6 @@ const buttonContainer = css`
   gap: 15px;
   padding: 0 30px;
   align-items: center;
-`;
-
-const iconStyle = css`
-  padding: 0;
-  margin: 0;
-  width: 30%;
 `;
 
 const CartContainer = css`

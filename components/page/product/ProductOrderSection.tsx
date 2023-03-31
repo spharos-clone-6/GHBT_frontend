@@ -1,11 +1,10 @@
 /** @jsxImportSource @emotion/react */
 
 import React, { useState } from "react";
-import Sheet, { SheetRef } from "react-modal-sheet";
+import Sheet from "react-modal-sheet";
 import myStyle from "./ProductOrderSection.module.css";
 import Button from "@/components/ui/Button";
 import Image from "next/image";
-import ProductDetailSubmit from "@/components/widgets/ProductDetailSubmit";
 import ItemAmount from "@/components/ui/ItemAmount";
 import { productType } from "@/types/types";
 import Price from "@/components/ui/Price";
