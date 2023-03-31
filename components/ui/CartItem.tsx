@@ -6,6 +6,7 @@ import CloseIcon from "./CloseIcon";
 import { useCart } from "@/hooks/useCart";
 import Price from "./Price";
 import { AT } from "@/data/StaticData";
+import Config from "@/configs/config.export";
 
 export default function CartItem(props: { item: cartItemType; title: string }) {
   const [quantity, setQuantity] = useState(props.item.quantity);
@@ -15,7 +16,7 @@ export default function CartItem(props: { item: cartItemType; title: string }) {
   const [isItem, setIsItem] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
   const [cartList, setCartList] = useCart(props.title);
-
+  const { baseUrl } = Config();
   const showModal = () => {
     setModalOpen(true);
   };
@@ -33,14 +34,11 @@ export default function CartItem(props: { item: cartItemType; title: string }) {
   };
 
   const deleteItem = async () => {
-    await axios.delete(
-      `https://backend.grapefruit-honey-black-tea.shop/api/cart/${props.item.id}`,
-      {
-        headers: {
-          Authorization: AT,
-        },
-      }
-    );
+    await axios.delete(`${baseUrl}/api/cart/${props.item.id}`, {
+      headers: {
+        Authorization: AT,
+      },
+    });
     setIsItem(false);
 
     setCartList([

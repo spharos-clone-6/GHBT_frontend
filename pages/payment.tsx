@@ -76,7 +76,7 @@ export default function Payment() {
     console.log("==========주문서==========");
     console.log(receipt);
     const result = await axios.post(
-      "https://backend.grapefruit-honey-black-tea.shop/api/purchase",
+      `${baseUrl}/api/purchase`,
       {
         purchaseList: receipt.purchaseList,
         shippingAddress: receipt.shippingAddress,

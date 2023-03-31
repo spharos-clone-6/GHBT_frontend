@@ -6,6 +6,7 @@ import LinkImage from "../ui/LinkImage";
 import axios from "axios";
 import { eventType } from "@/types/types";
 import Loading from "../ui/Loading";
+import Config from "@/configs/config.export";
 
 function NextArrow(props: { style?: any }) {
   const { style } = props;
@@ -20,11 +21,10 @@ function PrevArrow(props: { style?: any }) {
 export default function EventBanner() {
   const [loading, setLoading] = useState<boolean>(true);
   const [eventList, setEventList] = useState<eventType[]>();
+  const { baseUrl } = Config();
 
   const getEvent = async () => {
-    const result = await axios.get(
-      "http://backend.grapefruit-honey-black-tea.shop/api/event"
-    );
+    const result = await axios.get(`${baseUrl}/api/event`);
     setEventList(result.data);
     setLoading(false);
   };

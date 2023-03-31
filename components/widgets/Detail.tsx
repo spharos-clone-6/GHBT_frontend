@@ -5,6 +5,7 @@ import Image from "next/image";
 import Button from "../ui/Button";
 import DetailImage from "../ui/DetailImage";
 import Loading from "../ui/Loading";
+import Config from "@/configs/config.export";
 
 interface imgData {
   id: number;
@@ -17,6 +18,7 @@ export default function Detail() {
   const [showImgList, setShowImgList] = useState<imgData[]>([]);
   const [isMore, setIsMore] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const { baseUrl } = Config();
 
   const router = useRouter();
 
@@ -50,7 +52,7 @@ export default function Detail() {
     if (router.query.pid === undefined) router.query.pid = "1";
     const getData = async () => {
       const result = await axios.get(
-        `http://backend.grapefruit-honey-black-tea.shop/api/image/${router.query.pid}`
+        `${baseUrl}/api/image/${router.query.pid}`
       );
       console.log(result.data.images);
       setImgList([...result.data.images]);

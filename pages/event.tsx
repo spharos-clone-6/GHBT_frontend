@@ -1,5 +1,6 @@
 import ProductContainerGrid from "@/components/layouts/ProductContainerGrid";
 import Loading from "@/components/ui/Loading";
+import Config from "@/configs/config.export";
 import { useDidMountEffect } from "@/hooks/useDidmount";
 import { eventType, productType } from "@/types/types";
 import axios from "axios";
@@ -13,22 +14,19 @@ export default function Event() {
   const [eventInfo, setEventInfo] = useState<eventType>();
   const { query } = useRouter();
 
+  const { baseUrl } = Config();
   console.log(query.category);
 
   useEffect(() => {
     const getData = async () => {
       console.log(query);
       const result = await axios
-        .get(
-          `http://backend.grapefruit-honey-black-tea.shop/api/product/search/c?filter=${query.category}`
-        )
+        .get(`${baseUrl}/api/product/search/c?filter=${query.category}`)
         .then((result) => setItemList(result.data.content))
         .catch((err) => console.log(err));
 
       const eventResult = await axios
-        .get(
-          `http://backend.grapefruit-honey-black-tea.shop/api/event/name/${query.category}`
-        )
+        .get(`${baseUrl}/api/event/name/${query.category}`)
         .then((eventResult) => setEventInfo(eventResult.data))
         .catch((err) => console.log(err));
 

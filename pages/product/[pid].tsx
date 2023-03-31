@@ -18,6 +18,7 @@ import { useSetRecoilState } from "recoil";
 import Image from "next/image";
 import CloseIcon from "@/components/ui/CloseIcon";
 import { AT } from "@/data/StaticData";
+import Config from "@/configs/config.export";
 
 export default function ProductDetail() {
   const dummy = {
@@ -42,19 +43,18 @@ export default function ProductDetail() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [randomkey, setRandomKey] = useState<number>(Math.random());
 
+  const { baseUrl } = Config();
   // 상세 데이터 설정
   useEffect(() => {
     const getData = async () => {
       if (query.pid === undefined) query.pid = "1";
 
       console.log(query.pid);
-      const result = await axios.get(
-        `http://backend.grapefruit-honey-black-tea.shop/api/product/${query.pid}`
-      );
+      const result = await axios.get(`${baseUrl}/api/product/${query.pid}`);
 
       if (result.data.season !== "") {
         const seasonResult = await axios.get(
-          `http://backend.grapefruit-honey-black-tea.shop/api/product/search/c?filter=${result.data.season}`
+          `${baseUrl}/api/product/search/c?filter=${result.data.season}`
         );
         let filtered = seasonResult.data.content.filter(
           (p: productType) => p.name !== result.data.name
@@ -64,7 +64,7 @@ export default function ProductDetail() {
 
       if (result.data.subType !== "") {
         const subResult = await axios.get(
-          `http://backend.grapefruit-honey-black-tea.shop/api/product/search/c?filter=${result.data.subType}`
+          `${baseUrl}/api/product/search/c?filter=${result.data.subType}`
         );
         let filtered = subResult.data.content.filter(
           (p: productType) => p.name !== result.data.name
@@ -125,7 +125,7 @@ export default function ProductDetail() {
   const [isCart, setIsCart] = useState(false);
   const addCartHandler = () => {
     axios.post(
-      "http://backend.grapefruit-honey-black-tea.shop/api/cart",
+      `${baseUrl}/api/cart`,
       {
         productId: query.pid,
         quantity: itemCount,

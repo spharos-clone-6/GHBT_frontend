@@ -1,5 +1,6 @@
 import ProductContainerGrid from "@/components/layouts/ProductContainerGrid";
 import Loading from "@/components/ui/Loading";
+import Config from "@/configs/config.export";
 import { productType } from "@/types/types";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -9,6 +10,7 @@ export default function Best() {
   const [loading, setLoading] = useState<boolean>(true);
   const [itemList, setItemList] = useState<productType[]>([]);
   const { query } = useRouter();
+  const { baseUrl } = Config();
 
   console.log(query.category);
 
@@ -16,7 +18,7 @@ export default function Best() {
     const getData = async () => {
       console.log(query);
       const result = await axios.get(
-        `http://backend.grapefruit-honey-black-tea.shop/api/product/search/c?filter=${query.category}`
+        `${baseUrl}/api/product/search/c?filter=${query.category}`
       );
       setItemList(result.data.content);
       setLoading(false);

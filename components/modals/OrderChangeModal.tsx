@@ -11,6 +11,7 @@ import axios from "axios";
 import { useCart } from "@/hooks/useCart";
 import Price from "../ui/Price";
 import { AT } from "@/data/StaticData";
+import Config from "@/configs/config.export";
 
 interface orderChange {
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -34,6 +35,7 @@ export default function OrderChangeModal({
   // const [totalPrice, setTotalPrice] = useState<number>(0);
   // const [itemCount, setItemCount] = useState(item.quantity);
   const [cartList, setCartList] = useCart(title);
+  const { baseUrl } = Config();
 
   const modalStyle: Object = {
     position: "fixed",
@@ -70,7 +72,7 @@ export default function OrderChangeModal({
 
   const submitQuantity = async () => {
     await axios.put(
-      `https://backend.grapefruit-honey-black-tea.shop/api/cart/${item.id}/${quantity}`,
+      `${baseUrl}/api/cart/${item.id}/${quantity}`,
       {},
       {
         headers: {
