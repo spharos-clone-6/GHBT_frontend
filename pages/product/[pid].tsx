@@ -19,6 +19,8 @@ import Image from "next/image";
 import CloseIcon from "@/components/ui/CloseIcon";
 import { AT } from "@/data/StaticData";
 import Config from "@/configs/config.export";
+import ProductHeader from "@/components/page/product/ProductHeader";
+import ProductOrderSection from "@/components/page/product/ProductOrderSection";
 
 export default function ProductDetail() {
   const dummy = {
@@ -103,24 +105,6 @@ export default function ProductDetail() {
     router.push("/payment");
   };
 
-  // 카카오톡 공유 init
-  useEffect(() => {
-    if (!window.Kakao.isInitialized())
-      window.Kakao.init("3516958a9b5f02f44ab75393b932aa86");
-  }, []);
-
-  // 공유하기 API 호출
-  const shareKakao = () => {
-    window.Kakao.Share.sendCustom({
-      templateId: 91771,
-      templateArgs: {
-        TITLE: product.name,
-        THU: `https://storage.googleapis.com/ghbt/product_thumbnail/${product?.thumbnailUrl}`,
-        ID: query.pid,
-      },
-    });
-  };
-
   // 장바구니에 아이템 추가
   const [isCart, setIsCart] = useState(false);
   const addCartHandler = () => {
@@ -142,40 +126,7 @@ export default function ProductDetail() {
 
   return (
     <>
-      <section id="product-top">
-        <div className="product-img">
-          {product?.thumbnailUrl && (
-            <Image
-              src={`https://storage.googleapis.com/ghbt/product_thumbnail/${product?.thumbnailUrl}`}
-              alt={product.name}
-              priority
-              width={414}
-              height={414}
-              style={{ height: "100%", width: "100%" }}
-            />
-          )}
-        </div>
-        <div className="product-info">
-          <div className="product-name-container">
-            <div className="product-name">
-              <p>{product?.name}</p>
-              <ProductLabel isBest={product?.isBest} isNew={product?.isNew} />
-            </div>
-            <div className="share-icon" onClick={shareKakao}>
-              <Image
-                src="/images/icons/share.png"
-                alt="공유 버튼"
-                width={20}
-                height={20}
-              />
-            </div>
-          </div>
-          <div className="description">{product?.description}</div>
-          <div className="price">
-            <Price price={product.price} />
-          </div>
-        </div>
-      </section>
+      <ProductHeader product={product} />
       <Detail />
       {seasonProduct.length !== 0 && (
         <ProductContainerRecommand
@@ -192,7 +143,12 @@ export default function ProductDetail() {
       )}
 
       <InfoList />
-      {!isCart && (
+      <ProductOrderSection
+        product={product}
+        itemCount={itemCount}
+        setItemCount={setItemCount}
+      />
+      {/* {!isCart && (
         <div>
           <BottomFixedContainer animation={true} key={randomkey}>
             <div className="toggle-icon" onClick={handleIsOpen}></div>
@@ -273,7 +229,7 @@ export default function ProductDetail() {
             </Button>
           </div>
         </BottomFixedContainer>
-      )}
+      )} */}
     </>
   );
 }
