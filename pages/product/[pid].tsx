@@ -4,19 +4,21 @@ import ProductContainerRecommand from "@/components/layouts/ProductContainerReco
 import { cartOrder, deliveryPrice } from "@/state/cart";
 import BottomFixedContainer from "@/components/ui/BottomFixedContainer";
 import Button from "@/components/ui/Button";
+import Price from "@/components/ui/Price";
+import ProductLabel from "@/components/ui/ProductLabel";
 import Detail from "@/components/widgets/Detail";
 import InfoList from "@/components/widgets/InfoList";
+import ProductDetailSubmit from "@/components/widgets/ProductDetailSubmit";
 import { cartListType, productType } from "@/types/types";
 import { css } from "@emotion/react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
+import Image from "next/image";
 import CloseIcon from "@/components/ui/CloseIcon";
 import { AT } from "@/data/StaticData";
 import Config from "@/configs/config.export";
-import ProductHeader from "@/components/page/product/ProductHeader";
-import ProductOrderSection from "@/components/page/product/ProductOrderSection";
 
 export default function ProductDetail() {
   const dummy = {
@@ -101,6 +103,24 @@ export default function ProductDetail() {
     router.push("/payment");
   };
 
+  // 카카오톡 공유 init
+  useEffect(() => {
+    if (!window.Kakao.isInitialized())
+      window.Kakao.init("3516958a9b5f02f44ab75393b932aa86");
+  }, []);
+
+  // 공유하기 API 호출
+  const shareKakao = () => {
+    window.Kakao.Share.sendCustom({
+      templateId: 91771,
+      templateArgs: {
+        TITLE: product.name,
+        THU: `https://storage.googleapis.com/ghbt/product_thumbnail/${product?.thumbnailUrl}`,
+        ID: query.pid,
+      },
+    });
+  };
+
   // 장바구니에 아이템 추가
   const [isCart, setIsCart] = useState(false);
   const addCartHandler = () => {
@@ -122,7 +142,40 @@ export default function ProductDetail() {
 
   return (
     <>
-      <ProductHeader product={product} />
+      <section id="product-top">
+        <div className="product-img">
+          {product?.thumbnailUrl && (
+            <Image
+              src={`https://storage.googleapis.com/ghbt/product_thumbnail/${product?.thumbnailUrl}`}
+              alt={product.name}
+              priority
+              width={414}
+              height={414}
+              style={{ height: "100%", width: "100%" }}
+            />
+          )}
+        </div>
+        <div className="product-info">
+          <div className="product-name-container">
+            <div className="product-name">
+              <p>{product?.name}</p>
+              <ProductLabel isBest={product?.isBest} isNew={product?.isNew} />
+            </div>
+            <div className="share-icon" onClick={shareKakao}>
+              <Image
+                src="/images/icons/share.png"
+                alt="공유 버튼"
+                width={20}
+                height={20}
+              />
+            </div>
+          </div>
+          <div className="description">{product?.description}</div>
+          <div className="price">
+            <Price price={product.price} />
+          </div>
+        </div>
+      </section>
       <Detail />
       {seasonProduct.length !== 0 && (
         <ProductContainerRecommand
@@ -130,22 +183,65 @@ export default function ProductDetail() {
           itemList={seasonProduct}
         />
       )}
+
       {subProduct.length !== 0 && (
         <ProductContainerRecommand
           headerName={"비슷한 상품을 확인해보세요"}
           itemList={subProduct}
         />
       )}
+
       <InfoList />
       {!isCart && (
-        <ProductOrderSection
-          product={product}
-          itemCount={itemCount}
-          setItemCount={setItemCount}
-          purchaseHandler={onClickHandler}
-          addCartHandler={addCartHandler}
-        />
+        <div>
+          <BottomFixedContainer animation={true} key={randomkey}>
+            <div className="toggle-icon" onClick={handleIsOpen}></div>
+            <div className={isOpen ? "" : "hide"}>
+              <ProductDetailSubmit
+                price={product.price}
+                productName={product.name}
+                handleIsOpen={handleIsOpen}
+                itemCount={itemCount}
+                setItemCount={setItemCount}
+              />
+            </div>
+          </BottomFixedContainer>
+
+          <BottomFixedContainer>
+            <div css={buttonContainer} className={isOpen ? "" : "hide"}>
+              <div css={iconStyle}>
+                <Image
+                  src="/images/icons/shopping-cart.svg"
+                  width={20}
+                  height={20}
+                  alt="장바구니"
+                  onClick={addCartHandler}
+                />
+              </div>
+              <Button
+                btnType="button"
+                btnEvent={() => alert("선물하기")}
+                type="white"
+              >
+                선물하기
+              </Button>
+              <Button btnType="button" btnEvent={onClickHandler}>
+                구매하기
+              </Button>
+            </div>
+            <div
+              className={isOpen ? "hide" : "toggle-icon"}
+              onClick={handleIsOpen}
+            ></div>
+            <div className={isOpen ? "hide" : ""}>
+              <Button btnType="button" btnEvent={handleIsOpen}>
+                구매하기
+              </Button>
+            </div>
+          </BottomFixedContainer>
+        </div>
       )}
+
       {isCart && (
         <BottomFixedContainer animation={true}>
           <div css={CartContainer}>
@@ -170,15 +266,14 @@ export default function ProductDetail() {
             <Button
               btnType="button"
               btnEvent={() => {
-                router.push("/store?bigCategory=전체");
+                router.push("/store");
               }}
             >
               상품 더보기
             </Button>
           </div>
         </BottomFixedContainer>
-      )}{" "}
-      */
+      )}
     </>
   );
 }
@@ -188,6 +283,12 @@ const buttonContainer = css`
   gap: 15px;
   padding: 0 30px;
   align-items: center;
+`;
+
+const iconStyle = css`
+  padding: 0;
+  margin: 0;
+  width: 30%;
 `;
 
 const CartContainer = css`
