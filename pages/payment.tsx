@@ -32,7 +32,7 @@ export default function Payment() {
   console.log("주문내역: ", orderList);
   // 배송지 데이터 불러오기
   async function fetchDelivery() {
-    const delivery = await axios.get(`${baseUrl}/api/shipping-address`, {
+    const delivery = await axios.get(`http://localhost:8080/api/shipping-address`, {
       headers: {
         Authorization: AT,
       },
@@ -62,11 +62,9 @@ export default function Payment() {
           productPrice: item.product.price,
         };
       }),
-      shippingAddress: `부산시`,
-      // shippingPrice: deliveryP,
+      shippingAddressId: deliveryPlace[0]?.id,
+      shippingPrice: deliveryP,
       paymentType: `${payMethod}`,
-      couponId: 1,
-      couponPrice: 1,
       cashReceipts: "현금영수증",
       totalPrice: totalPrice + deliveryP,
     });
@@ -76,13 +74,12 @@ export default function Payment() {
     console.log("==========주문서==========");
     console.log(receipt);
     const result = await axios.post(
-      `${baseUrl}/api/purchase`,
+      `http://localhost:8080/api/purchase`,
       {
         purchaseList: receipt.purchaseList,
-        shippingAddress: receipt.shippingAddress,
+        shippingAddressId: receipt.shippingAddressId,
+        shippingPrice: receipt.shippingPrice,
         paymentType: receipt.paymentType,
-        couponPrice: receipt.couponPrice,
-        couponId: receipt.couponId,
         cashReceipts: receipt.cashReceipts,
         totalPrice: receipt.totalPrice,
       },
