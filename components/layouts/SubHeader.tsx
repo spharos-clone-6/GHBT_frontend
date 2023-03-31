@@ -1,3 +1,4 @@
+import Config from "@/configs/config.export";
 import { categoryType } from "@/types/types";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -7,13 +8,12 @@ export default function SubHeader() {
   const router = useRouter();
   const { pathname, query } = useRouter();
   const [categoryList, setCatogoryList] = useState<categoryType[]>();
+  const { baseUrl } = Config();
 
   const getCategory = async () => {
     let list: categoryType[] = [];
     if (pathname === "/best") {
-      const result = await axios.get(
-        `http://backend.grapefruit-honey-black-tea.shop/api/category`
-      );
+      const result = await axios.get(`${baseUrl}/api/category`);
       result.data &&
         result.data.map(
           (c: categoryType) =>
@@ -21,9 +21,7 @@ export default function SubHeader() {
         );
       setCatogoryList(list);
     } else if (pathname === "/event") {
-      const result = await axios.get(
-        "http://backend.grapefruit-honey-black-tea.shop/api/event"
-      );
+      const result = await axios.get(`${baseUrl}/api/event`);
       setCatogoryList(result.data);
     } else {
       const result = "";

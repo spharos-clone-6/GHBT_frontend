@@ -1,3 +1,4 @@
+import Config from "@/configs/config.export";
 import { categoryType } from "@/types/types";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -8,10 +9,11 @@ import RightArrowMenu from "../ui/RightArrowMenu";
 export default function ContentCategoryContainer() {
   const [loading, setLoading] = useState<boolean>(true);
   const [categoryList, setCatogoryList] = useState<categoryType[]>();
+  const { baseUrl } = Config();
 
   const getCategory = async () => {
     const result = await axios
-      .get(`http://backend.grapefruit-honey-black-tea.shop/api/category`)
+      .get(`${baseUrl}/api/category`)
       .then((res) =>
         setCatogoryList(res.data.filter((c: categoryType) => c.type === "대"))
       )
