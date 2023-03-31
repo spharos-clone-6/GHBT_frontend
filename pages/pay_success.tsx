@@ -10,7 +10,7 @@ export default function PaySuccess() {
   const router = useRouter();
   const container = useRef<any>();
 
-  const onClickHandler = () => {
+  const onClickHandler = async () => {
     router.push("/order_complete");
   };
 

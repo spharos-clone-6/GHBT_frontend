@@ -62,11 +62,9 @@ export default function Payment() {
           productPrice: item.product.price,
         };
       }),
-      shippingAddress: `부산시`,
-      // shippingPrice: deliveryP,
+      shippingAddress: `${deliveryPlace}`,
+      shippingPrice: deliveryP,
       paymentType: `${payMethod}`,
-      couponId: 1,
-      couponPrice: 1,
       cashReceipts: "현금영수증",
       totalPrice: totalPrice + deliveryP,
     });
@@ -81,8 +79,6 @@ export default function Payment() {
         purchaseList: receipt.purchaseList,
         shippingAddress: receipt.shippingAddress,
         paymentType: receipt.paymentType,
-        couponPrice: receipt.couponPrice,
-        couponId: receipt.couponId,
         cashReceipts: receipt.cashReceipts,
         totalPrice: receipt.totalPrice,
       },
