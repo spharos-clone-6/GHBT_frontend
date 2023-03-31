@@ -23,6 +23,7 @@ export default function PaymentDeliveryInfo({
     margin: 5px 0px;
     padding: 10px 0px;
     border-top: 1px solid rgba(128, 128, 128, 0.381);
+    font-size: 0.9rem;
   `;
 
   const showModal = () => {
