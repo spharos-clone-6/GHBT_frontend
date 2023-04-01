@@ -77,9 +77,9 @@ const AxiosInterceptor = ({ children }: any) => {
               /Bearer /g,
               ""
             );
-            setAccessToken(accessTokenByRefresh);
+            setAccessToken(setAcessTokenByRefresh);
             console.log("엑세스토큰", accessTokenByRefresh);
-            originalRequest.headers.Authorization = `${accessTokenByRefresh}`;
+            originalRequest.headers.Authorization = `Bearer ${accessTokenByRefresh}`;
             return await axiosApiInstance.request(originalRequest);
           }
         } catch (error) {}
