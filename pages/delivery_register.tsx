@@ -29,7 +29,13 @@ export default function DeliveryRegister() {
   const [phone2ErrMsg, setPhone2ErrMsg] = useState<string | null>();
 
   const SubmitDelivery = () => {
-    if (form.receiver === "" || form.zipCode === "") {
+    if (
+      form.receiver === "" ||
+      form.zipCode === "" ||
+      form.detailAddress === "" ||
+      form.baseAddress === "" ||
+      form.phoneNumber1 === ""
+    ) {
       alert("필수 값을 입력해 주세요");
     } else {
       axios.post(
