@@ -13,73 +13,64 @@ export default function DeliveryRegister() {
   const [deliveryList, setDeliveryList] = useRecoilState(deliveryListState);
   const { baseUrl } = Config();
 
-  const [receiver, setReceiver] = useState("");
-  const [zipCode, setZipCode] = useState("");
-  const [addressNickname, setAddressNickname] = useState("");
-  const [detailAddress, setDetailAddress] = useState("");
-  const [baseAddress, setBaseAddress] = useState("");
-  const [phoneNumber1, setPhoneNumber1] = useState("");
-  const [phoneNumber2, setPhoneNumber2] = useState("");
-  const [notice, setNotice] = useState("");
-  const [isDefault, setIsDefault] = useState("false");
+  const [form, setForm] = useState({
+    receiver: "",
+    zipCode: "",
+    addressNickname: "",
+    detailAddress: "",
+    baseAddress: "",
+    phoneNumber1: "",
+    phoneNumber2: "",
+    notice: "",
+    isDefault: "false",
+  });
 
-  const [phoneErrMsg, setPhoneErrMsg] = useState<string | null>();
+  const [phone1ErrMsg, setPhone1ErrMsg] = useState<string | null>();
+  const [phone2ErrMsg, setPhone2ErrMsg] = useState<string | null>();
 
   const SubmitDelivery = () => {
-    const formData = new FormData();
-    formData.append("receiver", receiver);
-    formData.append("zipCode", zipCode);
-    formData.append("addressNickname", addressNickname);
-    formData.append("detailAddress", detailAddress);
-    formData.append("baseAddress", baseAddress);
-    formData.append("phoneNumber1", phoneNumber1);
-    formData.append("phoneNumber2", phoneNumber2);
-    formData.append("notice", notice);
-    formData.append("isDefault", isDefault);
-
-    console.log(formData);
-    axios.post(
-      `${baseUrl}/api/shipping-address`,
-      {
-        receiver: receiver,
-        zipCode: zipCode,
-        addressNickname: addressNickname,
-        detailAddress: detailAddress,
-        baseAddress: baseAddress,
-        phoneNumber1: phoneNumber1,
-        phoneNumber2: phoneNumber2,
-        notice: notice,
-        isDefault: isDefault,
-      },
-      {
-        headers: {
-          Authorization: AT,
-          "Content-Type": "application/json",
+    if (form.receiver === "" || form.zipCode === "") {
+      alert("필수 값을 입력해 주세요");
+    } else {
+      axios.post(
+        `${baseUrl}/api/shipping-address`,
+        {
+          receiver: form.receiver,
+          zipCode: form.zipCode,
+          addressNickname: form.addressNickname,
+          detailAddress: form.detailAddress,
+          baseAddress: form.baseAddress,
+          phoneNumber1: form.phoneNumber1,
+          phoneNumber2: form.phoneNumber2,
+          notice: form.notice,
+          isDefault: form.isDefault,
         },
-      }
-    );
+        {
+          headers: {
+            Authorization: AT,
+          },
+        }
+      );
+    }
   };
 
-  const handleAddressNickname = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setAddressNickname(e.target.value);
-    console.log(e.target.value);
-  };
-
-  const handleReceiver = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setReceiver(e.target.value);
-  };
-
-  const handleDetailAddress = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDetailAddress(e.target.value);
-  };
+  console.log(form);
 
   const phoneRegex = /^\d{3}-\d{3,4}-\d{4}$/;
   const handlePhoneNumber1 = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPhoneNumber1(e.target.value);
+    setForm({ ...form, phoneNumber1: e.target.value });
     if (!phoneRegex.test(e.target.value))
-      setPhoneErrMsg(`⚠️ 전화번호 형식에 맞게 입력해주세요.`);
-    else setPhoneErrMsg(null);
+      setPhone1ErrMsg(`⚠️ 전화번호 형식에 맞게 입력해주세요.`);
+    else setPhone1ErrMsg(null);
   };
+
+  const handlePhoneNumber2 = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm({ ...form, phoneNumber2: e.target.value });
+    if (!phoneRegex.test(e.target.value))
+      setPhone2ErrMsg(`⚠️ 전화번호 형식에 맞게 입력해주세요.`);
+    else setPhone2ErrMsg(null);
+  };
+
   return (
     <>
       <ModalHeader headerName="배송지 등록" />
@@ -93,43 +84,93 @@ export default function DeliveryRegister() {
               <input
                 type="text"
                 placeholder="주소 별칭"
-                onChange={handleAddressNickname}
+                value={form.addressNickname}
+                onChange={(e) =>
+                  setForm({ ...form, addressNickname: e.target.value })
+                }
               />
               <input
                 type="text"
                 placeholder="받는 분 *"
-                onChange={handleReceiver}
+                value={form.receiver}
+                onChange={(e) => setForm({ ...form, receiver: e.target.value })}
               />
               <div className="post-number">
-                <input type="text" placeholder="우편번호 *" />
+                <input
+                  type="text"
+                  placeholder="우편번호 *"
+                  value={form.zipCode}
+                  onChange={(e) =>
+                    setForm({ ...form, zipCode: e.target.value })
+                  }
+                />
                 <a href="">
                   <div className="search-address">주소검색</div>
                 </a>
               </div>
-              <input type="text" placeholder="기본주소 *" />
+              <input
+                type="text"
+                placeholder="기본주소 *"
+                value={form.baseAddress}
+                onChange={(e) =>
+                  setForm({ ...form, baseAddress: e.target.value })
+                }
+              />
               <input
                 type="text"
                 placeholder="상세주소 *"
-                onChange={handleDetailAddress}
+                value={form.detailAddress}
+                onChange={(e) =>
+                  setForm({ ...form, detailAddress: e.target.value })
+                }
               />
               <input
                 type="text"
                 placeholder="연락처1 *"
                 onChange={handlePhoneNumber1}
               />
-              {phoneErrMsg}
-              <input type="text" placeholder="연락처2" />
+              {phone1ErrMsg}
+              <input
+                type="text"
+                placeholder="연락처2"
+                onChange={handlePhoneNumber2}
+              />
+              {phone2ErrMsg}
               <div className="delivery-memo">
                 <p>배송 메모</p>
-                <select name="" id="">
+                <select
+                  name=""
+                  id=""
+                  onChange={(e) => setForm({ ...form, notice: e.target.value })}
+                >
                   <option value="">배송 메모를 선택해 주세요.</option>
-                  <option value="">배송 전 연락 바랍니다.</option>
-                  <option value="">부재 시 경비실에 맡겨주세요.</option>
-                  <option value="">부재 시 문 앞에 놓아주세요.</option>
-                  <option value="">부재 시 전화 또는 문자 남겨주세요.</option>
-                  <option value="">직접 입력</option>
+                  <option value="배송 전 연락 바랍니다.">
+                    배송 전 연락 바랍니다.
+                  </option>
+                  <option value="부재 시 경비실에 맡겨주세요.">
+                    부재 시 경비실에 맡겨주세요.
+                  </option>
+                  <option value="부재 시 문 앞에 놓아주세요.">
+                    부재 시 문 앞에 놓아주세요.
+                  </option>
+                  <option value="부재 시 전화 또는 문자 남겨주세요.">
+                    부재 시 전화 또는 문자 남겨주세요.
+                  </option>
+                  {/* <option value="">직접 입력</option> */}
                 </select>
               </div>
+              {/* <div className="save-delivery">
+                <label style={{ lineHeight: "55px" }}>
+                  <input
+                    type="checkbox"
+                    value={"true"}
+                    onChange={(e) =>
+                      setForm({ ...form, isDefault: e.target.value })
+                    }
+                  />
+                  기본 배송지로 저장합니다.
+                </label>
+              </div> */}
             </div>
           </section>
           <BottomFixedContainer>

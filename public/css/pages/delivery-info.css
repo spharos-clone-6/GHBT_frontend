@@ -90,8 +90,8 @@
   padding: 10px 0px;
   border: none;
   border-bottom: 1.5px solid rgba(128, 128, 128, 0.381);
-  background: url("/assets/images/icons/arrow-down-sign-to-navigate.png")
-    no-repeat 95% 50%;
+  /* background: url("/images/icons/arrow-down-sign-to-navigate.png")
+    no-repeat 95% 50%; */
   width: 100%;
   margin-top: 5px;
   color: black;
@@ -100,14 +100,6 @@
 #delivery-input .delivery-memo p {
   padding: 0px 5px;
   margin: 20px 0px 0px 0px;
-}
-
-#delivery-input .save-delivery {
-  display: flex;
-  margin: 0px;
-  width: 100%;
-  align-items: center;
-  justify-content: flex-start;
 }
 
 #delivery-input .save-delivery input {
