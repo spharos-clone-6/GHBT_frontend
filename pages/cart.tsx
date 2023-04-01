@@ -49,20 +49,12 @@ export default function Cart() {
 
   // 데이터 불러오기
   async function fetchGeneralData() {
-    const generalResult = await axiosApiInstance.get(`cart/my_cart`, {
-      headers: {
-        Authorization: AT,
-      },
-    });
+    const generalResult = await axiosApiInstance.get(`cart/my_cart`);
     console.log("일반 상품 :", generalResult);
     setGeneralCart(generalResult.data);
   }
   async function fetchFrozenData() {
-    const frozenResult = await axiosApiInstance.get(`cart/my_cart/ice`, {
-      headers: {
-        Authorization: AT,
-      },
-    });
+    const frozenResult = await axiosApiInstance.get(`cart/my_cart/ice`);
     console.log("냉동 상품 :", frozenResult);
     setFrozenCart(frozenResult.data);
     setIsLoading(false);
