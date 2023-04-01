@@ -3,6 +3,8 @@ import React from "react";
 import BottomFixedContainer from "@/components/ui/BottomFixedContainer";
 import Button from "@/components/ui/Button";
 import ModalHeader from "@/components/ui/ModalHeader";
+import { useRecoilState } from "recoil";
+import { deliveryListState } from "@/state/delivery";
 
 interface deliveryRegister {
   setRegisterModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -12,12 +14,13 @@ interface deliveryRegister {
   setDeliveryPlace: React.Dispatch<React.SetStateAction<deliveryListType>>;
 }
 
-export default function DeliveryRegisterModal({
-  deliveryList,
-  setDeliveryList,
+export default function DeliveryRegister({
   deliveryPlace,
   setDeliveryPlace,
 }: deliveryRegister) {
+  const [deliveryList, setDeliveryList] = useRecoilState(deliveryListState);
+  const SubmitDelivery = () => {};
+
   return (
     <>
       <ModalHeader headerName="배송지 등록" />
@@ -51,14 +54,10 @@ export default function DeliveryRegisterModal({
                   <option value="">직접 입력</option>
                 </select>
               </div>
-              <div className="save-delivery">
-                <input type="checkbox" />
-                <span>기본 배송지로 저장합니다.</span>
-              </div>
             </div>
           </section>
           <BottomFixedContainer>
-            <Button btnType="button" btnEvent={() => alert("등록")}>
+            <Button btnType="button" btnEvent={SubmitDelivery}>
               등록하기
             </Button>
           </BottomFixedContainer>

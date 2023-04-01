@@ -64,8 +64,7 @@ export default function MainHeaderTop() {
       </Link>
       <nav>
         <ul>
-          {router.pathname === "/payment" ||
-          router.pathname === "/delivery_register" ? (
+          {router.pathname === "/payment" ? (
             <li className="close-icon">
               <Image
                 src="/images/icons/close.png"

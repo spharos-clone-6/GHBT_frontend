@@ -23,10 +23,6 @@ export default function ModalHeader(props: {
     padding: 0px 10px;
   `;
 
-  const item = css`
-    flex-grow: 3;
-  `;
-
   const closeModal = () => {
     setContentsIsView(false);
     router.back();

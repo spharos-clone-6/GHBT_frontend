@@ -15,10 +15,11 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import Price from "@/components/ui/Price";
 import { payReceipt } from "@/state/receipt";
 import { AT } from "@/data/StaticData";
+import { deliveryListState } from "@/state/delivery";
 
 export default function Payment() {
   const { baseUrl } = Config();
-  const [deliveryList, setDeliveryList] = useState<deliveryListType>([]);
+  const [deliveryList, setDeliveryList] = useRecoilState(deliveryListState);
   const [deliveryPlace, setDeliveryPlace] = useState<deliveryListType>([]);
   const [payMethod, setPayMethod] = useState<string>("");
 

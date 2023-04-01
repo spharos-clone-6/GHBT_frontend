@@ -34,8 +34,11 @@ export default function DeliveryChangeModal({
     height: "100%",
   };
 
+  const [change, setChange] = useState<deliveryListType>([]);
+
   const closeModal = () => {
     setModalOpen(false);
+    setDeliveryPlace(change);
   };
 
   return (
@@ -49,11 +52,7 @@ export default function DeliveryChangeModal({
           </Link>
         </div>
         {deliveryList.map((item, index) => (
-          <DeliveryItem
-            item={item}
-            key={index}
-            setDeliveryPlace={setDeliveryPlace}
-          />
+          <DeliveryItem item={item} key={index} setDeliveryPlace={setChange} />
         ))}
         <BottomFixedContainer>
           <Button btnType="button" btnEvent={closeModal}>
