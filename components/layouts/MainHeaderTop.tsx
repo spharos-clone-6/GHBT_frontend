@@ -12,7 +12,6 @@ import Badge from "../ui/Badge";
 
 export default function MainHeaderTop() {
   const router = useRouter();
-  // console.log(router.pathname);
   const [contentsIsView, setContentsIsView] =
     useRecoilState<boolean>(contentsModalState);
   const accessToken = useRecoilValue(accessTokenState);
@@ -65,10 +64,11 @@ export default function MainHeaderTop() {
       </Link>
       <nav>
         <ul>
-          {router.pathname === "/payment" ? (
+          {router.pathname === "/payment" ||
+          router.pathname === "/delivery_register" ? (
             <li className="close-icon">
               <Image
-                src="/images/icons/menu.svg"
+                src="/images/icons/close.png"
                 alt=""
                 width={20}
                 height={20}

@@ -1,28 +1,31 @@
-import React from 'react'
+import { deliveryListType } from "@/types/types";
+import React from "react";
+import BottomFixedContainer from "@/components/ui/BottomFixedContainer";
+import Button from "@/components/ui/Button";
+import ModalHeader from "@/components/ui/ModalHeader";
 
-export default function delivery_register() {
+interface deliveryRegister {
+  setRegisterModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  deliveryList: deliveryListType;
+  setDeliveryList: React.Dispatch<React.SetStateAction<deliveryListType>>;
+  deliveryPlace: deliveryListType;
+  setDeliveryPlace: React.Dispatch<React.SetStateAction<deliveryListType>>;
+}
+
+export default function DeliveryRegisterModal({
+  deliveryList,
+  setDeliveryList,
+  deliveryPlace,
+  setDeliveryPlace,
+}: deliveryRegister) {
   return (
     <>
+      <ModalHeader headerName="배송지 등록" />
       <div className="cart-container">
         <div>
-          <header id="store-head">
-            <div className="store-header-top header-top">
-              <div className="menu-icon"></div>
-              <h1>
-                <a href="">배송지 등록</a>
-              </h1>
-              <nav>
-                <ul>
-                  <li>
-                    <img src="assets/images/icons/close.png" />
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </header>
-          <section id="info-header">
+          <div id="info-header">
             <div>배송지 정보</div>
-          </section>
+          </div>
           <section id="delivery-input">
             <div>
               <input type="text" placeholder="주소 별칭" />
@@ -54,12 +57,13 @@ export default function delivery_register() {
               </div>
             </div>
           </section>
-          <section className="submit-container">
-            <button type="submit">등록하기</button>
-          </section>
+          <BottomFixedContainer>
+            <Button btnType="button" btnEvent={() => alert("등록")}>
+              등록하기
+            </Button>
+          </BottomFixedContainer>
         </div>
       </div>
     </>
-
-  )
+  );
 }

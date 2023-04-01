@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import React from "react";
+import React, { useState } from "react";
 import { css } from "@emotion/react";
 import ModalHeader from "../ui/ModalHeader";
 import BottomFixedContainer from "../ui/BottomFixedContainer";
@@ -29,7 +29,7 @@ export default function DeliveryChangeModal({
     backgroundColor: "var(--color-white)",
     top: "0",
     left: "0",
-    zIndex: 999,
+    zIndex: 900,
     width: "100%",
     height: "100%",
   };
@@ -37,27 +37,30 @@ export default function DeliveryChangeModal({
   const closeModal = () => {
     setModalOpen(false);
   };
+
   return (
-    <div style={modalStyle}>
-      <ModalHeader headerName="배송지 변경" setModalOpen={setModalOpen} />
-      <section id="delivery-header">
-        <p>배송지 선택</p>
-        <Link href="">
-          <span>새 배송지 추가</span>
-        </Link>
-      </section>
-      {deliveryList.map((item, index) => (
-        <DeliveryItem
-          item={item}
-          key={index}
-          setDeliveryPlace={setDeliveryPlace}
-        />
-      ))}
-      <BottomFixedContainer>
-        <Button btnType="button" btnEvent={closeModal}>
-          변경하기
-        </Button>
-      </BottomFixedContainer>
-    </div>
+    <>
+      <div style={modalStyle}>
+        <ModalHeader headerName="배송지 변경" setModalOpen={setModalOpen} />
+        <div id="delivery-header">
+          <p>배송지 선택</p>
+          <Link href="/delivery_register">
+            <span>새 배송지 추가</span>
+          </Link>
+        </div>
+        {deliveryList.map((item, index) => (
+          <DeliveryItem
+            item={item}
+            key={index}
+            setDeliveryPlace={setDeliveryPlace}
+          />
+        ))}
+        <BottomFixedContainer>
+          <Button btnType="button" btnEvent={closeModal}>
+            변경하기
+          </Button>
+        </BottomFixedContainer>
+      </div>
+    </>
   );
 }
