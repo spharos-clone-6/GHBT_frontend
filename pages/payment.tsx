@@ -32,7 +32,7 @@ export default function Payment() {
   console.log("주문내역: ", orderList);
   // 배송지 데이터 불러오기
   async function fetchDelivery() {
-    const delivery = await axios.get(`http://localhost:8080/api/shipping-address`, {
+    const delivery = await axios.get(`${baseUrl}/api/shipping-address`, {
       headers: {
         Authorization: AT,
       },
@@ -74,7 +74,7 @@ export default function Payment() {
     console.log("==========주문서==========");
     console.log(receipt);
     const result = await axios.post(
-      `http://localhost:8080/api/purchase`,
+      `${baseUrl}/api/purchase`,
       {
         purchaseList: receipt.purchaseList,
         shippingAddressId: receipt.shippingAddressId,
