@@ -21,6 +21,7 @@ import { useRouter } from "next/router";
 import Price from "@/components/ui/Price";
 import Loading from "@/components/ui/Loading";
 import { AT } from "@/data/StaticData";
+import axiosApiInstance from "@/utils/axiosInstance";
 
 export default function Cart() {
   const { baseUrl } = Config();
@@ -48,7 +49,7 @@ export default function Cart() {
 
   // 데이터 불러오기
   async function fetchGeneralData() {
-    const generalResult = await axios.get(`${baseUrl}/api/cart/my_cart`, {
+    const generalResult = await axiosApiInstance.get(`cart/my_cart`, {
       headers: {
         Authorization: AT,
       },
@@ -57,7 +58,7 @@ export default function Cart() {
     setGeneralCart(generalResult.data);
   }
   async function fetchFrozenData() {
-    const frozenResult = await axios.get(`${baseUrl}/api/cart/my_cart/ice`, {
+    const frozenResult = await axiosApiInstance.get(`cart/my_cart/ice`, {
       headers: {
         Authorization: AT,
       },
