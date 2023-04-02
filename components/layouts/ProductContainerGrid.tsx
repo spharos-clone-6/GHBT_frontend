@@ -17,7 +17,7 @@ export default function ProductContainerGrid({ itemList = [] }: Item) {
       {itemList.length === 0 ? (
         <NoItem />
       ) : (
-        <div className="product-container">
+        <div className="product-container" style={{ minHeight: "95vh" }}>
           {itemList &&
             itemList.map((item: productType, idx: number) => (
               <ProductItemCol key={idx} item={item} idx={idx} />

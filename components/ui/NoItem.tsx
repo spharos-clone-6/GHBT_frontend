@@ -5,7 +5,7 @@ export default function NoItem() {
     <div
       style={{
         width: "100vw",
-        height: "100%",
+        height: "100vh",
         paddingTop: "50%",
         textAlign: "center",
       }}

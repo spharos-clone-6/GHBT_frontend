@@ -75,17 +75,16 @@ export default function AllFilter(props: {
     });
 
     setPage(0);
-    setIsData(true);
+    setIsData(false);
 
     if (query.bigCategory === "전체") {
-      const getData = async () => {
-        const result = await axios.get(`${baseUrl}/api/product?page=0`);
+      axios.get(`${baseUrl}/api/product?page=0`).then((result) => {
         if (result.data !== "") {
           setAllItem([...result.data.content]);
           setItemList([...result.data.content]);
+          setIsData(!result.data.last);
         }
-      };
-      getData();
+      });
     } else {
       axios
         .get(
@@ -97,6 +96,7 @@ export default function AllFilter(props: {
           // console.log("more data!!!", res.data);
           // setItemList([...itemList, ...res.data.content]);
           setAllItem([...res.data.content]);
+          setIsData(!res.data.last);
         })
         .catch((err) => {
           console.log(err);

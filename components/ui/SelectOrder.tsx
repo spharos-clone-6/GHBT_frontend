@@ -37,8 +37,13 @@ export default function SelectOrder(props: {
 
   return (
     <div className="products-order">
-      <select className="select-toggle" css={dropdown} onChange={handleSorting}>
-        <option value="0" disabled selected>
+      <select
+        className="select-toggle"
+        css={dropdown}
+        onChange={handleSorting}
+        defaultValue={0}
+      >
+        <option value="0" disabled>
           정렬기준
         </option>
         <option value="1">낮은가격순</option>
