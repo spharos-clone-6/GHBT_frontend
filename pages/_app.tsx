@@ -16,15 +16,15 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <RecoilRoot>
-      {/* <AxiosInterceptor> */}
-      {pathname === "/search" ? (
-        <Component {...pageProps} />
-      ) : (
-        <PrimaryLayout>
+      <AxiosInterceptor>
+        {pathname === "/search" ? (
           <Component {...pageProps} />
-        </PrimaryLayout>
-      )}
-      {/* </AxiosInterceptor> */}
+        ) : (
+          <PrimaryLayout>
+            <Component {...pageProps} />
+          </PrimaryLayout>
+        )}
+      </AxiosInterceptor>
     </RecoilRoot>
   );
 }
