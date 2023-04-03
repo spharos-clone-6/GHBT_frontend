@@ -57,7 +57,7 @@ export default function Badge() {
 
   const badge = css`
     position: absolute;
-    right: 38px;
+    right: 44px;
     top: 8px;
     border-radius: 50%;
     background-color: var(--color-light-green);
@@ -68,6 +68,7 @@ export default function Badge() {
     height: 1rem;
     margin: 0;
     z-index: 100;
+    opacity: 1 !important;
   `;
 
   return <>{isUser && <p css={badge}>{totalItem}</p>}</>;
