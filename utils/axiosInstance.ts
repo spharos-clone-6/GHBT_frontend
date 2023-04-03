@@ -46,7 +46,7 @@ const AxiosInterceptor = ({ children }: any) => {
   //access 헤더에 입력
   useEffect(() => {
     console.log("access3번");
-
+    console.log("accessToken은???", accessToken);
     if (accessToken) console.log("access토큰확인", accessToken);
     // Authorization 영역에 accessToken 설정하는 config
     const reqInterceptor = (config: any) => {
