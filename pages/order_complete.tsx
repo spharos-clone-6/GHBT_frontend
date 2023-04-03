@@ -1,14 +1,17 @@
 /** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";
-import Image from "next/image";
 import BottomFixedContainer from "@/components/ui/BottomFixedContainer";
 import Button from "@/components/ui/Button";
 import { useRecoilValue } from "recoil";
 import { orderState } from "@/state/orderState";
+import Price from "@/components/ui/Price";
+import OrderItem from "@/components/ui/OrderItem";
+import { useRouter } from "next/router";
 
 export default function OrderComplete() {
   const order = useRecoilValue(orderState);
+  const router = useRouter();
 
   return (
     <div id="order-complete">
@@ -22,35 +25,32 @@ export default function OrderComplete() {
           <div className="delivery-info-title"></div>
           <div className="delivery-info">
             <div className="delivery-name">
-              <div className="name">이름 (집)</div>
+              <div className="name">
+                {order.receiver}{" "}
+                {order.addressNickname === ""
+                  ? ""
+                  : `(${order.addressNickname})`}
+              </div>
             </div>
-            <p>(우편번호) 기본주소 상세주소</p>
-            <p>전화번호</p>
+            <p>
+              ({order.zipCode}) {order.baseAddress} {order.detailAddress}
+            </p>
+            <p>{order.phoneNumber1}</p>
           </div>
-          <div css={div}>요청사항</div>
+          <div css={div}>{order.notice}</div>
         </div>
       </div>
 
       <div css={contents}>
         <h2>
           주문 상품{" "}
-          <span style={{ color: "var(--color-light-green)" }}>(1)</span>
+          <span style={{ color: "var(--color-light-green)" }}>
+            ({order.purchaseList.length})
+          </span>
         </h2>
-        <div css={product}>
-          <Image
-            src="/images/products/cake.jpg"
-            width={110}
-            height={110}
-            alt={"초기화 버튼"}
-            css={img}
-          />
-          <div style={{ padding: "0px 20px " }}>
-            <p style={{ margin: "0px", fontSize: "0.85rem" }}>
-              스타벅스 시럽 어소스먼트 3개입
-            </p>
-            <p style={{ fontSize: "0.75rem", opacity: "0.6" }}>1개</p>
-          </div>
-        </div>
+        {order.purchaseList.map((item) => (
+          <OrderItem item={item} />
+        ))}
       </div>
 
       <div css={contents} style={{ marginBottom: "70px" }}>
@@ -59,7 +59,9 @@ export default function OrderComplete() {
             <h2>결제 금액</h2>
           </div>
           <div>
-            <h2>26,000원</h2>
+            <h2>
+              <Price price={order.totalPrice} />
+            </h2>
           </div>
         </div>
         <div css={price}>
@@ -67,7 +69,9 @@ export default function OrderComplete() {
             <p style={{ fontSize: "0.9rem" }}>카카오페이</p>
           </div>
           <div>
-            <p style={{ fontSize: "0.9rem" }}>26,000원</p>
+            <p style={{ fontSize: "0.9rem" }}>
+              <Price price={order.totalPrice} />
+            </p>
           </div>
         </div>
       </div>
@@ -76,12 +80,12 @@ export default function OrderComplete() {
         <div css={buttonContainer}>
           <Button
             btnType="button"
-            btnEvent={() => alert("상세정보 확인")}
+            btnEvent={() => router.push("/store")}
             type="white"
           >
-            상세정보 확인
+            쇼핑 계속하기
           </Button>
-          <Button btnType="button" btnEvent={() => alert("메인으로 가기")}>
+          <Button btnType="button" btnEvent={() => router.push("/")}>
             메인으로 가기
           </Button>
         </div>
@@ -107,17 +111,6 @@ const div = css`
   padding: 15px 0px 5px 0px;
   border-top: 1px solid rgba(128, 128, 128, 0.381);
   font-size: 0.9rem;
-`;
-
-const img = css`
-  border-radius: 15%;
-  border: 1px solid rgba(128, 128, 128, 0.381);
-`;
-
-const product = css`
-  display: flex;
-  justify-content: flex-start;
-  padding-bottom: 20px;
 `;
 
 const price = css`

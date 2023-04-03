@@ -15,5 +15,6 @@ export const orderState = atom<orderType>({
     receiver: "",
     shippingPrice: 0,
     totalPrice: 0,
+    zipCode: "",
   },
 });

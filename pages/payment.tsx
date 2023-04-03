@@ -1,17 +1,15 @@
-import { cartOrder, deliveryPrice } from "@/state/cart";
 import BottomFixedContainer from "@/components/ui/BottomFixedContainer";
 import Button from "@/components/ui/Button";
 import RightArrowMenu from "@/components/ui/RightArrowMenu";
-import PayCoupon from "@/components/widgets/PayCoupon";
 import PayDeliveryInfo from "@/components/widgets/PayDeliveryInfo";
 import PayInfo from "@/components/widgets/PayInfo";
 import PayMethod from "@/components/widgets/PayMethod";
 import PayProductList from "@/components/widgets/PayProductList";
 import Config from "@/configs/config.export";
-import { deliveryListType, deliveryType, receipt } from "@/types/types";
+import { deliveryListType } from "@/types/types";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import Price from "@/components/ui/Price";
 import { AT } from "@/data/StaticData";
 import { deliveryListState } from "@/state/delivery";
@@ -33,7 +31,6 @@ export default function Payment() {
   let totalPrice = 0;
   orderList.map((item) => (totalPrice += item.product.price * item.quantity));
 
-  console.log("주문내역: ", orderList);
   // 배송지 데이터 불러오기
   async function fetchDelivery() {
     const delivery = await axios.get(`${baseUrl}/api/shipping-address`, {
@@ -41,7 +38,6 @@ export default function Payment() {
         Authorization: AT,
       },
     });
-    console.log("대표 배송지 :", delivery.data.shippingAddress[0]);
 
     setDeliveryList(delivery.data.shippingAddress);
   }
@@ -75,8 +71,6 @@ export default function Payment() {
   }, [deliveryPlace, payMethod]);
 
   const purchase = async () => {
-    console.log("==========주문서==========");
-    console.log(receipt);
     if (Object.keys(receipt).length !== 0) {
       const result = await axios.post(
         `http://localhost:8080/api/purchase`,
@@ -116,7 +110,7 @@ export default function Payment() {
       )}
 
       <PayProductList itemList={orderList} />
-      <PayCoupon />
+      {/* <PayCoupon /> */}
       <RightArrowMenu
         iconSrc=""
         menuName="모바일 상품권"

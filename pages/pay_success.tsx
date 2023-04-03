@@ -60,7 +60,6 @@ export default function PaySuccess() {
     lottie.setSpeed(0.6);
   }, []);
 
-  console.log(pgToken);
   return (
     <div css={layout}>
       <div css={contents}>

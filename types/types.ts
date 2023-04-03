@@ -130,6 +130,7 @@ export interface orderType {
   receiver: string;
   shippingPrice: number;
   totalPrice: number;
+  zipCode: string;
 }
 
 export interface orderItemType {
