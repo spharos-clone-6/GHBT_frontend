@@ -73,14 +73,14 @@ export default function Cart() {
     setIsLoading(false);
   }
 
-  useDidMountEffect(() => {
-    fetchGeneralData();
-    fetchFrozenData();
-  }, [accessToken]);
-  // useEffect(() => {
+  // useDidMountEffect(() => {
   //   fetchGeneralData();
   //   fetchFrozenData();
   // }, [accessToken]);
+  useEffect(() => {
+    fetchGeneralData();
+    fetchFrozenData();
+  }, [accessToken]);
 
   const totalCart = generalCart?.length + frozenCart?.length;
 
