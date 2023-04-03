@@ -12,32 +12,7 @@ const axiosApiInstance = axios.create({
 
 const AxiosInterceptor = ({ children }: any) => {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
-
-  axiosApiInstance.interceptors.response.use(
-    (response) => response,
-    async (error) => {
-      if (error.response.status === 401) {
-        try {
-          const originalRequest = error.config;
-          console.log("origin에러", originalRequest);
-          const data = await axiosApiInstance.post("reissue");
-
-          if (data?.headers?.authorization) {
-            const accessTokenByRefresh = data?.headers?.authorization;
-            const setAcessTokenByRefresh = accessTokenByRefresh.replace(
-              /Bearer /g,
-              ""
-            );
-            setAccessToken(setAcessTokenByRefresh);
-            console.log("엑세스토큰", accessTokenByRefresh);
-            originalRequest.headers.Authorization = `Bearer ${setAcessTokenByRefresh}`;
-            return await axiosApiInstance.request(originalRequest);
-          }
-        } catch (error) {}
-      }
-    }
-  );
-
+  console.log("access1번");
   useEffect(() => {
     // 새로고침으로 accessToken이 없는 경우 reissue로 accesstoken 저장
     if (!accessToken) {
