@@ -31,7 +31,7 @@ export default function EventBanner() {
 
   useEffect(() => {
     getEvent();
-  }, []);
+  }, [getEvent]);
 
   const settings = {
     infinite: true,

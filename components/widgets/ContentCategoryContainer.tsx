@@ -11,19 +11,18 @@ export default function ContentCategoryContainer() {
   const [categoryList, setCatogoryList] = useState<categoryType[]>();
   const { baseUrl } = Config();
 
-  const getCategory = async () => {
-    const result = await axios
-      .get(`${baseUrl}/api/category`)
-      .then((res) =>
-        setCatogoryList(res.data.filter((c: categoryType) => c.type === "대"))
-      )
-      .catch((err) => console.log(err));
-    setLoading(false);
-  };
-
   useEffect(() => {
+    const getCategory = async () => {
+      const result = await axios
+        .get(`${baseUrl}/api/category`)
+        .then((res) =>
+          setCatogoryList(res.data.filter((c: categoryType) => c.type === "대"))
+        )
+        .catch((err) => console.log(err));
+      setLoading(false);
+    };
     getCategory();
-  }, []);
+  }, [baseUrl]);
 
   return (
     <section id="category-items">

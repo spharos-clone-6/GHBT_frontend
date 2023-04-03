@@ -60,7 +60,7 @@ export default function Detail() {
       setIsLoading(false);
     };
     getData();
-  }, [router.isReady, router.query]);
+  }, [router.isReady, router.query, baseUrl]);
 
   return (
     <>
