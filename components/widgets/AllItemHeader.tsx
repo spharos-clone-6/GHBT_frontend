@@ -1,7 +1,7 @@
 import { categoryType } from "@/types/types";
 import { useRouter } from "next/router";
 
-export default function SearchHeader(props: { itemList: categoryType[] }) {
+export default function AllItemHeader(props: { itemList: categoryType[] }) {
   const router = useRouter();
 
   const handlePushLink = (name: string | undefined) => {
