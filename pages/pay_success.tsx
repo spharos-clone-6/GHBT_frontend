@@ -7,23 +7,28 @@ import Button from "@/components/ui/Button";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { AT } from "@/data/StaticData";
+import Config from "@/configs/config.export";
 
 export default function PaySuccess() {
   const router = useRouter();
   const container = useRef<any>();
-  const pgToken= router.query.pg_token
+  const pgToken = router.query.pg_token;
+  const baseUrl = Config();
 
   const onClickHandler = async () => {
     // router.push("/order_complete");
     let config = {
-      headers: {'Authorization': AT},
+      headers: { Authorization: AT },
       params: {
-        pgtoken: pgToken
+        pgtoken: pgToken,
       },
-    }
-    
-    const result = await axios.get(`http://localhost:8080/api/payment/kakaopay-approve`, config)
-    console.log(result)
+    };
+
+    const result = await axios.get(
+      `${baseUrl}/api/payment/kakaopay-approve`,
+      config
+    );
+    console.log(result);
   };
 
   useEffect(() => {
@@ -37,6 +42,7 @@ export default function PaySuccess() {
     lottie.setSpeed(0.6);
   }, []);
 
+  console.log(pgToken);
   return (
     <div css={layout}>
       <div css={contents}>

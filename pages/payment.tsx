@@ -15,10 +15,11 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import Price from "@/components/ui/Price";
 import { payReceipt } from "@/state/receipt";
 import { AT } from "@/data/StaticData";
+import { deliveryListState } from "@/state/delivery";
 
 export default function Payment() {
   const { baseUrl } = Config();
-  const [deliveryList, setDeliveryList] = useState<deliveryListType>([]);
+  const [deliveryList, setDeliveryList] = useRecoilState(deliveryListState);
   const [deliveryPlace, setDeliveryPlace] = useState<deliveryListType>([]);
   const [payMethod, setPayMethod] = useState<string>("");
 
@@ -32,14 +33,11 @@ export default function Payment() {
   console.log("주문내역: ", orderList);
   // 배송지 데이터 불러오기
   async function fetchDelivery() {
-    const delivery = await axios.get(
-      `http://localhost:8080/api/shipping-address`,
-      {
-        headers: {
-          Authorization: AT,
-        },
-      }
-    );
+    const delivery = await axios.get(`${baseUrl}/api/shipping-address`, {
+      headers: {
+        Authorization: AT,
+      },
+    });
     console.log("대표 배송지 :", delivery.data.shippingAddress[0]);
 
     setDeliveryList(delivery.data.shippingAddress);
@@ -77,7 +75,7 @@ export default function Payment() {
     console.log("==========주문서==========");
     console.log(receipt);
     const result = await axios.post(
-      `http://localhost:8080/api/purchase`,
+      `${baseUrl}/api/purchase`,
       {
         purchaseList: receipt.purchaseList,
         shippingAddressId: receipt.shippingAddressId,
