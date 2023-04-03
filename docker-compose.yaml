@@ -10,3 +10,4 @@ services:
     volumes:
       - ./pages:/frontend/pages
       - ./utils:/frontend/utils
+      - ./components:/frontend/components
