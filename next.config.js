@@ -4,6 +4,11 @@ const nextConfig = {
   images: {
     domains: ["storage.googleapis.com"],
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  output: "standalone",
+
   KAKAO_API_KEY: process.env.KAKAO_API_KEY,
 };
 
