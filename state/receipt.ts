@@ -8,7 +8,7 @@ export const payReceipt = atom<receipt>({
   key: "receipt",
   default: {
     purchaseList: [],
-    shippingAddress: "",
+    shippingAddressId: 0,
     shippingPrice: 0,
     paymentType: "",
     cashReceipts: "",

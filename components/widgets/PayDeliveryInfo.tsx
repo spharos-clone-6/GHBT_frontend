@@ -26,16 +26,12 @@ export default function PaymentDeliveryInfo({
     font-size: 0.9rem;
   `;
 
-  const showModal = () => {
-    setModalOpen(true);
-  };
-
   return (
     <>
       <section id="pay-delivery">
         <div className="delivery-info-title">
           <p>배송 정보</p>
-          <div className="delivery-change" onClick={showModal}>
+          <div className="delivery-change" onClick={() => setModalOpen(true)}>
             변경
           </div>
           {modalOpen && (

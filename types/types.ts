@@ -82,11 +82,11 @@ export interface bigCategory {
 }
 
 export interface deliveryType {
-  id: number;
+  id?: number;
   addressNickname: string;
   baseAddress: string;
   detailAddress: string;
-  isDefault: boolean;
+  isDefault: boolean | string;
   notice: string;
   phoneNumber1: string;
   phoneNumber2: string;

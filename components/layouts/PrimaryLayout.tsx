@@ -18,7 +18,7 @@ export default function PrimaryLayout(props: { children: React.ReactNode }) {
       <div className="container">
         {pathname !== "/login" && (
           <header>
-            <MainHeaderTop />
+            {pathname === "/delivery_register" ? "" : <MainHeaderTop />}
             {pathname === "/search_result" && (
               <SearchResultInfo keyword={keyword} />
             )}
