@@ -49,4 +49,5 @@ const containerStyle = css`
   background-color: white;
   opacity: 0.5;
   box-shadow: 1px 2px 5px grey;
+  z-index: 999;
 `;

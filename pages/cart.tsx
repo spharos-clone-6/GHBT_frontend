@@ -15,13 +15,15 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import CartEmpty from "../components/widgets/CartEmpty";
 import { css } from "@emotion/react";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import Config from "@/configs/config.export";
 import { useRouter } from "next/router";
 import Price from "@/components/ui/Price";
 import Loading from "@/components/ui/Loading";
 import { AT } from "@/data/StaticData";
 import axiosApiInstance from "@/utils/axiosInstance";
+import { accessTokenState } from "@/state/accessTokenState";
+import { useDidMountEffect } from "@/hooks/useDidmount";
 
 export default function Cart() {
   const { baseUrl } = Config();
@@ -30,6 +32,9 @@ export default function Cart() {
   const [generalCart, setGeneralCart] =
     useRecoilState<cartListType>(generalCartListState);
   const [isLoading, setIsLoading] = useState(true);
+
+  const accessToken = useRecoilValue(accessTokenState);
+
   const buttonContainer = css`
     display: flex;
     gap: 15px;
@@ -49,31 +54,42 @@ export default function Cart() {
 
   // 데이터 불러오기
   async function fetchGeneralData() {
-    const generalResult = await axiosApiInstance.get(`cart/my_cart`);
+    const generalResult = await axiosApiInstance
+      .get(`cart/my_cart`)
+      .catch((err) => {});
 
     console.log("일반 상품 :", generalResult);
-    setGeneralCart(generalResult.data);
+    if (generalResult) setGeneralCart(generalResult?.data);
+    else setGeneralCart([]);
   }
   async function fetchFrozenData() {
-    const frozenResult = await axiosApiInstance.get(`cart/my_cart/ice`);
+    const frozenResult = await axiosApiInstance
+      .get(`cart/my_cart/ice`)
+      .catch((err) => {});
 
     console.log("냉동 상품 :", frozenResult);
-    setFrozenCart(frozenResult.data);
+    if (frozenResult) setFrozenCart(frozenResult?.data);
+    else setFrozenCart([]);
     setIsLoading(false);
   }
+
+  // useDidMountEffect(() => {
+  //   fetchGeneralData();
+  //   fetchFrozenData();
+  // }, [accessToken]);
   useEffect(() => {
     fetchGeneralData();
     fetchFrozenData();
-  }, []);
+  }, [accessToken]);
 
-  const totalCart = generalCart.length + frozenCart.length;
+  const totalCart = generalCart?.length + frozenCart?.length;
 
   // 체크박스 선택한 상품 수량
   let checkedItemQuantity = 0;
-  frozenCart.map((item) =>
+  frozenCart?.map((item) =>
     item.checked ? (checkedItemQuantity += 1) : (checkedItemQuantity += 0)
   );
-  generalCart.map((item) =>
+  generalCart?.map((item) =>
     item.checked ? (checkedItemQuantity += 1) : (checkedItemQuantity += 0)
   );
 
