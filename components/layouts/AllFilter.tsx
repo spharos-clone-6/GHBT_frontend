@@ -39,6 +39,22 @@ export default function AllFilter(props: {
   const [sItemList, setSItemList] = useState<productType[]>([]);
   const [vItemList, setVItemList] = useState<productType[]>([]);
 
+  /** url 새로 푸시하지 않고 SearchParams로 쿼리만 세팅하도록 변경할 수 있을듯 */
+  const createUrl = () => {
+    let url =
+      router.pathname +
+      "?" +
+      "bigCategory=" +
+      getQuery(router.query.bigCategory, "전체");
+    volumeKeyword.map((k) => (url = url + "&volume=" + k));
+    priceKeyword.map((k) => (url = url + "&price=" + k));
+    categoryKeyword.map((k) => (url = url + "&category=" + k));
+    seasonKeyword.map((k) => (url = url + "&season=" + k));
+
+    // console.log("url 새로 생성함...");
+    router.push(url);
+  };
+
   useDidMountEffect(() => {
     console.log("아이템이 추가되었습니다 다시 필터링 ㄲ");
     console.log("현재 전체 아이템은 이것입니다.", allItem);
@@ -67,7 +83,7 @@ export default function AllFilter(props: {
       setCatogoryList(res.data.filter((c: categoryType) => c.type === "대"));
     });
     createUrl();
-  }, []);
+  }, [baseUrl]);
 
   useEffect(() => {
     axios.get(`${baseUrl}/api/category`).then((res) => {
@@ -104,7 +120,7 @@ export default function AllFilter(props: {
     }
 
     handleReset();
-  }, [query.bigCategory]);
+  }, [query.bigCategory, baseUrl, setAllItem, setIsData, setItemList, setPage]);
 
   useDidMountEffect(() => {
     createUrl();
@@ -207,22 +223,6 @@ export default function AllFilter(props: {
   useEffect(() => {
     console.log("new item list=", itemList);
   }, [itemList]);
-
-  /** url 새로 푸시하지 않고 SearchParams로 쿼리만 세팅하도록 변경할 수 있을듯 */
-  const createUrl = () => {
-    let url =
-      router.pathname +
-      "?" +
-      "bigCategory=" +
-      getQuery(router.query.bigCategory, "전체");
-    volumeKeyword.map((k) => (url = url + "&volume=" + k));
-    priceKeyword.map((k) => (url = url + "&price=" + k));
-    categoryKeyword.map((k) => (url = url + "&category=" + k));
-    seasonKeyword.map((k) => (url = url + "&season=" + k));
-
-    // console.log("url 새로 생성함...");
-    router.push(url);
-  };
 
   const handleDelete = (key: string) => {
     volumeKeyword.includes(key) &&

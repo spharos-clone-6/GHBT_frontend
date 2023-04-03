@@ -59,7 +59,7 @@ export default function SignUp01() {
       setAdAgree("none");
       setAgreeArray({ ...agreeArray, isAdvertisingConfirm: false });
     }
-  }, [adAgreeArray]);
+  }, [adAgreeArray, agreeArray]);
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;

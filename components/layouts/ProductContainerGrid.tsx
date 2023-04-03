@@ -8,10 +8,6 @@ type Item = {
 };
 
 export default function ProductContainerGrid({ itemList = [] }: Item) {
-  useEffect(() => {
-    console.log(itemList);
-  }, []);
-
   return (
     <>
       {itemList.length === 0 ? (

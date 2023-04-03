@@ -6,16 +6,14 @@ import { frozenCartListState, generalCartListState } from "../../state/cart";
 import Link from "next/link";
 import Image from "next/image";
 import Price from "../ui/Price";
+import { useCart } from "@/hooks/useCart";
 
 interface cartType {
   title: string;
 }
 
 export default function CartItemList({ title }: cartType) {
-  const [cartItems, setCartItems] =
-    title === "일반상품"
-      ? useRecoilState<cartListType>(generalCartListState)
-      : useRecoilState<cartListType>(frozenCartListState);
+  const [cartItems, setCartItems] = useCart(title);
   const [listAllCheck, setListAllCheck] = useState(false);
   const [totalDeliveryPrice, setTotalDeliveryPrice] = useState<number>(0);
 
@@ -58,7 +56,7 @@ export default function CartItemList({ title }: cartType) {
 
   useEffect(() => {
     setTotalDeliveryPrice(totalDeliveryPrice + deliveryPrice);
-  }, [cartItems]);
+  }, [cartItems, totalDeliveryPrice, deliveryPrice]);
 
   return (
     <>

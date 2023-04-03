@@ -75,7 +75,7 @@ export default function ProductDetail() {
       console.log(result.data);
     };
     getData();
-  }, [isReady, query]);
+  }, [isReady, query, baseUrl]);
 
   // 구매하기 한번 눌렀을 때 구매하기, 선물하기, 아이템 수량 항목 나오게 핸들링
   const handleIsOpen = () => {

@@ -69,7 +69,7 @@ export default function Payment() {
       cashReceipts: "현금영수증",
       totalPrice: totalPrice + deliveryP,
     });
-  }, [deliveryPlace, payMethod]);
+  }, [deliveryPlace, payMethod, deliveryP, orderList, setReceipt, totalPrice]);
 
   const purchase = async () => {
     console.log("==========주문서==========");
