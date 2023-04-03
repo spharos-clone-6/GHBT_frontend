@@ -26,7 +26,7 @@ export default function CartControlBar() {
     } else {
       setListAllCheck(false);
     }
-  }, [totalCart]);
+  }, [totalCart, frozenCart, generalCart]);
 
   const handleAllCheck = (check: boolean) => {
     setListAllCheck(!check);

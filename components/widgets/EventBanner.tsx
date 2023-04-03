@@ -23,15 +23,12 @@ export default function EventBanner() {
   const [eventList, setEventList] = useState<eventType[]>();
   const { baseUrl } = Config();
 
-  const getEvent = async () => {
-    const result = await axios.get(`${baseUrl}/api/event`);
-    setEventList(result.data);
-    setLoading(false);
-  };
-
   useEffect(() => {
-    getEvent();
-  }, [getEvent]);
+    axios.get(`${baseUrl}/api/event`).then((result) => {
+      setEventList(result.data);
+      setLoading(false);
+    });
+  }, [baseUrl]);
 
   const settings = {
     infinite: true,

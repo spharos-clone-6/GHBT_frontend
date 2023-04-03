@@ -83,7 +83,7 @@ export default function AllFilter(props: {
       setCatogoryList(res.data.filter((c: categoryType) => c.type === "대"));
     });
     createUrl();
-  }, [baseUrl, createUrl]);
+  }, [baseUrl]);
 
   useEffect(() => {
     axios.get(`${baseUrl}/api/category`).then((res) => {
