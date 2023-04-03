@@ -96,7 +96,7 @@ export default function ProductOrderSection(props: {
                 style={{
                   textAlign: "right",
                   padding: "0 15px 0 30px",
-                  marginBottom: "80px",
+                  marginBottom: "100px",
                   fontWeight: "bold",
                 }}
               >

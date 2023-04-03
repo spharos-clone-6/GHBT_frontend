@@ -44,22 +44,22 @@ export default function ItemAmount({
               <Image
                 src="/images/icons/minus.png"
                 alt=""
-                height={15}
-                width={15}
+                height={18}
+                width={18}
               />
             </button>
-            <div>{count}</div>
+            <div style={{ fontSize: "1rem" }}>{count}</div>
             <button onClick={onClickAddHandler}>
               <Image
                 src="/images/icons/add.png"
                 alt=""
-                height={15}
-                width={15}
+                height={18}
+                width={18}
               />
             </button>
           </div>
           <p>
-            <Price price={price * count} />
+            <Price price={price * count} size="1.2rem" />
           </p>
         </div>
       </div>
