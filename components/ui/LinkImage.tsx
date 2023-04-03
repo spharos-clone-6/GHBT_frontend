@@ -2,6 +2,7 @@
 import { css } from "@emotion/react";
 import Link from "next/link";
 import React from "react";
+import Image from "next/image";
 
 export default function LinkImage(props: {
   route: string;
@@ -10,22 +11,13 @@ export default function LinkImage(props: {
 }) {
   return (
     <Link href={props.route}>
-      <img
+      <Image
         src={props.imageSrc}
-        width="100%"
-        height="330px"
         alt={props.alt}
-        style={{ objectFit: "cover", objectPosition: "0 0" }}
+        width={200}
+        height={200}
+        style={{ width: "100%", height: "100%" }}
       />
     </Link>
   );
 }
-
-// const style = css`
-//   img {
-//     width: 100%;
-//     height: 100%
-//     position: relative !important;
-//     object-fit: cover;
-//   }
-// `;

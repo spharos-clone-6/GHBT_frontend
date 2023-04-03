@@ -7,6 +7,7 @@ import { useCart } from "@/hooks/useCart";
 import Price from "./Price";
 import { AT } from "@/data/StaticData";
 import Config from "@/configs/config.export";
+import Image from "next/image";
 
 export default function CartItem(props: { item: cartItemType; title: string }) {
   const [quantity, setQuantity] = useState(props.item.quantity);
@@ -54,14 +55,22 @@ export default function CartItem(props: { item: cartItemType; title: string }) {
             className={props.item.checked ? "sbCheckBoxOn" : "sbCheckBox"}
             onClick={handleCheck}
           >
-            <img src="/images/icons/check.png" style={{ width: "100%" }} />
+            <Image
+              width={15}
+              height={15}
+              src="/images/icons/check.png"
+              alt=""
+            />
           </div>
           <div style={{ width: "95%" }}>
             <div className="item-info">
-              <img
-                src={`https://storage.apis.com/ghbt/product_thumbnail/${props.item.product.thumbnailUrl}`}
+              <Image
+                src={`https://storage.googleapis.com/ghbt/product_thumbnail/${props.item.product.thumbnailUrl}`}
                 alt=""
+                width={70}
+                height={70}
                 className="product-img"
+                style={{ width: "25%", height: "25%", paddingLeft: "10px" }}
               />
               <div className="info">
                 <div>

@@ -3,6 +3,7 @@ import { cartListType } from "@/types/types";
 import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { frozenCartListState, generalCartListState } from "../../state/cart";
+import Image from "next/image";
 
 export default function CartControlBar() {
   const [frozenCart, setFrozenCart] =
@@ -63,7 +64,7 @@ export default function CartControlBar() {
           className={listAllCheck ? "sbCheckBoxOn" : "sbCheckBox"}
           onClick={() => handleAllCheck(listAllCheck)}
         >
-          <img src="/images/icons/check.png" style={{ width: "100%" }} />
+          <Image width={15} height={15} alt="" src="/images/icons/check.png" />
         </div>
         <p className="cart-select-btn">전체선택</p>
       </div>
