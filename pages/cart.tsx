@@ -58,7 +58,8 @@ export default function Cart() {
       .catch((err) => {});
 
     console.log("일반 상품 :", generalResult);
-    setGeneralCart(generalResult?.data);
+    if (generalResult) setGeneralCart(generalResult?.data);
+    else setGeneralCart([]);
   }
   async function fetchFrozenData() {
     const frozenResult = await axiosApiInstance
@@ -66,7 +67,8 @@ export default function Cart() {
       .catch((err) => {});
 
     console.log("냉동 상품 :", frozenResult);
-    setFrozenCart(frozenResult?.data);
+    if (frozenResult) setFrozenCart(frozenResult?.data);
+    else setFrozenCart([]);
     setIsLoading(false);
   }
   useEffect(() => {
@@ -74,14 +76,14 @@ export default function Cart() {
     fetchFrozenData();
   }, [accessToken]);
 
-  const totalCart = generalCart.length + frozenCart.length;
+  const totalCart = generalCart?.length + frozenCart?.length;
 
   // 체크박스 선택한 상품 수량
   let checkedItemQuantity = 0;
-  frozenCart.map((item) =>
+  frozenCart?.map((item) =>
     item.checked ? (checkedItemQuantity += 1) : (checkedItemQuantity += 0)
   );
-  generalCart.map((item) =>
+  generalCart?.map((item) =>
     item.checked ? (checkedItemQuantity += 1) : (checkedItemQuantity += 0)
   );
 
