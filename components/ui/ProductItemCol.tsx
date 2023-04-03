@@ -21,11 +21,11 @@ export default function ProductItemCol(props: {
           </div>
         )}
         <Image
-          style={{ borderRadius: "15px" }}
+          style={{ borderRadius: "15px", width: "100%", height: "auto" }}
           src={`https://storage.googleapis.com/ghbt/product_thumbnail/${item?.thumbnailUrl}`}
           alt={item.name}
-          width={170}
-          height={170}
+          width={150}
+          height={150}
           priority={true}
         />
         <div className="product-item-info">
