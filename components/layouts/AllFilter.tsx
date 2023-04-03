@@ -51,8 +51,42 @@ export default function AllFilter(props: {
     categoryKeyword.map((k) => (url = url + "&category=" + k));
     seasonKeyword.map((k) => (url = url + "&season=" + k));
 
-    // console.log("url 새로 생성함...");
+    console.log("url 새로 생성함...");
     router.push(url);
+  };
+
+  const settingKeyword = () => {
+    // let url =
+    //   router.pathname +
+    //   "?" +
+    //   "bigCategory=" +
+    //   getQuery(router.query.bigCategory, "전체");
+    // volumeKeyword.map((k) => (url = url + "&volume=" + k));
+    // priceKeyword.map((k) => (url = url + "&price=" + k));
+    // categoryKeyword.map((k) => (url = url + "&category=" + k));
+    // seasonKeyword.map((k) => (url = url + "&season=" + k));
+    const queries = router.query;
+    queries.category &&
+      getQueries(queries.category).map((k) =>
+        setCategoryKeyword([...categoryKeyword, k])
+      );
+    queries.season &&
+      getQueries(queries.season).map((k) =>
+        setSeasonKeyword([...seasonKeyword, k])
+      );
+    queries.volume &&
+      getQueries(queries.volume).map((k) =>
+        setVolumeKeyword([...volumeKeyword, k])
+      );
+    queries.price &&
+      getQueries(queries.price).map((k) =>
+        setPriceKeyword([...priceKeyword, k])
+      );
+
+    console.log(router.query);
+
+    console.log("키워드세팅...");
+    // router.push(url);
   };
 
   useDidMountEffect(() => {
@@ -82,7 +116,10 @@ export default function AllFilter(props: {
     axios.get(`${baseUrl}/api/category`).then((res) => {
       setCatogoryList(res.data.filter((c: categoryType) => c.type === "대"));
     });
-    createUrl();
+    // createUrl();
+    // settingKeyword();
+
+    console.log("쿼리: ", router.query);
   }, [baseUrl]);
 
   useEffect(() => {
@@ -120,6 +157,8 @@ export default function AllFilter(props: {
     }
 
     handleReset();
+    createUrl();
+    settingKeyword();
   }, [query.bigCategory, baseUrl, setAllItem, setIsData, setItemList, setPage]);
 
   useDidMountEffect(() => {
@@ -335,6 +374,13 @@ function getQuery(
   } else {
     return name;
   }
+}
+
+function getQueries(name: string | string[]): string[] {
+  if (typeof name === "string") {
+    const newName = [name];
+    return newName;
+  } else return name;
 }
 
 function categoryIdx(name: string | string[] | undefined): number {
