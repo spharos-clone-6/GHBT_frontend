@@ -46,6 +46,12 @@ export default function Button(props: {
     box-shadow: ${boxShadow};
     font-size: 1.1rem;
     white-space: nowrap;
+    &:hover {
+      filter: brightness(110%);
+    }
+    &:active {
+      filter: brightness(120%);
+    }
   `;
 
   return (

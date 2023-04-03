@@ -17,52 +17,6 @@ export default function Contents() {
   const accessToken = useRecoilValue(accessTokenState);
   const [animation, setAnimation] = useState<boolean>(true);
 
-  const animate = keyframes`
-    from {
-      transform: translateX(-100vw);
-      background-color: white;
-    }
-
-    to {
-      transform: translateX(0);
-      background-color: white;
-    }
-  `;
-
-  const animate2 = keyframes`
-    from {
-      transform: translateX(0);
-      background-color: white;
-    }
-
-    to {
-      transform: translateX(-100vw);
-      background-color: white;
-    }
-  `;
-
-  const modalOnStyle = css`
-    position: fixed;
-    background-color: var(--color-white);
-    top: 0;
-    left: 0;
-    z-index: 999;
-    width: 100%;
-    height: 100%;
-    animation: ${animate} 0.5s ease-out;
-  `;
-
-  const modalOffStyle = css`
-    position: fixed;
-    background-color: var(--color-white);
-    top: 0;
-    left: 0;
-    z-index: 999;
-    width: 100%;
-    height: 100%;
-    animation: ${animate2} 0.5s ease-out;
-  `;
-
   const closeModal = () => {
     setAnimation(false);
     setTimeout(() => setContentsIsView(false), 500);
@@ -71,7 +25,12 @@ export default function Contents() {
   return (
     <div
       css={animation ? modalOnStyle : modalOffStyle}
-      style={{ backgroundColor: "white" }}
+      style={{
+        backgroundColor: "white",
+        height: "100vh",
+        width: "100vw",
+        overflow: "-moz-hidden-unscrollable",
+      }}
     >
       <ModalHeader setModalOpen={closeModal} />
       <section className="contents-head">
@@ -124,16 +83,48 @@ export default function Contents() {
   );
 }
 
-// const styleA = css`
-//   position: fixed;
-//   bottom: 0;
-//   width: 100%;
-//   z-index: 1;
-//   text-align: center;
-//   padding: 0;
-//   margin: 0;
-//   border-top: 1px solid #e2e2e2;
-//   box-shadow: 0 -3px 0.3em 3px rgba(139, 139, 139, 0.08);
-//   background-color: var(--color-white);
-//   animation: ${divAnimate} 1s;
-// `;
+const animate = keyframes`
+from {
+  transform: translateX(-100vw);
+  background-color: white;
+}
+
+to {
+  transform: translateX(0);
+  background-color: white;
+}
+`;
+
+const animate2 = keyframes`
+from {
+  transform: translateX(0);
+  background-color: white;
+}
+
+to {
+  transform: translateX(-100vw);
+  background-color: white;
+}
+`;
+
+const modalOnStyle = css`
+  position: fixed;
+  background-color: var(--color-white);
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  height: 100vh;
+  animation: ${animate} 0.5s ease-out;
+`;
+
+const modalOffStyle = css`
+  position: fixed;
+  background-color: var(--color-white);
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  height: 100vh;
+  animation: ${animate2} 0.5s ease-out;
+`;

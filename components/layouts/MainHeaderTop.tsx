@@ -33,63 +33,64 @@ export default function MainHeaderTop() {
   };
 
   return (
-    <div className="header-top">
-      <div className="menu-icon">
-        {router.pathname === "/store" ||
-        router.pathname.includes("/product") ||
-        router.pathname === "/cart" ||
-        router.pathname === "/payment" ? (
-          <BackIcon />
-        ) : (
-          <div>
-            <button onClick={showModal}>
-              <Image
-                src="/images/icons/menu.svg"
-                alt=""
-                width={20}
-                height={20}
-              />
-            </button>
-            {contentsIsView && <ContentsModal />}
-          </div>
-        )}
-      </div>
-      <div onClick={() => router.push("/")}>
-        <h1 onClick={closeModal}>온라인 스토어</h1>
-      </div>
-      <nav>
-        <ul>
-          {router.pathname === "/payment" ? (
-            <li className="close-icon">
-              <Image
-                src="/images/icons/close.png"
-                alt=""
-                width={20}
-                height={20}
-              />
-            </li>
+    <>
+      <div className="header-top">
+        <div className="menu-icon">
+          {router.pathname === "/store" ||
+          router.pathname.includes("/product") ||
+          router.pathname === "/cart" ||
+          router.pathname === "/payment" ? (
+            <BackIcon />
           ) : (
-            <>
-              <li>
-                <Link href="/search">
-                  <GrSearch size={20} />
-                </Link>
-              </li>
-              <li>
-                {accessToken && <Badge />}
-                <Link href="/cart">
-                  <GrCart size={20} />
-                </Link>
-              </li>
-              <li>
-                <Link href={!accessToken ? "/login" : "/mypage"}>
-                  <CgProfile size={20} />
-                </Link>
-              </li>
-            </>
+            <div>
+              <button onClick={showModal}>
+                <Image
+                  src="/images/icons/menu.svg"
+                  alt=""
+                  width={20}
+                  height={20}
+                />
+              </button>
+            </div>
           )}
-        </ul>
-      </nav>
-    </div>
+        </div>
+        <div onClick={() => router.push("/")}>
+          <h1 onClick={closeModal}>온라인 스토어</h1>
+        </div>
+        <nav>
+          <ul>
+            {router.pathname === "/payment" ? (
+              <li className="close-icon">
+                <Image
+                  src="/images/icons/close.png"
+                  alt=""
+                  width={20}
+                  height={20}
+                />
+              </li>
+            ) : (
+              <>
+                <li>
+                  <Link href="/search">
+                    <GrSearch size={20} />
+                  </Link>
+                </li>
+                <li>
+                  {accessToken && <Badge />}
+                  <Link href="/cart">
+                    <GrCart size={20} />
+                  </Link>
+                </li>
+                <li>
+                  <Link href={!accessToken ? "/login" : "/mypage"}>
+                    <CgProfile size={20} />
+                  </Link>
+                </li>
+              </>
+            )}
+          </ul>
+        </nav>
+      </div>
+    </>
   );
 }
