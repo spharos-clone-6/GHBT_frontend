@@ -59,7 +59,7 @@ export default function CartItem(props: { item: cartItemType; title: string }) {
           <div style={{ width: "95%" }}>
             <div className="item-info">
               <img
-                src={`https://storage.apis.com/ghbt/product_thumbnail/${props.item.product.thumbnailUrl}`}
+                src={`https://storage.googleapis.com/ghbt/product_thumbnail/${props.item.product.thumbnailUrl}`}
                 alt=""
                 className="product-img"
               />
