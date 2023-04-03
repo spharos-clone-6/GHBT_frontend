@@ -105,7 +105,7 @@ export interface payItem {
 
 export interface receipt {
   purchaseList: payItem[];
-  shippingAddressId: number;
+  shippingAddressId: number | undefined;
   shippingPrice: number;
   paymentType: string;
   cashReceipts: string;
@@ -116,4 +116,27 @@ export interface privateAgreeType {
   isAgree: boolean;
   isUseConfirm: boolean;
   isAdvertisingConfirm: boolean;
+}
+
+export interface orderType {
+  addressNickname: string;
+  baseAddress: string;
+  cashReceipts: string;
+  detailAddress: string;
+  notice: string;
+  paymentType: string;
+  phoneNumber1: string;
+  purchaseList: orderItemType[];
+  receiver: string;
+  shippingPrice: number;
+  totalPrice: number;
+  zipCode: string;
+}
+
+export interface orderItemType {
+  productId: number;
+  productName: string;
+  productPrice: number;
+  productQuantity: number;
+  productThumbnail: string;
 }

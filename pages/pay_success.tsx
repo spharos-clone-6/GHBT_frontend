@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import lottie from "lottie-web";
 import { css } from "@emotion/react";
 import Button from "@/components/ui/Button";
@@ -8,27 +8,45 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { AT } from "@/data/StaticData";
 import Config from "@/configs/config.export";
+import { useSetRecoilState } from "recoil";
+import { orderState } from "@/state/orderState";
 
 export default function PaySuccess() {
   const router = useRouter();
   const container = useRef<any>();
   const pgToken = router.query.pg_token;
   const baseUrl = Config();
+  const setOrder = useSetRecoilState(orderState);
 
   const onClickHandler = async () => {
-    // router.push("/order_complete");
     let config = {
       headers: { Authorization: AT },
       params: {
-        pgtoken: pgToken,
+        pgToken: pgToken,
       },
     };
 
     const result = await axios.get(
-      `${baseUrl}/api/payment/kakaopay-approve`,
+      `http://localhost:8080/api/payment/kakaopay-approve`,
       config
     );
     console.log(result);
+    setOrder(result.data);
+
+    axios
+      .post(
+        "http://localhost:8080/api/purchase/end",
+        {},
+        {
+          headers: {
+            Authorization: AT,
+          },
+        }
+      )
+      .then((res) => console.log(res))
+      .catch((err) => console.log("에러: ", err));
+
+    router.push("/order_complete");
   };
 
   useEffect(() => {
@@ -42,7 +60,6 @@ export default function PaySuccess() {
     lottie.setSpeed(0.6);
   }, []);
 
-  console.log(pgToken);
   return (
     <div css={layout}>
       <div css={contents}>

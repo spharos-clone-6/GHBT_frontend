@@ -1,21 +1,21 @@
-import { cartOrder, deliveryPrice } from "@/state/cart";
 import BottomFixedContainer from "@/components/ui/BottomFixedContainer";
 import Button from "@/components/ui/Button";
 import RightArrowMenu from "@/components/ui/RightArrowMenu";
-import PayCoupon from "@/components/widgets/PayCoupon";
 import PayDeliveryInfo from "@/components/widgets/PayDeliveryInfo";
 import PayInfo from "@/components/widgets/PayInfo";
 import PayMethod from "@/components/widgets/PayMethod";
 import PayProductList from "@/components/widgets/PayProductList";
 import Config from "@/configs/config.export";
-import { deliveryListType, deliveryType } from "@/types/types";
+import { deliveryListType } from "@/types/types";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import Price from "@/components/ui/Price";
-import { payReceipt } from "@/state/receipt";
 import { AT } from "@/data/StaticData";
 import { deliveryListState } from "@/state/delivery";
+import { usePayment } from "@/hooks/usePayment";
+import { useCartOrder } from "@/hooks/useCartOrder";
+import { useDeliveryPrice } from "@/hooks/useDeliveryPrice";
 
 export default function Payment() {
   const { baseUrl } = Config();
@@ -23,14 +23,14 @@ export default function Payment() {
   const [deliveryPlace, setDeliveryPlace] = useState<deliveryListType>([]);
   const [payMethod, setPayMethod] = useState<string>("");
 
-  const orderList = useRecoilValue(cartOrder);
-  const deliveryP = useRecoilValue(deliveryPrice);
-  const [receipt, setReceipt] = useRecoilState(payReceipt);
+  // recoil-persist
+  const orderList = useCartOrder();
+  const deliveryP = useDeliveryPrice();
+  const [receipt, setReceipt] = usePayment();
 
   let totalPrice = 0;
   orderList.map((item) => (totalPrice += item.product.price * item.quantity));
 
-  console.log("주문내역: ", orderList);
   // 배송지 데이터 불러오기
   async function fetchDelivery() {
     const delivery = await axios.get(`${baseUrl}/api/shipping-address`, {
@@ -38,7 +38,6 @@ export default function Payment() {
         Authorization: AT,
       },
     });
-    console.log("대표 배송지 :", delivery.data.shippingAddress[0]);
 
     setDeliveryList(delivery.data.shippingAddress);
   }
@@ -72,26 +71,26 @@ export default function Payment() {
   }, [deliveryPlace, payMethod, deliveryP, orderList, setReceipt, totalPrice]);
 
   const purchase = async () => {
-    console.log("==========주문서==========");
-    console.log(receipt);
-    const result = await axios.post(
-      `${baseUrl}/api/purchase`,
-      {
-        purchaseList: receipt.purchaseList,
-        shippingAddressId: receipt.shippingAddressId,
-        shippingPrice: receipt.shippingPrice,
-        paymentType: receipt.paymentType,
-        cashReceipts: receipt.cashReceipts,
-        totalPrice: receipt.totalPrice,
-      },
-      {
-        headers: {
-          Authorization: AT,
+    if (Object.keys(receipt).length !== 0) {
+      const result = await axios.post(
+        `http://localhost:8080/api/purchase`,
+        {
+          purchaseList: receipt.purchaseList,
+          shippingAddressId: receipt.shippingAddressId,
+          shippingPrice: receipt.shippingPrice,
+          paymentType: receipt.paymentType,
+          cashReceipts: receipt.cashReceipts,
+          totalPrice: receipt.totalPrice,
         },
-      }
-    );
-    console.log("이동할 URL: ", result.data.next_redirect_pc_url);
-    window.location.href = result.data.next_redirect_pc_url;
+        {
+          headers: {
+            Authorization: AT,
+          },
+        }
+      );
+      console.log("이동할 URL: ", result.data.next_redirect_pc_url);
+      window.location.href = result.data.next_redirect_pc_url;
+    }
   };
 
   useEffect(() => {});
@@ -111,7 +110,7 @@ export default function Payment() {
       )}
 
       <PayProductList itemList={orderList} />
-      <PayCoupon />
+      {/* <PayCoupon /> */}
       <RightArrowMenu
         iconSrc=""
         menuName="모바일 상품권"

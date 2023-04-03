@@ -1,6 +1,4 @@
-import { payReceipt } from "@/state/receipt";
 import React, { Dispatch, SetStateAction } from "react";
-import { useRecoilState } from "recoil";
 
 interface payMethod {
   method: string;
