@@ -6,7 +6,7 @@ import Config from "@/configs/config.export";
 
 //  baseURL: "http://localhost:5000/api/",
 const axiosApiInstance = axios.create({
-  baseURL: "https://backend.grapefruit-honey-black-tea.shop/api/",
+  baseURL: "http://10.178.0.5:3000/api/",
   withCredentials: true,
 });
 
