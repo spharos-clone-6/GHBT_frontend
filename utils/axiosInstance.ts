@@ -13,6 +13,13 @@ const axiosApiInstance = axios.create({
 const AxiosInterceptor = ({ children }: any) => {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
 
+  axiosApiInstance.interceptors.response.use(
+    (response) => response,
+    (error) => {
+      console.log("ggg", error);
+    }
+  );
+
   useEffect(() => {
     // 새로고침으로 accessToken이 없는 경우 reissue로 accesstoken 저장
     if (!accessToken) {
