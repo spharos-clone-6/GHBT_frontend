@@ -43,6 +43,7 @@ export default function EventBanner() {
     prevArrow: <PrevArrow />,
     autoplay: true,
     autoplaySpeed: 2300,
+    dots: true,
   };
 
   return (

@@ -96,3 +96,7 @@ section
 .chunsik-item .item-price {
   margin-top: 10px;
 }
+
+.slick-dots {
+  bottom: 0.7rem !important;
+}
