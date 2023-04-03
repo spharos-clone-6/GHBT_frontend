@@ -1,4 +1,5 @@
 import Config from "@/configs/config.export";
+import { firstCategory } from "@/data/StaticData";
 import { categoryType } from "@/types/types";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -30,14 +31,19 @@ export default function SubHeader() {
 
   const handlePushLink = (name: string | undefined) => {
     if (name === undefined) {
-      name = "라인프렌즈";
+      if (pathname === "best") {
+        name = firstCategory.best;
+      }
+      if (pathname === "event") {
+        name = firstCategory.event;
+      }
     }
     router.push(`${pathname}?category=${name}`);
   };
 
   useEffect(() => {
     getCategory();
-  }, [pathname]);
+  }, [pathname, getCategory]);
 
   return (
     <div className="header-sub">

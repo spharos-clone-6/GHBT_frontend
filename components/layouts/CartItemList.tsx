@@ -56,7 +56,7 @@ export default function CartItemList({ title }: cartType) {
 
   useEffect(() => {
     setTotalDeliveryPrice(totalDeliveryPrice + deliveryPrice);
-  }, [cartItems]);
+  }, [cartItems, totalDeliveryPrice, deliveryPrice]);
 
   return (
     <>

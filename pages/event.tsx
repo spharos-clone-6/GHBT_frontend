@@ -33,7 +33,7 @@ export default function Event() {
       setLoading(false);
     };
     if (query.category !== undefined) getData();
-  }, [query]);
+  }, [query, baseUrl]);
 
   return (
     <>

@@ -24,7 +24,7 @@ export default function Best() {
       setLoading(false);
     };
     getData();
-  }, [query]);
+  }, [query, baseUrl]);
 
   return (
     <>

@@ -32,11 +32,14 @@ export default function Payment() {
   console.log("주문내역: ", orderList);
   // 배송지 데이터 불러오기
   async function fetchDelivery() {
-    const delivery = await axios.get(`http://localhost:8080/api/shipping-address`, {
-      headers: {
-        Authorization: AT,
-      },
-    });
+    const delivery = await axios.get(
+      `http://localhost:8080/api/shipping-address`,
+      {
+        headers: {
+          Authorization: AT,
+        },
+      }
+    );
     console.log("대표 배송지 :", delivery.data.shippingAddress[0]);
 
     setDeliveryList(delivery.data.shippingAddress);
@@ -68,7 +71,7 @@ export default function Payment() {
       cashReceipts: "현금영수증",
       totalPrice: totalPrice + deliveryP,
     });
-  }, [deliveryPlace, payMethod]);
+  }, [deliveryPlace, payMethod, deliveryP, orderList, setReceipt, totalPrice]);
 
   const purchase = async () => {
     console.log("==========주문서==========");

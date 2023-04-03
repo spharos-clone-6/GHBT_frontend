@@ -38,7 +38,7 @@ export default function Home() {
       .then((res) => {
         setRecommand4([...res.data.content]);
       });
-  }, []);
+  }, [baseUrl]);
 
   return (
     <div className="container">
