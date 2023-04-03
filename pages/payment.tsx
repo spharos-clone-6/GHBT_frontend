@@ -8,7 +8,7 @@ import PayInfo from "@/components/widgets/PayInfo";
 import PayMethod from "@/components/widgets/PayMethod";
 import PayProductList from "@/components/widgets/PayProductList";
 import Config from "@/configs/config.export";
-import { deliveryListType, deliveryType } from "@/types/types";
+import { deliveryListType, deliveryType, receipt } from "@/types/types";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -16,6 +16,7 @@ import Price from "@/components/ui/Price";
 import { payReceipt } from "@/state/receipt";
 import { AT } from "@/data/StaticData";
 import { deliveryListState } from "@/state/delivery";
+import { usePayment } from "@/hooks/usePayment";
 
 export default function Payment() {
   const { baseUrl } = Config();
@@ -25,7 +26,7 @@ export default function Payment() {
 
   const orderList = useRecoilValue(cartOrder);
   const deliveryP = useRecoilValue(deliveryPrice);
-  const [receipt, setReceipt] = useRecoilState(payReceipt);
+  const [receipt, setReceipt] = usePayment();
 
   let totalPrice = 0;
   orderList.map((item) => (totalPrice += item.product.price * item.quantity));
@@ -74,24 +75,26 @@ export default function Payment() {
   const purchase = async () => {
     console.log("==========주문서==========");
     console.log(receipt);
-    const result = await axios.post(
-      `${baseUrl}/api/purchase`,
-      {
-        purchaseList: receipt.purchaseList,
-        shippingAddressId: receipt.shippingAddressId,
-        shippingPrice: receipt.shippingPrice,
-        paymentType: receipt.paymentType,
-        cashReceipts: receipt.cashReceipts,
-        totalPrice: receipt.totalPrice,
-      },
-      {
-        headers: {
-          Authorization: AT,
+    if (Object.keys(receipt).length !== 0) {
+      const result = await axios.post(
+        `${baseUrl}/api/purchase`,
+        {
+          purchaseList: receipt.purchaseList,
+          shippingAddressId: receipt.shippingAddressId,
+          shippingPrice: receipt.shippingPrice,
+          paymentType: receipt.paymentType,
+          cashReceipts: receipt.cashReceipts,
+          totalPrice: receipt.totalPrice,
         },
-      }
-    );
-    console.log("이동할 URL: ", result.data.next_redirect_pc_url);
-    window.location.href = result.data.next_redirect_pc_url;
+        {
+          headers: {
+            Authorization: AT,
+          },
+        }
+      );
+      console.log("이동할 URL: ", result.data.next_redirect_pc_url);
+      window.location.href = result.data.next_redirect_pc_url;
+    }
   };
 
   useEffect(() => {});
