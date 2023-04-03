@@ -1,4 +1,4 @@
-import { deliveryListType } from "@/types/types";
+import { deliveryType } from "@/types/types";
 import React, { useState } from "react";
 import BottomFixedContainer from "@/components/ui/BottomFixedContainer";
 import Button from "@/components/ui/Button";
@@ -8,12 +8,14 @@ import { deliveryListState } from "@/state/delivery";
 import axios from "axios";
 import Config from "@/configs/config.export";
 import { AT } from "@/data/StaticData";
+import { useRouter } from "next/router";
 
 export default function DeliveryRegister() {
   const [deliveryList, setDeliveryList] = useRecoilState(deliveryListState);
   const { baseUrl } = Config();
+  const router = useRouter();
 
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<deliveryType>({
     receiver: "",
     zipCode: "",
     addressNickname: "",
@@ -57,10 +59,10 @@ export default function DeliveryRegister() {
           },
         }
       );
+      setDeliveryList([...deliveryList, form]);
+      router.back();
     }
   };
-
-  console.log(form);
 
   const phoneRegex = /^\d{3}-\d{3,4}-\d{4}$/;
   const handlePhoneNumber1 = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -101,19 +103,12 @@ export default function DeliveryRegister() {
                 value={form.receiver}
                 onChange={(e) => setForm({ ...form, receiver: e.target.value })}
               />
-              <div className="post-number">
-                <input
-                  type="text"
-                  placeholder="우편번호 *"
-                  value={form.zipCode}
-                  onChange={(e) =>
-                    setForm({ ...form, zipCode: e.target.value })
-                  }
-                />
-                <a href="">
-                  <div className="search-address">주소검색</div>
-                </a>
-              </div>
+              <input
+                type="text"
+                placeholder="우편번호 *"
+                value={form.zipCode}
+                onChange={(e) => setForm({ ...form, zipCode: e.target.value })}
+              />
               <input
                 type="text"
                 placeholder="기본주소 *"
@@ -162,21 +157,8 @@ export default function DeliveryRegister() {
                   <option value="부재 시 전화 또는 문자 남겨주세요.">
                     부재 시 전화 또는 문자 남겨주세요.
                   </option>
-                  {/* <option value="">직접 입력</option> */}
                 </select>
               </div>
-              {/* <div className="save-delivery">
-                <label style={{ lineHeight: "55px" }}>
-                  <input
-                    type="checkbox"
-                    value={"true"}
-                    onChange={(e) =>
-                      setForm({ ...form, isDefault: e.target.value })
-                    }
-                  />
-                  기본 배송지로 저장합니다.
-                </label>
-              </div> */}
             </div>
           </section>
           <BottomFixedContainer>
