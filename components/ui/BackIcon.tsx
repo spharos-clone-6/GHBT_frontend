@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 export default function BackIcon() {
   const router = useRouter();
   const onClickHandler = () => {
-    router.pathname === "/store" ? router.back() : router.push("/");
+    router.pathname !== "/store" ? router.back() : router.push("/");
   };
   return (
     <div>

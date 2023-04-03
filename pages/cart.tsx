@@ -64,7 +64,7 @@ export default function Cart() {
   useEffect(() => {
     fetchGeneralData();
     fetchFrozenData();
-  }, [fetchFrozenData, fetchGeneralData]);
+  }, []);
 
   const totalCart = generalCart.length + frozenCart.length;
 

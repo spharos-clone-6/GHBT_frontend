@@ -1,34 +1,79 @@
+/** @jsxImportSource @emotion/react */
+
 import ModalHeader from "@/components/ui/ModalHeader";
 import RightArrowMenu from "@/components/ui/RightArrowMenu";
 import ContentCategoryContainer from "@/components/widgets/ContentCategoryContainer";
 import { firstCategory } from "@/data/StaticData";
 import { accessTokenState } from "@/state/accessTokenState";
 import { contentsModalState } from "@/state/contentsModalState";
+import { css, keyframes } from "@emotion/react";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
 export default function Contents() {
   const setContentsIsView = useSetRecoilState(contentsModalState);
+  const contentsIsView = useRecoilValue(contentsModalState);
   const accessToken = useRecoilValue(accessTokenState);
+  const [animation, setAnimation] = useState<boolean>(true);
 
-  const modalStyle: Object = {
-    position: "fixed",
-    backgroundColor: "var(--color-white)",
-    top: "0",
-    left: "0",
-    zIndex: 999,
-    width: "100%",
-    height: "100%",
-  };
+  const animate = keyframes`
+    from {
+      transform: translateX(-100vw);
+      background-color: white;
+    }
+
+    to {
+      transform: translateX(0);
+      background-color: white;
+    }
+  `;
+
+  const animate2 = keyframes`
+    from {
+      transform: translateX(0);
+      background-color: white;
+    }
+
+    to {
+      transform: translateX(-100vw);
+      background-color: white;
+    }
+  `;
+
+  const modalOnStyle = css`
+    position: fixed;
+    background-color: var(--color-white);
+    top: 0;
+    left: 0;
+    z-index: 999;
+    width: 100%;
+    height: 100%;
+    animation: ${animate} 0.5s ease-out;
+  `;
+
+  const modalOffStyle = css`
+    position: fixed;
+    background-color: var(--color-white);
+    top: 0;
+    left: 0;
+    z-index: 999;
+    width: 100%;
+    height: 100%;
+    animation: ${animate2} 0.5s ease-out;
+  `;
 
   const closeModal = () => {
-    setContentsIsView(false);
+    setAnimation(false);
+    setTimeout(() => setContentsIsView(false), 500);
   };
 
   return (
-    <div style={modalStyle}>
-      <ModalHeader />
+    <div
+      css={animation ? modalOnStyle : modalOffStyle}
+      style={{ backgroundColor: "white" }}
+    >
+      <ModalHeader setModalOpen={closeModal} />
       <section className="contents-head">
         {/*본문*/}
         {accessToken ? (
@@ -78,3 +123,17 @@ export default function Contents() {
     </div>
   );
 }
+
+// const styleA = css`
+//   position: fixed;
+//   bottom: 0;
+//   width: 100%;
+//   z-index: 1;
+//   text-align: center;
+//   padding: 0;
+//   margin: 0;
+//   border-top: 1px solid #e2e2e2;
+//   box-shadow: 0 -3px 0.3em 3px rgba(139, 139, 139, 0.08);
+//   background-color: var(--color-white);
+//   animation: ${divAnimate} 1s;
+// `;
