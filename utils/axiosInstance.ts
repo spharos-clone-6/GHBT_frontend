@@ -14,6 +14,8 @@ const AxiosInterceptor = ({ children }: any) => {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
   console.log("access1번");
   useEffect(() => {
+    console.log("access2번");
+
     // 새로고침으로 accessToken이 없는 경우 reissue로 accesstoken 저장
     if (!accessToken) {
       const getAccessToken = async () => {
@@ -43,6 +45,8 @@ const AxiosInterceptor = ({ children }: any) => {
 
   //access 헤더에 입력
   useEffect(() => {
+    console.log("access3번");
+
     if (accessToken) console.log("access토큰확인", accessToken);
     // Authorization 영역에 accessToken 설정하는 config
     const reqInterceptor = (config: any) => {
