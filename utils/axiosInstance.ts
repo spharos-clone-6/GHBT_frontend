@@ -10,7 +10,7 @@ const axiosApiInstance = axios.create({
   withCredentials: true,
 });
 
-const AxiosInterceptor = ({ children }: any) => {
+const AxiosInterceptor = async ({ children }: any) => {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
   console.log("access1번");
 
@@ -42,7 +42,7 @@ const AxiosInterceptor = ({ children }: any) => {
       getAccessToken();
     }
   };
-  preSetAccessToken();
+  await preSetAccessToken();
 
   // useEffect(() => {
   //   console.log("access2번");
@@ -74,22 +74,22 @@ const AxiosInterceptor = ({ children }: any) => {
   //   }
   // }, []);
 
-  const preSetAuthorization = async () => {
-    console.log("access3번");
-    console.log("accessToken은???", accessToken);
-    if (accessToken) console.log("access토큰확인", accessToken);
-    // Authorization 영역에 accessToken 설정하는 config
-    const reqInterceptor = (config: any) => {
-      if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
-      return config;
-    };
-    //axios 헤더에 삽입과정
-    const interceptor =
-      axiosApiInstance.interceptors.request.use(reqInterceptor);
-    return () => {
-      axiosApiInstance.interceptors.request.eject(interceptor);
-    };
-  };
+  // const preSetAuthorization = async () => {
+  //   console.log("access3번");
+  //   console.log("accessToken은???", accessToken);
+  //   if (accessToken) console.log("access토큰확인", accessToken);
+  //   // Authorization 영역에 accessToken 설정하는 config
+  //   const reqInterceptor = (config: any) => {
+  //     if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
+  //     return config;
+  //   };
+  //   //axios 헤더에 삽입과정
+  //   const interceptor =
+  //     axiosApiInstance.interceptors.request.use(reqInterceptor);
+  //   return () => {
+  //     axiosApiInstance.interceptors.request.eject(interceptor);
+  //   };
+  // };
 
   //access 헤더에 입력
   useEffect(() => {
