@@ -10,7 +10,7 @@ const axiosApiInstance = axios.create({
   withCredentials: true,
 });
 
-const AxiosInterceptor = async ({ children }: any) => {
+const AxiosInterceptor = ({ children }: any) => {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
   console.log("access1번");
 
@@ -42,7 +42,7 @@ const AxiosInterceptor = async ({ children }: any) => {
       getAccessToken();
     }
   };
-  await preSetAccessToken();
+  preSetAccessToken();
 
   // useEffect(() => {
   //   console.log("access2번");
