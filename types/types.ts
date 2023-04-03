@@ -117,3 +117,25 @@ export interface privateAgreeType {
   isUseConfirm: boolean;
   isAdvertisingConfirm: boolean;
 }
+
+export interface orderType {
+  addressNickname: string;
+  baseAddress: string;
+  cashReceipts: string;
+  detailAddress: string;
+  notice: string;
+  paymentType: string;
+  phoneNumber1: string;
+  purchaseList: orderItemType[];
+  receiver: string;
+  shippingPrice: number;
+  totalPrice: number;
+}
+
+export interface orderItemType {
+  productId: number;
+  productName: string;
+  productPrice: number;
+  productQuantity: number;
+  productThumbnail: string;
+}

@@ -1,12 +1,15 @@
 /** @jsxImportSource @emotion/react */
 
-import React from "react";
 import { css } from "@emotion/react";
 import Image from "next/image";
 import BottomFixedContainer from "@/components/ui/BottomFixedContainer";
 import Button from "@/components/ui/Button";
+import { useRecoilValue } from "recoil";
+import { orderState } from "@/state/orderState";
 
 export default function OrderComplete() {
+  const order = useRecoilValue(orderState);
+
   return (
     <div id="order-complete">
       <div css={layout}>

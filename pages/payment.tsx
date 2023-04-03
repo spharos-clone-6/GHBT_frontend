@@ -13,10 +13,11 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import Price from "@/components/ui/Price";
-import { payReceipt } from "@/state/receipt";
 import { AT } from "@/data/StaticData";
 import { deliveryListState } from "@/state/delivery";
 import { usePayment } from "@/hooks/usePayment";
+import { useCartOrder } from "@/hooks/useCartOrder";
+import { useDeliveryPrice } from "@/hooks/useDeliveryPrice";
 
 export default function Payment() {
   const { baseUrl } = Config();
@@ -24,8 +25,9 @@ export default function Payment() {
   const [deliveryPlace, setDeliveryPlace] = useState<deliveryListType>([]);
   const [payMethod, setPayMethod] = useState<string>("");
 
-  const orderList = useRecoilValue(cartOrder);
-  const deliveryP = useRecoilValue(deliveryPrice);
+  // recoil-persist
+  const orderList = useCartOrder();
+  const deliveryP = useDeliveryPrice();
   const [receipt, setReceipt] = usePayment();
 
   let totalPrice = 0;
@@ -77,7 +79,7 @@ export default function Payment() {
     console.log(receipt);
     if (Object.keys(receipt).length !== 0) {
       const result = await axios.post(
-        `${baseUrl}/api/purchase`,
+        `http://localhost:8080/api/purchase`,
         {
           purchaseList: receipt.purchaseList,
           shippingAddressId: receipt.shippingAddressId,
