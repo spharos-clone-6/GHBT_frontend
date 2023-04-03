@@ -1,3 +1,5 @@
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import Link from "next/link";
 import React from "react";
 
@@ -18,3 +20,12 @@ export default function LinkImage(props: {
     </Link>
   );
 }
+
+// const style = css`
+//   img {
+//     width: 100%;
+//     height: 100%
+//     position: relative !important;
+//     object-fit: cover;
+//   }
+// `;

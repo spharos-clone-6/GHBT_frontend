@@ -3,6 +3,7 @@ import React from "react";
 import { css } from "@emotion/react";
 import { cartListType } from "@/types/types";
 import Price from "../ui/Price";
+import Image from "next/image";
 
 interface orderItems {
   detailOn: boolean;
@@ -17,23 +18,21 @@ export default function PayProductDetail({ detailOn, itemList }: orderItems) {
     background-color: #f4f4f4;
   `;
 
-  const img = css`
-    width: 70px;
-    height: 70px;
-    border-radius: 15%;
-    margin: 10px 20px 10px 0px;
-    border: 1px solid rgba(128, 128, 128, 0.381);
-  `;
-
   return (
     <>
       {detailOn &&
         itemList.map((item, index) => (
           <div css={productDetails} key={index}>
-            <img
+            <Image
               src={`https://storage.googleapis.com/ghbt/product_thumbnail/${item.product.thumbnailUrl}`}
-              alt=""
-              css={img}
+              width={70}
+              height={70}
+              alt="상품이미지"
+              style={{
+                borderRadius: "15%",
+                margin: "10px 20px 10px 0px",
+                border: "1px solid rgba(128, 128, 128, 0.381)",
+              }}
             />
             <div>
               <p>{item.product.name}</p>
@@ -50,10 +49,16 @@ export default function PayProductDetail({ detailOn, itemList }: orderItems) {
         ))}
       {!detailOn && itemList[0] && (
         <div css={productDetails}>
-          <img
+          <Image
             src={`https://storage.googleapis.com/ghbt/product_thumbnail/${itemList[0].product.thumbnailUrl}`}
-            alt=""
-            css={img}
+            width={70}
+            height={70}
+            alt="상품이미지"
+            style={{
+              borderRadius: "15%",
+              margin: "10px 20px 10px 0px",
+              border: "1px solid rgba(128, 128, 128, 0.381)",
+            }}
           />
           <div>
             <p style={{ fontWeight: "700" }}>
