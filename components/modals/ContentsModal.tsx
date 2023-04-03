@@ -28,7 +28,7 @@ export default function Contents() {
 
   return (
     <div style={modalStyle}>
-      <ModalHeader />
+      <ModalHeader setModalOpen={closeModal} />
       <section className="contents-head">
         {/*본문*/}
         {accessToken ? (

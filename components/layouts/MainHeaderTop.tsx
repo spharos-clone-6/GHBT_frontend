@@ -9,6 +9,7 @@ import { CgProfile } from "react-icons/cg";
 import { GrCart, GrSearch } from "react-icons/gr";
 import { accessTokenState } from "@/state/accessTokenState";
 import Badge from "../ui/Badge";
+import BackIcon from "../ui/BackIcon";
 
 export default function MainHeaderTop() {
   const router = useRouter();
@@ -18,7 +19,7 @@ export default function MainHeaderTop() {
 
   const handleBack = () => {
     if (router.pathname === "store") {
-      router.push("/");
+      router.replace("/");
       setContentsIsView(false);
     } else router.back();
   };
@@ -38,13 +39,7 @@ export default function MainHeaderTop() {
         router.pathname.includes("/product") ||
         router.pathname === "/cart" ||
         router.pathname === "/payment" ? (
-          <Image
-            onClick={handleBack}
-            src="/images/icons/left.png"
-            alt=""
-            width={20}
-            height={20}
-          />
+          <BackIcon />
         ) : (
           <div>
             <button onClick={showModal}>
@@ -59,9 +54,9 @@ export default function MainHeaderTop() {
           </div>
         )}
       </div>
-      <Link href={"/"}>
+      <div onClick={() => router.push("/")}>
         <h1 onClick={closeModal}>온라인 스토어</h1>
-      </Link>
+      </div>
       <nav>
         <ul>
           {router.pathname === "/payment" ? (
