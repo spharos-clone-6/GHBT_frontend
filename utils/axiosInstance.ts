@@ -39,7 +39,7 @@ const AxiosInterceptor = ({ children }: any) => {
           setAccessToken(setAccess);
         }
       };
-      getAccessToken();
+      await getAccessToken();
     }
   };
   preSetAccessToken();
@@ -53,12 +53,7 @@ const AxiosInterceptor = ({ children }: any) => {
   //       const result: any = await axiosApiInstance
   //         .post("reissue")
   //         .catch((err) => {
-  //           //여기에서 확인하시면 됩니다.
-  //           //페이지가 나올때 이 파일이 실행됨
-  //           //reissue에서 에러가 나는 경우는 쿠키가 없는 경우이므로
-  //           //여기서 로그아웃된 유저인지 확인 가능합니다^^
-  //           //만약 로그아웃되었다면 alret 으로 보여주고
-  //           //로그인 페이지 or 메인페이지로 이동하시면 됩니다.
+
   //           console.log("accessToken 제거");
   //           setAccessToken("");
   //         });
