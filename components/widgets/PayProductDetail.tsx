@@ -37,9 +37,11 @@ export default function PayProductDetail({ detailOn, itemList }: orderItems) {
             />
             <div>
               <p>{item.product.name}</p>
-              <p style={{ color: "var(--color-gray-text)", fontSize: "11px" }}>
+              <div
+                style={{ color: "var(--color-gray-text)", fontSize: "11px" }}
+              >
                 주문수량: {item.quantity}개
-              </p>
+              </div>
               <p style={{ fontWeight: "700" }}>
                 <Price price={item.product.price * item.quantity} />
               </p>
