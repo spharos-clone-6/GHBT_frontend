@@ -23,6 +23,7 @@ import Loading from "@/components/ui/Loading";
 import { AT } from "@/data/StaticData";
 import axiosApiInstance from "@/utils/axiosInstance";
 import { accessTokenState } from "@/state/accessTokenState";
+import { useDidMountEffect } from "@/hooks/useDidmount";
 
 export default function Cart() {
   const { baseUrl } = Config();
@@ -71,10 +72,15 @@ export default function Cart() {
     else setFrozenCart([]);
     setIsLoading(false);
   }
-  useEffect(() => {
+
+  useDidMountEffect(() => {
     fetchGeneralData();
     fetchFrozenData();
   }, [accessToken]);
+  // useEffect(() => {
+  //   fetchGeneralData();
+  //   fetchFrozenData();
+  // }, [accessToken]);
 
   const totalCart = generalCart?.length + frozenCart?.length;
 
