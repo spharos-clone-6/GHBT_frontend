@@ -39,7 +39,7 @@ export default function AllFilter(props: {
   const [sItemList, setSItemList] = useState<productType[]>([]);
   const [vItemList, setVItemList] = useState<productType[]>([]);
 
-  /** url 새로 푸시하지 않고 SearchParams로 쿼리만 세팅하도록 변경할 수 있을듯 */
+  // 키워드 기반으로 url 세팅
   const createUrl = () => {
     let url =
       router.pathname +
@@ -51,13 +51,32 @@ export default function AllFilter(props: {
     categoryKeyword.map((k) => (url = url + "&category=" + k));
     seasonKeyword.map((k) => (url = url + "&season=" + k));
 
-    // console.log("url 새로 생성함...");
     router.push(url);
   };
 
+  // url 기반으로 키워드 세팅
+  const settingKeyword = () => {
+    const queries = router.query;
+    queries.category &&
+      getQueries(queries.category).map((k) =>
+        setCategoryKeyword([...categoryKeyword, k])
+      );
+    queries.season &&
+      getQueries(queries.season).map((k) =>
+        setSeasonKeyword([...seasonKeyword, k])
+      );
+    queries.volume &&
+      getQueries(queries.volume).map((k) =>
+        setVolumeKeyword([...volumeKeyword, k])
+      );
+    queries.price &&
+      getQueries(queries.price).map((k) =>
+        setPriceKeyword([...priceKeyword, k])
+      );
+  };
+
+  // 무한 스크롤로 전체 아이템이 추가된 경우 다시 필터링
   useDidMountEffect(() => {
-    console.log("아이템이 추가되었습니다 다시 필터링 ㄲ");
-    console.log("현재 전체 아이템은 이것입니다.", allItem);
     let items = [...allItem];
     if (volumeKeyword.length !== 0) {
       items = items.filter((x) => isIn(vItemList, x.productId));
@@ -76,13 +95,14 @@ export default function AllFilter(props: {
   }, [allItem]);
 
   /** 대분류 필터링
-   * 대분류가 바뀌면, 원래 있던 데이터를 갖다버리고 대분류 1페이지로 다시 요청한다.
+   * 대분류가 바뀌면, 원래 있던 데이터를 지우고 대분류 1페이지로 다시 요청한다.
    */
   useEffect(() => {
     axios.get(`${baseUrl}/api/category`).then((res) => {
       setCatogoryList(res.data.filter((c: categoryType) => c.type === "대"));
     });
-    createUrl();
+
+    // console.log("쿼리: ", router.query);
   }, [baseUrl]);
 
   useEffect(() => {
@@ -109,8 +129,6 @@ export default function AllFilter(props: {
           }&page=${0}`
         )
         .then((res) => {
-          // console.log("more data!!!", res.data);
-          // setItemList([...itemList, ...res.data.content]);
           setAllItem([...res.data.content]);
           setIsData(!res.data.last);
         })
@@ -119,9 +137,12 @@ export default function AllFilter(props: {
         });
     }
 
-    handleReset();
+    handleReset(); // 우선 초기화하고
+    createUrl(); // url을 새로 만들고
+    settingKeyword(); // 키워드를 다시 세팅한다
   }, [query.bigCategory, baseUrl, setAllItem, setIsData, setItemList, setPage]);
 
+  // 키워드 컨테이너 보여줄지 말지 여부 판단
   useDidMountEffect(() => {
     createUrl();
     if (
@@ -220,9 +241,9 @@ export default function AllFilter(props: {
   }, [seasonKeyword, allItem]);
 
   /** 결과 확인용 */
-  useEffect(() => {
-    console.log("new item list=", itemList);
-  }, [itemList]);
+  // useEffect(() => {
+  //   console.log("new item list=", itemList);
+  // }, [itemList]);
 
   const handleDelete = (key: string) => {
     volumeKeyword.includes(key) &&
@@ -335,6 +356,13 @@ function getQuery(
   } else {
     return name;
   }
+}
+
+function getQueries(name: string | string[]): string[] {
+  if (typeof name === "string") {
+    const newName = [name];
+    return newName;
+  } else return name;
 }
 
 function categoryIdx(name: string | string[] | undefined): number {
