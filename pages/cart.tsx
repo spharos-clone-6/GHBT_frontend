@@ -148,10 +148,9 @@ export default function Cart() {
           <Loading />
         </div>
       )}
-      {accessToken && !isLoading && (
+      {accessToken && !isLoading && totalCart === 0 && <CartEmpty />}
+      {accessToken && !isLoading && totalCart !== 0 && (
         <>
-          (totalCart === 0 ? (
-          <CartEmpty />) : (
           <div className="cart-container">
             <section id="cart-header">
               <p className="title">장바구니</p>
@@ -228,7 +227,6 @@ export default function Cart() {
               </div>
             </BottomFixedContainer>
           </div>
-          ))
         </>
       )}
     </>
