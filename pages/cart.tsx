@@ -66,7 +66,7 @@ export default function Cart() {
         console.log("일반 상품 :", generalResult);
         if (generalResult) setGeneralCart(generalResult?.data);
         else setGeneralCart([]);
-      }, 100);
+      }, 200);
     }
   }
   async function fetchFrozenData() {
