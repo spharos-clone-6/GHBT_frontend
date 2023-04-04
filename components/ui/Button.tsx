@@ -44,8 +44,14 @@ export default function Button(props: {
     margin: 15px 0;
     letter-spacing: -0.2px;
     box-shadow: ${boxShadow};
-    font-size: 0.9rem;
+    font-size: 1.1rem;
     white-space: nowrap;
+    &:hover {
+      filter: brightness(110%);
+    }
+    &:active {
+      filter: brightness(120%);
+    }
   `;
 
   return (

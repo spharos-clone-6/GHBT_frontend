@@ -1,3 +1,5 @@
+/** @jsxImportSource @emotion/react */
+
 import BottomFixedContainer from "@/components/ui/BottomFixedContainer";
 import Button from "@/components/ui/Button";
 import Config from "@/configs/config.export";
@@ -6,9 +8,10 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useRecoilState } from "recoil";
-import Image from "next/image";
 import BackIcon from "@/components/ui/BackIcon";
 import Link from "next/link";
+import { css } from "@emotion/react";
+import Swal from "sweetalert2";
 
 export default function Login() {
   const { baseUrl } = Config();
@@ -38,7 +41,13 @@ export default function Login() {
         }
       })
       .catch((err) => {
-        alert("로그인 실패!!!!");
+        Swal.fire({
+          icon: "error",
+          text: `아이디와 비밀번호를 다시 확인해주세요`,
+          width: "70vw",
+          confirmButtonText: "확인",
+          confirmButtonColor: "green",
+        });
       });
   };
 
@@ -54,10 +63,10 @@ export default function Login() {
     <div>
       <BackIcon />
       <div>
-        <section className="login-header">
+        <section className="login-header" css={loginHeader}>
           <h1>로그인</h1>
         </section>
-        <section className="greeting">
+        <section className="greeting" css={greeting}>
           <Image
             width={80}
             height={80}
@@ -94,3 +103,48 @@ export default function Login() {
     </div>
   );
 }
+
+const loginHeader = css`
+  padding: 0 15px;
+  margin-top: 40px;
+  & h1 {
+    font-size: 2rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  @media screen and (max-height: 700px) {
+    margin-top: 20px;
+    & h1 {
+      font-size: 1.5rem;
+    }
+  }
+`;
+
+const greeting = css`
+  margin-top: 30px;
+  padding: 20px;
+  & h2 {
+    font-size: 25px;
+    font-weight: bold;
+    letter-spacing: -1px;
+    line-height: 30px;
+    margin-bottom: 0px;
+  }
+  & p {
+    font-size: 0.9rem;
+  }
+
+  @media screen and (max-height: 700px) {
+    margin-top: 20px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    & h2 {
+      font-size: 1.2rem;
+      line-height: 25px;
+    }
+    & p {
+      font-size: 0.8rem;
+    }
+  }
+`;

@@ -38,7 +38,7 @@ export default function Timer() {
             whiteSpace: "nowrap",
             padding: "2px",
             margin: "2px",
-            width: "40%",
+            width: "20%",
             textAlign: "center",
           }}
         >

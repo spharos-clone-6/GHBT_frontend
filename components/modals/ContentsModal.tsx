@@ -17,61 +17,20 @@ export default function Contents() {
   const accessToken = useRecoilValue(accessTokenState);
   const [animation, setAnimation] = useState<boolean>(true);
 
-  const animate = keyframes`
-    from {
-      transform: translateX(-100vw);
-      background-color: white;
-    }
-
-    to {
-      transform: translateX(0);
-      background-color: white;
-    }
-  `;
-
-  const animate2 = keyframes`
-    from {
-      transform: translateX(0);
-      background-color: white;
-    }
-
-    to {
-      transform: translateX(-100vw);
-      background-color: white;
-    }
-  `;
-
-  const modalOnStyle = css`
-    position: fixed;
-    background-color: var(--color-white);
-    top: 0;
-    left: 0;
-    z-index: 999;
-    width: 100%;
-    height: 100%;
-    animation: ${animate} 0.5s ease-out;
-  `;
-
-  const modalOffStyle = css`
-    position: fixed;
-    background-color: var(--color-white);
-    top: 0;
-    left: 0;
-    z-index: 999;
-    width: 100%;
-    height: 100%;
-    animation: ${animate2} 0.5s ease-out;
-  `;
-
   const closeModal = () => {
     setAnimation(false);
+    document.body.style.overflow = "unset";
     setTimeout(() => setContentsIsView(false), 500);
   };
 
   return (
     <div
       css={animation ? modalOnStyle : modalOffStyle}
-      style={{ backgroundColor: "white" }}
+      style={{
+        backgroundColor: "white",
+        height: "100vh",
+        width: "100vw",
+      }}
     >
       <ModalHeader setModalOpen={closeModal} />
       <section className="contents-head">
@@ -79,7 +38,7 @@ export default function Contents() {
         {accessToken ? (
           <div className="contents-msg">
             <div className="msg-title">Welcome !</div>
-            <p style={{ fontSize: "1rem" }}>
+            <p style={{ fontSize: "1rem", marginBottom: "0" }}>
               온라인 스토어에 오신 것을 환영합니다.
             </p>
           </div>
@@ -100,7 +59,7 @@ export default function Contents() {
       {/* 제품 카테고리 */}
       <ContentCategoryContainer />
       {/*기획전/베스트 이동*/}
-      <section id="nav-event-best">
+      <section css={bottomNav}>
         <div onClick={closeModal}>
           <RightArrowMenu
             menuName={"기획전"}
@@ -109,8 +68,7 @@ export default function Contents() {
             description="진행중인 기획전을 만나보세요."
           />
         </div>
-
-        <hr style={{ margin: "15px 0" }} />
+        <hr css={hr} />
         <div onClick={closeModal}>
           <RightArrowMenu
             menuName={"베스트"}
@@ -124,16 +82,71 @@ export default function Contents() {
   );
 }
 
-// const styleA = css`
-//   position: fixed;
-//   bottom: 0;
-//   width: 100%;
-//   z-index: 1;
-//   text-align: center;
-//   padding: 0;
-//   margin: 0;
-//   border-top: 1px solid #e2e2e2;
-//   box-shadow: 0 -3px 0.3em 3px rgba(139, 139, 139, 0.08);
-//   background-color: var(--color-white);
-//   animation: ${divAnimate} 1s;
-// `;
+const animate = keyframes`
+from {
+  transform: translateX(-100vw);
+  background-color: white;
+}
+
+to {
+  transform: translateX(0);
+  background-color: white;
+}
+`;
+
+const animate2 = keyframes`
+from {
+  transform: translateX(0);
+  background-color: white;
+}
+
+to {
+  transform: translateX(-100vw);
+  background-color: white;
+}
+`;
+
+const modalOnStyle = css`
+  position: fixed;
+  background-color: var(--color-white);
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: auto;
+  height: 100vh;
+  animation: ${animate} 0.5s ease-out;
+`;
+
+const modalOffStyle = css`
+  position: fixed;
+  background-color: var(--color-white);
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: auto;
+  height: 100vh;
+  animation: ${animate2} 0.5s ease-out;
+`;
+
+const bottomNav = css`
+  background-color: var(--color-gray-background);
+  padding: 1em 0 3rem 0;
+  position: absolute;
+  /* top: calc(100vh - 30%); */
+  bottom: 0;
+  margin: 0;
+  width: 100vw;
+  @media screen and (max-height: 700px) {
+    display: flex;
+  }
+  @media (hover: none) and (pointer: coarse) {
+    padding-bottom: 30%;
+  }
+`;
+
+const hr = css`
+  margin: 15px 0;
+  @media screen and (max-height: 700px) {
+    margin: 10px 0;
+  }
+`;

@@ -29,6 +29,10 @@ export default function RightArrowMenu(props: {
     padding: ${props.padding || `10px`};
     display: block;
     width: -webkit-fill-available;
+    @media screen and (max-height: 700px) {
+      height: fit-content;
+      padding: 3px 10px;
+    }
   `;
 
   const linkStyle = css`
@@ -45,6 +49,9 @@ export default function RightArrowMenu(props: {
     font-weight: ${fontWeight};
     font-size: ${fontSize};
     margin: 2px;
+    @media screen and (max-height: 700px) {
+      font-size: 0.9em;
+    }
   `;
 
   const descStyle = css`
@@ -52,6 +59,9 @@ export default function RightArrowMenu(props: {
     display: block;
     margin: 2px;
     color: var(--color-gray-text);
+    @media screen and (max-height: 700px) {
+      font-size: 0.8em;
+    }
   `;
 
   return (

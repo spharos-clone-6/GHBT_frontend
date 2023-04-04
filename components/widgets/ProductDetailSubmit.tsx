@@ -23,8 +23,8 @@ export default function ProductDetailSubmit(props: {
 
   const totalPriceStyle = css`
     text-align: right;
-    padding: 0 30px;
-    margin-bottom: 80px;
+    padding: 0 1rem;
+    margin-bottom: 95px;
     font-weight: bold;
   `;
 
@@ -38,7 +38,7 @@ export default function ProductDetailSubmit(props: {
         setCount={props.setItemCount}
       />
       <p css={totalPriceStyle}>
-        합계 <Price price={totalPrice} size="large" />
+        합계 <Price price={totalPrice} size="x-large" />
       </p>
     </div>
   );
