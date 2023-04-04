@@ -66,23 +66,25 @@ export default function Cart() {
         console.log("일반 상품 :", generalResult);
         if (generalResult) setGeneralCart(generalResult?.data);
         else setGeneralCart([]);
-      }, 200);
+      }, 100);
     }
   }
   async function fetchFrozenData() {
     if (accessToken) {
-      const frozenResult = await axiosApiInstance
-        .get(`cart/my_cart/ice`, {
-          headers: { Authorization: accessToken },
-        })
-        .catch((err) => {
-          console.log("에러확인", err);
-        });
+      setTimeout(async () => {
+        const frozenResult = await axiosApiInstance
+          .get(`cart/my_cart/ice`, {
+            headers: { Authorization: accessToken },
+          })
+          .catch((err) => {
+            console.log("에러확인", err);
+          });
 
-      console.log("냉동 상품 :", frozenResult);
-      if (frozenResult) setFrozenCart(frozenResult?.data);
-      else setFrozenCart([]);
-      setIsLoading(false);
+        console.log("냉동 상품 :", frozenResult);
+        if (frozenResult) setFrozenCart(frozenResult?.data);
+        else setFrozenCart([]);
+        setIsLoading(false);
+      });
     }
   }
 
