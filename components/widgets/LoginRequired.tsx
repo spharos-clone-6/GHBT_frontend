@@ -31,7 +31,7 @@ export default function LoginRequired(props: { background?: string }) {
         padding: "25px",
         backgroundColor: `${color}`,
         height: "100%",
-        paddingBottom: "80px",
+        paddingBottom: "270px",
         overflow: "hidden",
       }}
       className="first-section"
