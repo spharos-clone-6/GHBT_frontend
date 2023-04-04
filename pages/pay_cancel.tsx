@@ -6,7 +6,7 @@ import { css } from "@emotion/react";
 import { useRouter } from "next/router";
 import Button from "@/components/ui/Button";
 
-export default function order_cancel() {
+export default function PayCancel() {
   const container = useRef<any>();
   const router = useRouter();
 
