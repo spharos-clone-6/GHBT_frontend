@@ -1,9 +1,9 @@
-import React from 'react'
+import React from "react";
 
 export default function DeliveryStatus() {
   return (
     <section id="order-status">
-      <div>
+      <div className="delivery-status-header">
         <h2>주문/배송 현황</h2>
         <p>최근 3개월 동안 구매한 상품</p>
       </div>
@@ -15,10 +15,7 @@ export default function DeliveryStatus() {
           <p>상품준비중</p>
         </div>
         <div className="status-item">
-          <img
-            className="arrow"
-            src="/images/icons/contents/right-arrow.png"
-          />
+          <img className="arrow" src="/images/icons/contents/right-arrow.png" />
         </div>
         <div className="status-item">
           <p className="status-count" id="status-prepared-count">
@@ -27,10 +24,7 @@ export default function DeliveryStatus() {
           <p>배송준비중</p>
         </div>
         <div className="status-item">
-          <img
-            className="arrow"
-            src="/images/icons/contents/right-arrow.png"
-          />{" "}
+          <img className="arrow" src="/images/icons/contents/right-arrow.png" />{" "}
         </div>
         <div className="status-item">
           <p className="status-count" id="status-prepared-count">
@@ -39,10 +33,7 @@ export default function DeliveryStatus() {
           <p>배송중</p>
         </div>
         <div className="status-item">
-          <img
-            className="arrow"
-            src="/images/icons/contents/right-arrow.png"
-          />{" "}
+          <img className="arrow" src="/images/icons/contents/right-arrow.png" />{" "}
         </div>
         <div className="status-item">
           <p className="status-count" id="status-prepared-count">
@@ -52,5 +43,5 @@ export default function DeliveryStatus() {
         </div>
       </div>
     </section>
-  )
+  );
 }
