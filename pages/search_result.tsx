@@ -37,7 +37,6 @@ export default function SearchResult() {
       }
     };
     getData();
-    console.log("초기 데이터 세팅");
   }, [router.isReady, query.keyword, baseUrl]);
 
   return (

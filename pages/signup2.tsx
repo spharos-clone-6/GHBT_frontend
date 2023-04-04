@@ -145,7 +145,6 @@ export default function SignUp2() {
       .then((res) => {
         return res;
       });
-    console.log(validation);
     if (validation.status === 202) {
       setEmailTokenValidation(false);
 

@@ -90,7 +90,6 @@ export default function AllFilter(props: {
     if (seasonKeyword.length !== 0) {
       items = items.filter((x) => isIn(sItemList, x.productId));
     }
-    // console.log("쿼리 변경! 전체 아이템 수정!");
     setItemList([...items]);
   }, [allItem]);
 
@@ -101,8 +100,6 @@ export default function AllFilter(props: {
     axios.get(`${baseUrl}/api/category`).then((res) => {
       setCatogoryList(res.data.filter((c: categoryType) => c.type === "대"));
     });
-
-    // console.log("쿼리: ", router.query);
   }, [baseUrl]);
 
   useEffect(() => {
@@ -172,7 +169,6 @@ export default function AllFilter(props: {
     if (seasonKeyword.length !== 0) {
       items = items.filter((x) => isIn(sItemList, x.productId));
     }
-    // console.log("쿼리 변경! 전체 아이템 수정!");
     setItemList([...items]);
   }, [vItemList, pItemList, cItemList, sItemList]);
 
@@ -239,11 +235,6 @@ export default function AllFilter(props: {
       });
     setSItemList([...items]);
   }, [seasonKeyword, allItem]);
-
-  /** 결과 확인용 */
-  // useEffect(() => {
-  //   console.log("new item list=", itemList);
-  // }, [itemList]);
 
   const handleDelete = (key: string) => {
     volumeKeyword.includes(key) &&
