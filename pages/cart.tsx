@@ -54,23 +54,32 @@ export default function Cart() {
 
   // 데이터 불러오기
   async function fetchGeneralData() {
-    const generalResult = await axiosApiInstance
-      .get(`cart/my_cart`)
-      .catch((err) => {});
-
-    console.log("일반 상품 :", generalResult);
-    if (generalResult) setGeneralCart(generalResult?.data);
-    else setGeneralCart([]);
+    if (accessToken) {
+      setTimeout(async () => {
+        const generalResult = await axiosApiInstance
+          .get(`cart/my_cart`, {
+            headers: { Authorization: accessToken },
+          })
+          .catch((err) => {});
+        if (generalResult) setGeneralCart(generalResult?.data);
+        else setGeneralCart([]);
+      }, 100);
+    }
   }
   async function fetchFrozenData() {
-    const frozenResult = await axiosApiInstance
-      .get(`cart/my_cart/ice`)
-      .catch((err) => {});
+    if (accessToken) {
+      setTimeout(async () => {
+        const frozenResult = await axiosApiInstance
+          .get(`cart/my_cart/ice`, {
+            headers: { Authorization: accessToken },
+          })
+          .catch((err) => {});
 
-    console.log("냉동 상품 :", frozenResult);
-    if (frozenResult) setFrozenCart(frozenResult?.data);
-    else setFrozenCart([]);
-    setIsLoading(false);
+        if (frozenResult) setFrozenCart(frozenResult?.data);
+        else setFrozenCart([]);
+        setIsLoading(false);
+      });
+    }
   }
 
   // useDidMountEffect(() => {
@@ -124,7 +133,6 @@ export default function Cart() {
   const frozenOrder = frozenCart.filter((item) => item.checked);
   const generalOrder = generalCart.filter((item) => item.checked);
   const result = frozenOrder.concat(generalOrder);
-  console.log("토탈 : ", result);
 
   const router = useRouter();
   const onClickHandler = () => {

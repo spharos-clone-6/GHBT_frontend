@@ -4,56 +4,64 @@ import { cartListType } from "@/types/types";
 import { css } from "@emotion/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { frozenCartListState, generalCartListState } from "../../state/cart";
-import { AT } from "@/data/StaticData";
+import { accessTokenState } from "@/state/accessTokenState";
+import axiosApiInstance from "@/utils/axiosInstance";
 
 export default function Badge() {
   const [isUser, setIsUser] = useState(true);
   const { baseUrl } = Config();
+  const accessToken = useRecoilValue(accessTokenState);
 
   const [frozenCart, setFrozenCart] =
     useRecoilState<cartListType>(frozenCartListState);
   const [generalCart, setGeneralCart] =
     useRecoilState<cartListType>(generalCartListState);
-  const totalItem = frozenCart.length + generalCart.length;
+  const totalItem = frozenCart?.length + generalCart?.length;
 
   // 데이터 불러오기
   async function fetchGeneralData() {
-    try {
-      const generalResult = await axios.get(`${baseUrl}/api/cart/my_cart`, {
-        headers: {
-          Authorization: AT,
-        },
-      });
-      setGeneralCart(generalResult.data);
-    } catch (ex: any) {
-      if (ex.response && ex.response.status === 401) {
-        console.log("비회원");
-        setIsUser(false);
-      }
+    if (accessToken) {
+      setTimeout(async () => {
+        const generalResult = await axiosApiInstance
+          .get("cart/my_cart", {
+            headers: { Authorization: accessToken },
+          })
+          .then((res) => {
+            setGeneralCart(res?.data);
+          })
+          .catch((err) => {
+            if (err.response && err.response.status === 401) {
+              setIsUser(false);
+            }
+          });
+      }, 100);
     }
   }
   async function fetchFrozenData() {
-    try {
-      const frozenResult = await axios.get(`${baseUrl}/api/cart/my_cart/ice`, {
-        headers: {
-          Authorization: AT,
-        },
+    if (accessToken) {
+      setTimeout(async () => {
+        const frozenResult = await axiosApiInstance
+          .get("cart/my_cart/ice", {
+            headers: { Authorization: accessToken },
+          })
+          .then((res) => {
+            setFrozenCart(res?.data);
+          })
+          .catch((err) => {
+            if (err.response && err.response.status === 401) {
+              setIsUser(false);
+            }
+          });
       });
-      setFrozenCart(frozenResult.data);
-    } catch (ex: any) {
-      if (ex.response && ex.response.status === 401) {
-        console.log("비회원");
-        setIsUser(false);
-      }
     }
   }
 
   useEffect(() => {
     fetchGeneralData();
     fetchFrozenData();
-  }, []);
+  }, [accessToken]);
 
   const badge = css`
     position: absolute;
