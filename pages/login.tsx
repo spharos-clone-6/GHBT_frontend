@@ -13,6 +13,7 @@ import Link from "next/link";
 import { css } from "@emotion/react";
 import Swal from "sweetalert2";
 import Image from "next/image";
+import Head from "next/head";
 
 export default function Login() {
   const { baseUrl } = Config();
@@ -61,6 +62,9 @@ export default function Login() {
 
   return (
     <div>
+      <Head>
+        <title>Starbucks | Login</title>
+      </Head>
       <BackIcon />
       <div>
         <section className="login-header" css={loginHeader}>

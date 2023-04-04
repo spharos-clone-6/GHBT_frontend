@@ -12,6 +12,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import AllFilter from "@/components/layouts/AllFilter";
 import Loading from "@/components/ui/Loading";
 import ToTheTop from "@/components/ui/ToTheTop";
+import Head from "next/head";
 
 export default function StoreAll() {
   const { baseUrl } = Config();
@@ -51,9 +52,6 @@ export default function StoreAll() {
           console.log(err);
         });
     }
-    // if (isData && itemList.length < 7) {
-    //   handleMoreData();
-    // }
   };
 
   const noItem = (): JSX.Element => {
@@ -69,6 +67,9 @@ export default function StoreAll() {
 
   return (
     <>
+      <Head>
+        <title>Starbucks | Store</title>
+      </Head>
       <ToTheTop />
       <AllFilter
         allItem={allItem}

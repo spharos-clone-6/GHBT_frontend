@@ -5,6 +5,7 @@ import ProductContainerVertical from "@/components/layouts/ProductContainerVerti
 import { productType } from "@/types/types";
 import Config from "@/configs/config.export";
 import axios from "axios";
+import Head from "next/head";
 
 export default function Home() {
   const { baseUrl } = Config();
@@ -41,28 +42,33 @@ export default function Home() {
   }, [baseUrl]);
 
   return (
-    <div className="container">
-      <EventBanner />
-      <ProductContainerRecommand
-        sectionId="recommand-md-1"
-        headerName="귀여운 곰돌이 🐻"
-        itemList={recommand1}
-      />
-      <ProductContainerRecommand
-        sectionId="recommand-md-2"
-        headerName="Cherry Blossom 🌸"
-        itemList={recommand2}
-      />
-      <ProductContainerRecommand
-        sectionId="recommand-md-3"
-        headerName="달콤한 스타벅스 케이크 🍰"
-        itemList={recommand3}
-      />
-      <ProductContainerVertical
-        sectionId="chunsik"
-        headerName="Core 🏠"
-        itemList={recommand4}
-      />
-    </div>
+    <>
+      <Head>
+        <title>Starbucks | Home</title>
+      </Head>
+      <div className="container">
+        <EventBanner />
+        <ProductContainerRecommand
+          sectionId="recommand-md-1"
+          headerName="귀여운 곰돌이 🐻"
+          itemList={recommand1}
+        />
+        <ProductContainerRecommand
+          sectionId="recommand-md-2"
+          headerName="Cherry Blossom 🌸"
+          itemList={recommand2}
+        />
+        <ProductContainerRecommand
+          sectionId="recommand-md-3"
+          headerName="달콤한 스타벅스 케이크 🍰"
+          itemList={recommand3}
+        />
+        <ProductContainerVertical
+          sectionId="chunsik"
+          headerName="Core 🏠"
+          itemList={recommand4}
+        />
+      </div>
+    </>
   );
 }

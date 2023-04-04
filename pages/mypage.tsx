@@ -4,6 +4,7 @@ import DeliveryStatus from "@/components/widgets/DeliveryStatus";
 import LoginRequired from "@/components/widgets/LoginRequired";
 import { accessTokenState } from "@/state/accessTokenState";
 import { css } from "@emotion/react";
+import Head from "next/head";
 import React from "react";
 import {
   FaTruck,
@@ -20,6 +21,9 @@ export default function Mypage() {
 
   return (
     <>
+      <Head>
+        <title>Starbucks | Mypage</title>
+      </Head>
       {accessToken ? (
         <div>
           <DeliveryStatus />
