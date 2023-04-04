@@ -54,23 +54,27 @@ export default function Cart() {
 
   // 데이터 불러오기
   async function fetchGeneralData() {
-    const generalResult = await axiosApiInstance
-      .get(`cart/my_cart`)
-      .catch((err) => {});
+    if (accessToken) {
+      const generalResult = await axiosApiInstance
+        .get(`cart/my_cart`)
+        .catch((err) => {});
 
-    console.log("일반 상품 :", generalResult);
-    if (generalResult) setGeneralCart(generalResult?.data);
-    else setGeneralCart([]);
+      console.log("일반 상품 :", generalResult);
+      if (generalResult) setGeneralCart(generalResult?.data);
+      else setGeneralCart([]);
+    }
   }
   async function fetchFrozenData() {
-    const frozenResult = await axiosApiInstance
-      .get(`cart/my_cart/ice`)
-      .catch((err) => {});
+    if (accessToken) {
+      const frozenResult = await axiosApiInstance
+        .get(`cart/my_cart/ice`)
+        .catch((err) => {});
 
-    console.log("냉동 상품 :", frozenResult);
-    if (frozenResult) setFrozenCart(frozenResult?.data);
-    else setFrozenCart([]);
-    setIsLoading(false);
+      console.log("냉동 상품 :", frozenResult);
+      if (frozenResult) setFrozenCart(frozenResult?.data);
+      else setFrozenCart([]);
+      setIsLoading(false);
+    }
   }
 
   // useDidMountEffect(() => {
