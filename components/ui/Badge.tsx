@@ -26,7 +26,7 @@ export default function Badge() {
       if (accessToken) {
         console.log("뱃지", accessToken);
         const generalResult = await axiosApiInstance
-          .get(`${baseUrl}/api/cart/my_cart`)
+          .get(`cart/my_cart`)
           .then((res) => {
             setGeneralCart(res?.data);
           })
@@ -49,7 +49,7 @@ export default function Badge() {
     try {
       if (accessToken) {
         const frozenResult = await axiosApiInstance
-          .get(`${baseUrl}/api/cart/my_cart/ice`)
+          .get(`cart/my_cart/ice`)
           .then((res) => {
             setFrozenCart(res?.data);
           })
