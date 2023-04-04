@@ -22,58 +22,39 @@ export default function Badge() {
 
   // 데이터 불러오기
   async function fetchGeneralData() {
-    try {
-      if (accessToken) {
-        setTimeout(async () => {
-          console.log("뱃지", accessToken);
-          const generalResult = await axiosApiInstance
-            .get("cart/my_cart", {
-              headers: { Authorization: accessToken },
-            })
-            .then((res) => {
-              setGeneralCart(res?.data);
-            })
-            .catch((err) => {
-              console.log("뱃지에서 에러", err);
-              if (err.response && err.response.status === 401) {
-                console.log("비회원");
-                setIsUser(false);
-              }
-            });
-        }, 100);
-      }
-    } catch (ex: any) {
-      if (ex.response && ex.response.status === 401) {
-        console.log("비회원");
-        setIsUser(false);
-      }
+    if (accessToken) {
+      setTimeout(async () => {
+        const generalResult = await axiosApiInstance
+          .get("cart/my_cart", {
+            headers: { Authorization: accessToken },
+          })
+          .then((res) => {
+            setGeneralCart(res?.data);
+          })
+          .catch((err) => {
+            if (err.response && err.response.status === 401) {
+              setIsUser(false);
+            }
+          });
+      }, 100);
     }
   }
   async function fetchFrozenData() {
-    try {
-      if (accessToken) {
-        setTimeout(async () => {
-          const frozenResult = await axiosApiInstance
-            .get("cart/my_cart/ice", {
-              headers: { Authorization: accessToken },
-            })
-            .then((res) => {
-              setFrozenCart(res?.data);
-            })
-            .catch((err) => {
-              console.log("뱃지에서 에러", err);
-              if (err.response && err.response.status === 401) {
-                console.log("비회원");
-                setIsUser(false);
-              }
-            });
-        });
-      }
-    } catch (ex: any) {
-      if (ex.response && ex.response.status === 401) {
-        console.log("비회원");
-        setIsUser(false);
-      }
+    if (accessToken) {
+      setTimeout(async () => {
+        const frozenResult = await axiosApiInstance
+          .get("cart/my_cart/ice", {
+            headers: { Authorization: accessToken },
+          })
+          .then((res) => {
+            setFrozenCart(res?.data);
+          })
+          .catch((err) => {
+            if (err.response && err.response.status === 401) {
+              setIsUser(false);
+            }
+          });
+      });
     }
   }
 

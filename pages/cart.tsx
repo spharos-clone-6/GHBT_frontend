@@ -60,10 +60,7 @@ export default function Cart() {
           .get(`cart/my_cart`, {
             headers: { Authorization: accessToken },
           })
-          .catch((err) => {
-            console.log("에러확인", err);
-          });
-        console.log("일반 상품 :", generalResult);
+          .catch((err) => {});
         if (generalResult) setGeneralCart(generalResult?.data);
         else setGeneralCart([]);
       }, 100);
@@ -76,11 +73,8 @@ export default function Cart() {
           .get(`cart/my_cart/ice`, {
             headers: { Authorization: accessToken },
           })
-          .catch((err) => {
-            console.log("에러확인", err);
-          });
+          .catch((err) => {});
 
-        console.log("냉동 상품 :", frozenResult);
         if (frozenResult) setFrozenCart(frozenResult?.data);
         else setFrozenCart([]);
         setIsLoading(false);
@@ -139,7 +133,6 @@ export default function Cart() {
   const frozenOrder = frozenCart.filter((item) => item.checked);
   const generalOrder = generalCart.filter((item) => item.checked);
   const result = frozenOrder.concat(generalOrder);
-  console.log("토탈 : ", result);
 
   const router = useRouter();
   const onClickHandler = () => {
