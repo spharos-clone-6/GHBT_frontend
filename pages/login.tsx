@@ -11,6 +11,7 @@ import { useRecoilState } from "recoil";
 import BackIcon from "@/components/ui/BackIcon";
 import Link from "next/link";
 import { css } from "@emotion/react";
+import Swal from "sweetalert2";
 
 export default function Login() {
   const { baseUrl } = Config();
@@ -39,7 +40,13 @@ export default function Login() {
         }
       })
       .catch((err) => {
-        alert("로그인 실패!!!!");
+        Swal.fire({
+          icon: "error",
+          text: `아이디와 비밀번호를 다시 확인해주세요`,
+          width: "70vw",
+          confirmButtonText: "확인",
+          confirmButtonColor: "green",
+        });
       });
   };
 
