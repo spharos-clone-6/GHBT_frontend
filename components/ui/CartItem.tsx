@@ -8,6 +8,7 @@ import Price from "./Price";
 import { AT } from "@/data/StaticData";
 import Config from "@/configs/config.export";
 import Image from "next/image";
+import axiosApiInstance from "@/utils/axiosInstance";
 
 export default function CartItem(props: { item: cartItemType; title: string }) {
   const [quantity, setQuantity] = useState(props.item.quantity);
@@ -35,11 +36,7 @@ export default function CartItem(props: { item: cartItemType; title: string }) {
   };
 
   const deleteItem = async () => {
-    await axios.delete(`${baseUrl}/api/cart/${props.item.id}`, {
-      headers: {
-        Authorization: AT,
-      },
-    });
+    await axiosApiInstance.delete(`/cart/${props.item.id}`);
     setIsItem(false);
 
     setCartList([

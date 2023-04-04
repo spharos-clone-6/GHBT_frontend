@@ -21,26 +21,7 @@ export default function StoreAll() {
   const [isData, setIsData] = useState<boolean>(false);
   const [page, setPage] = useState<number>(0);
 
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     const result = await axios.get(`${baseUrl}/api/product?page=0`);
-  //     if (result.data !== "") {
-  //       setAllItem([...result.data.content]);
-  //       // setItemList([...result.data.content]);
-  //     }
-  //   };
-  //   getData();
-  // }, [baseUrl]);
-
-  useEffect(() => {
-    // console.log("itemList, 무한=", itemList);
-    // console.log("all item=", allItem);
-    // console.log("isData=", isData);
-  }, [allItem]);
-
   const handleMoreData = () => {
-    console.log("moreData");
-    console.log("query.bigcategory", query.bigCategory);
     /** 전체 */
     if (query.bigCategory === "전체") {
       axios
@@ -77,7 +58,6 @@ export default function StoreAll() {
 
   const noItem = (): JSX.Element => {
     if (isData) {
-      console.log("데이터는 더 있습니다!");
       handleMoreData();
     }
     return (

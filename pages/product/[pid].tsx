@@ -50,7 +50,6 @@ export default function ProductDetail() {
     const getData = async () => {
       if (query.pid === undefined) query.pid = "1";
 
-      console.log(query.pid);
       const result = await axios.get(`${baseUrl}/api/product/${query.pid}`);
 
       if (result.data.season !== "") {
@@ -73,14 +72,12 @@ export default function ProductDetail() {
         setSubProduct(filtered);
       }
       setProduct(result.data);
-      console.log(result.data);
     };
     getData();
   }, [isReady, query, baseUrl]);
 
   // 구매하기 한번 눌렀을 때 구매하기, 선물하기, 아이템 수량 항목 나오게 핸들링
   const handleIsOpen = () => {
-    console.log(isOpen);
     setRandomKey(Math.random());
     setIsOpen(!isOpen);
   };
@@ -125,7 +122,6 @@ export default function ProductDetail() {
   // 장바구니에 아이템 추가
   const AT = useRecoilValue(accessTokenState);
   const [isCart, setIsCart] = useState(false);
-  console.log("AT: ", AT);
   const addCartHandler = () => {
     axios.post(
       `${baseUrl}/api/cart`,
@@ -139,7 +135,6 @@ export default function ProductDetail() {
         },
       }
     );
-    console.log("장바구니 담기 성공!");
     setIsCart(true);
   };
 

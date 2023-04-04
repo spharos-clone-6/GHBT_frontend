@@ -16,11 +16,9 @@ export default function Event() {
   const { query } = useRouter();
 
   const { baseUrl } = Config();
-  console.log(query.category);
 
   useEffect(() => {
     const getData = async () => {
-      console.log(query);
       const result = await axios
         .get(`${baseUrl}/api/product/search/c?filter=${query.category}`)
         .then((result) => setItemList(result.data.content))

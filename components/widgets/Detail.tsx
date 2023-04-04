@@ -54,7 +54,6 @@ export default function Detail() {
       const result = await axios.get(
         `${baseUrl}/api/image/${router.query.pid}`
       );
-      console.log(result.data.images);
       setImgList([...result.data.images]);
       setShowImgList([result.data.images[0]]);
       setIsLoading(false);

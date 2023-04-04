@@ -5,9 +5,7 @@ import PayDeliveryInfo from "@/components/widgets/PayDeliveryInfo";
 import PayInfo from "@/components/widgets/PayInfo";
 import PayMethod from "@/components/widgets/PayMethod";
 import PayProductList from "@/components/widgets/PayProductList";
-import Config from "@/configs/config.export";
 import { deliveryListType } from "@/types/types";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import Price from "@/components/ui/Price";
@@ -17,11 +15,9 @@ import { useCartOrder } from "@/hooks/useCartOrder";
 import { useDeliveryPrice } from "@/hooks/useDeliveryPrice";
 import { accessTokenState } from "@/state/accessTokenState";
 import LoginRequired from "@/components/widgets/LoginRequired";
-// import { AT } from "@/data/StaticData";
 import axiosApiInstance from "@/utils/axiosInstance";
 
 export default function Payment() {
-  const { baseUrl } = Config();
   const [deliveryList, setDeliveryList] = useRecoilState(deliveryListState);
   const [deliveryPlace, setDeliveryPlace] = useState<deliveryListType>([]);
   const [payMethod, setPayMethod] = useState<string>("");
@@ -37,11 +33,7 @@ export default function Payment() {
 
   // 배송지 데이터 불러오기
   async function fetchDelivery() {
-    const delivery = await axiosApiInstance.get(`/shipping-address`, {
-      headers: {
-        Authorization: `Bearer ${AT}`,
-      },
-    });
+    const delivery = await axiosApiInstance.get(`/shipping-address`);
     setDeliveryList(delivery.data.shippingAddress);
   }
 
@@ -77,22 +69,14 @@ export default function Payment() {
 
   const purchase = async () => {
     if (Object.keys(receipt).length !== 0) {
-      const result = await axios.post(
-        `http://localhost:8080/api/purchase`,
-        {
-          purchaseList: receipt.purchaseList,
-          shippingAddressId: receipt.shippingAddressId,
-          shippingPrice: receipt.shippingPrice,
-          paymentType: receipt.paymentType,
-          cashReceipts: receipt.cashReceipts,
-          totalPrice: receipt.totalPrice,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${AT}`,
-          },
-        }
-      );
+      const result = await axiosApiInstance.post(`/purchase`, {
+        purchaseList: receipt.purchaseList,
+        shippingAddressId: receipt.shippingAddressId,
+        shippingPrice: receipt.shippingPrice,
+        paymentType: receipt.paymentType,
+        cashReceipts: receipt.cashReceipts,
+        totalPrice: receipt.totalPrice,
+      });
       window.location.href = result.data.next_redirect_pc_url;
     }
   };
@@ -114,7 +98,6 @@ export default function Payment() {
           )}
 
           <PayProductList itemList={orderList} />
-          {/* <PayCoupon /> */}
           <RightArrowMenu
             iconSrc=""
             menuName="모바일 상품권"

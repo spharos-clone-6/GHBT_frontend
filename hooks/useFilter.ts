@@ -16,7 +16,6 @@ export default (url: string, keyword: string | string[]): productType[] => {
       .catch((err) => {
         console.log(err);
       });
-    console.log("키워드 변경으로 API 호출: ", keyword);
   }, [keyword]);
 
   return data;
