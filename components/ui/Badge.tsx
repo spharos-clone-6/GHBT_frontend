@@ -26,10 +26,12 @@ export default function Badge() {
       if (accessToken) {
         console.log("뱃지", accessToken);
 
-        const generalResult = await axiosApiInstance.get(
-          `${baseUrl}/api/cart/my_cart`
-        );
-        setGeneralCart(generalResult.data);
+        const generalResult = await axiosApiInstance
+          .get(`${baseUrl}/api/cart/my_cart`)
+          .catch((err) => {
+            console.log("뱃지에서 에러", err);
+          });
+        setGeneralCart(generalResult?.data);
       }
     } catch (ex: any) {
       if (ex.response && ex.response.status === 401) {
@@ -41,11 +43,12 @@ export default function Badge() {
   async function fetchFrozenData() {
     try {
       if (accessToken) {
-        console.log("뱃지", accessToken);
-        const frozenResult = await axiosApiInstance.get(
-          `${baseUrl}/api/cart/my_cart/ice`
-        );
-        setFrozenCart(frozenResult.data);
+        const frozenResult = await axiosApiInstance
+          .get(`${baseUrl}/api/cart/my_cart/ice`)
+          .catch((err) => {
+            console.log("뱃지에서 에러", err);
+          });
+        setFrozenCart(frozenResult?.data);
       }
     } catch (ex: any) {
       if (ex.response && ex.response.status === 401) {
