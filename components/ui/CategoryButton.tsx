@@ -12,6 +12,7 @@ export default function CategoryButton(props: { category: categoryType }) {
 
   const handleLink = (c: string) => {
     setContentsIsView(false);
+    document.body.style.overflow = "unset";
     router.push(`store?bigCategory=${c}`);
   };
   // 목차에 누르면 해당 카테고리로 이동하는 사진 포함 버튼

@@ -32,7 +32,13 @@ export default function ContentCategoryContainer() {
 
   return (
     <section css={categorySection} id="category-items">
-      <div className="get-all-items" onClick={() => setContentsIsView(false)}>
+      <div
+        className="get-all-items"
+        onClick={() => {
+          document.body.style.overflow = "unset";
+          setContentsIsView(false);
+        }}
+      >
         <RightArrowMenu menuName={"전체 상품 보기"} link={"/store"} />
       </div>
       {loading && <Loading />}
