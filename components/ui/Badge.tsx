@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { frozenCartListState, generalCartListState } from "../../state/cart";
 import { accessTokenState } from "@/state/accessTokenState";
+import axiosApiInstance from "@/utils/axiosInstance";
 
 export default function Badge() {
   const [isUser, setIsUser] = useState(true);
@@ -25,11 +26,9 @@ export default function Badge() {
       if (accessToken) {
         console.log("뱃지", accessToken);
 
-        const generalResult = await axios.get(`${baseUrl}/api/cart/my_cart`, {
-          headers: {
-            Authorization: accessToken,
-          },
-        });
+        const generalResult = await axiosApiInstance.get(
+          `${baseUrl}/api/cart/my_cart`
+        );
         setGeneralCart(generalResult.data);
       }
     } catch (ex: any) {
@@ -43,13 +42,8 @@ export default function Badge() {
     try {
       if (accessToken) {
         console.log("뱃지", accessToken);
-        const frozenResult = await axios.get(
-          `${baseUrl}/api/cart/my_cart/ice`,
-          {
-            headers: {
-              Authorization: accessToken,
-            },
-          }
+        const frozenResult = await axiosApiInstance.get(
+          `${baseUrl}/api/cart/my_cart/ice`
         );
         setFrozenCart(frozenResult.data);
       }
