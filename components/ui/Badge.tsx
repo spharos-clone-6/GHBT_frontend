@@ -24,21 +24,23 @@ export default function Badge() {
   async function fetchGeneralData() {
     try {
       if (accessToken) {
-        console.log("뱃지", accessToken);
-        const generalResult = await axiosApiInstance
-          .get("cart/my_cart", {
-            headers: { Authorization: accessToken },
-          })
-          .then((res) => {
-            setGeneralCart(res?.data);
-          })
-          .catch((err) => {
-            console.log("뱃지에서 에러", err);
-            if (err.response && err.response.status === 401) {
-              console.log("비회원");
-              setIsUser(false);
-            }
-          });
+        setTimeout(async () => {
+          console.log("뱃지", accessToken);
+          const generalResult = await axiosApiInstance
+            .get("cart/my_cart", {
+              headers: { Authorization: accessToken },
+            })
+            .then((res) => {
+              setGeneralCart(res?.data);
+            })
+            .catch((err) => {
+              console.log("뱃지에서 에러", err);
+              if (err.response && err.response.status === 401) {
+                console.log("비회원");
+                setIsUser(false);
+              }
+            });
+        }, 100);
       }
     } catch (ex: any) {
       if (ex.response && ex.response.status === 401) {
@@ -50,20 +52,22 @@ export default function Badge() {
   async function fetchFrozenData() {
     try {
       if (accessToken) {
-        const frozenResult = await axiosApiInstance
-          .get("cart/my_cart/ice", {
-            headers: { Authorization: accessToken },
-          })
-          .then((res) => {
-            setFrozenCart(res?.data);
-          })
-          .catch((err) => {
-            console.log("뱃지에서 에러", err);
-            if (err.response && err.response.status === 401) {
-              console.log("비회원");
-              setIsUser(false);
-            }
-          });
+        setTimeout(async () => {
+          const frozenResult = await axiosApiInstance
+            .get("cart/my_cart/ice", {
+              headers: { Authorization: accessToken },
+            })
+            .then((res) => {
+              setFrozenCart(res?.data);
+            })
+            .catch((err) => {
+              console.log("뱃지에서 에러", err);
+              if (err.response && err.response.status === 401) {
+                console.log("비회원");
+                setIsUser(false);
+              }
+            });
+        });
       }
     } catch (ex: any) {
       if (ex.response && ex.response.status === 401) {
