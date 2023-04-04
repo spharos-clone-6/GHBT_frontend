@@ -1,3 +1,5 @@
+/** @jsxImportSource @emotion/react */
+
 import BackIcon from "@/components/ui/BackIcon";
 import BottomFixedContainer from "@/components/ui/BottomFixedContainer";
 import Button from "@/components/ui/Button";
@@ -6,13 +8,14 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { privateAgreeType } from "@/types/types";
 import CheckBox from "@/components/ui/CheckBox";
+import { css } from "@emotion/react";
 
 type adAgreeType = {
   email: boolean;
   sms: boolean;
 };
 
-export default function SignUp01() {
+export default function SignUp() {
   const router = useRouter();
 
   const [isAllAgree, setIsAllAgree] = useState<boolean>(false);
@@ -42,6 +45,12 @@ export default function SignUp01() {
         setRequired(false);
       }
     }
+    // if (agreeArray.isAdvertisingConfirm) {
+    //   setAdAgreeArray({
+    //     email: true,
+    //     sms: true,
+    //   });
+    // }
   }, [agreeArray]);
 
   useEffect(() => {
@@ -59,7 +68,7 @@ export default function SignUp01() {
       setAdAgree("none");
       setAgreeArray({ ...agreeArray, isAdvertisingConfirm: false });
     }
-  }, [adAgreeArray, agreeArray]);
+  }, [adAgreeArray]);
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;
@@ -74,6 +83,12 @@ export default function SignUp01() {
       setAgreeArray({
         ...agreeArray,
         [name]: checked,
+      });
+    }
+    if (name === "isAdvertisingConfirm") {
+      setAdAgreeArray({
+        email: checked,
+        sms: checked,
       });
     }
   };
@@ -92,11 +107,11 @@ export default function SignUp01() {
         <BackIcon />
       </header>
       <div>
-        <section className="greeting first-section">
+        <section className="greeting first-section" css={greeting}>
           <Image
             src="/images/starbucks-logo.png"
             alt="스타벅스 로고"
-            width={80}
+            width={85}
             height={80}
           />
           <h2 className="signup-info">
@@ -105,7 +120,7 @@ export default function SignUp01() {
             환영합니다!
           </h2>
         </section>
-        <section className="agree-input" id="agree-main">
+        <section className="agree-input" id="agree-main" css={agreeInput}>
           <CheckBox
             lableText="약관 전체동의"
             isArrow={false}
@@ -136,8 +151,9 @@ export default function SignUp01() {
             value={agreeArray.isAdvertisingConfirm}
           />
 
-          <div className="advertising-info">
+          <div className="advertising-info" style={{ marginBottom: "25%" }}>
             <p>광고성 정보 수신 방법(선택)</p>
+            <p>선택하지 않을 시 push로만 제공됩니다.</p>
             <Image
               src="/images/icons/check_white.png"
               alt="체크 이미지"
@@ -199,3 +215,41 @@ export default function SignUp01() {
     </>
   );
 }
+const greeting = css`
+  margin-top: 30px;
+  padding: 20px;
+  & h2 {
+    font-size: 25px;
+    font-weight: bold;
+    letter-spacing: -1px;
+    line-height: 30px;
+    margin-bottom: 0px;
+  }
+  & p {
+    font-size: 0.9rem;
+  }
+
+  @media screen and (max-height: 700px) {
+    margin-top: 20px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    & h2 {
+      font-size: 1.4rem;
+      line-height: 25px;
+    }
+    & p {
+      font-size: 0.8rem;
+    }
+  }
+`;
+
+const agreeInput = css`
+  width: 100%;
+  padding: 0;
+  font-size: 1.2rem;
+  margin-top: 80px;
+  @media screen and (max-height: 700px) {
+    font-size: 1rem;
+    margin-top: 25px;
+  }
+`;

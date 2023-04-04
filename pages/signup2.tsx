@@ -1,15 +1,17 @@
+/** @jsxImportSource @emotion/react */
+
 import BackIcon from "@/components/ui/BackIcon";
 import BottomFixedContainer from "@/components/ui/BottomFixedContainer";
 import Button from "@/components/ui/Button";
 import Timer from "@/components/ui/Timer";
 import Config from "@/configs/config.export";
+import { css } from "@emotion/react";
 import axios from "axios";
 import { useRouter } from "next/router";
-import React, { ChangeEvent, useEffect, useState } from "react";
-import { useRecoilTransactionObserver_UNSTABLE } from "recoil";
+import { ChangeEvent, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
-export default function SignUp02() {
+export default function SignUp2() {
   const { baseUrl } = Config();
   const router = useRouter();
   const [email, setEmail] = useState("");
@@ -124,12 +126,6 @@ export default function SignUp02() {
       .post(`${baseUrl}/api/email`, {
         email,
       })
-      .then(() => {
-        Toast.fire({
-          icon: "success",
-          title: "이메일이 전송되었습니다",
-        });
-      })
       .catch((error) => {
         console.log(error);
         Toast.fire({
@@ -226,10 +222,10 @@ export default function SignUp02() {
           placeholder="이메일@example.com"
           onChange={onChangeEmail}
         />
-        <div style={{ width: `60px` }}>
-          <Button btnType={"button"} btnEvent={sendEmailValidate}>
+        <div style={{ width: "20%", textAlign: "center" }}>
+          <button type="button" onClick={sendEmailValidate} css={button}>
             인증
-          </Button>
+          </button>
         </div>
       </section>
       <div className="signup-error">{emailErrMsg}</div>
@@ -242,11 +238,12 @@ export default function SignUp02() {
             id="user_token_validate"
             placeholder="인증번호"
             onChange={onChangeToken}
+            style={{ width: "calc(100vw - 20% - 20% - 35px)" }}
           />
-          <div style={{ width: "90px" }}>
-            <Button btnType={"button"} btnEvent={checkTokenValidation}>
+          <div style={{ width: "20%", textAlign: "center" }}>
+            <button type="button" onClick={checkTokenValidation} css={button}>
               확인
-            </Button>
+            </button>
           </div>
         </section>
       )}
@@ -281,3 +278,26 @@ export default function SignUp02() {
     </>
   );
 }
+
+const button = css`
+  text-align: center;
+  border-radius: 10%;
+  // width: 90%;
+  padding: 0 0.5rem;
+  height: 2.3rem;
+  background-color: var(--color-light-green);
+  border: none;
+  color: var(--color-white);
+  border: none;
+  color: white;
+  margin: 15px 0;
+  letter-spacing: -0.2px;
+  font-size: 1.1rem;
+  white-space: nowrap;
+  &:hover {
+    filter: brightness(110%);
+  }
+  &:active {
+    filter: brightness(120%);
+  }
+`;
