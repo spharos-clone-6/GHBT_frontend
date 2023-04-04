@@ -5,7 +5,6 @@ import RightArrowMenu from "../ui/RightArrowMenu";
 import Modal from "react-modal";
 import InfoModal from "../modals/InfoModal";
 import ModalHeader from "../ui/ModalHeader";
-import InfoModal1 from "../modals/InfoModal";
 
 export default function InfoList() {
   const [isOpen1, setIsOpen1] = useState<boolean>(false);

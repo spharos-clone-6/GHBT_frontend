@@ -45,7 +45,7 @@ export default function MainHeaderTop() {
             <BackIcon />
           ) : (
             <div>
-              <button onClick={showModal}>
+              <button onClick={showModal} style={{ padding: "0" }}>
                 <Image
                   src="/images/icons/menu.svg"
                   alt=""

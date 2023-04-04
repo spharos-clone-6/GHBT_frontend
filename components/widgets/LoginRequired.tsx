@@ -26,7 +26,7 @@ export default function LoginRequired() {
         padding: "25px",
         backgroundColor: "var(--color-gray-background)",
         height: "100%",
-        paddingBottom: "270px",
+        paddingBottom: "80px",
         overflow: "hidden",
       }}
       className="first-section"
