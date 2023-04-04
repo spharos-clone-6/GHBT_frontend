@@ -17,13 +17,14 @@ import { useCartOrder } from "@/hooks/useCartOrder";
 import { useDeliveryPrice } from "@/hooks/useDeliveryPrice";
 import { accessTokenState } from "@/state/accessTokenState";
 import LoginRequired from "@/components/widgets/LoginRequired";
+import { AT } from "@/data/StaticData";
 
 export default function Payment() {
   const { baseUrl } = Config();
   const [deliveryList, setDeliveryList] = useRecoilState(deliveryListState);
   const [deliveryPlace, setDeliveryPlace] = useState<deliveryListType>([]);
   const [payMethod, setPayMethod] = useState<string>("");
-  const AT = useRecoilValue(accessTokenState);
+  // const AT = useRecoilValue(accessTokenState);
 
   // recoil-persist
   const orderList = useCartOrder();

@@ -131,6 +131,7 @@ export interface orderType {
   shippingPrice: number;
   totalPrice: number;
   zipCode: string;
+  orderId: string;
 }
 
 export interface orderItemType {
