@@ -13,6 +13,7 @@ import Price from "../ui/Price";
 import { AT } from "@/data/StaticData";
 import Config from "@/configs/config.export";
 import Image from "next/image";
+import axiosApiInstance from "@/utils/axiosInstance";
 
 interface orderChange {
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -69,18 +70,8 @@ export default function OrderChangeModal({
     setModalOpen(false);
   };
 
-  console.log("변경된 수량: ", quantity);
-
   const submitQuantity = async () => {
-    await axios.put(
-      `${baseUrl}/api/cart/${item.id}/${quantity}`,
-      {},
-      {
-        headers: {
-          Authorization: AT,
-        },
-      }
-    );
+    await axiosApiInstance.put(`/cart/${item.id}/${quantity}`);
 
     setModalOpen(false);
     setQuantity(quantity);
