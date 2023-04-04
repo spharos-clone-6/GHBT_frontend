@@ -23,6 +23,8 @@ export default function Badge() {
   async function fetchGeneralData() {
     try {
       if (accessToken) {
+        console.log("뱃지", accessToken);
+
         const generalResult = await axios.get(`${baseUrl}/api/cart/my_cart`, {
           headers: {
             Authorization: accessToken,
@@ -40,6 +42,7 @@ export default function Badge() {
   async function fetchFrozenData() {
     try {
       if (accessToken) {
+        console.log("뱃지", accessToken);
         const frozenResult = await axios.get(
           `${baseUrl}/api/cart/my_cart/ice`,
           {
