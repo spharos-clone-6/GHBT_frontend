@@ -17,14 +17,15 @@ import { useCartOrder } from "@/hooks/useCartOrder";
 import { useDeliveryPrice } from "@/hooks/useDeliveryPrice";
 import { accessTokenState } from "@/state/accessTokenState";
 import LoginRequired from "@/components/widgets/LoginRequired";
-import { AT } from "@/data/StaticData";
+// import { AT } from "@/data/StaticData";
+import axiosApiInstance from "@/utils/axiosInstance";
 
 export default function Payment() {
   const { baseUrl } = Config();
   const [deliveryList, setDeliveryList] = useRecoilState(deliveryListState);
   const [deliveryPlace, setDeliveryPlace] = useState<deliveryListType>([]);
   const [payMethod, setPayMethod] = useState<string>("");
-  // const AT = useRecoilValue(accessTokenState);
+  const AT = useRecoilValue(accessTokenState);
 
   // recoil-persist
   const orderList = useCartOrder();
@@ -36,9 +37,9 @@ export default function Payment() {
 
   // 배송지 데이터 불러오기
   async function fetchDelivery() {
-    const delivery = await axios.get(`${baseUrl}/api/shipping-address`, {
+    const delivery = await axiosApiInstance.get(`/shipping-address`, {
       headers: {
-        Authorization: AT,
+        Authorization: `Bearer ${AT}`,
       },
     });
     setDeliveryList(delivery.data.shippingAddress);
@@ -88,11 +89,10 @@ export default function Payment() {
         },
         {
           headers: {
-            Authorization: AT,
+            Authorization: `Bearer ${AT}`,
           },
         }
       );
-      console.log("이동할 URL: ", result.data.next_redirect_pc_url);
       window.location.href = result.data.next_redirect_pc_url;
     }
   };
