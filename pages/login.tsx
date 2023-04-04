@@ -31,7 +31,8 @@ export default function Login() {
       )
       .then((res) => {
         if (res.headers?.authorization) {
-          const setAccess = res.headers.authorization.replace(/Bearer /g, "");
+          const setAccess = res.headers.authorization;
+          console.log("res", res);
           setAccessToken(setAccess);
           router.push("/");
         }
@@ -48,16 +49,6 @@ export default function Login() {
   const setPasswordFunction = (event: any) => {
     setPassword(event.target.value);
   };
-
-  // const modalStyle: Object = {
-  //   position: "fixed",
-  //   backgroundColor: "white",
-  //   top: "0",
-  //   left: "0",
-  //   zIndex: 999,
-  //   width: "100%",
-  //   height: "100%",
-  // };
 
   return (
     <div>

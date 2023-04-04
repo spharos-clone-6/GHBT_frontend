@@ -14,7 +14,7 @@ import { css } from "@emotion/react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import Image from "next/image";
 import CloseIcon from "@/components/ui/CloseIcon";
 import Config from "@/configs/config.export";
@@ -125,6 +125,7 @@ export default function ProductDetail() {
   // 장바구니에 아이템 추가
   const AT = useRecoilValue(accessTokenState);
   const [isCart, setIsCart] = useState(false);
+  console.log("AT: ", AT);
   const addCartHandler = () => {
     axios.post(
       `${baseUrl}/api/cart`,
