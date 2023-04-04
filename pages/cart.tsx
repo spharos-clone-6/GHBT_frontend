@@ -57,7 +57,9 @@ export default function Cart() {
     if (accessToken) {
       const generalResult = await axiosApiInstance
         .get(`cart/my_cart`)
-        .catch((err) => {});
+        .catch((err) => {
+          console.log("에러확인", err);
+        });
 
       console.log("일반 상품 :", generalResult);
       if (generalResult) setGeneralCart(generalResult?.data);
