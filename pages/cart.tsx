@@ -11,7 +11,6 @@ import BottomFixedContainer from "@/components/ui/BottomFixedContainer";
 import Button from "@/components/ui/Button";
 import CartControlBar from "@/components/widgets/CartControlBar";
 import { cartListType } from "@/types/types";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import CartEmpty from "../components/widgets/CartEmpty";
 import { css } from "@emotion/react";
@@ -20,10 +19,10 @@ import Config from "@/configs/config.export";
 import { useRouter } from "next/router";
 import Price from "@/components/ui/Price";
 import Loading from "@/components/ui/Loading";
-import { AT } from "@/data/StaticData";
 import axiosApiInstance from "@/utils/axiosInstance";
 import { accessTokenState } from "@/state/accessTokenState";
 import { useDidMountEffect } from "@/hooks/useDidmount";
+import LoginRequired from "@/components/widgets/LoginRequired";
 
 export default function Cart() {
   const { baseUrl } = Config();
@@ -143,15 +142,16 @@ export default function Cart() {
 
   return (
     <>
-      {isLoading && (
+      {!accessToken && <LoginRequired background="white" />}
+      {accessToken && isLoading && (
         <div style={{ width: "100vw", height: "100vh", paddingTop: "55%" }}>
           <Loading />
         </div>
       )}
-      {!isLoading &&
-        (totalCart === 0 ? (
-          <CartEmpty />
-        ) : (
+      {accessToken && !isLoading && (
+        <>
+          (totalCart === 0 ? (
+          <CartEmpty />) : (
           <div className="cart-container">
             <section id="cart-header">
               <p className="title">장바구니</p>
@@ -228,7 +228,9 @@ export default function Cart() {
               </div>
             </BottomFixedContainer>
           </div>
-        ))}
+          ))
+        </>
+      )}
     </>
   );
 }
