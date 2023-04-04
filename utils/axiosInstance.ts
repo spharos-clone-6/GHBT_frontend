@@ -63,7 +63,7 @@ const AxiosInterceptor = ({ children }: any) => {
     };
 
     const errInterceptor = async (error: any) => {
-      console.log(error.response);
+      console.log("에러확인용", error.response);
       if (error.response.status === 401) {
         try {
           const originalRequest = error.config;
