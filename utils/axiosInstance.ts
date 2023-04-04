@@ -14,8 +14,6 @@ const AxiosInterceptor = ({ children }: any) => {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
 
   useEffect(() => {
-    console.log("2access2번");
-
     // 새로고침으로 accessToken이 없는 경우 reissue로 accesstoken 저장
     if (!accessToken) {
       const getAccessToken = async () => {
@@ -38,7 +36,6 @@ const AxiosInterceptor = ({ children }: any) => {
 
   //access 헤더에 입력
   useEffect(() => {
-    console.log("3accessToken은???", accessToken);
     // Authorization 영역에 accessToken 설정하는 config
     const reqInterceptor = (config: any) => {
       if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
@@ -62,7 +59,6 @@ const AxiosInterceptor = ({ children }: any) => {
       if (error.response.status === 401) {
         try {
           const originalRequest = error.config;
-          console.log("origin에러", originalRequest);
           const data = await axiosApiInstance.post("reissue");
 
           if (data?.headers?.authorization) {
