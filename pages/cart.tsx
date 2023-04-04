@@ -55,17 +55,18 @@ export default function Cart() {
   // 데이터 불러오기
   async function fetchGeneralData() {
     if (accessToken) {
-      const generalResult = await axiosApiInstance
-        .get(`cart/my_cart`, {
-          headers: { Authorization: accessToken },
-        })
-        .catch((err) => {
-          console.log("에러확인", err);
-        });
-
-      console.log("일반 상품 :", generalResult);
-      if (generalResult) setGeneralCart(generalResult?.data);
-      else setGeneralCart([]);
+      setTimeout(async () => {
+        const generalResult = await axiosApiInstance
+          .get(`cart/my_cart`, {
+            headers: { Authorization: accessToken },
+          })
+          .catch((err) => {
+            console.log("에러확인", err);
+          });
+        console.log("일반 상품 :", generalResult);
+        if (generalResult) setGeneralCart(generalResult?.data);
+        else setGeneralCart([]);
+      }, 100);
     }
   }
   async function fetchFrozenData() {
