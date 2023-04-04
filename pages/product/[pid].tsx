@@ -10,7 +10,7 @@ import Detail from "@/components/widgets/Detail";
 import InfoList from "@/components/widgets/InfoList";
 import ProductDetailSubmit from "@/components/widgets/ProductDetailSubmit";
 import { cartListType, productType } from "@/types/types";
-import { css } from "@emotion/react";
+import { css, keyframes } from "@emotion/react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -285,12 +285,6 @@ const buttonContainer = css`
   align-items: center;
 `;
 
-const iconStyle = css`
-  padding: 0;
-  margin: 0;
-  width: 30%;
-`;
-
 const CartContainer = css`
   display: flex;
   justify-content: space-between;
@@ -298,4 +292,26 @@ const CartContainer = css`
   font-size: 1.2rem;
   font-weight: bold;
   padding: 10px 30px 0px 30px;
+`;
+
+const animate = keyframes`
+
+20% {
+  transform: rotate(-30deg);
+}
+
+60% {
+  transform: rotate(30deg);
+}
+
+100% {
+  transform: rotate(0);
+}
+`;
+
+const iconStyle = css`
+  padding: 0;
+  margin: 0;
+  width: 30%;
+  animation: ${animate} 0.5s ease-out;
 `;
