@@ -26,10 +26,12 @@ export default function MainHeaderTop() {
 
   const showModal = () => {
     setContentsIsView(true);
+    document.body.style.overflow = "hidden";
   };
 
   const closeModal = () => {
     setContentsIsView(false);
+    document.body.style.overflow = "unset";
   };
 
   return (

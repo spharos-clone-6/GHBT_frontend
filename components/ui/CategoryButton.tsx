@@ -2,12 +2,16 @@ import { categoryType } from "@/types/types";
 import { useRouter } from "next/router";
 import React from "react";
 import Image from "next/image";
+import { contentsModalState } from "@/state/contentsModalState";
+import { useSetRecoilState } from "recoil";
 
 export default function CategoryButton(props: { category: categoryType }) {
   const { category } = props;
   const router = useRouter();
+  const setContentsIsView = useSetRecoilState(contentsModalState);
 
   const handleLink = (c: string) => {
+    setContentsIsView(false);
     router.push(`store?bigCategory=${c}`);
   };
   // 목차에 누르면 해당 카테고리로 이동하는 사진 포함 버튼

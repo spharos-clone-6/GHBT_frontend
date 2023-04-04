@@ -21,7 +21,7 @@
 }
 
 .contents-head .contents-msg {
-  margin: 0px 0px 30px 5px;
+  margin: 0px 0px 1rem 5px;
   border: thin;
 }
 
@@ -43,15 +43,6 @@ hr .contents-line {
   border-width: 1px 0px 0px 0px;
   border-style: solid;
   border-color: rgb(180, 180, 180);
-}
-
-#category-items {
-  background-color: white;
-  margin: 0px;
-  padding: 0px 14px 35px 14px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
 }
 
 #category-items .contents-container {
@@ -82,18 +73,6 @@ hr .contents-line {
   color: black;
 }
 
-#category-items .contents-container .category .category-img {
-  margin: 0px;
-  width: 110px;
-}
-#category-items .contents-container .category .category-img img {
-  width: 105px;
-  height: 105px;
-  border-radius: 70%;
-  display: block;
-  margin: 0px auto;
-}
-
 section #category-items p {
   margin: 0px 15px;
 }
@@ -108,24 +87,9 @@ section #category-items p {
   width: fit-content;
 }
 
-#category-items .get-all-items button a:link {
-  text-decoration-line: none;
-  color: rgb(90, 90, 90);
-}
-
-#category-items .get-all-items button a:visited {
-  text-decoration-line: none;
-  color: rgb(90, 90, 90);
-}
-
 #category-items .get-all-items button {
   margin: 0px;
   padding: 0px;
   border: 0px;
   background-color: transparent;
-}
-
-#nav-event-best {
-  background-color: var(--color-gray-background);
-  padding: 20px 10px;
 }

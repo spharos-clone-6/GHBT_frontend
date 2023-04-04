@@ -1,3 +1,5 @@
+/** @jsxImportSource @emotion/react */
+
 import Config from "@/configs/config.export";
 import { categoryType } from "@/types/types";
 import axios from "axios";
@@ -5,9 +7,13 @@ import React, { useEffect, useState } from "react";
 import CategoryButton from "../ui/CategoryButton";
 import Loading from "../ui/Loading";
 import RightArrowMenu from "../ui/RightArrowMenu";
+import { css } from "@emotion/react";
+import { contentsModalState } from "@/state/contentsModalState";
+import { useSetRecoilState } from "recoil";
 
 export default function ContentCategoryContainer() {
   const [loading, setLoading] = useState<boolean>(true);
+  const setContentsIsView = useSetRecoilState(contentsModalState);
   const [categoryList, setCatogoryList] = useState<categoryType[]>();
   const { baseUrl } = Config();
 
@@ -25,8 +31,8 @@ export default function ContentCategoryContainer() {
   }, [baseUrl]);
 
   return (
-    <section id="category-items">
-      <div className="get-all-items">
+    <section css={categorySection} id="category-items">
+      <div className="get-all-items" onClick={() => setContentsIsView(false)}>
         <RightArrowMenu menuName={"전체 상품 보기"} link={"/store"} />
       </div>
       {loading && <Loading />}
@@ -37,3 +43,24 @@ export default function ContentCategoryContainer() {
     </section>
   );
 }
+
+const categorySection = css`
+  background-color: white;
+  margin: 0px;
+  padding: 0px 14px 0px 14px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  padding-top: 1rem;
+  // position: absolute;
+  /* width: calc(100vw - 28px); */
+  // top: calc(50vh - 25%);
+  & img {
+    border-radius: 70%;
+    display: block;
+    margin: 0px auto;
+  }
+  @media screen and (max-height: 700px) {
+    padding-top: 0;
+  }
+`;
