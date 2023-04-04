@@ -4,13 +4,14 @@ import { cartListType } from "@/types/types";
 import { css } from "@emotion/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { frozenCartListState, generalCartListState } from "../../state/cart";
-import { AT } from "@/data/StaticData";
+import { accessTokenState } from "@/state/accessTokenState";
 
 export default function Badge() {
   const [isUser, setIsUser] = useState(true);
   const { baseUrl } = Config();
+  const accessToken = useRecoilValue(accessTokenState);
 
   const [frozenCart, setFrozenCart] =
     useRecoilState<cartListType>(frozenCartListState);
@@ -21,12 +22,14 @@ export default function Badge() {
   // 데이터 불러오기
   async function fetchGeneralData() {
     try {
-      const generalResult = await axios.get(`${baseUrl}/api/cart/my_cart`, {
-        headers: {
-          Authorization: AT,
-        },
-      });
-      setGeneralCart(generalResult.data);
+      if (accessToken) {
+        const generalResult = await axios.get(`${baseUrl}/api/cart/my_cart`, {
+          headers: {
+            Authorization: accessToken,
+          },
+        });
+        setGeneralCart(generalResult.data);
+      }
     } catch (ex: any) {
       if (ex.response && ex.response.status === 401) {
         console.log("비회원");
@@ -36,12 +39,17 @@ export default function Badge() {
   }
   async function fetchFrozenData() {
     try {
-      const frozenResult = await axios.get(`${baseUrl}/api/cart/my_cart/ice`, {
-        headers: {
-          Authorization: AT,
-        },
-      });
-      setFrozenCart(frozenResult.data);
+      if (accessToken) {
+        const frozenResult = await axios.get(
+          `${baseUrl}/api/cart/my_cart/ice`,
+          {
+            headers: {
+              Authorization: accessToken,
+            },
+          }
+        );
+        setFrozenCart(frozenResult.data);
+      }
     } catch (ex: any) {
       if (ex.response && ex.response.status === 401) {
         console.log("비회원");
@@ -53,7 +61,7 @@ export default function Badge() {
   useEffect(() => {
     fetchGeneralData();
     fetchFrozenData();
-  }, []);
+  }, [accessToken]);
 
   const badge = css`
     position: absolute;

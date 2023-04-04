@@ -70,7 +70,9 @@ export default function Cart() {
     if (accessToken) {
       const frozenResult = await axiosApiInstance
         .get(`cart/my_cart/ice`)
-        .catch((err) => {});
+        .catch((err) => {
+          console.log("에러확인", err);
+        });
 
       console.log("냉동 상품 :", frozenResult);
       if (frozenResult) setFrozenCart(frozenResult?.data);
