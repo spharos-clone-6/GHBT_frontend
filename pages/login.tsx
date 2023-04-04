@@ -12,6 +12,7 @@ import BackIcon from "@/components/ui/BackIcon";
 import Link from "next/link";
 import { css } from "@emotion/react";
 import Swal from "sweetalert2";
+import Image from "next/image";
 
 export default function Login() {
   const { baseUrl } = Config();
