@@ -92,7 +92,7 @@
   display: flex;
   padding: 0px;
   margin: 0px 0px;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: flex-start;
   /* width: 80%; */
 }
