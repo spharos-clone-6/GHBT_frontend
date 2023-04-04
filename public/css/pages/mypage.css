@@ -72,3 +72,9 @@
   display: inline-flex;
   align-items: center;
 }
+
+.delivery-status-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
