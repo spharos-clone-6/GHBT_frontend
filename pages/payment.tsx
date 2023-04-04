@@ -38,7 +38,6 @@ export default function Payment() {
         Authorization: AT,
       },
     });
-
     setDeliveryList(delivery.data.shippingAddress);
   }
 
@@ -118,7 +117,7 @@ export default function Payment() {
         fontType="bold"
         padding="15px 10px"
       />
-      <PayMethod method={payMethod} setMethod={setPayMethod} />
+      <PayMethod setMethod={setPayMethod} />
       <RightArrowMenu
         iconSrc=""
         menuName="현금영수증"
