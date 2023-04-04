@@ -56,7 +56,9 @@ export default function Cart() {
   async function fetchGeneralData() {
     if (accessToken) {
       const generalResult = await axiosApiInstance
-        .get(`cart/my_cart`)
+        .get(`cart/my_cart`, {
+          headers: { Authorization: accessToken },
+        })
         .catch((err) => {
           console.log("에러확인", err);
         });
@@ -69,7 +71,9 @@ export default function Cart() {
   async function fetchFrozenData() {
     if (accessToken) {
       const frozenResult = await axiosApiInstance
-        .get(`cart/my_cart/ice`)
+        .get(`cart/my_cart/ice`, {
+          headers: { Authorization: accessToken },
+        })
         .catch((err) => {
           console.log("에러확인", err);
         });

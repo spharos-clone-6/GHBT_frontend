@@ -12,10 +12,9 @@ const axiosApiInstance = axios.create({
 
 const AxiosInterceptor = ({ children }: any) => {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
-  console.log("access1번");
 
   useEffect(() => {
-    console.log("access2번");
+    console.log("2access2번");
 
     // 새로고침으로 accessToken이 없는 경우 reissue로 accesstoken 저장
     if (!accessToken) {
@@ -23,7 +22,6 @@ const AxiosInterceptor = ({ children }: any) => {
         const result: any = await axiosApiInstance
           .post("reissue")
           .catch((err) => {
-            console.log("accessToken 제거");
             setAccessToken("");
           });
         if (result?.headers?.authorization) {
@@ -40,9 +38,7 @@ const AxiosInterceptor = ({ children }: any) => {
 
   //access 헤더에 입력
   useEffect(() => {
-    console.log("access3번");
-    console.log("accessToken은???", accessToken);
-    if (accessToken) console.log("access토큰확인", accessToken);
+    console.log("3accessToken은???", accessToken);
     // Authorization 영역에 accessToken 설정하는 config
     const reqInterceptor = (config: any) => {
       if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
@@ -63,7 +59,6 @@ const AxiosInterceptor = ({ children }: any) => {
     };
 
     const errInterceptor = async (error: any) => {
-      console.log("에러확인용", error.response);
       if (error.response.status === 401) {
         try {
           const originalRequest = error.config;
@@ -77,7 +72,6 @@ const AxiosInterceptor = ({ children }: any) => {
               ""
             );
             setAccessToken(setAcessTokenByRefresh);
-            console.log("엑세스토큰", accessTokenByRefresh);
             originalRequest.headers.Authorization = `Bearer ${setAcessTokenByRefresh}`;
             return await axiosApiInstance.request(originalRequest);
           }
