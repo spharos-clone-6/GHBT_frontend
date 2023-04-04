@@ -5,12 +5,12 @@ import RightArrowMenu from "../ui/RightArrowMenu";
 import Modal from "react-modal";
 import InfoModal from "../modals/InfoModal";
 import ModalHeader from "../ui/ModalHeader";
+import InfoModal1 from "../modals/InfoModal";
 
 export default function InfoList() {
   const [isOpen1, setIsOpen1] = useState<boolean>(false);
   const [isOpen2, setIsOpen2] = useState<boolean>(false);
   const [isOpen3, setIsOpen3] = useState<boolean>(false);
-  const [isOpen4, setIsOpen4] = useState<boolean>(false);
 
   const hr = css`
     opacity: 0.5;
@@ -41,7 +41,6 @@ export default function InfoList() {
   return (
     <div
       css={css`
-        padding-left: 20px;
         margin-bottom: 100px;
       `}
     >
@@ -54,7 +53,7 @@ export default function InfoList() {
           setModalOpen={setIsOpen1}
           headerName="이용조건 및 배송안내"
         />
-        <InfoModal />
+        <InfoModal setModalOpen={setIsOpen1} title="이용조건 및 배송안내" />
       </Modal>
       <button onClick={() => setIsOpen1(true)} style={{ width: "100%" }}>
         <RightArrowMenu
@@ -71,15 +70,11 @@ export default function InfoList() {
         style={modalStyle}
         onRequestClose={() => setIsOpen2(false)}
       >
-        <ModalHeader setModalOpen={setIsOpen2} headerName="상품제공정보고시" />
-        <InfoModal />
+        <ModalHeader setModalOpen={setIsOpen2} headerName="교환/반품 안내" />
+        <InfoModal setModalOpen={setIsOpen2} title="교환/반품 안내" />
       </Modal>
       <button onClick={() => setIsOpen2(true)} style={{ width: "100%" }}>
-        <RightArrowMenu
-          menuName="상품제공정보고시"
-          link="#"
-          fontType="strong"
-        />
+        <RightArrowMenu menuName="교환/반품 안내" link="#" fontType="strong" />
       </button>
 
       <hr css={hr} />
@@ -89,24 +84,10 @@ export default function InfoList() {
         style={modalStyle}
         onRequestClose={() => setIsOpen3(false)}
       >
-        <ModalHeader setModalOpen={setIsOpen3} headerName="교환/반품 안내" />
-        <InfoModal />
+        <ModalHeader setModalOpen={setIsOpen3} headerName="취소/환불 안내" />
+        <InfoModal setModalOpen={setIsOpen3} title="취소/환불 안내" />
       </Modal>
       <button onClick={() => setIsOpen3(true)} style={{ width: "100%" }}>
-        <RightArrowMenu menuName="교환/반품 안내" link="#" fontType="strong" />
-      </button>
-
-      <hr css={hr} />
-
-      <Modal
-        isOpen={isOpen4}
-        style={modalStyle}
-        onRequestClose={() => setIsOpen4(false)}
-      >
-        <ModalHeader setModalOpen={setIsOpen4} headerName="취소/환불 안내" />
-        <InfoModal />
-      </Modal>
-      <button onClick={() => setIsOpen4(true)} style={{ width: "100%" }}>
         <RightArrowMenu menuName="취소/환불 안내" link="#" fontType="strong" />
       </button>
     </div>
