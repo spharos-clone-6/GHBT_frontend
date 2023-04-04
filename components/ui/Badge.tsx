@@ -18,7 +18,7 @@ export default function Badge() {
     useRecoilState<cartListType>(frozenCartListState);
   const [generalCart, setGeneralCart] =
     useRecoilState<cartListType>(generalCartListState);
-  const totalItem = frozenCart.length + generalCart.length;
+  const totalItem = frozenCart?.length + generalCart?.length;
 
   // 데이터 불러오기
   async function fetchGeneralData() {
