@@ -10,6 +10,7 @@ import Config from "@/configs/config.export";
 import { AT } from "@/data/StaticData";
 import { useRouter } from "next/router";
 import Swal from "sweetalert2";
+import axiosApiInstance from "@/utils/axiosInstance";
 
 export default function DeliveryRegister() {
   const [deliveryList, setDeliveryList] = useRecoilState(deliveryListState);
@@ -44,25 +45,17 @@ export default function DeliveryRegister() {
         text: "필수 값을 입력해 주세요.",
       });
     } else {
-      axios.post(
-        `${baseUrl}/api/shipping-address`,
-        {
-          receiver: form.receiver,
-          zipCode: form.zipCode,
-          addressNickname: form.addressNickname,
-          detailAddress: form.detailAddress,
-          baseAddress: form.baseAddress,
-          phoneNumber1: form.phoneNumber1,
-          phoneNumber2: form.phoneNumber2,
-          notice: form.notice,
-          isDefault: form.isDefault,
-        },
-        {
-          headers: {
-            Authorization: AT,
-          },
-        }
-      );
+      axiosApiInstance.post(`/shipping-address`, {
+        receiver: form.receiver,
+        zipCode: form.zipCode,
+        addressNickname: form.addressNickname,
+        detailAddress: form.detailAddress,
+        baseAddress: form.baseAddress,
+        phoneNumber1: form.phoneNumber1,
+        phoneNumber2: form.phoneNumber2,
+        notice: form.notice,
+        isDefault: form.isDefault,
+      });
       setDeliveryList([...deliveryList, form]);
       router.back();
     }

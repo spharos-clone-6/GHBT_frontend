@@ -24,8 +24,6 @@ export default function SearchTop() {
 
   const typingHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setWord(e.target.value);
-
-    console.log(word);
   };
 
   function resultHandler() {

@@ -96,7 +96,7 @@ export default function CartItemList({ title }: cartType) {
                 <Price price={listPrice + deliveryPrice} />
               </p>
               <p style={{ fontWeight: "bold" }}>{deliveryComment}</p>
-              <Link href="/store_all" style={{ textDecoration: "underline" }}>
+              <Link href="/store" style={{ textDecoration: "underline" }}>
                 더 담으러 가기
               </Link>
             </div>

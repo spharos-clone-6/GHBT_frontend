@@ -5,44 +5,33 @@ import lottie from "lottie-web";
 import { css } from "@emotion/react";
 import Button from "@/components/ui/Button";
 import { useRouter } from "next/router";
-import axios from "axios";
-import Config from "@/configs/config.export";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { orderState } from "@/state/orderState";
 import { accessTokenState } from "@/state/accessTokenState";
+import axiosApiInstance from "@/utils/axiosInstance";
 
 export default function PaySuccess() {
   const router = useRouter();
   const container = useRef<any>();
   const pgToken = router.query.pg_token;
-  const baseUrl = Config();
   const setOrder = useSetRecoilState(orderState);
   const AT = useRecoilValue(accessTokenState);
 
   const onClickHandler = async () => {
     let config = {
-      headers: { Authorization: AT },
       params: {
         pgToken: pgToken,
       },
     };
 
-    const result = await axios.get(
-      `http://localhost:8080/api/payment/kakaopay-approve`,
+    const result = await axiosApiInstance.get(
+      `/payment/kakaopay-approve`,
       config
     );
     setOrder(result.data);
 
-    axios
-      .post(
-        "http://localhost:8080/api/purchase/end",
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${AT}`,
-          },
-        }
-      )
+    axiosApiInstance
+      .post("/purchase/end")
       .then((res) => console.log(res))
       .catch((err) => console.log("에러: ", err));
 

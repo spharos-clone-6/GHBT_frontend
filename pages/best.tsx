@@ -12,11 +12,8 @@ export default function Best() {
   const { query } = useRouter();
   const { baseUrl } = Config();
 
-  console.log(query.category);
-
   useEffect(() => {
     const getData = async () => {
-      console.log(query);
       const result = await axios.get(
         `${baseUrl}/api/product/search/c?filter=${query.category}`
       );

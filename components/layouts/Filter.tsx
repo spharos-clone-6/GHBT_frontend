@@ -59,7 +59,6 @@ export default function Filter(props: {
 
   /** 키워드 변경 */
   useEffect(() => {
-    console.log("키워드를 다시 세팅할게요");
     createUrl();
     if (
       volumeKeyword.length === 0 &&
@@ -91,7 +90,6 @@ export default function Filter(props: {
     if (seasonKeyword.length !== 0) {
       items = items.filter((x) => isIn(sItemList, x.productId));
     }
-    console.log("쿼리 변경! 전체 아이템 수정!");
     setItemList([...items]);
   }, [bItemList, vItemList, pItemList, cItemList, sItemList]);
 
@@ -129,11 +127,6 @@ export default function Filter(props: {
     setPItemList([...items]);
   }, [priceKeyword]);
 
-  /** 결과 확인용 */
-  useEffect(() => {
-    console.log("new item list=", itemList);
-  }, [itemList]);
-
   const createUrl = () => {
     let url =
       router.pathname +
@@ -146,7 +139,6 @@ export default function Filter(props: {
     categoryKeyword.map((k) => (url = url + "&category=" + k));
     seasonKeyword.map((k) => (url = url + "&season=" + k));
 
-    console.log("url 새로 생성함...");
     router.push(url);
   };
   function requestUrl(type: string): string {

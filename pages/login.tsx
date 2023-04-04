@@ -36,7 +36,6 @@ export default function Login() {
       .then((res) => {
         if (res.headers?.authorization) {
           const setAccess = res.headers.authorization.replace(/Bearer /g, "");
-          console.log("res", res);
           setAccessToken(setAccess);
           router.push("/");
         }
