@@ -58,7 +58,12 @@ export default function Login() {
           <h1>로그인</h1>
         </section>
         <section className="greeting">
-          <img id="starbucks-logo" src="./images/starbucks-logo.png" />
+          <Image
+            width={80}
+            height={80}
+            src="/images/starbucks-logo.png"
+            alt=""
+          />
           <h2>
             안녕하세요.
             <br />

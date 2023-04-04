@@ -4,6 +4,7 @@ import Config from "@/configs/config.export";
 import { useDidMountEffect } from "@/hooks/useDidmount";
 import { eventType, productType } from "@/types/types";
 import axios from "axios";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 
@@ -45,10 +46,12 @@ export default function Event() {
         <div className="container">
           <section id="event-info">
             <div className="first-section-sub-one">
-              <img
+              <Image
                 src={`https://storage.googleapis.com/ghbt/event/${eventInfo?.descriptionUrl}`}
-                width="100%"
-                height="100%"
+                width={200}
+                height={500}
+                style={{ width: "100%", height: "100%" }}
+                alt="이벤트배너"
               />
             </div>
           </section>

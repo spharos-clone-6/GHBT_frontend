@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 export default function PayCoupon() {
@@ -8,11 +9,12 @@ export default function PayCoupon() {
           <div>
             <p>쿠폰 및 할인</p>
             <div>
-              <img
+              <Image
                 className="arrow"
                 src="/images/icons/arrow-down-sign-to-navigate.png"
-                alt=""
-                style={{ width: "16px" }}
+                width={16}
+                height={16}
+                alt="화살표이미지"
               />
             </div>
           </div>
@@ -20,7 +22,12 @@ export default function PayCoupon() {
         <div className="detail">
           <a href="">
             <div className="coupon-detail">
-              <img src="/images/icons/discount.png" alt="" />
+              <Image
+                src="/images/icons/discount.png"
+                alt=""
+                width={16}
+                height={16}
+              />
               <p>쿠폰</p>
             </div>
           </a>
