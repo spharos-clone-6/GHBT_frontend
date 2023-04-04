@@ -34,7 +34,6 @@ export default function PayMethod({ setMethod }: payMethod) {
               name="pay"
               value="kakao-pay"
               onChange={handleChange}
-              defaultChecked
               style={{ accentColor: "green" }}
             />{" "}
             카카오페이

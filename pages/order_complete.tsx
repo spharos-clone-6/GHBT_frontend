@@ -17,6 +17,7 @@ export default function OrderComplete() {
     <div id="order-complete">
       <div css={layout}>
         <h1 style={{ margin: "0" }}> 주문이 완료되었습니다. </h1>
+        <h3 style={{ margin: "10px 0px 0px 0px" }}>주문번호: 10102020202</h3>
       </div>
       <div css={contents}>
         <h2>배송 정보</h2>
