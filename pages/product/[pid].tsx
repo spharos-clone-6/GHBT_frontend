@@ -14,11 +14,12 @@ import { css, keyframes } from "@emotion/react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import Image from "next/image";
 import CloseIcon from "@/components/ui/CloseIcon";
-import { AT } from "@/data/StaticData";
 import Config from "@/configs/config.export";
+import { accessTokenState } from "@/state/accessTokenState";
+import Swal from "sweetalert2";
 
 export default function ProductDetail() {
   const dummy = {
@@ -122,7 +123,9 @@ export default function ProductDetail() {
   };
 
   // 장바구니에 아이템 추가
+  const AT = useRecoilValue(accessTokenState);
   const [isCart, setIsCart] = useState(false);
+  console.log("AT: ", AT);
   const addCartHandler = () => {
     axios.post(
       `${baseUrl}/api/cart`,
@@ -138,6 +141,13 @@ export default function ProductDetail() {
     );
     console.log("장바구니 담기 성공!");
     setIsCart(true);
+  };
+
+  const alertMessage = () => {
+    Swal.fire({
+      icon: "warning",
+      text: "장바구니 이용을 위해서는 로그인이 필요합니다.",
+    });
   };
 
   return (
@@ -210,13 +220,23 @@ export default function ProductDetail() {
           <BottomFixedContainer>
             <div css={buttonContainer} className={isOpen ? "" : "hide"}>
               <div css={iconStyle}>
-                <Image
-                  src="/images/icons/shopping-cart.svg"
-                  width={20}
-                  height={20}
-                  alt="장바구니"
-                  onClick={addCartHandler}
-                />
+                {AT ? (
+                  <Image
+                    src="/images/icons/shopping-cart.svg"
+                    width={20}
+                    height={20}
+                    alt="장바구니"
+                    onClick={addCartHandler}
+                  />
+                ) : (
+                  <Image
+                    src="/images/icons/shopping-cart.svg"
+                    width={20}
+                    height={20}
+                    alt="장바구니"
+                    onClick={alertMessage}
+                  />
+                )}
               </div>
               <Button
                 btnType="button"

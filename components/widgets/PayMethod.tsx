@@ -1,13 +1,11 @@
 import React, { Dispatch, SetStateAction } from "react";
 
 interface payMethod {
-  method: string;
   setMethod: Dispatch<SetStateAction<string>>;
 }
 
-export default function PayMethod({ method, setMethod }: payMethod) {
+export default function PayMethod({ setMethod }: payMethod) {
   const handleChange = (e: any) => {
-    console.log("선택한 값:", e.target.value);
     setMethod(e.target.value);
   };
 
@@ -24,6 +22,7 @@ export default function PayMethod({ method, setMethod }: payMethod) {
               name="pay"
               value="starbucks-card"
               onChange={handleChange}
+              style={{ accentColor: "green" }}
             />{" "}
             스타벅스 카드
           </label>
@@ -35,6 +34,7 @@ export default function PayMethod({ method, setMethod }: payMethod) {
               name="pay"
               value="kakao-pay"
               onChange={handleChange}
+              style={{ accentColor: "green" }}
             />{" "}
             카카오페이
           </label>

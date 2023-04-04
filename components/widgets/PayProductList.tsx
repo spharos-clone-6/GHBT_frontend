@@ -5,6 +5,7 @@ import PayProductDetail from "./PayProductDetail";
 import { useRecoilValue } from "recoil";
 import { cartOrder } from "../../state/cart";
 import { cartListType } from "@/types/types";
+import Image from "next/image";
 
 interface orderItems {
   itemList: cartListType;
@@ -39,15 +40,16 @@ export default function PayProductList({ itemList }: orderItems) {
           상품내역
         </div>
         <div>
-          <img
+          <Image
             className="arrow"
             src={
               detailOn
                 ? "/images/icons/upload.png"
                 : "/images/icons/arrow-down-sign-to-navigate.png"
             }
-            alt=""
-            style={{ width: "16px", height: "16px" }}
+            width={16}
+            height={16}
+            alt="화살표이미지"
             onClick={showDetailHandler}
           />
         </div>

@@ -4,6 +4,7 @@ import { atom } from "recoil";
 export const orderState = atom<orderType>({
   key: "orderState",
   default: {
+    orderId: "",
     addressNickname: "",
     baseAddress: "",
     cashReceipts: "",

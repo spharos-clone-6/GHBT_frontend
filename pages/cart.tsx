@@ -11,17 +11,18 @@ import BottomFixedContainer from "@/components/ui/BottomFixedContainer";
 import Button from "@/components/ui/Button";
 import CartControlBar from "@/components/widgets/CartControlBar";
 import { cartListType } from "@/types/types";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import CartEmpty from "../components/widgets/CartEmpty";
 import { css } from "@emotion/react";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import Config from "@/configs/config.export";
 import { useRouter } from "next/router";
 import Price from "@/components/ui/Price";
 import Loading from "@/components/ui/Loading";
-import { AT } from "@/data/StaticData";
 import axiosApiInstance from "@/utils/axiosInstance";
+import { accessTokenState } from "@/state/accessTokenState";
+import { useDidMountEffect } from "@/hooks/useDidmount";
+import LoginRequired from "@/components/widgets/LoginRequired";
 
 export default function Cart() {
   const { baseUrl } = Config();
@@ -30,6 +31,9 @@ export default function Cart() {
   const [generalCart, setGeneralCart] =
     useRecoilState<cartListType>(generalCartListState);
   const [isLoading, setIsLoading] = useState(true);
+
+  const accessToken = useRecoilValue(accessTokenState);
+
   const buttonContainer = css`
     display: flex;
     gap: 15px;
@@ -49,31 +53,51 @@ export default function Cart() {
 
   // 데이터 불러오기
   async function fetchGeneralData() {
-    const generalResult = await axiosApiInstance.get(`cart/my_cart`);
-
-    console.log("일반 상품 :", generalResult);
-    setGeneralCart(generalResult.data);
+    if (accessToken) {
+      setTimeout(async () => {
+        const generalResult = await axiosApiInstance
+          .get(`cart/my_cart`, {
+            headers: { Authorization: accessToken },
+          })
+          .catch((err) => {});
+        if (generalResult) setGeneralCart(generalResult?.data);
+        else setGeneralCart([]);
+      }, 100);
+    }
   }
   async function fetchFrozenData() {
-    const frozenResult = await axiosApiInstance.get(`cart/my_cart/ice`);
+    if (accessToken) {
+      setTimeout(async () => {
+        const frozenResult = await axiosApiInstance
+          .get(`cart/my_cart/ice`, {
+            headers: { Authorization: accessToken },
+          })
+          .catch((err) => {});
 
-    console.log("냉동 상품 :", frozenResult);
-    setFrozenCart(frozenResult.data);
-    setIsLoading(false);
+        if (frozenResult) setFrozenCart(frozenResult?.data);
+        else setFrozenCart([]);
+        setIsLoading(false);
+      });
+    }
   }
+
+  // useDidMountEffect(() => {
+  //   fetchGeneralData();
+  //   fetchFrozenData();
+  // }, [accessToken]);
   useEffect(() => {
     fetchGeneralData();
     fetchFrozenData();
-  }, []);
+  }, [accessToken]);
 
-  const totalCart = generalCart.length + frozenCart.length;
+  const totalCart = generalCart?.length + frozenCart?.length;
 
   // 체크박스 선택한 상품 수량
   let checkedItemQuantity = 0;
-  frozenCart.map((item) =>
+  frozenCart?.map((item) =>
     item.checked ? (checkedItemQuantity += 1) : (checkedItemQuantity += 0)
   );
-  generalCart.map((item) =>
+  generalCart?.map((item) =>
     item.checked ? (checkedItemQuantity += 1) : (checkedItemQuantity += 0)
   );
 
@@ -108,7 +132,6 @@ export default function Cart() {
   const frozenOrder = frozenCart.filter((item) => item.checked);
   const generalOrder = generalCart.filter((item) => item.checked);
   const result = frozenOrder.concat(generalOrder);
-  console.log("토탈 : ", result);
 
   const router = useRouter();
   const onClickHandler = () => {
@@ -119,15 +142,15 @@ export default function Cart() {
 
   return (
     <>
-      {isLoading && (
+      {!accessToken && <LoginRequired background="white" />}
+      {accessToken && isLoading && (
         <div style={{ width: "100vw", height: "100vh", paddingTop: "55%" }}>
           <Loading />
         </div>
       )}
-      {!isLoading &&
-        (totalCart === 0 ? (
-          <CartEmpty />
-        ) : (
+      {accessToken && !isLoading && totalCart === 0 && <CartEmpty />}
+      {accessToken && !isLoading && totalCart !== 0 && (
+        <>
           <div className="cart-container">
             <section id="cart-header">
               <p className="title">장바구니</p>
@@ -204,7 +227,8 @@ export default function Cart() {
               </div>
             </BottomFixedContainer>
           </div>
-        ))}
+        </>
+      )}
     </>
   );
 }

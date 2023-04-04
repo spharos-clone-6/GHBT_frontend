@@ -9,6 +9,7 @@ import axios from "axios";
 import Config from "@/configs/config.export";
 import { AT } from "@/data/StaticData";
 import { useRouter } from "next/router";
+import Swal from "sweetalert2";
 
 export default function DeliveryRegister() {
   const [deliveryList, setDeliveryList] = useRecoilState(deliveryListState);
@@ -38,7 +39,10 @@ export default function DeliveryRegister() {
       form.baseAddress === "" ||
       form.phoneNumber1 === ""
     ) {
-      alert("필수 값을 입력해 주세요");
+      Swal.fire({
+        icon: "warning",
+        text: "필수 값을 입력해 주세요.",
+      });
     } else {
       axios.post(
         `${baseUrl}/api/shipping-address`,

@@ -6,10 +6,10 @@ import { css } from "@emotion/react";
 import Button from "@/components/ui/Button";
 import { useRouter } from "next/router";
 import axios from "axios";
-import { AT } from "@/data/StaticData";
 import Config from "@/configs/config.export";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { orderState } from "@/state/orderState";
+import { accessTokenState } from "@/state/accessTokenState";
 
 export default function PaySuccess() {
   const router = useRouter();
@@ -17,6 +17,7 @@ export default function PaySuccess() {
   const pgToken = router.query.pg_token;
   const baseUrl = Config();
   const setOrder = useSetRecoilState(orderState);
+  const AT = useRecoilValue(accessTokenState);
 
   const onClickHandler = async () => {
     let config = {
@@ -30,7 +31,6 @@ export default function PaySuccess() {
       `http://localhost:8080/api/payment/kakaopay-approve`,
       config
     );
-    console.log(result);
     setOrder(result.data);
 
     axios
@@ -39,7 +39,7 @@ export default function PaySuccess() {
         {},
         {
           headers: {
-            Authorization: AT,
+            Authorization: `Bearer ${AT}`,
           },
         }
       )

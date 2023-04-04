@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 export default function DeliveryStatus() {
@@ -15,7 +16,13 @@ export default function DeliveryStatus() {
           <p>상품준비중</p>
         </div>
         <div className="status-item">
-          <img className="arrow" src="/images/icons/contents/right-arrow.png" />
+          <Image
+            className="arrow"
+            src="/images/icons/contents/right-arrow.png"
+            width={10}
+            height={10}
+            alt=""
+          />
         </div>
         <div className="status-item">
           <p className="status-count" id="status-prepared-count">
@@ -24,7 +31,13 @@ export default function DeliveryStatus() {
           <p>배송준비중</p>
         </div>
         <div className="status-item">
-          <img className="arrow" src="/images/icons/contents/right-arrow.png" />{" "}
+          <Image
+            className="arrow"
+            src="/images/icons/contents/right-arrow.png"
+            width={10}
+            height={10}
+            alt=""
+          />
         </div>
         <div className="status-item">
           <p className="status-count" id="status-prepared-count">
@@ -33,7 +46,13 @@ export default function DeliveryStatus() {
           <p>배송중</p>
         </div>
         <div className="status-item">
-          <img className="arrow" src="/images/icons/contents/right-arrow.png" />{" "}
+          <Image
+            className="arrow"
+            src="/images/icons/contents/right-arrow.png"
+            width={10}
+            height={10}
+            alt=""
+          />
         </div>
         <div className="status-item">
           <p className="status-count" id="status-prepared-count">

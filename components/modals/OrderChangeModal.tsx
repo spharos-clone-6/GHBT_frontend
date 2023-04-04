@@ -12,6 +12,7 @@ import { useCart } from "@/hooks/useCart";
 import Price from "../ui/Price";
 import { AT } from "@/data/StaticData";
 import Config from "@/configs/config.export";
+import Image from "next/image";
 
 interface orderChange {
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -102,10 +103,12 @@ export default function OrderChangeModal({
         <ModalHeader setModalOpen={setModalOpen} />
         <div className="cart-product">
           <div className="item-info">
-            <img
+            <Image
               src={`https://storage.googleapis.com/ghbt/product_thumbnail/${item.product.thumbnailUrl}`}
-              alt=""
-              className="product-img"
+              width={100}
+              height={100}
+              alt={"상품이미지"}
+              style={{ padding: "0px", borderRadius: "10%" }}
             />
             <div className="info">
               <div>
@@ -114,11 +117,11 @@ export default function OrderChangeModal({
                   <Price price={item.product.price} />
                 </p>
               </div>
-              <img
+              <Image
                 src="/images/icons/blank.png"
-                alt=""
-                className="close-icon"
-                width="3.5%"
+                alt="공백이미지"
+                width={12}
+                height={12}
               />
             </div>
           </div>

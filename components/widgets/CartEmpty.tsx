@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
+import Image from "next/image";
 
 export default function CartEmpty() {
   const wrapper = css`
@@ -7,10 +8,6 @@ export default function CartEmpty() {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-  `;
-
-  const icon = css`
-    width: 5%;
   `;
 
   const contents = css`
@@ -24,7 +21,12 @@ export default function CartEmpty() {
   return (
     <div css={wrapper}>
       <div css={contents}>
-        <img src="/images/icons/shopping-cart.svg" css={icon} />
+        <Image
+          width={22}
+          height={22}
+          alt=""
+          src="/images/icons/shopping-cart.svg"
+        />
         <p>장바구니가 비어있습니다.</p>
       </div>
     </div>
