@@ -23,6 +23,7 @@ import axiosApiInstance from "@/utils/axiosInstance";
 import { accessTokenState } from "@/state/accessTokenState";
 import { useDidMountEffect } from "@/hooks/useDidmount";
 import LoginRequired from "@/components/widgets/LoginRequired";
+import Head from "next/head";
 
 export default function Cart() {
   const { baseUrl } = Config();
@@ -142,6 +143,9 @@ export default function Cart() {
 
   return (
     <>
+      <Head>
+        <title>Starbucks | Cart</title>
+      </Head>
       {!accessToken && <LoginRequired background="white" />}
       {accessToken && isLoading && (
         <div style={{ width: "100vw", height: "100vh", paddingTop: "55%" }}>
