@@ -6,7 +6,7 @@ import { css } from "@emotion/react";
 import Button from "../ui/Button";
 import { useRouter } from "next/router";
 
-export default function LoginRequired() {
+export default function LoginRequired(props: { background?: string }) {
   const container = useRef<any>();
   const router = useRouter();
 
@@ -20,11 +20,16 @@ export default function LoginRequired() {
     });
     lottie.setSpeed(0.6);
   }, []);
+
+  let color = "var(--color-gray-background)";
+  if (props.background === "white") {
+    color = "var(--color-white)";
+  }
   return (
     <div
       style={{
         padding: "25px",
-        backgroundColor: "var(--color-gray-background)",
+        backgroundColor: `${color}`,
         height: "100%",
         paddingBottom: "270px",
         overflow: "hidden",
