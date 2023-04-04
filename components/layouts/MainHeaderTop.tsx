@@ -6,22 +6,48 @@ import ContentsModal from "../modals/ContentsModal";
 import Image from "next/image";
 import { contentsModalState } from "@/state/contentsModalState";
 import { CgProfile } from "react-icons/cg";
-import { GrCart, GrSearch } from "react-icons/gr";
+import { GrCart, GrSearch, GrLogout, GrLogin } from "react-icons/gr";
 import { accessTokenState } from "@/state/accessTokenState";
 import Badge from "../ui/Badge";
 import BackIcon from "../ui/BackIcon";
+import axiosApiInstance from "@/utils/axiosInstance";
+import Swal from "sweetalert2";
 
 export default function MainHeaderTop() {
   const router = useRouter();
   const [contentsIsView, setContentsIsView] =
     useRecoilState<boolean>(contentsModalState);
-  const accessToken = useRecoilValue(accessTokenState);
+  const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
 
   const handleBack = () => {
     if (router.pathname === "store") {
       router.replace("/");
       setContentsIsView(false);
     } else router.back();
+  };
+
+  const onClickLogout = async () => {
+    Swal.fire({
+      text: "로그아웃 하시겠습니까?",
+      showDenyButton: true,
+      confirmButtonText: "확인",
+      denyButtonText: `취소`,
+      width: "70vw",
+      confirmButtonColor: "var(--color-light-green)",
+      denyButtonColor: "rgb(231 50 83)",
+    }).then((res) => {
+      if (res.isConfirmed) {
+        logout();
+        Swal.fire("로그아웃 되었습니다", "", "success");
+      }
+    });
+  };
+
+  const logout = async () => {
+    setAccessToken("");
+    await axiosApiInstance.post(`auth/logout`).catch((error) => {
+      router.push("/login");
+    });
   };
 
   const showModal = () => {
@@ -84,9 +110,17 @@ export default function MainHeaderTop() {
                   </Link>
                 </li>
                 <li>
-                  <Link href={!accessToken ? "/login" : "/mypage"}>
-                    <CgProfile size={20} />
-                  </Link>
+                  <div
+                    onClick={
+                      !accessToken ? () => router.push("/login") : onClickLogout
+                    }
+                  >
+                    {!accessToken ? (
+                      <CgProfile size={20} />
+                    ) : (
+                      <GrLogout size={20} />
+                    )}
+                  </div>
                 </li>
               </>
             )}
