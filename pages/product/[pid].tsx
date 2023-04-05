@@ -64,7 +64,6 @@ export default function ProductDetail() {
       }
 
       if (result.data.subType !== "" && result.data.subType !== "4+1") {
-        console.log(result.data.subType);
         const subResult = await axios.get(
           `${baseUrl}/api/product/search/c?filter=${result.data.subType}`
         );
