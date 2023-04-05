@@ -20,6 +20,7 @@ import CloseIcon from "@/components/ui/CloseIcon";
 import Config from "@/configs/config.export";
 import { accessTokenState } from "@/state/accessTokenState";
 import Swal from "sweetalert2";
+import axiosApiInstance from "@/utils/axiosInstance";
 
 export default function ProductDetail() {
   const dummy = {
@@ -123,18 +124,10 @@ export default function ProductDetail() {
   const AT = useRecoilValue(accessTokenState);
   const [isCart, setIsCart] = useState(false);
   const addCartHandler = () => {
-    axios.post(
-      `${baseUrl}/api/cart`,
-      {
-        productId: query.pid,
-        quantity: itemCount,
-      },
-      {
-        headers: {
-          Authorization: AT,
-        },
-      }
-    );
+    axiosApiInstance.post(`/cart`, {
+      productId: query.pid,
+      quantity: itemCount,
+    });
     setIsCart(true);
   };
 
