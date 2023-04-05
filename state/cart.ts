@@ -27,3 +27,8 @@ export const deliveryPrice = atom<number>({
   default: 0,
   effects_UNSTABLE: [persistAtom],
 });
+
+export const cartCount = atom<number>({
+  key: "cartCount",
+  default: 0,
+});

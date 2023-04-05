@@ -1,24 +1,27 @@
 /** @jsxImportSource @emotion/react */
-import Config from "@/configs/config.export";
 import { cartListType } from "@/types/types";
 import { css } from "@emotion/react";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { frozenCartListState, generalCartListState } from "../../state/cart";
+import {
+  cartCount,
+  frozenCartListState,
+  generalCartListState,
+} from "../../state/cart";
 import { accessTokenState } from "@/state/accessTokenState";
 import axiosApiInstance from "@/utils/axiosInstance";
+import { useRouter } from "next/router";
 
 export default function Badge() {
   const [isUser, setIsUser] = useState(true);
-  const { baseUrl } = Config();
   const accessToken = useRecoilValue(accessTokenState);
 
   const [frozenCart, setFrozenCart] =
     useRecoilState<cartListType>(frozenCartListState);
   const [generalCart, setGeneralCart] =
     useRecoilState<cartListType>(generalCartListState);
-  const totalItem = frozenCart?.length + generalCart?.length;
+  const [count, setCount] = useRecoilState(cartCount);
+  const router = useRouter();
 
   // 데이터 불러오기
   async function fetchGeneralData() {
@@ -59,9 +62,19 @@ export default function Badge() {
   }
 
   useEffect(() => {
-    fetchGeneralData();
-    fetchFrozenData();
-  }, [accessToken]);
+    if (router.pathname !== "/cart") {
+      fetchGeneralData();
+      fetchFrozenData();
+    }
+  }, [
+    accessToken,
+    router.pathname,
+    frozenCart.length,
+    generalCart.length,
+    count,
+  ]);
+
+  setCount(frozenCart?.length + generalCart?.length);
 
   const badge = css`
     position: absolute;
@@ -79,7 +92,7 @@ export default function Badge() {
     opacity: 1 !important;
   `;
 
-  return <>{isUser && <p css={badge}>{totalItem}</p>}</>;
+  return <>{isUser && <p css={badge}>{count}</p>}</>;
 }
 
 /**

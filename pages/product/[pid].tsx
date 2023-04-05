@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import ProductContainerRecommand from "@/components/layouts/ProductContainerRecommand";
-import { cartOrder, deliveryPrice } from "@/state/cart";
+import { cartCount, cartOrder, deliveryPrice } from "@/state/cart";
 import BottomFixedContainer from "@/components/ui/BottomFixedContainer";
 import Button from "@/components/ui/Button";
 import Price from "@/components/ui/Price";
@@ -14,7 +14,7 @@ import { css, keyframes } from "@emotion/react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import Image from "next/image";
 import CloseIcon from "@/components/ui/CloseIcon";
 import Config from "@/configs/config.export";
@@ -123,12 +123,14 @@ export default function ProductDetail() {
   // 장바구니에 아이템 추가
   const AT = useRecoilValue(accessTokenState);
   const [isCart, setIsCart] = useState(false);
+  const [count, setCount] = useRecoilState(cartCount);
   const addCartHandler = () => {
     axiosApiInstance.post(`/cart`, {
       productId: query.pid,
       quantity: itemCount,
     });
     setIsCart(true);
+    setCount(count + 1);
   };
 
   const alertMessage = () => {
