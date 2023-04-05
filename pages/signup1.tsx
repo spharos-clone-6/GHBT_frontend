@@ -45,12 +45,6 @@ export default function SignUp() {
         setRequired(false);
       }
     }
-    // if (agreeArray.isAdvertisingConfirm) {
-    //   setAdAgreeArray({
-    //     email: true,
-    //     sms: true,
-    //   });
-    // }
   }, [agreeArray]);
 
   useEffect(() => {

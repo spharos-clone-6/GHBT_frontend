@@ -27,6 +27,7 @@ export default function DeliveryRegister() {
 
   const [phone1ErrMsg, setPhone1ErrMsg] = useState<string | null>();
   const [phone2ErrMsg, setPhone2ErrMsg] = useState<string | null>();
+  const [zipErrMsg, setZipErrMsg] = useState<string | null>();
 
   const SubmitDelivery = async () => {
     if (
@@ -57,18 +58,34 @@ export default function DeliveryRegister() {
     }
   };
 
+  const phoneRegex = /^\d{3}-\d{3,4}-\d{4}$/;
   const handlePhoneNumber1 = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.target.value = e.target.value
       .replace(/[^0-9]/g, "")
       .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
     setForm({ ...form, phoneNumber1: e.target.value });
+    if (!phoneRegex.test(e.target.value)) {
+      setPhone1ErrMsg("⚠️전화번호를 올바르게 입력해 주세요.");
+    } else setPhone1ErrMsg(null);
   };
 
   const handlePhoneNumber2 = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.target.value = e.target.value
       .replace(/[^0-9]/g, "")
       .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
-    setForm({ ...form, phoneNumber1: e.target.value });
+    setForm({ ...form, phoneNumber2: e.target.value });
+    if (!phoneRegex.test(e.target.value)) {
+      setPhone2ErrMsg("⚠️전화번호를 올바르게 입력해 주세요.");
+    } else setPhone2ErrMsg(null);
+  };
+
+  const zipCodeRegex = /^\d{5}$/;
+  const handleZipCode = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.target.value = e.target.value.replace(/[^0-9]/g, "");
+    setForm({ ...form, zipCode: e.target.value });
+    if (!zipCodeRegex.test(e.target.value)) {
+      setZipErrMsg("⚠️5자리 숫자를 입력해 주세요.");
+    } else setZipErrMsg(null);
   };
 
   return (
@@ -99,8 +116,10 @@ export default function DeliveryRegister() {
                 type="text"
                 placeholder="우편번호 *"
                 value={form.zipCode}
-                onChange={(e) => setForm({ ...form, zipCode: e.target.value })}
+                maxLength={5}
+                onChange={handleZipCode}
               />
+              {zipErrMsg}
               <input
                 type="text"
                 placeholder="기본주소 *"
