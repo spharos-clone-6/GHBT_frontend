@@ -50,6 +50,7 @@ export default function Event() {
                 height={500}
                 style={{ width: "100%", height: "100%" }}
                 alt="이벤트배너"
+                priority
               />
             </div>
           </section>

@@ -12,6 +12,7 @@ import { useCartOrder } from "@/hooks/useCartOrder";
 import axiosApiInstance from "@/utils/axiosInstance";
 import { cartListType } from "@/types/types";
 import { frozenCartListState, generalCartListState } from "@/state/cart";
+import { useEffect } from "react";
 
 export default function OrderComplete() {
   const order = useRecoilValue(orderState);
@@ -22,17 +23,15 @@ export default function OrderComplete() {
   const [generalCart, setGeneralCart] =
     useRecoilState<cartListType>(generalCartListState);
 
-  orderList.map(
-    (item) => item.id !== 0 && axiosApiInstance.delete(`/cart/${item.id}`)
-  );
+  useEffect(() => {
+    orderList.map(
+      (item) => item.id !== 0 && axiosApiInstance.delete(`/cart/${item.id}`)
+    );
+    // setFrozenCart([...frozenCart.filter((el) => el.id !== item.id)])
+    // setGeneralCart([...generalCart.filter((el) => el.id !== item.id)])
+  }, [orderList]);
 
-  orderList.map((item) =>
-    setFrozenCart([...frozenCart.filter((el) => el.id !== item.id)])
-  );
-  orderList.map((item) =>
-    setGeneralCart([...generalCart.filter((el) => el.id !== item.id)])
-  );
-
+  console.log(orderList);
   return (
     <div id="order-complete">
       <div css={layout}>
