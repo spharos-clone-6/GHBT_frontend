@@ -74,7 +74,9 @@ export default function Badge() {
     count,
   ]);
 
-  setCount(frozenCart?.length + generalCart?.length);
+  useEffect(() => {
+    setCount(frozenCart?.length + generalCart?.length);
+  });
 
   const badge = css`
     position: absolute;
