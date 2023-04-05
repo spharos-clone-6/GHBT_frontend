@@ -67,7 +67,7 @@ export default function OrderComplete() {
         <h2>
           주문 상품{" "}
           <span style={{ color: "var(--color-light-green)" }}>
-            ({order.purchaseList.length})
+            ({order.purchaseList?.length})
           </span>
         </h2>
         {order.purchaseList.map((item, idx) => (
