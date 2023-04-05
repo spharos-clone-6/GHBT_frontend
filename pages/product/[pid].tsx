@@ -63,7 +63,8 @@ export default function ProductDetail() {
         setSeasonProduct(filtered);
       }
 
-      if (result.data.subType !== "") {
+      if (result.data.subType !== "" && result.data.subType !== "4+1") {
+        console.log(result.data.subType);
         const subResult = await axios.get(
           `${baseUrl}/api/product/search/c?filter=${result.data.subType}`
         );
@@ -147,8 +148,8 @@ export default function ProductDetail() {
               src={`https://storage.googleapis.com/ghbt/product_thumbnail/${product?.thumbnailUrl}`}
               alt={product.name}
               priority
-              width={414}
-              height={414}
+              width={300}
+              height={300}
               style={{ height: "100%", width: "100%" }}
             />
           )}
