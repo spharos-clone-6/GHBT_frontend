@@ -181,7 +181,7 @@ export default function SignUp2() {
       await axios
         .post(`${baseUrl}/api/auth/signup`, { email, password, adAgreement })
         .then(() => {
-          router.push("/login");
+          router.push("/signup_success");
           Toast.fire({
             icon: "success",
             title: "회원가입 완료",

@@ -27,6 +27,8 @@ export default function ProductItemCol(props: {
           width={150}
           height={150}
           priority={true}
+          placeholder="blur"
+          blurDataURL="/images/green-key.jpg"
         />
         <div className="product-item-info">
           <ProductLabel isBest={item?.isBest} isNew={item?.isNew} />
