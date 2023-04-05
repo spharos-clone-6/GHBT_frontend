@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useRecent } from "@/hooks/useRecent";
 import CloseIcon from "../ui/CloseIcon";
 import Image from "next/image";
+import Swal from "sweetalert2";
 
 export interface ChildProps {
   isView: Boolean;
@@ -28,7 +29,10 @@ export default function SearchTop() {
 
   function resultHandler() {
     if (word === "") {
-      alert("검색어를 입력해주세요");
+      Swal.fire({
+        icon: "warning",
+        text: "검색어를 입력해주세요.",
+      });
     } else {
       putKeyword(word);
       router.push(`/search_result?keyword=${word}&bigCategory=${"전체"}`);

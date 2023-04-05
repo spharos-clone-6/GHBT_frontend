@@ -3,6 +3,7 @@ import { recentSearchKeyword } from "@/state/recentKeywordState";
 import { useRouter } from "next/router";
 import React from "react";
 import { useRecoilState } from "recoil";
+import Swal from "sweetalert2";
 
 type RecommandItem = {
   item?: string;
@@ -15,7 +16,10 @@ export default function SearchRecommandItem({ item = "" }: RecommandItem) {
 
   const onClickHandler = () => {
     if (item === "") {
-      alert("검색어를 입력해주세요");
+      Swal.fire({
+        icon: "warning",
+        text: "검색어를 입력해주세요.",
+      });
     } else {
       putKeyword(item);
       router.push(`/search_result?keyword=${item}&bigCategory=${"전체"}`);
