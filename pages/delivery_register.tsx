@@ -5,16 +5,12 @@ import Button from "@/components/ui/Button";
 import ModalHeader from "@/components/ui/ModalHeader";
 import { useRecoilState } from "recoil";
 import { deliveryListState } from "@/state/delivery";
-import axios from "axios";
-import Config from "@/configs/config.export";
-import { AT } from "@/data/StaticData";
 import { useRouter } from "next/router";
 import Swal from "sweetalert2";
 import axiosApiInstance from "@/utils/axiosInstance";
 
 export default function DeliveryRegister() {
   const [deliveryList, setDeliveryList] = useRecoilState(deliveryListState);
-  const { baseUrl } = Config();
   const router = useRouter();
 
   const [form, setForm] = useState<deliveryType>({

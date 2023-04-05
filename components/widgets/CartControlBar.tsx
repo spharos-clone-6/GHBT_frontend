@@ -1,11 +1,9 @@
-import { useCart } from "@/hooks/useCart";
 import { cartListType } from "@/types/types";
 import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { frozenCartListState, generalCartListState } from "../../state/cart";
 import Image from "next/image";
 import axiosApiInstance from "@/utils/axiosInstance";
-import { Item } from "semantic-ui-react";
 
 export default function CartControlBar() {
   const [frozenCart, setFrozenCart] =
