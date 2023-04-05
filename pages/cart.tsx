@@ -82,10 +82,6 @@ export default function Cart() {
     }
   }
 
-  // useDidMountEffect(() => {
-  //   fetchGeneralData();
-  //   fetchFrozenData();
-  // }, [accessToken]);
   useEffect(() => {
     fetchGeneralData();
     fetchFrozenData();

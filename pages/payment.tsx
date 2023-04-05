@@ -86,8 +86,7 @@ export default function Payment() {
     if (receipt.paymentType !== "kakao-pay") {
       Swal.fire({
         icon: "warning",
-        title: "결제 수단을 선택해 주세요.",
-        text: "(현재는 카카오페이만 가능합니다)",
+        text: "결제수단을 선택해 주세요.",
       });
     }
   };
