@@ -27,15 +27,11 @@ export default function OrderComplete() {
     orderList.map(
       (item) => item.id !== 0 && axiosApiInstance.delete(`/cart/${item.id}`)
     );
+    // setFrozenCart([...frozenCart.filter((el) => el.id !== item.id)])
+    // setGeneralCart([...generalCart.filter((el) => el.id !== item.id)])
+  }, [orderList]);
 
-    orderList.map((item) =>
-      setFrozenCart([...frozenCart.filter((el) => el.id !== item.id)])
-    );
-    orderList.map((item) =>
-      setGeneralCart([...generalCart.filter((el) => el.id !== item.id)])
-    );
-  }, []);
-
+  console.log(orderList);
   return (
     <div id="order-complete">
       <div css={layout}>
