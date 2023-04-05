@@ -16,6 +16,7 @@ import { useDeliveryPrice } from "@/hooks/useDeliveryPrice";
 import { accessTokenState } from "@/state/accessTokenState";
 import LoginRequired from "@/components/widgets/LoginRequired";
 import axiosApiInstance from "@/utils/axiosInstance";
+import Swal from "sweetalert2";
 
 export default function Payment() {
   const [deliveryList, setDeliveryList] = useRecoilState(deliveryListState);
@@ -68,7 +69,10 @@ export default function Payment() {
   }, [deliveryPlace, payMethod]);
 
   const purchase = async () => {
-    if (Object.keys(receipt).length !== 0) {
+    if (
+      Object.keys(receipt).length !== 0 &&
+      receipt.paymentType === "kakao-pay"
+    ) {
       const result = await axiosApiInstance.post(`/purchase`, {
         purchaseList: receipt.purchaseList,
         shippingAddressId: receipt.shippingAddressId,
@@ -78,6 +82,13 @@ export default function Payment() {
         totalPrice: receipt.totalPrice,
       });
       window.location.href = result.data.next_redirect_pc_url;
+    }
+    if (receipt.paymentType !== "kakao-pay") {
+      Swal.fire({
+        icon: "warning",
+        title: "결제 수단을 선택해 주세요.",
+        text: "(현재는 카카오페이만 가능합니다)",
+      });
     }
   };
 
