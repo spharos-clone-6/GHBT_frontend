@@ -5,7 +5,7 @@ import { recoilPersist } from "recoil-persist";
 const { persistAtom } = recoilPersist();
 
 export const recentSearchKeyword = atom<string[]>({
-  key: "data",
+  key: "keyword",
   default: [],
   effects_UNSTABLE: [persistAtom],
 });

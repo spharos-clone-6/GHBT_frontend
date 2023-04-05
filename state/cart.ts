@@ -2,9 +2,7 @@ import { cartListType } from "@/types/types";
 import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
 
-const { persistAtom } = recoilPersist({
-  key: "cartOrder",
-});
+const { persistAtom } = recoilPersist();
 
 export const generalCartListState = atom<cartListType>({
   key: "generalCart",
