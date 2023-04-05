@@ -29,6 +29,7 @@ export default function Payment() {
   const deliveryP = useDeliveryPrice();
   const [receipt, setReceipt] = usePayment();
 
+  console.log("orderList", orderList);
   let totalPrice = 0;
   orderList.map((item) => (totalPrice += item.product.price * item.quantity));
 

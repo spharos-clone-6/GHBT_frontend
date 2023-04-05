@@ -11,3 +11,5 @@ services:
       - ./pages:/frontend/pages
       - ./utils:/frontend/utils
       - ./components:/frontend/components
+      - ./types:/frontend/types
+      - ./public:/frontend/public
