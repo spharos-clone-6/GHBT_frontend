@@ -222,11 +222,7 @@ export default function Cart() {
                 </div>
               </div>
               <div css={buttonContainer}>
-                <Button
-                  btnType="button"
-                  btnEvent={() => alert("선물하기")}
-                  type="white"
-                >
+                <Button btnType="button" btnEvent={() => {}} type="white">
                   선물하기
                 </Button>
                 <Button btnType="button" btnEvent={onClickHandler}>

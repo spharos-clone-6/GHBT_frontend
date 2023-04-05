@@ -131,7 +131,6 @@ export default function InfoModal(props: {
           <>
             <p style={{ fontWeight: "bold", margin: "0" }}>[ 주문취소 ]</p>
             <br />
-            <br />
             구매자는 결제일로부터 7일 이내에 주문 취소 가능하며, 결제수단별
             환불방법에 따라 최초 결제금액의 100%를 환불해드립니다. 주문 취소 시
             상품별 부분 결제 취소는 불가하며, 주문에 대한 배송 유형 별 전체
@@ -149,8 +148,9 @@ export default function InfoModal(props: {
             수 있으며, 이 경우 결제금액은 구매자에게 전액 환불됩니다.
             <br />
             <br />
-            [결제수단별 환불 방법]
-            <br />
+            <p style={{ fontWeight: "bold", margin: "0" }}>
+              [결제수단별 환불 방법]
+            </p>
             <br />
             주문 당일 취소 시 즉시 환불처리 되며, 익일 이후 취소 시 결제 수단에
             따라 3~7일(영업일 기준) 환불기간이 소요될 수 있습니다.

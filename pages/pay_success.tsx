@@ -32,7 +32,6 @@ export default function PaySuccess() {
 
     axiosApiInstance
       .post("/purchase/end")
-      .then((res) => console.log(res))
       .catch((err) => console.log("에러: ", err));
 
     router.push("/order_complete");

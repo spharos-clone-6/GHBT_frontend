@@ -44,11 +44,7 @@ export default function ProductOrderSection(props: {
                 onClick={props.addCartHandler}
               />
             </div>
-            <Button
-              btnType="button"
-              btnEvent={() => alert("선물하기")}
-              type="white"
-            >
+            <Button btnType="button" btnEvent={() => {}} type="white">
               선물하기
             </Button>
             <Button btnType="button" btnEvent={props.purchaseHandler}>

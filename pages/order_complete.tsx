@@ -31,7 +31,6 @@ export default function OrderComplete() {
     // setGeneralCart([...generalCart.filter((el) => el.id !== item.id)])
   }, [orderList]);
 
-  console.log(orderList);
   return (
     <div id="order-complete">
       <div css={layout}>
@@ -67,7 +66,7 @@ export default function OrderComplete() {
         <h2>
           주문 상품{" "}
           <span style={{ color: "var(--color-light-green)" }}>
-            ({order.purchaseList.length})
+            ({order.purchaseList?.length})
           </span>
         </h2>
         {order.purchaseList.map((item, idx) => (

@@ -47,6 +47,7 @@ export default function InfoList() {
         isOpen={isOpen1}
         style={modalStyle}
         onRequestClose={() => setIsOpen1(false)}
+        ariaHideApp={false}
       >
         <ModalHeader
           setModalOpen={setIsOpen1}
@@ -68,6 +69,7 @@ export default function InfoList() {
         isOpen={isOpen2}
         style={modalStyle}
         onRequestClose={() => setIsOpen2(false)}
+        ariaHideApp={false}
       >
         <ModalHeader setModalOpen={setIsOpen2} headerName="교환/반품 안내" />
         <InfoModal setModalOpen={setIsOpen2} title="교환/반품 안내" />
@@ -82,6 +84,7 @@ export default function InfoList() {
         isOpen={isOpen3}
         style={modalStyle}
         onRequestClose={() => setIsOpen3(false)}
+        ariaHideApp={false}
       >
         <ModalHeader setModalOpen={setIsOpen3} headerName="취소/환불 안내" />
         <InfoModal setModalOpen={setIsOpen3} title="취소/환불 안내" />
