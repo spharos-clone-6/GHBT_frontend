@@ -1,5 +1,5 @@
-import { deliveryListType, deliveryType } from "@/types/types";
-import React, { useEffect, useState } from "react";
+import { deliveryType } from "@/types/types";
+import React, { useState } from "react";
 import BottomFixedContainer from "@/components/ui/BottomFixedContainer";
 import Button from "@/components/ui/Button";
 import ModalHeader from "@/components/ui/ModalHeader";
@@ -127,6 +127,7 @@ export default function DeliveryRegister() {
               <input
                 type="text"
                 placeholder="연락처2"
+                maxLength={13}
                 onChange={handlePhoneNumber2}
               />
               {phone2ErrMsg}
