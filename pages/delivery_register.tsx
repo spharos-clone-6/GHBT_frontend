@@ -27,6 +27,7 @@ export default function DeliveryRegister() {
 
   const [phone1ErrMsg, setPhone1ErrMsg] = useState<string | null>();
   const [phone2ErrMsg, setPhone2ErrMsg] = useState<string | null>();
+  const [zipErrMsg, setZipErrMsg] = useState<string | null>();
 
   const SubmitDelivery = async () => {
     if (
@@ -78,6 +79,15 @@ export default function DeliveryRegister() {
     } else setPhone2ErrMsg(null);
   };
 
+  const zipCodeRegex = /^\d{5}$/;
+  const handleZipCode = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.target.value = e.target.value.replace(/[^0-9]/g, "");
+    setForm({ ...form, zipCode: e.target.value });
+    if (!zipCodeRegex.test(e.target.value)) {
+      setZipErrMsg("⚠️5자리 숫자를 입력해 주세요.");
+    } else setZipErrMsg(null);
+  };
+
   return (
     <>
       <ModalHeader headerName="배송지 등록" />
@@ -106,8 +116,10 @@ export default function DeliveryRegister() {
                 type="text"
                 placeholder="우편번호 *"
                 value={form.zipCode}
-                onChange={(e) => setForm({ ...form, zipCode: e.target.value })}
+                maxLength={5}
+                onChange={handleZipCode}
               />
+              {zipErrMsg}
               <input
                 type="text"
                 placeholder="기본주소 *"
