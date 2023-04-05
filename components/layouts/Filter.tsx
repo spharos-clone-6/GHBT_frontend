@@ -55,6 +55,8 @@ export default function Filter(props: {
       .then((res) => {
         setBItemList(res.data);
       });
+
+    handleReset();
   }, [query.bigCategory]);
 
   /** 키워드 변경 */
