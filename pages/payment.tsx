@@ -73,7 +73,8 @@ export default function Payment() {
   const purchase = async () => {
     if (
       Object.keys(receipt).length !== 0 &&
-      receipt.paymentType === "kakao-pay"
+      receipt.paymentType === "kakao-pay" &&
+      deliveryList.length > 0
     ) {
       const result = await axiosApiInstance.post(`/purchase`, {
         purchaseList: receipt.purchaseList,
@@ -89,6 +90,12 @@ export default function Payment() {
       Swal.fire({
         icon: "warning",
         text: "결제수단을 선택해 주세요.",
+      });
+    }
+    if (deliveryList.length === 0) {
+      Swal.fire({
+        icon: "warning",
+        text: "배송지를 등록해 주세요.",
       });
     }
   };
