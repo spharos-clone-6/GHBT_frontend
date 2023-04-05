@@ -50,7 +50,7 @@ export default function RightArrowMenu(props: {
     font-size: ${fontSize};
     margin: 2px;
     @media screen and (max-height: 700px) {
-      font-size: 0.9em;
+      font-size: 1rem;
     }
   `;
 
