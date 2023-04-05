@@ -31,7 +31,6 @@ export default function OrderComplete() {
     // setGeneralCart([...generalCart.filter((el) => el.id !== item.id)])
   }, [orderList]);
 
-  console.log(orderList);
   return (
     <div id="order-complete">
       <div css={layout}>
