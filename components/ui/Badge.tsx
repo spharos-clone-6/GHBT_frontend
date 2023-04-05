@@ -92,6 +92,7 @@ export default function Badge() {
     margin: 0;
     z-index: 100;
     opacity: 1 !important;
+    line-height: 1rem;
   `;
 
   return <>{isUser && <p css={badge}>{count}</p>}</>;
