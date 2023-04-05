@@ -24,6 +24,7 @@ import { accessTokenState } from "@/state/accessTokenState";
 import { useDidMountEffect } from "@/hooks/useDidmount";
 import LoginRequired from "@/components/widgets/LoginRequired";
 import Head from "next/head";
+import Swal from "sweetalert2";
 
 export default function Cart() {
   const { baseUrl } = Config();
@@ -82,10 +83,6 @@ export default function Cart() {
     }
   }
 
-  // useDidMountEffect(() => {
-  //   fetchGeneralData();
-  //   fetchFrozenData();
-  // }, [accessToken]);
   useEffect(() => {
     fetchGeneralData();
     fetchFrozenData();
@@ -136,9 +133,16 @@ export default function Cart() {
 
   const router = useRouter();
   const onClickHandler = () => {
-    setOrderList(result);
-    setDelivery(deliveryP);
-    router.push("/payment");
+    if (result.length === 0) {
+      Swal.fire({
+        icon: "warning",
+        text: "상품을 선택해 주세요!",
+      });
+    } else {
+      setOrderList(result);
+      setDelivery(deliveryP);
+      router.push("/payment");
+    }
   };
 
   return (

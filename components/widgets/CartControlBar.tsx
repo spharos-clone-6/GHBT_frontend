@@ -1,9 +1,9 @@
-import { useCart } from "@/hooks/useCart";
 import { cartListType } from "@/types/types";
 import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { frozenCartListState, generalCartListState } from "../../state/cart";
 import Image from "next/image";
+import axiosApiInstance from "@/utils/axiosInstance";
 
 export default function CartControlBar() {
   const [frozenCart, setFrozenCart] =
@@ -48,11 +48,21 @@ export default function CartControlBar() {
   };
 
   const selectDeleteHandler = () => {
+    frozenCart.map((item) =>
+      item.checked ? axiosApiInstance.delete(`/cart/${item.id}`) : ""
+    );
+    generalCart.map((item) =>
+      item.checked ? axiosApiInstance.delete(`/cart/${item.id}`) : ""
+    );
+
     setFrozenCart([...frozenCart.filter((item) => !item.checked)]);
     setGeneralCart([...generalCart.filter((item) => !item.checked)]);
   };
 
   const allDeleteHandler = () => {
+    frozenCart.map((item) => axiosApiInstance.delete(`/cart/${item.id}`));
+    generalCart.map((item) => axiosApiInstance.delete(`/cart/${item.id}`));
+
     setFrozenCart([]);
     setGeneralCart([]);
   };

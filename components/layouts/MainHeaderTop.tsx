@@ -94,6 +94,7 @@ export default function MainHeaderTop() {
                   alt=""
                   width={20}
                   height={20}
+                  onClick={() => router.back()}
                 />
               </li>
             ) : (

@@ -1,5 +1,8 @@
+import { deliveryListState } from "@/state/delivery";
 import { deliveryListType, deliveryType } from "@/types/types";
+import axiosApiInstance from "@/utils/axiosInstance";
 import React, { useState } from "react";
+import { useRecoilState } from "recoil";
 
 interface change {
   item: deliveryType;
@@ -7,8 +10,18 @@ interface change {
 }
 
 export default function DeliveryItem({ item, setDeliveryPlace }: change) {
+  const [deliveryList, setDeliveryList] = useRecoilState(deliveryListState);
+
   const handleChange = (e: any) => {
     setDeliveryPlace([item]);
+  };
+
+  const handleDelete = () => {
+    axiosApiInstance.delete(`shipping-address/${item.id}`);
+
+    setDeliveryList([
+      ...deliveryList.filter((element) => element.id !== item.id),
+    ]);
   };
 
   return (
@@ -33,7 +46,12 @@ export default function DeliveryItem({ item, setDeliveryPlace }: change) {
         <p>{item.phoneNumber1}</p>
         <p>{item.notice}</p>
       </div>
-      <a href="">수정</a>
+      <div
+        onClick={handleDelete}
+        style={{ opacity: "0.7", fontSize: "0.8rem" }}
+      >
+        삭제
+      </div>
     </section>
   );
 }

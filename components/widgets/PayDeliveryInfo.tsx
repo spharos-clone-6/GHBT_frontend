@@ -29,7 +29,7 @@ export default function PaymentDeliveryInfo({
   return (
     <>
       <section id="pay-delivery">
-        <div className="delivery-info-title">
+        <div className="delivery-info-title" style={{ paddingBottom: "10px" }}>
           <p>배송 정보</p>
           <div className="delivery-change" onClick={() => setModalOpen(true)}>
             변경

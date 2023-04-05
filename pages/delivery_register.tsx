@@ -1,20 +1,16 @@
-import { deliveryType } from "@/types/types";
+import { deliveryListType, deliveryType } from "@/types/types";
 import React, { useState } from "react";
 import BottomFixedContainer from "@/components/ui/BottomFixedContainer";
 import Button from "@/components/ui/Button";
 import ModalHeader from "@/components/ui/ModalHeader";
 import { useRecoilState } from "recoil";
 import { deliveryListState } from "@/state/delivery";
-import axios from "axios";
-import Config from "@/configs/config.export";
-import { AT } from "@/data/StaticData";
 import { useRouter } from "next/router";
 import Swal from "sweetalert2";
 import axiosApiInstance from "@/utils/axiosInstance";
 
 export default function DeliveryRegister() {
   const [deliveryList, setDeliveryList] = useRecoilState(deliveryListState);
-  const { baseUrl } = Config();
   const router = useRouter();
 
   const [form, setForm] = useState<deliveryType>({
@@ -32,7 +28,7 @@ export default function DeliveryRegister() {
   const [phone1ErrMsg, setPhone1ErrMsg] = useState<string | null>();
   const [phone2ErrMsg, setPhone2ErrMsg] = useState<string | null>();
 
-  const SubmitDelivery = () => {
+  const SubmitDelivery = async () => {
     if (
       form.receiver === "" ||
       form.zipCode === "" ||
@@ -45,7 +41,7 @@ export default function DeliveryRegister() {
         text: "필수 값을 입력해 주세요.",
       });
     } else {
-      axiosApiInstance.post(`/shipping-address`, {
+      await axiosApiInstance.post(`/shipping-address`, {
         receiver: form.receiver,
         zipCode: form.zipCode,
         addressNickname: form.addressNickname,
