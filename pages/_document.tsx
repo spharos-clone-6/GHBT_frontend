@@ -8,6 +8,7 @@ export default function Document() {
           defer
           src="https://developers.kakao.com/sdk/js/kakao.min.js"
         ></script>
+        <link rel="icon" href="/images/favi.png"></link>
       </Head>
       <body>
         <Main />
