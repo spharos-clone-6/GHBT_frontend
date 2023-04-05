@@ -17,12 +17,14 @@ import { accessTokenState } from "@/state/accessTokenState";
 import LoginRequired from "@/components/widgets/LoginRequired";
 import axiosApiInstance from "@/utils/axiosInstance";
 import Swal from "sweetalert2";
+import { useRouter } from "next/router";
 
 export default function Payment() {
   const [deliveryList, setDeliveryList] = useRecoilState(deliveryListState);
   const [deliveryPlace, setDeliveryPlace] = useState<deliveryListType>([]);
   const [payMethod, setPayMethod] = useState<string>("");
   const AT = useRecoilValue(accessTokenState);
+  const router = useRouter();
 
   // recoil-persist
   const orderList = useCartOrder();
@@ -98,13 +100,40 @@ export default function Payment() {
           <section id="pay-title">
             <p className="title">결제하기</p>
           </section>
-          {deliveryPlace && (
+          {deliveryList.length ? (
             <PayDeliveryInfo
               deliveryList={deliveryList}
               setDeliveryList={setDeliveryList}
               deliveryPlace={deliveryPlace}
               setDeliveryPlace={setDeliveryPlace}
             />
+          ) : (
+            <div
+              style={{
+                padding: "14px",
+                textAlign: "center",
+              }}
+            >
+              <p style={{ fontSize: "1.1rem", margin: "5px 0px" }}>
+                등록된 배송지가 없습니다.
+              </p>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <div style={{ width: "50%" }}>
+                  <Button
+                    btnType="button"
+                    type="white"
+                    btnEvent={() => router.push("/delivery_register")}
+                  >
+                    등록하기
+                  </Button>
+                </div>
+              </div>
+            </div>
           )}
 
           <PayProductList itemList={orderList} />

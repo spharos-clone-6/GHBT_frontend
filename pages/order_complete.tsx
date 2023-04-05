@@ -3,32 +3,24 @@
 import { css } from "@emotion/react";
 import BottomFixedContainer from "@/components/ui/BottomFixedContainer";
 import Button from "@/components/ui/Button";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import { orderState } from "@/state/orderState";
 import Price from "@/components/ui/Price";
 import OrderItem from "@/components/ui/OrderItem";
 import { useRouter } from "next/router";
 import { useCartOrder } from "@/hooks/useCartOrder";
 import axiosApiInstance from "@/utils/axiosInstance";
-import { cartListType } from "@/types/types";
-import { frozenCartListState, generalCartListState } from "@/state/cart";
 import { useEffect } from "react";
 
 export default function OrderComplete() {
   const order = useRecoilValue(orderState);
   const router = useRouter();
   const orderList = useCartOrder();
-  const [frozenCart, setFrozenCart] =
-    useRecoilState<cartListType>(frozenCartListState);
-  const [generalCart, setGeneralCart] =
-    useRecoilState<cartListType>(generalCartListState);
 
   useEffect(() => {
     orderList.map(
       (item) => item.id !== 0 && axiosApiInstance.delete(`/cart/${item.id}`)
     );
-    // setFrozenCart([...frozenCart.filter((el) => el.id !== item.id)])
-    // setGeneralCart([...generalCart.filter((el) => el.id !== item.id)])
   }, [orderList]);
 
   return (
