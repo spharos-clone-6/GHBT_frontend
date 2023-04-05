@@ -17,6 +17,7 @@ export default function LinkImage(props: {
         width={200}
         height={200}
         style={{ width: "100%", height: "100%" }}
+        priority
       />
     </Link>
   );
