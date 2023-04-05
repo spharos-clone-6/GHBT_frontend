@@ -13,3 +13,7 @@ services:
       - ./components:/frontend/components
       - ./types:/frontend/types
       - ./public:/frontend/public
+      - ./state:/frontend/state
+      - ./styles:/frontend/styles
+      - ./hooks:/frontend/hooks
+      - ./configs:/frontend/configs
