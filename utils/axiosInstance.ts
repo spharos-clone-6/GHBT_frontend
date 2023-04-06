@@ -21,6 +21,7 @@ const AxiosInterceptor = ({ children }: any) => {
           .post("reissue")
           .catch((err) => {
             setAccessToken("");
+            console.log("에러확인", err);
           });
         if (result?.headers?.authorization) {
           const setAccess = result.headers.authorization.replace(
