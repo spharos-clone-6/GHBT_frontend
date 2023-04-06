@@ -21,6 +21,8 @@ import Config from "@/configs/config.export";
 import { accessTokenState } from "@/state/accessTokenState";
 import Swal from "sweetalert2";
 import axiosApiInstance from "@/utils/axiosInstance";
+import { useDidMountEffect } from "@/hooks/useDidmount";
+import Loading from "@/components/ui/Loading";
 
 export default function ProductDetail() {
   const dummy = {
@@ -35,7 +37,7 @@ export default function ProductDetail() {
 
   const router = useRouter();
   const { query, isReady } = useRouter();
-  const [product, setProduct] = useState<productType>(dummy);
+  const [product, setProduct] = useState<productType>({} as productType);
   const [seasonProduct, setSeasonProduct] = useState<productType[]>([]);
   const [subProduct, setSubProduct] = useState<productType[]>([]);
 
@@ -44,13 +46,12 @@ export default function ProductDetail() {
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [randomkey, setRandomKey] = useState<number>(Math.random());
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const { baseUrl } = Config();
   // 상세 데이터 설정
   useEffect(() => {
     const getData = async () => {
-      if (query.pid === undefined) query.pid = "1";
-
       const result = await axios.get(`${baseUrl}/api/product/${query.pid}`);
 
       if (result.data.season !== "") {
@@ -73,9 +74,10 @@ export default function ProductDetail() {
         setSubProduct(filtered);
       }
       setProduct(result.data);
+      setIsLoading(false);
     };
-    getData();
-  }, [isReady, query, baseUrl]);
+    if (query.pid !== undefined) getData();
+  });
 
   // 구매하기 한번 눌렀을 때 구매하기, 선물하기, 아이템 수량 항목 나오게 핸들링
   const handleIsOpen = () => {
@@ -143,38 +145,52 @@ export default function ProductDetail() {
   return (
     <>
       <section id="product-top">
-        <div className="product-img">
-          {product?.thumbnailUrl && (
-            <Image
-              src={`https://storage.googleapis.com/ghbt/product_thumbnail/${product?.thumbnailUrl}`}
-              alt={product.name}
-              priority
-              width={300}
-              height={300}
-              style={{ height: "100%", width: "100%" }}
-            />
-          )}
-        </div>
-        <div className="product-info">
-          <div className="product-name-container">
-            <div className="product-name">
-              <p>{product?.name}</p>
-              <ProductLabel isBest={product?.isBest} isNew={product?.isNew} />
-            </div>
-            <div className="share-icon" onClick={shareKakao}>
-              <Image
-                src="/images/icons/share.png"
-                alt="공유 버튼"
-                width={20}
-                height={20}
-              />
-            </div>
+        {isLoading ? (
+          <div
+            style={{ width: "100%", height: "100%", padding: "45vw 0" }}
+            className="first-section"
+          >
+            <Loading size={20} />
           </div>
-          <div className="description">{product?.description}</div>
-          <div className="price">
-            <Price price={product.price} />
-          </div>
-        </div>
+        ) : (
+          <>
+            <div className="product-img">
+              {product?.thumbnailUrl && (
+                <Image
+                  src={`https://storage.googleapis.com/ghbt/product_thumbnail/${product?.thumbnailUrl}`}
+                  alt={product.name}
+                  priority
+                  width={300}
+                  height={300}
+                  style={{ height: "100%", width: "100%" }}
+                />
+              )}
+            </div>
+            <div className="product-info">
+              <div className="product-name-container">
+                <div className="product-name">
+                  <p>{product?.name}</p>
+                  <ProductLabel
+                    isBest={product?.isBest}
+                    isNew={product?.isNew}
+                  />
+                </div>
+                <div className="share-icon" onClick={shareKakao}>
+                  <Image
+                    src="/images/icons/share.png"
+                    alt="공유 버튼"
+                    width={20}
+                    height={20}
+                  />
+                </div>
+              </div>
+              <div className="description">{product?.description}</div>
+              <div className="price">
+                <Price price={product.price} />
+              </div>
+            </div>
+          </>
+        )}
       </section>
       <Detail />
       {seasonProduct.length !== 0 && (

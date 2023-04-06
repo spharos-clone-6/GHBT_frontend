@@ -66,9 +66,9 @@ export default function Detail() {
       <section id="product-detail">
         <p>상품 정보</p>
         {isLoading && (
-          // <div style={{ width: "100vw", height: "100vh", paddingTop: "55%" }}>
-          <Loading size={40} />
-          // </div>
+          <div style={{ width: "100vw", height: "100vh", paddingTop: "20%" }}>
+            <Loading size={20} />
+          </div>
         )}
         {renderImgs()}
         <div
