@@ -145,6 +145,15 @@ export default function Cart() {
     }
   };
 
+  const sorry = () => {
+    Swal.fire({
+      text: `준비 중인 기능입니다 🥺`,
+      width: "70vw",
+      confirmButtonText: "확인",
+      confirmButtonColor: "green",
+    });
+  };
+
   return (
     <>
       <Head>
@@ -222,7 +231,7 @@ export default function Cart() {
                 </div>
               </div>
               <div css={buttonContainer}>
-                <Button btnType="button" btnEvent={() => {}} type="white">
+                <Button btnType="button" btnEvent={sorry} type="white">
                   선물하기
                 </Button>
                 <Button btnType="button" btnEvent={onClickHandler}>

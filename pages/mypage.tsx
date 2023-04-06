@@ -15,9 +15,18 @@ import {
   FaBullhorn,
 } from "react-icons/fa";
 import { useRecoilValue } from "recoil";
+import Swal from "sweetalert2";
 
 export default function Mypage() {
   const accessToken = useRecoilValue(accessTokenState);
+  const sorry = () => {
+    Swal.fire({
+      text: `준비 중인 기능입니다 🥺`,
+      width: "70vw",
+      confirmButtonText: "확인",
+      confirmButtonColor: "green",
+    });
+  };
 
   return (
     <>
@@ -27,7 +36,7 @@ export default function Mypage() {
       {accessToken ? (
         <div>
           <DeliveryStatus />
-          <section className="management">
+          <section className="management" onClick={sorry}>
             <div id="service">
               <h2>서비스</h2>
               <div css={iconMenu}>

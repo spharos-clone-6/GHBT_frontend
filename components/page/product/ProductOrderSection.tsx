@@ -9,6 +9,7 @@ import ItemAmount from "@/components/ui/ItemAmount";
 import { productType } from "@/types/types";
 import Price from "@/components/ui/Price";
 import { css } from "@emotion/react";
+import Swal from "sweetalert2";
 
 export default function ProductOrderSection(props: {
   product: productType;
@@ -19,6 +20,14 @@ export default function ProductOrderSection(props: {
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [totalPrice, setTotalPrice] = useState<number>(0);
+  const sorry = () => {
+    Swal.fire({
+      text: `준비 중인 기능입니다 🥺`,
+      width: "70vw",
+      confirmButtonText: "확인",
+      confirmButtonColor: "green",
+    });
+  };
 
   return (
     <>
@@ -44,7 +53,7 @@ export default function ProductOrderSection(props: {
                 onClick={props.addCartHandler}
               />
             </div>
-            <Button btnType="button" btnEvent={() => {}} type="white">
+            <Button btnType="button" btnEvent={sorry} type="white">
               선물하기
             </Button>
             <Button btnType="button" btnEvent={props.purchaseHandler}>

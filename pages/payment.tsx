@@ -100,6 +100,15 @@ export default function Payment() {
     }
   };
 
+  const sorry = () => {
+    Swal.fire({
+      text: `준비 중인 기능입니다 🥺`,
+      width: "70vw",
+      confirmButtonText: "확인",
+      confirmButtonColor: "green",
+    });
+  };
+
   return (
     <>
       {AT ? (
@@ -144,21 +153,25 @@ export default function Payment() {
           )}
 
           <PayProductList itemList={orderList} />
-          <RightArrowMenu
-            iconSrc=""
-            menuName="모바일 상품권"
-            link=""
-            fontType="bold"
-            padding="15px 10px"
-          />
+          <div onClick={sorry}>
+            <RightArrowMenu
+              iconSrc=""
+              menuName="모바일 상품권"
+              link=""
+              fontType="bold"
+              padding="15px 10px"
+            />
+          </div>
           <PayMethod setMethod={setPayMethod} />
-          <RightArrowMenu
-            iconSrc=""
-            menuName="현금영수증"
-            link=""
-            fontType="bold"
-            padding="15px 10px"
-          />
+          <div onClick={sorry}>
+            <RightArrowMenu
+              iconSrc=""
+              menuName="현금영수증"
+              link=""
+              fontType="bold"
+              padding="15px 10px"
+            />
+          </div>
           <PayInfo itemPrice={totalPrice} delivery={deliveryP} />
           <section id="pay-info">
             <div className="pay">

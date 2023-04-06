@@ -41,11 +41,24 @@ export default function ContentCategoryContainer() {
       >
         <RightArrowMenu menuName={"전체 상품 보기"} link={"/store"} />
       </div>
-      {loading && <Loading />}
-      <div className="contents-container">
-        {categoryList &&
-          categoryList.map((c) => <CategoryButton key={c.id} category={c} />)}
-      </div>
+
+      {loading ? (
+        <div
+          style={{
+            display: "block",
+            width: "100vw",
+            height: "280px",
+            padding: "130px",
+          }}
+        >
+          <Loading />
+        </div>
+      ) : (
+        <div className="contents-container">
+          {categoryList &&
+            categoryList.map((c) => <CategoryButton key={c.id} category={c} />)}
+        </div>
+      )}
     </section>
   );
 }

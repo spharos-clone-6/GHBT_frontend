@@ -23,8 +23,9 @@ export default function PayMethod({ setMethod }: payMethod) {
               value="starbucks-card"
               onChange={handleChange}
               style={{ accentColor: "green" }}
+              disabled
             />{" "}
-            스타벅스 카드
+            스타벅스 카드(준비 중)
           </label>
         </div>
         <div>
